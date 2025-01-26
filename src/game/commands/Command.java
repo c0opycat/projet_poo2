@@ -30,6 +30,20 @@ public class Command {
         return letter.equals("y");
     }
 
+    private static boolean isInteger(String s)
+    {
+        try
+        {
+            Integer.parseInt(s);
+        }
+        catch(NumberFormatException e)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public boolean execute(){
         if (commands.length == 0) {
             return false;
@@ -39,7 +53,7 @@ public class Command {
                 if (commands.length == 1) {
                     new Go(commands, game, scan).help();
                     return false;
-                } else if (commands.length != 2) {
+                } else if ((commands.length != 2) || (!isInteger(commands[1]))) {
                     System.out.println(Message.invalidCommand());
                     return false;
                 }
@@ -51,7 +65,7 @@ public class Command {
                 }
                 return new Help(game).execute();
             case "look":
-                if (commands.length > 2) {
+                if ((commands.length > 2) || ((commands.length == 2) && (!isInteger(commands[1])))) {
                     System.out.println(Message.invalidCommand());
                     return false;
                 }
@@ -63,13 +77,13 @@ public class Command {
                 }
                 return new Attack(commands, game).execute();
             case "take":
-                if (commands.length < 2 || commands.length > 3) {
+                if ((commands.length < 2) || (commands.length > 3) || (!isInteger(commands[1])) || ((commands.length == 3) && (!isInteger(commands[2])))) {
                     System.out.println(Message.invalidCommand());
                     return false;
                 }
                 return new Take(commands, game).execute();
             case "use":
-                if (commands.length < 2 || commands.length > 3) {
+                if ((commands.length < 2) || (commands.length > 3) || (!isInteger(commands[1])) || ((commands.length == 3) && (!isInteger(commands[2])))) {
                     System.out.println(Message.invalidCommand());
                     return false;
                 }
@@ -81,13 +95,13 @@ public class Command {
                 }
                 return new Quit(commands, game).execute();
             case "drop":
-                if (commands.length > 2) {
+                if ((commands.length != 2) || (!isInteger(commands[1]))) {
                     System.out.println(Message.invalidCommand());
                     return false;
                 }
                 return new Drop(commands, game).execute();
             case "equip":
-                if(commands.length != 3)
+                if((commands.length != 3) || (!isInteger(commands[1])) || (!isInteger(commands[2])))
                 {
                     System.out.println(Message.invalidCommand());
                     return false;

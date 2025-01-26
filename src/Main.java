@@ -45,11 +45,14 @@ public class Main {
                     System.out.println(Message.herosHP(game.getHero()));
                 }
             }
+            
             theend = game.isEnd();
 
             if(!theend){
                 cmd = null;
                 while (cmd == null || !cmd.execute() || Objects.equals(cmd.getCommands()[0], "help") || Objects.equals(cmd.getCommands()[0], "look")) {
+                    System.out.print("> ");
+
                     String s = scan.next().trim();
 
                     cmd = new Command(s, game, scan);

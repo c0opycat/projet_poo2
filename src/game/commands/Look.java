@@ -8,7 +8,6 @@ import character.Hero;
 import item.container.Container;
 import item.container.Crate;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Look extends Command {
