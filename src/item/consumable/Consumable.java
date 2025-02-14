@@ -2,10 +2,7 @@ package item.consumable;
 
 import character.Hero;
 import game.Message;
-import game.commands.Command;
 import item.Item;
-
-import java.util.Scanner;
 
 public abstract class Consumable extends Item
 {
