@@ -5,9 +5,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Scene_editeur extends Application{
+
     @Override
     public void start (Stage stage) throws Exception {
-        final EditeurPane myPane = new EditeurPane()
+        
+        final EditeurPane myPane = new EditeurPane();
 
         // Scene dimensions
         double width = 750.0, height = 600.0;
