@@ -74,7 +74,7 @@ public class Message{
     //Secondary function of the getDescription function
     private static String getDAux(LocationName name){
         return switch (name) {
-            case BEAULIEU -> "On the ruins of the mall stands the burned remains of an aircraft.\n"+
+            case  BEAULIEU -> "On the ruins of the mall stands the burned remains of an aircraft.\n"+
                             "Maybe there's food left somewhere around.\n"+
                             "You can spot a few movements in the distance.\n"+
                             "Whatever you plan to do, better be quick.";
@@ -113,8 +113,7 @@ public class Message{
                             "Its tall silhouette is a remain of the world you used to know.\n"+
                             "\n";
             case FINAL_EXIT -> "The long road seems desert.\n"+
-                            "You're finally out.\n"+
-                            "\n";
+                            "You're finally out.\n" + "\n";
         };
     }
     //returns the description of the location in parameter by calling the switch case on top
