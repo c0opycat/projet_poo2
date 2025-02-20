@@ -8,7 +8,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+
+//REMARQUE AJOUT DES COMMANDES A FAIRE SUR TOUTES L'INTERFACE RIEN N'EST FONCTIONNEL C'EST UNIQUEMENT LA VUE SANS INTERACTION POSSIBLE
+//CODE A RECOMMANTER PROPREMENT et A ENCAPSULER/METTRE EN CLASSE
+//CODER ESTHETIQUE A AJOUTER
 
 public class EditeurPane extends HBox{
     public EditeurPane()
@@ -22,6 +27,7 @@ public class EditeurPane extends HBox{
 
         //Ajout d'un ressort pour faire de l'espace entre la partie gauche et celle de droite
         Region spring = new Region();
+        HBox.setHgrow(spring, Priority.ALWAYS);
         this.getChildren().add(spring);
 
         //Ajout des onglets à droite
@@ -40,6 +46,7 @@ public class EditeurPane extends HBox{
         //VBox pour ajouter la preview du niveau, 
         //les textfields de nom et de descriptions en deux langues
         VBox leftPane = new VBox();
+        HBox.setHgrow(leftPane, Priority.ALWAYS);
 
         //Presentation de l'aperçu en français et anglais
         Label previewLabelfr = new Label("Aperçu du niveau");
@@ -50,21 +57,34 @@ public class EditeurPane extends HBox{
         //Attention pour le moment j'ai juste mis le code de board du tp2
         //taille à gérer? -> sujet demande deux tailles
         FrameGame preview = new FrameGame();
+        VBox.setVgrow(preview, Priority.ALWAYS);
 
         //Ressort pour mettre entre l'aperçu et les zones de textes
-        //J'ai l'impression que cela ne marche pas vraiment ...
-        Region spring = new Region();
+        //A ENCAPSULER
+        Region spring1 = new Region();
+        VBox.setVgrow(spring1, Priority.SOMETIMES);
+
+        Region spring2 = new Region();
+        VBox.setVgrow(spring2, Priority.SOMETIMES);
+
+        Region spring3 = new Region();
+        VBox.setVgrow(spring3, Priority.SOMETIMES);
+
+        Region springS = new Region();
+        VBox.setVgrow(springS, Priority.SOMETIMES);
 
         //zone de texte nom, description en français et anglais
         //Textfield a parametrer 
         //(style de police, nombre de caractère autorisée, nombre de ligne, espace pris dans la fenêtre)
         TextField name = new TextField("Nom / Name");
+        
+        TextArea descriptionFr = new TextArea("Description du quartier");
+        TextArea descriptionEn = new TextArea("Description of the neighborhood");
+        VBox.setVgrow(descriptionFr, Priority.ALWAYS);
+        VBox.setVgrow(descriptionEn, Priority.ALWAYS);
 
-        TextField descriptionFr = new TextField("Description du quartier");
-        TextField descriptionEn = new TextField("Description of the neighborhood");
 
-
-        leftPane.getChildren().addAll(previewLabelfr, previewLabelen, preview, spring, name, descriptionFr, descriptionEn);
+        leftPane.getChildren().addAll(previewLabelfr, previewLabelen, springS, preview, spring1, name, spring2, descriptionFr, spring3, descriptionEn);
 
         //Style
         VBox.setMargin(name, new Insets(10, 10, 20, 10));
@@ -93,20 +113,27 @@ public class EditeurPane extends HBox{
 
 
     //transformer cette fonction pour qu'à partir d'une liste elle créé trois bouttons
-    private HBox buttons3 ()
+    private HBox buttonsNb (int nb, String[] names)
     {
-        HBox button3Box = new HBox();
+        HBox buttonNbBox = new HBox();
+        VBox.setVgrow(buttonNbBox, Priority.ALWAYS);
 
-        //à changer par icone + lier une action
-        Button reset = new Button("Reset");
-        Button restore = new Button("Restore");
-        Button init = new Button("Re-init");
+        for (int i = 0; i<nb; ++i)
+        {
+            //LIER A UNE ACTION
+            String name = names[i];
+            Button bt = new Button(name);
 
-        button3Box.getChildren().addAll(reset, restore, init);
+            Region spring = new Region();
+            HBox.setHgrow(spring, Priority.ALWAYS);
+
+            buttonNbBox.getChildren().addAll(bt, spring);
+        }
+        
 
         //mise en page / style à faire
 
-        return button3Box;
+        return buttonNbBox;
     }
 
 
@@ -120,12 +147,27 @@ public class EditeurPane extends HBox{
         //Ajout des onglets d'ajout
         SelectElem selectElem = new SelectElem();
 
+        Region spring1 = new Region();
+        VBox.setVgrow(spring1, Priority.ALWAYS);
+
+        Region spring2 = new Region();
+        VBox.setVgrow(spring2, Priority.ALWAYS);
+
+        Region spring3 = new Region();
+        VBox.setVgrow(spring3, Priority.ALWAYS);
+
+        Region springS = new Region();
+        VBox.setVgrow(springS, Priority.ALWAYS);
+
         //Ajout des commandes
         HBox widthTxtField = this.width();
-        HBox buttonRetour = this.buttons3();
-        HBox buttonStatus = this.buttons3();
+        
+        String[] namesRtr = {"Reset", "Restore", "Re-init"};
+        String[] namesSt = {"Save", "Param", "Quit"};
+        HBox buttonRetour = this.buttonsNb(3, namesRtr);
+        HBox buttonStatus = this.buttonsNb(3, namesSt);
 
-        rightPane.getChildren().addAll(selectElem, widthTxtField, buttonRetour, buttonStatus);
+        rightPane.getChildren().addAll(selectElem, spring1, widthTxtField, spring2, buttonRetour, spring3, buttonStatus, springS);
         
         return rightPane;
     }
