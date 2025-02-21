@@ -20,6 +20,7 @@ public class EditeurPane extends HBox{
     {
         super();
 
+
         //Ajout des éléments à gauche
         VBox leftNodes = this.leftNodes();
         this.getChildren().add(leftNodes);
@@ -33,7 +34,8 @@ public class EditeurPane extends HBox{
         //Ajout des onglets à droite
         VBox rightNodes = this.rightNodes();
         this.getChildren().add(rightNodes);
-
+        
+        super.setAlignment(Pos.CENTER);
         HBox.setHgrow(leftNodes, Priority.ALWAYS);
         HBox.setMargin(leftNodes, new Insets(5, 5, 0, 5));
         HBox.setHgrow(rightNodes, Priority.ALWAYS);
@@ -46,7 +48,7 @@ public class EditeurPane extends HBox{
         //VBox pour ajouter la preview du niveau, 
         //les textfields de nom et de descriptions en deux langues
         VBox leftPane = new VBox();
-        HBox.setHgrow(leftPane, Priority.ALWAYS);
+        leftPane.setAlignment(Pos.CENTER);
 
         //Presentation de l'aperçu en français et anglais
         Label previewLabelfr = new Label("Aperçu du niveau");
@@ -56,9 +58,8 @@ public class EditeurPane extends HBox{
         //Aperçu du jeu 
         //Attention pour le moment j'ai juste mis le code de board du tp2
         //taille à gérer? -> sujet demande deux tailles
-        FrameGame preview = new FrameGame();
-        VBox.setVgrow(preview, Priority.ALWAYS);
-
+        FrameGame preview = new FrameGame(16, 10);
+        
         //Ressort pour mettre entre l'aperçu et les zones de textes
         //A ENCAPSULER
         Region spring1 = new Region();
