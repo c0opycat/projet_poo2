@@ -1,10 +1,10 @@
 import java.util.Objects;
 import java.util.Scanner;
 
-import game.*;
-import game.commands.*;
-import location.LocationName;
-import character.monster.*;
+import model.game.*;
+import model.game.commands.*;
+import model.location.LocationName;
+import model.character.monster.*;
 
 public class Main {
     public static void main(String[] args) {
