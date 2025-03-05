@@ -11,7 +11,7 @@ public class MyApp extends Application{
         final EditeurPane myPane = new EditeurPane();
 
         // Scene dimensions
-        double width = 850.0, height = 600.0;
+        double width = 200.0, height = 200.0;
 
         // Scene = container for all content
         Scene scene = new Scene(myPane, width, height);
