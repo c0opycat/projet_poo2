@@ -1,67 +1,56 @@
-import java.util.Objects;
-import java.util.Scanner;
 
-import model.game.*;
-import model.game.commands.*;
-import model.location.LocationName;
-import model.character.monster.*;
 
-public class Main {
-    public static void main(String[] args) {
+import java.util.Optional;
 
-        Game game = new Game();
-        boolean theend = false;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
+import view.View;
+import view.viewHallOfFame.HOFView;
+
+public class Main extends Application{
+    @Override
+    public void start (Stage stage) throws Exception{
         
-        Scanner scan = new Scanner(System.in);
-        scan.useDelimiter("\n");
-        Command cmd;
-        
-        LocationName nameCurLoc = game.getCurLocation().getName();
-        Monster curMonster;
-        game.start();
+        //Scene
+        final View scene = new View(new HOFView(), 300, 300);
 
-        while(!theend)
-        {
-            if(nameCurLoc != game.getCurLocation().getName())
+        stage.setScene(scene);
+        stage.setTitle("OOP 2 Project");
+        stage.show();
+
+        //Add an eventhandler to the quit Button of the root of the scene to exit the application if the button is clicked.
+        scene.getQuitButton().setOnAction(e -> {
+        
+            //Creation of a dialog to confirm the exit of the application. 
+            Alert quitAlert = new Alert(AlertType.CONFIRMATION);
+            quitAlert.setTitle("Exit game");
+            quitAlert.setContentText("You are about to quit the game.");
+
+            //Creation of the options (because the cancel one was in French).
+            ButtonType bt1 = new ButtonType("OK");
+            ButtonType bt2 = new ButtonType("Cancel");
+
+            quitAlert.getButtonTypes().setAll(bt1, bt2);
+
+            Optional<ButtonType> choice = quitAlert.showAndWait();
+            if(choice.get() == bt1)
             {
-                curMonster = game.getCurLocation().getMonster();
-                
-                if(curMonster instanceof Dried)
-                {
-                    curMonster.attack(game.getHero());
-                    System.out.println(Message.herosHP(game.getHero()));
-                }
-                
-                nameCurLoc = game.getCurLocation().getName();
+                //Exit the application if the user choose OK.
+                Platform.exit();
             }
             else
             {
-                game.getCurLocation().removeMonsterIfKO();
-                curMonster = game.getCurLocation().getMonster();
-
-                if(curMonster != null)
-                {
-                    curMonster.attack(game.getHero());
-                    System.out.println(Message.herosHP(game.getHero()));
-                }
+                //Close the dialog otherwise.
+                quitAlert.close();
             }
-            
-            theend = game.isEnd();
-
-            if(!theend){
-                cmd = null;
-                while (cmd == null || !cmd.execute() || Objects.equals(cmd.getCommands()[0], "help") || Objects.equals(cmd.getCommands()[0], "look")) {
-                    System.out.print("> ");
-
-                    String s = scan.next().trim();
-
-                    cmd = new Command(s, game, scan);
-                }
-            }
-        }
-        
-        scan.close();
-
-        game.displayEnd();
+        });
     }
+    
+    public static void main (String args []) {
+		launch(args);
+    }    
 }
