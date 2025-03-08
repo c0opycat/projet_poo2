@@ -1,8 +1,11 @@
 package view;
 
 import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -31,6 +34,32 @@ public class BorderWithButtons extends BorderPane{
     public Button getQuitButton()
     {
         return (Button)((HBox)this.getBottom()).getChildren().getLast();
+    }
+
+    //Returns the button that has a specific text
+    //Returns null and print a message if no button was found
+    public Button getSpecButton(String buttonText)
+    {
+        Button res = null;
+
+        ObservableList<Node> nodes = ((HBox)this.getBottom()).getChildren();
+        for(Node node : nodes)
+        {
+            Button button = (Button)node;
+
+            if(button.getText() == buttonText)
+            {
+                res = button;
+                break;
+            }
+        }
+
+        if(res == null)
+        {
+            System.err.println("Error getSpecButton : No button was found.");
+        }
+
+        return res;
     }
 
     
