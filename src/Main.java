@@ -9,14 +9,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import view.View;
-import view.viewHallOfFame.HOFView;
+import view.viewGameOver.GameOverView;
 
 public class Main extends Application{
     @Override
     public void start (Stage stage) throws Exception{
         
         //Scene
-        final View scene = new View(new HOFView(), 300, 300);
+        final View scene = new View(new GameOverView(), 500, 300);
 
         stage.setScene(scene);
         stage.setTitle("OOP 2 Project");
