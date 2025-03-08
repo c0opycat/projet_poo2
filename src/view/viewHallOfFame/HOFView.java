@@ -30,7 +30,7 @@ public class HOFView extends BorderWithButtons{
 
 
         //Style
-        title.setStyle("-fx-font-weight: bold;");
+        title.setStyle("-fx-font-weight: bold; -fx-font-size: 20px");
         title.setPadding(new Insets(10));
         title.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
         BorderPane.setAlignment(title, Pos.CENTER);
@@ -39,7 +39,7 @@ public class HOFView extends BorderWithButtons{
         BorderPane.setMargin(scores, new Insets(2));
     }
 
-    public static ArrayList<Button> createButtons()
+    private static ArrayList<Button> createButtons()
     {
         ArrayList<Button> buttons = new ArrayList<>();
 
