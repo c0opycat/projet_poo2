@@ -1,4 +1,4 @@
-package Vue_editeur;
+package vue_editeur;
 
 import javafx.scene.control.TabPane;
 
