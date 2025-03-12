@@ -13,6 +13,10 @@ public class Hero extends Character{
         Hero.backpack = new Backpack();
     }
 
+    public Hero(){
+        super(100,100);
+    }
+
     public static Backpack gBackpack()
     {
         return Hero.backpack;

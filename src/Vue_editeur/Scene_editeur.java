@@ -18,7 +18,7 @@ public class Scene_editeur extends Application{
         Scene scene = new Scene(myPane, width, height);
         stage.setScene(scene);
         stage.setTitle("Editeur de niveau");
-        stage.show();  
+        stage.show();
     }
     
     public static void main (String args []) {
