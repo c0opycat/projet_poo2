@@ -1,4 +1,13 @@
-package model.character;
+/*
+ * DESCRIPTION :
+ * Hero class that extends character therefore has
+ * health, MAXHEALTH, weapon,shield
+ * and adds
+ * backpack, job
+ * Hero is the playable character
+ */
+
+package model.character.heros;
 
 import model.item.container.*;
 import model.item.weapon.*;
@@ -7,14 +16,12 @@ import model.game.Message;
 
 public class Hero extends Character{
     private static Backpack backpack;
+    public String name;
+    public String job;
 
     public Hero(){
         super(100, 100);
         Hero.backpack = new Backpack();
-    }
-
-    public Hero(){
-        super(100,100);
     }
 
     public static Backpack gBackpack()
