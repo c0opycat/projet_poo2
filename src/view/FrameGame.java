@@ -5,8 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.beans.binding.Bindings;
 
 public class FrameGame extends GridPane {
     public FrameGame(int col, int row)
