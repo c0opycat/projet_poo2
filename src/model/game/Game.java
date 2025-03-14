@@ -1,6 +1,7 @@
 package model.game;
 
 import model.character.*;
+import model.character.heros.Hero;
 import model.location.*;
 
 public class Game{
