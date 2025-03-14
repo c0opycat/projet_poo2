@@ -1,0 +1,29 @@
+/* Style général des boutons */
+.button {
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-color: #5a5a5a;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 2, 2);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+/* Effet au survol */
+.button:hover {
+    -fx-background-color: #474747;
+    -fx-border-color: #ff6600;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 102, 0, 0.8), 10, 0, 4, 4);
+}
+
+/* Effet lorsqu'un bouton est pressé */
+.button:pressed {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #cc5200;
+    -fx-translate-y: 2px;
+}
+

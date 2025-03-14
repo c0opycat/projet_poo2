@@ -1,8 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "src"
+        "src",
+        "resources"
     ],
-    "java.project.referencedLibraries": [
-        "/home/SFASP2MI/abertr37/Documents/S6/projet_poo2/lib/junit-platform-console-standalone-1.11.3.jar"
-    ]
+    "java.project.referencedLibraries": []
 }
