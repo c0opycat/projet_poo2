@@ -18,7 +18,7 @@ Vous allez vous réveiller dans un monde dévasté où vous devrez combatre des 
 1. Placez vous dans le dossier src
 2. Compilez le fichier Main.java:
    ```bash
-   javac Main.java
+   .././compile.sh
    ```
 ### Dans un IDE
 1. Ouvrez le dossier décompressé
@@ -26,9 +26,9 @@ Vous allez vous réveiller dans un monde dévasté où vous devrez combatre des 
 
 ## Déroulement du jeu
 ### Linux
-Pour lancer le jeu, exécutez la commande :
+Pour lancer le jeu, exécutez la commande (toujours dans le dossier src) :
 ```bash
-java Main
+javafx Main
 ```
 Puis, pour avoir la liste des commandes disponnibles, tapez :
 ```bash
