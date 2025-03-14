@@ -2,7 +2,7 @@
 
 ### Compilation du cours de POO-IHM
 
-SRC_DIR="./src" # À mettre à jour si nécessaire
+SRC_DIR="./" # À mettre à jour si nécessaire
 
 cd "${SRC_DIR}" || exit 1  # Quitte si le dossier source n'existe pas
 
