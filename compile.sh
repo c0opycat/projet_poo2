@@ -18,6 +18,3 @@ set -x
 
 rm tempo
 
-# Mise à jour de la configuration
-echo "localRootDirectory=file://${SRC_DIR}/" > ./compile.txt
-
