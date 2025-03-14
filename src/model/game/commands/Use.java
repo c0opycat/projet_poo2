@@ -9,7 +9,7 @@ import model.item.Protection;
 import model.item.consumable.Consumable;
 import model.item.weapon.Weapon;
 import model.item.container.Crate;
-import model.character.Hero;
+import model.character.heros.Hero;
 
 public class Use extends Command {
     private int nb_arg;

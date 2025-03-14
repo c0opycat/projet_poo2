@@ -5,7 +5,7 @@ import java.util.Scanner;
 import model.game.*;
 import model.item.Crowbar;
 import model.item.Item;
-import model.character.Hero;
+import model.character.heros.Hero;
 
 public class Crate extends Container {
     public final static int DEFAULT_MAX_CAPACITY = 45;

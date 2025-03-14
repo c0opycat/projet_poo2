@@ -7,7 +7,7 @@ import model.item.container.*;
 import model.location.Location;
 import model.item.weapon.Weapon;
 import model.item.Protection;
-import model.character.Hero;
+import model.character.heros.Hero;
 
 public class Equip extends Command{
     private int fstArg;

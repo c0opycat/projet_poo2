@@ -1,6 +1,6 @@
 package model.game.commands;
 
-import model.character.Hero;
+import model.character.heros.Hero;
 import model.game.Game;
 import model.game.Message;
 import model.item.Item;

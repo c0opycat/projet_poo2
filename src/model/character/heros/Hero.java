@@ -12,6 +12,7 @@ package model.character.heros;
 import model.item.container.*;
 import model.item.weapon.*;
 import model.location.Location;
+import model.character.Character;
 import model.game.Message;
 
 public class Hero extends Character{

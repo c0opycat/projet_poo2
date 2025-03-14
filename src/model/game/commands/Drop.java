@@ -3,7 +3,7 @@ package model.game.commands;
 import model.game.Game;
 import model.game.Message;
 import model.item.container.Backpack;
-import model.character.Hero;
+import model.character.heros.Hero;
 import model.item.Item;
 
 public class Drop extends Command {

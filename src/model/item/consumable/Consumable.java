@@ -2,7 +2,7 @@ package model.item.consumable;
 
 import model.game.Message;
 import model.item.Item;
-import model.character.Hero;
+import model.character.heros.Hero;
 
 public abstract class Consumable extends Item
 {

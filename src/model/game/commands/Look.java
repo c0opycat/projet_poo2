@@ -4,7 +4,7 @@ import model.game.Game;
 import model.game.Message;
 import model.item.Item;
 import model.location.Exit;
-import model.character.Hero;
+import model.character.heros.Hero;
 import model.item.container.Container;
 import model.item.container.Crate;
 
