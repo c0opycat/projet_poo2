@@ -1,11 +1,11 @@
 package view;
 
 import javafx.scene.Scene;
-import view.viewMenu.Menu;
+import view.mainDisplay.MainDisplay;
 
 public class MainScene extends Scene{
     public MainScene()
     {
-        super(new Menu(), 600, 600);
+        super(new MainDisplay(), 600, 600);
     }
 }

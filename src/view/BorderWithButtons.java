@@ -69,7 +69,7 @@ public class BorderWithButtons extends BorderPane{
 
     
     //Add each button of the list and a quit button at the bottom of the pane.
-    private void addButtons(ArrayList<Button> buttons)
+    public void addButtons(ArrayList<Button> buttons)
     {
         HBox buttonsBox = new HBox();
         
@@ -111,5 +111,24 @@ public class BorderWithButtons extends BorderPane{
 
         buttonsBox.setAlignment(Pos.CENTER_RIGHT);
         this.setBottom(buttonsBox);
+    }
+
+    public Button getButton(String text)
+    {
+        Button res = null;
+
+        ObservableList<Node> nodes = ((HBox)this.getBottom()).getChildren();
+        for(Node node : nodes)
+        {
+            Button button = (Button)node;
+
+            if(button.getText().equals(text))
+            {
+                res = button;
+                break;
+            }
+        }
+
+        return res;
     }
 }
