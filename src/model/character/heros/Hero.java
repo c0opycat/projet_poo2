@@ -51,8 +51,8 @@ public class Hero extends Character {
             case MEDIC:Hero.backpack.addItem(new Medicine());break;
             case TEACHER:;break;
             case DELIVERY:;break;
-            case SECURITY:Hero.backpack.addItem();break;
-            case VETERINARY:;break;
+            case SECURITY:Hero.backpack.addItem(Weapon.randWeapon());break;
+            case VETERINARY:this.weapon = new Doggo(Message.randName());break;
         }
     }
 

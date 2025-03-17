@@ -6,8 +6,11 @@ import model.item.Crowbar;
 import model.item.Item;
 import model.character.Character;
 import model.item.consumable.Consumable;
+import model.item.weapon.*;
 import model.location.Location;
 import model.location.LocationName;
+
+import java.util.Random;
 
 public class Message{
     //Returns the start of game message
@@ -218,6 +221,27 @@ public class Message{
             wp += "Your protection is " + hero.getShield() + "\n";
         }
         return wp;
+    }
+    public static String randName(){
+        String name = "doggo";
+        Random rand = new Random();
+        int i = rand.nextInt(3);
+        switch(i)
+        {
+            case 0: {
+                name = "Diamond"; break;
+            }
+            case 1: {
+                name = "Brutus"; break;
+            }
+            case 2: {
+                name = "Nyamba"; break;
+            }
+            default: {
+                name = "Teapot"; break;
+            }
+        }
+        return name;
     }
 
 }
