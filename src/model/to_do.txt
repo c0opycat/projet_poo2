@@ -17,7 +17,7 @@ language choice
 game options and preferences
 
 HERO
-class
+class OK
 (orientation)
 
 BONUS :

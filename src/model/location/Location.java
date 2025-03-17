@@ -23,6 +23,7 @@ public class Location {
         this.name = name;
         this.description = Message.locationDescription(this);
         this.itemList = new ArrayList<>();
+        //this.structure  = new matrix (height, width)
 
         boolean hasContainer = false;
         
