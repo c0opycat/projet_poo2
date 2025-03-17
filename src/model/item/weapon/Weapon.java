@@ -1,5 +1,7 @@
 package model.item.weapon;
 
+import java.util.Random;
+
 import model.item.Item;
 
 public abstract class Weapon extends Item{
@@ -14,6 +16,9 @@ public abstract class Weapon extends Item{
 
     public int getDamage() {
         return damage;
+    }
+    public Weapon randWeapon(){
+
     }
 
     public DamageType getType() {

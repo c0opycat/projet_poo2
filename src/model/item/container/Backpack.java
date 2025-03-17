@@ -1,6 +1,8 @@
 package model.item.container;
 
 
+import model.item.Item;
+
 public class Backpack extends Container{
     
     public final static int DEFAULT_MAX_CAPACITY = 30;
@@ -12,6 +14,11 @@ public class Backpack extends Container{
     public Backpack (int max_cap, int fill){
         super(DEFAULT_MAX_NB_ITEMS, max_cap, DEFAULT_WEIGHT);
         fillContainer(fill);
+    }
+
+    @Override
+    public boolean addItem(Item item) {
+        return super.addItem(item);
     }
 
     //Default constructor

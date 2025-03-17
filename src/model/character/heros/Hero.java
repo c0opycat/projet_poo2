@@ -9,20 +9,51 @@
 
 package model.character.heros;
 
+
+import model.item.consumable.Medicine;
 import model.item.container.*;
 import model.item.weapon.*;
 import model.location.Location;
 import model.character.Character;
 import model.game.Message;
 
-public class Hero extends Character{
-    private static Backpack backpack;
-    public String name;
-    public String job;
+import static model.character.heros.Job.STARTUP;
 
-    public Hero(){
+public class Hero extends Character {
+    private static Backpack backpack;
+    public String names;
+    public Job job;
+    private String DEFAULT_NAME = "Herbert-Gontran DeNeuneu";
+    private Job DEFAULT_JOB = STARTUP;
+
+    public Hero(String name, Job job) {
         super(100, 100);
         Hero.backpack = new Backpack();
+        this.names = name;
+        this.job = job;
+        this.jobEffect();
+    }
+    public Hero() {
+        super(30, 60);
+        Hero.backpack = new Backpack();
+        this.names = DEFAULT_NAME;
+        this.job = DEFAULT_JOB;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void jobEffect() {
+        Job j = getJob();
+        switch (j){
+            case STARTUP:setHealth(30);break;
+            case MEDIC:Hero.backpack.addItem(new Medicine());break;
+            case TEACHER:;break;
+            case DELIVERY:;break;
+            case SECURITY:Hero.backpack.addItem();break;
+            case VETERINARY:;break;
+        }
     }
 
     public static Backpack gBackpack()
