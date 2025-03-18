@@ -26,6 +26,7 @@ public class HeroM extends CharacterM {
     private String DEFAULT_NAME = "Herbert-Gontran DeNeuneu";
     private JobM DEFAULT_JOBM = STARTUP;
 
+    //Visually needs a String input in the view & a menu to chose only one job -> one visual/job
     public HeroM(String name, JobM jobM) {
         super(100, 100);
         HeroM.backpack = new Backpack();
@@ -33,6 +34,8 @@ public class HeroM extends CharacterM {
         this.jobM = jobM;
         this.jobEffect();
     }
+
+    //Hero
     public HeroM() {
         super(30, 60);
         HeroM.backpack = new Backpack();
@@ -40,6 +43,7 @@ public class HeroM extends CharacterM {
         this.jobM = DEFAULT_JOBM;
     }
 
+    
     public JobM getJob() {
         return jobM;
     }
