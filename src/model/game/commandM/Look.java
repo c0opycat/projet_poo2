@@ -1,55 +1,55 @@
-package model.game.commands;
+package model.game.commandM;
 
-import model.game.Game;
-import model.game.Message;
+import model.game.GameM;
+import model.game.MessageM;
 import model.item.Item;
 import model.location.Exit;
-import model.character.heros.Hero;
+import model.character.heros.HeroM;
 import model.item.container.Container;
 import model.item.container.Crate;
 
 import java.util.ArrayList;
 
 public class Look extends Command {
-    public Look(String[] cmd, Game game) {
-        this.game = game;
+    public Look(String[] cmd, GameM gameM) {
+        this.gameM = gameM;
         this.commands = cmd;
     }
 
-    public Look(Game game) {
-        this.game = game;
+    public Look(GameM gameM) {
+        this.gameM = gameM;
         this.commands = null;
     }
 
     public boolean execute(boolean enter) {
         if (!enter){
-            ArrayList<Exit> exits = game.getCurLocation().getExits();
+            ArrayList<Exit> exits = gameM.getCurLocation().getExits();
             int nbExits = exits.size();
-            ArrayList<Item> items = game.getCurLocation().itemList;
+            ArrayList<Item> items = gameM.getCurLocation().itemList;
             int nbItems = items.size();
             if (commands == null || commands.length == 1){
                 // Locations
-                System.out.println(Message.displayExitsInLoc());
+                System.out.println(MessageM.displayExitsInLoc());
                 for (int i = 0 ; i < nbExits ; i++) {
                     System.out.println("    " + i + " to go to " + exits.get(i).destination);
                 }
 
                 // Items
-                System.out.println(Message.displayItemsInLoc());
+                System.out.println(MessageM.displayItemsInLoc());
                 for (int i = 0 ; i < nbItems ; i++) {
                     System.out.println("    " + i + " to select " + items.get(i));
                 }
                 System.out.println("    " + nbItems + " to look in your backpack");
 
                 //Monsters
-                if(game.getCurLocation().getMonster() != null)
+                if(gameM.getCurLocation().getMonster() != null)
                 {
                     System.out.println("Monster : ");
-                    System.out.println(game.getCurLocation().getMonster());
+                    System.out.println(gameM.getCurLocation().getMonster());
                 }
 
                 //Hero
-                System.out.println(Message.heroDescription(game.getHero()));
+                System.out.println(MessageM.heroDescription(gameM.getHero()));
                 
                 return false;
             } else {
@@ -65,7 +65,7 @@ public class Look extends Command {
                             Crate c = (Crate) i;
                             if(!c.getOpen())
                             {
-                                System.out.println(Message.toolRequired());
+                                System.out.println(MessageM.toolRequired());
                                 return false;
                             }
                         }
@@ -78,19 +78,19 @@ public class Look extends Command {
                         System.out.println(items.get(arg));
                     }
                 } else if (arg == nbItems){
-                    Hero.gBackpack().displayContent();
+                    HeroM.gBackpack().displayContent();
                 }
                 else
                 {
-                    System.out.println(Message.InvalidNumber(arg));
+                    System.out.println(MessageM.InvalidNumber(arg));
                     return false;
                 }
             }
         } else {
             //Monsters
-            if(game.getCurLocation().getMonster() != null)
+            if(gameM.getCurLocation().getMonster() != null)
             {
-                System.out.println(Message.monsterApparition(game.getCurLocation().getMonster()));
+                System.out.println(MessageM.monsterApparition(gameM.getCurLocation().getMonster()));
             }
         }
         return true;

@@ -1,21 +1,21 @@
-package model.game.commands;
+package model.game.commandM;
 
 import java.util.Scanner;
-import model.game.Game;
-import model.game.Message;
+import model.game.GameM;
+import model.game.MessageM;
 import model.item.Crowbar;
 import model.item.Item;
 import model.item.Protection;
 import model.item.consumable.Consumable;
 import model.item.weapon.Weapon;
 import model.item.container.Crate;
-import model.character.heros.Hero;
+import model.character.heros.HeroM;
 
 public class Use extends Command {
     private int nb_arg;
 
-    public Use(String[] cmd, Game game, Scanner scan) {
-        this.game = game;
+    public Use(String[] cmd, GameM gameM, Scanner scan) {
+        this.gameM = gameM;
         this.commands = cmd;
         this.nb_arg = this.commands.length;
 
@@ -25,20 +25,20 @@ public class Use extends Command {
 
     public boolean execute(){
         boolean res = false;
-        int bpSize = Hero.gBackpack().getNbItems();
+        int bpSize = HeroM.gBackpack().getNbItems();
         int ind = Integer.parseInt(commands[1]);
 
         if(ind < 0 || ind >= bpSize)
         {
-            System.out.println(Message.InvalidNumber(ind));
+            System.out.println(MessageM.InvalidNumber(ind));
         }
         else
         {
-            Item toUse = Hero.gBackpack().getNthItem(ind);
+            Item toUse = HeroM.gBackpack().getNthItem(ind);
             
             if(toUse instanceof Weapon || toUse instanceof Protection)
             {
-                System.out.println(Message.cantUseItem(toUse));
+                System.out.println(MessageM.cantUseItem(toUse));
             }
             else
             {
@@ -51,10 +51,10 @@ public class Use extends Command {
                     else
                     {
                         int ind2 = Integer.parseInt(commands[2]);
-                        Item arg2 = this.game.getCurLocation().itemList.get(ind2);
+                        Item arg2 = this.gameM.getCurLocation().itemList.get(ind2);
                         if(!(arg2 instanceof Crate))
                         {
-                            System.out.println(Message.cantUseItem(toUse));
+                            System.out.println(MessageM.cantUseItem(toUse));
                         }
                         else
                         {
@@ -64,7 +64,7 @@ public class Use extends Command {
                             if(crate.open(c, scan))
                             {
                                 res = true;
-                                System.out.println(Message.commandOnItem("used ",toUse));
+                                System.out.println(MessageM.commandOnItem("used ",toUse));
                             }      
                         }
                     }
@@ -73,7 +73,7 @@ public class Use extends Command {
                 {
                     Consumable cs = (Consumable)toUse;
 
-                    cs.consume(this.game.getHero());
+                    cs.consume(this.gameM.getHero());
 
                     res = true;
                 }

@@ -1,18 +1,17 @@
 package model.game;
 
-import model.character.heros.Hero;
-import model.game.commands.Command;
+import model.character.heros.HeroM;
+import model.game.commandM.Command;
 import model.item.Crowbar;
 import model.item.Item;
-import model.character.Character;
+import model.character.CharacterM;
 import model.item.consumable.Consumable;
-import model.item.weapon.*;
 import model.location.Location;
 import model.location.LocationName;
 
 import java.util.Random;
 
-public class Message{
+public class MessageM {
     //Returns the start of game message
     public static String startGame(Location start, Location end)
     {
@@ -143,7 +142,7 @@ public class Message{
     }
 
     public static String itemUsed (Item item){
-        return "You used your "+item+"to "+Message.itemEffect(item);
+        return "You used your "+item+"to "+ MessageM.itemEffect(item);
     }
     public static String itemEffect (Item item){
         if (item instanceof Crowbar)
@@ -156,17 +155,17 @@ public class Message{
         }
         else return "for an unknown reason";
     }
-    public static String herosHP(Character c)
+    public static String herosHP(CharacterM c)
     {
         return "You now have " + c.getHealth() + " HP left.";
     }
 
-    public static String monsterHP(Character c)
+    public static String monsterHP(CharacterM c)
     {
         return "The " + c +  "now have " + c.getHealth() + " HP left.";
     }
 
-    public static String monsterAttack(Character attacker)
+    public static String monsterAttack(CharacterM attacker)
     {
         return "A " + attacker + " has attacked you !\n";
     }
@@ -185,7 +184,7 @@ public class Message{
         return "The command is incorrect. Please write HELP to see the commands.";
     }
 
-    public static String monsterApparition(Character c)
+    public static String monsterApparition(CharacterM c)
     {
         return "A " + c + " has appeared !";
     }
@@ -210,15 +209,15 @@ public class Message{
         return "You "+verb+"this "+item;
     }
 
-    public static String heroDescription(Hero hero){
-        String wp = "Your hero :\n" + herosHP(hero) + "\n";
-        if(hero.getWeapon() != null)
+    public static String heroDescription(HeroM heroM){
+        String wp = "Your hero :\n" + herosHP(heroM) + "\n";
+        if(heroM.getWeapon() != null)
         {
-            wp += "Your equipped weapon is a " + hero.getWeapon()+ "\n";
+            wp += "Your equipped weapon is a " + heroM.getWeapon()+ "\n";
         }
-        if(hero.getShield() != null)
+        if(heroM.getShield() != null)
         {
-            wp += "Your protection is " + hero.getShield() + "\n";
+            wp += "Your protection is " + heroM.getShield() + "\n";
         }
         return wp;
     }

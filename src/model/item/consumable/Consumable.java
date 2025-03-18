@@ -1,8 +1,8 @@
 package model.item.consumable;
 
-import model.game.Message;
+import model.game.MessageM;
 import model.item.Item;
-import model.character.heros.Hero;
+import model.character.heros.HeroM;
 
 public abstract class Consumable extends Item
 {
@@ -17,7 +17,7 @@ public abstract class Consumable extends Item
     }
 
     //Adds HP_RESTORED hp to the hero's hp (without exceeding his max health) and remove the consumable from the hero's backpack
-    public void consume(Hero h)
+    public void consume(HeroM h)
     {
         int new_hp = h.getHealth() + this.HP_RESTORED;
 
@@ -30,7 +30,7 @@ public abstract class Consumable extends Item
             h.setHealth(h.getHealth() + this.HP_RESTORED);
         }
 
-        Hero.gBackpack().removeItem(this);
-        System.out.println(Message.herosHP(h));
+        HeroM.gBackpack().removeItem(this);
+        System.out.println(MessageM.herosHP(h));
     }
 }

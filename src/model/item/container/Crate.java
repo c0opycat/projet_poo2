@@ -5,7 +5,7 @@ import java.util.Scanner;
 import model.game.*;
 import model.item.Crowbar;
 import model.item.Item;
-import model.character.heros.Hero;
+import model.character.heros.HeroM;
 
 public class Crate extends Container {
     public final static int DEFAULT_MAX_CAPACITY = 45;
@@ -35,18 +35,18 @@ public class Crate extends Container {
 
         if(c != null)
         {
-            Backpack bp = Hero.gBackpack();
+            Backpack bp = HeroM.gBackpack();
             boolean use = c.use(bp, scan);
 
             if (use)
             {
                 this.open = true;
-                System.out.println(Message.itemUsed(this));
+                System.out.println(MessageM.itemUsed(this));
                 res = true;
             }
             else
             {
-                System.out.println(Message.failOpening());
+                System.out.println(MessageM.failOpening());
             }
         }
 

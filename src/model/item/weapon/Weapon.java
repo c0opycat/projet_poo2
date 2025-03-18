@@ -2,7 +2,7 @@ package model.item.weapon;
 
 import java.util.Random;
 
-import model.game.Message;
+import model.game.MessageM;
 import model.item.Item;
 
 public abstract class Weapon extends Item{
@@ -36,7 +36,7 @@ public abstract class Weapon extends Item{
                 res = new Sword(); break;
             }
             default: {
-                res = new Doggo(Message.randName()); break;
+                res = new Doggo(MessageM.randName()); break;
             }
         }
         return res;

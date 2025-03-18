@@ -2,7 +2,7 @@ package model.item.container;
 
 import java.util.ArrayList;
 import model.item.Item;
-import model.game.Message;
+import model.game.MessageM;
 
 public abstract class Container extends Item{
     public final int MAX_NB_ITEMS;
@@ -24,7 +24,7 @@ public abstract class Container extends Item{
     //Fills a container with a chosen max amount of items as the parameter
     public void fillContainer(int nb){
         if (nb + this.nb_items > this.MAX_NB_ITEMS)
-        {System.out.println(Message.contFull(this));}
+        {System.out.println(MessageM.contFull(this));}
         Item item;
         for (int i = 0; i < nb ; i++)
         {
@@ -116,11 +116,11 @@ public abstract class Container extends Item{
         {
             if(this.tooHeavy(item))
             {
-                System.out.println(Message.noSpace(this, item));
+                System.out.println(MessageM.noSpace(this, item));
             }
             else if(this.isFull())
             {
-                System.out.println(Message.contFull(this));
+                System.out.println(MessageM.contFull(this));
             }
             else{
                 this.itemList.add(item);

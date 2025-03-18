@@ -1,9 +1,9 @@
 package model.item;
 
 import java.util.Scanner;
-import model.game.Message;
+import model.game.MessageM;
 import model.item.container.Backpack;
-import model.game.commands.Command;
+import model.game.commandM.Command;
 
 public class Crowbar extends Item
 {
@@ -14,7 +14,7 @@ public class Crowbar extends Item
 
     public boolean use(Backpack b, Scanner scan)
     {
-        System.out.println(Message.useItem(this));
+        System.out.println(MessageM.useItem(this));
         boolean ans;
         ans = Command.confirmation(scan);
         if (ans){

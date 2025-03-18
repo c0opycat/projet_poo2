@@ -1,10 +1,10 @@
-package model.game.commands;
+package model.game.commandM;
 
-import model.game.Game;
+import model.game.GameM;
 
 public class Help extends Command {
-    public Help(Game game) {
-        this.game = game;
+    public Help(GameM gameM) {
+        this.gameM = gameM;
     }
 
     public boolean execute() {

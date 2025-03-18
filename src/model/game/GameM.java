@@ -1,19 +1,19 @@
 package model.game;
 
-import model.character.heros.Hero;
+import model.character.heros.HeroM;
 import model.location.*;
 
-public class Game{
-    private final Hero HERO;
-    public GameMap map;
+public class GameM {
+    private final HeroM HEROM;
+    public GameMapM map;
     private Location currentLocation;
     private boolean isEnd;
     private boolean isWon;
 
-    public Game()
+    public GameM()
     {
-        this.HERO = new Hero();
-        this.map = new GameMap();
+        this.HEROM = new HeroM();
+        this.map = new GameMapM();
         this.currentLocation = map.getStartLoc();
         this.isEnd = false;
         this.isWon = false;
@@ -24,15 +24,15 @@ public class Game{
         this.isWon = false;
     }
 
-    public Hero getHero(){
-        return this.HERO;
+    public HeroM getHero(){
+        return this.HEROM;
     }
 
     //Displays the start of game
     public void start()
     {
-        System.out.println(Message.startGame(map.getStartLoc(), map.getEndLoc()));
-        System.out.println(Message.getDescription(this.getCurLocation()));
+        System.out.println(MessageM.startGame(map.getStartLoc(), map.getEndLoc()));
+        System.out.println(MessageM.getDescription(this.getCurLocation()));
     }
 
     //Returns the current Location
@@ -74,11 +74,11 @@ public class Game{
     {
         if(this.isWon())
         {
-            System.out.println(Message.gameWon());
+            System.out.println(MessageM.gameWon());
         }
         else
         {
-            System.out.println(Message.gameLost());
+            System.out.println(MessageM.gameLost());
         }
     }
 }

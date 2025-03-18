@@ -1,27 +1,27 @@
-package model.game.commands;
+package model.game.commandM;
 
-import model.game.Game;
+import model.game.GameM;
 import model.location.Exit;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import model.character.monster.Colossus;
+import model.character.monster.ColossusM;
 
 public class Go extends Command {
     private ArrayList<Exit> exits;
     private int nbExits;
     private int arg;
 
-    public Go(String[] cmd, Game game, Scanner scan) {
+    public Go(String[] cmd, GameM gameM, Scanner scan) {
         this.commands = cmd;
-        this.game = game;
+        this.gameM = gameM;
 
         if (cmd.length > 1){
             this.arg = Integer.parseInt(cmd[1]);
         }
         
-        this.exits = game.getCurLocation().getExits();
+        this.exits = gameM.getCurLocation().getExits();
         this.nbExits = exits.size();
 
         this.scan = scan;
@@ -34,12 +34,12 @@ public class Go extends Command {
 
         ArrayList<Exit> nextExits = this.exits.get(arg).destination.getExits();
 
-        if (game.getCurLocation().getMonster() == null){
+        if (gameM.getCurLocation().getMonster() == null){
 
             boolean isOneWay = true;
             for(Exit e : nextExits)
             {
-                if(e.destination == game.getCurLocation())
+                if(e.destination == gameM.getCurLocation())
                 {
                     
                     isOneWay = false;
@@ -51,9 +51,9 @@ public class Go extends Command {
                 System.out.println("This exit is one way only\n Are you sure you want to take this exit ? (y/n)\n");
                 boolean yn = Command.confirmation(scan);
                 if (yn){
-                    this.game.setCurLocation(exits.get(arg).destination);
-                    this.game.getCurLocation().displayLocation();
-                    return new Look(null, game).execute(true);
+                    this.gameM.setCurLocation(exits.get(arg).destination);
+                    this.gameM.getCurLocation().displayLocation();
+                    return new Look(null, gameM).execute(true);
                 }
                 else
                 {
@@ -61,12 +61,12 @@ public class Go extends Command {
                 }
             } 
             else{
-                this.game.setCurLocation(exits.get(arg).destination);
-                this.game.getCurLocation().displayLocation();
-                return new Look(null, game).execute(true);
+                this.gameM.setCurLocation(exits.get(arg).destination);
+                this.gameM.getCurLocation().displayLocation();
+                return new Look(null, gameM).execute(true);
             }
         }
-        else if(this.game.getCurLocation().getMonster().getClass() == Colossus.class)
+        else if(this.gameM.getCurLocation().getMonster().getClass() == ColossusM.class)
         {
             System.out.println("There is a colossus !\nDo you want to flee ? (y/n)\n");
                 if(!Command.confirmation(scan))
@@ -75,9 +75,9 @@ public class Go extends Command {
                 }
                 else
                 {
-                    this.game.setCurLocation(exits.get(arg).destination);
-                    this.game.getCurLocation().displayLocation();
-                    return new Look(null, game).execute(true);
+                    this.gameM.setCurLocation(exits.get(arg).destination);
+                    this.gameM.getCurLocation().displayLocation();
+                    return new Look(null, gameM).execute(true);
                 }
         }
         else 

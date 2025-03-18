@@ -2,12 +2,12 @@ package model.character.monster;
 
 import java.util.Random;
 
-import model.character.Character;
-import model.game.Message;
+import model.character.CharacterM;
+import model.game.MessageM;
 import model.item.Protection;
 import model.item.weapon.*;
 
-public abstract class Monster extends Character {
+public abstract class Monster extends CharacterM {
     // Monsters either do damages with his hands (for instance)
     // or with a weapon.
     // If he has a weapon, he does damages with it,
@@ -54,7 +54,7 @@ public abstract class Monster extends Character {
         }
     }
 
-    public void attack(Character c){
+    public void attack(CharacterM c){
         if (weapon == null){
             if (c.getShield() == null){
                 c.setHealth(c.getHealth() - this.getDamage());
@@ -69,7 +69,7 @@ public abstract class Monster extends Character {
             }
         }
 
-        System.out.println(Message.monsterAttack(this));
+        System.out.println(MessageM.monsterAttack(this));
     }
 
     public static Monster randMonster()
@@ -84,17 +84,17 @@ public abstract class Monster extends Character {
         {
             case 0:
             {
-                res = new Angry();
+                res = new AngryM();
                 break;
             }
             case 1:
             {
-                res = new Colossus();
+                res = new ColossusM();
                 break;
             }
             default:
             {
-                res = new Dried();
+                res = new DriedM();
                 break;
             }
         }

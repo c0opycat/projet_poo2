@@ -14,55 +14,57 @@ import model.item.consumable.Medicine;
 import model.item.container.*;
 import model.item.weapon.*;
 import model.location.Location;
-import model.character.Character;
-import model.game.Message;
+import model.character.CharacterM;
+import model.game.MessageM;
 
-import static model.character.heros.Job.STARTUP;
+import static model.character.heros.JobM.STARTUP;
 
-public class Hero extends Character {
+public class HeroM extends CharacterM {
     private static Backpack backpack;
     public String names;
-    public Job job;
+    public JobM jobM;
     private String DEFAULT_NAME = "Herbert-Gontran DeNeuneu";
-    private Job DEFAULT_JOB = STARTUP;
+    private JobM DEFAULT_JOBM = STARTUP;
 
-    public Hero(String name, Job job) {
+    public HeroM(String name, JobM jobM) {
         super(100, 100);
-        Hero.backpack = new Backpack();
+        HeroM.backpack = new Backpack();
         this.names = name;
-        this.job = job;
+        this.jobM = jobM;
         this.jobEffect();
     }
-    public Hero() {
+    public HeroM() {
         super(30, 60);
-        Hero.backpack = new Backpack();
+        HeroM.backpack = new Backpack();
         this.names = DEFAULT_NAME;
-        this.job = DEFAULT_JOB;
+        this.jobM = DEFAULT_JOBM;
     }
 
-    public Job getJob() {
-        return job;
+    public JobM getJob() {
+        return jobM;
     }
 
     public void jobEffect() {
-        Job j = getJob();
+        JobM j = getJob();
         switch (j){
             case STARTUP:setHealth(30);break;
-            case MEDIC:Hero.backpack.addItem(new Medicine());break;
+            case MEDIC:
+                HeroM.backpack.addItem(new Medicine());break;
             case TEACHER:;break;
             case DELIVERY:;break;
-            case SECURITY:Hero.backpack.addItem(Weapon.randWeapon());break;
-            case VETERINARY:this.weapon = new Doggo(Message.randName());break;
+            case SECURITY:
+                HeroM.backpack.addItem(Weapon.randWeapon());break;
+            case VETERINARY:this.weapon = new Doggo(MessageM.randName());break;
         }
     }
 
     public static Backpack gBackpack()
     {
-        return Hero.backpack;
+        return HeroM.backpack;
     }
 
     //Returns true if the hero has succeeded his attack
-    public boolean attack(Character c){
+    public boolean attack(CharacterM c){
         boolean res = false;
 
         if(this.getWeapon() != null)
@@ -82,7 +84,7 @@ public class Hero extends Character {
     public void equipWeapon(Weapon weapon){
         if(this.getWeapon() == null)
         {this.setWeapon(weapon);}
-        else System.out.println(Message.handFull(this.getWeapon()));
+        else System.out.println(MessageM.handFull(this.getWeapon()));
     }
 
     public void dropWeapon(Location l){
@@ -103,9 +105,9 @@ public class Hero extends Character {
 
     public void switchBackpack(Backpack BP, Location l){
         l.removeItem(BP);
-        Backpack toDrop = Hero.backpack;
+        Backpack toDrop = HeroM.backpack;
         l.addItem(toDrop);
-        Hero.backpack = BP;
+        HeroM.backpack = BP;
     }
 
     @Override

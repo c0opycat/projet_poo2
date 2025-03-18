@@ -1,20 +1,20 @@
-package model.game.commands;
+package model.game.commandM;
 
-import model.game.Game;
-import model.game.Message;
+import model.game.GameM;
+import model.game.MessageM;
 import model.item.Item;
 import model.item.container.*;
 import model.location.Location;
 import model.item.weapon.Weapon;
 import model.item.Protection;
-import model.character.heros.Hero;
+import model.character.heros.HeroM;
 
 public class Equip extends Command{
     private int fstArg;
     private int scdArg;
 
-    public Equip(String[] cmd, Game game){
-        this.game = game;
+    public Equip(String[] cmd, GameM gameM){
+        this.gameM = gameM;
         this.commands = cmd;
         this.fstArg = Integer.parseInt(commands[1]);
         this.scdArg = Integer.parseInt(commands[2]);
@@ -35,18 +35,18 @@ public class Equip extends Command{
         }
         else
         {
-            Location loc = this.game.getCurLocation();
+            Location loc = this.gameM.getCurLocation();
             int nbItems = 0;
             Item toEquip;
 
             if(scdArg == 1)
             {
-                Backpack bp = Hero.gBackpack();
+                Backpack bp = HeroM.gBackpack();
                 nbItems = bp.getNbItems();
 
                 if(fstArg < 0 || fstArg >= nbItems)
                 {
-                    System.out.println(Message.InvalidNumber(fstArg));
+                    System.out.println(MessageM.InvalidNumber(fstArg));
                 }
                 else
                 {
@@ -54,13 +54,13 @@ public class Equip extends Command{
 
                     if(!(toEquip instanceof Weapon))
                     {
-                        System.out.println(Message.wrongItem("equip"));
+                        System.out.println(MessageM.wrongItem("equip"));
                     }
                     else
                     {
                         Weapon w = (Weapon)toEquip;
                         
-                        Weapon herosWeapon = this.game.getHero().getWeapon();
+                        Weapon herosWeapon = this.gameM.getHero().getWeapon();
 
                         if(herosWeapon != null)
                         {
@@ -72,7 +72,7 @@ public class Equip extends Command{
                         }
                         
                         bp.removeItem(w);
-                        this.game.getHero().setWeapon(w);
+                        this.gameM.getHero().setWeapon(w);
                         
                         res = true;
 
@@ -86,7 +86,7 @@ public class Equip extends Command{
 
                 if(fstArg < 0 || fstArg >= nbItems)
                 {
-                    System.out.println(Message.InvalidNumber(fstArg));
+                    System.out.println(MessageM.InvalidNumber(fstArg));
                 }
                 else
                 {
@@ -97,14 +97,14 @@ public class Equip extends Command{
                         if(toEquip instanceof Weapon)
                         {
                             Weapon w = (Weapon)toEquip;
-                            Weapon herosWeapon = this.game.getHero().getWeapon();
+                            Weapon herosWeapon = this.gameM.getHero().getWeapon();
                             
                             if(herosWeapon != null)
                             {
                                 loc.addItem(herosWeapon);
                             }
                             
-                            this.game.getHero().setWeapon(w);
+                            this.gameM.getHero().setWeapon(w);
                             loc.removeItem(w);
 
                             res = true;
@@ -112,14 +112,14 @@ public class Equip extends Command{
                         else if(toEquip instanceof Protection)
                         {
                             Protection p = (Protection)toEquip;
-                            Protection herosProtection = this.game.getHero().getShield();
+                            Protection herosProtection = this.gameM.getHero().getShield();
 
                             if(herosProtection != null)
                             {
                                 loc.addItem(herosProtection);
                             }
 
-                            this.game.getHero().setShield(p);
+                            this.gameM.getHero().setShield(p);
                             loc.removeItem(p);
                             
                             res = true;
@@ -128,14 +128,14 @@ public class Equip extends Command{
                         {
                             Backpack bp = (Backpack)toEquip;
 
-                            this.game.getHero().switchBackpack(bp, loc);
+                            this.gameM.getHero().switchBackpack(bp, loc);
                             
                             res = true;
                         }
                     }
                     else
                     {
-                        System.out.println(Message.wrongItem("equip"));
+                        System.out.println(MessageM.wrongItem("equip"));
                     }
                 }
             }
@@ -164,7 +164,7 @@ public class Equip extends Command{
                         Crate c = (Crate)cont;
                         if(!c.open)
                         {
-                            System.out.println(Message.toolRequired());
+                            System.out.println(MessageM.toolRequired());
                             return res;
                         }
                     }
@@ -174,7 +174,7 @@ public class Equip extends Command{
 
                         if(fstArg < 0 || fstArg >= nbItems)
                         {
-                            System.out.println(Message.InvalidNumber(fstArg));
+                            System.out.println(MessageM.InvalidNumber(fstArg));
                         }
                         else
                         {
@@ -185,7 +185,7 @@ public class Equip extends Command{
                                 if(toEquip instanceof Weapon)
                                 {
                                     Weapon w = (Weapon)toEquip;
-                                    Weapon herosWeapon = this.game.getHero().getWeapon();
+                                    Weapon herosWeapon = this.gameM.getHero().getWeapon();
 
                                     if(herosWeapon != null)
                                     {
@@ -197,13 +197,13 @@ public class Equip extends Command{
                                     }
 
                                     cont.removeItem(w);
-                                    this.game.getHero().setWeapon(w);
+                                    this.gameM.getHero().setWeapon(w);
 
                                 }
                                 else
                                 {
                                     Protection p = (Protection)toEquip;
-                                    Protection herosProtection = this.game.getHero().getShield();
+                                    Protection herosProtection = this.gameM.getHero().getShield();
 
                                     if(herosProtection != null)
                                     {
@@ -215,14 +215,14 @@ public class Equip extends Command{
                                     }
                                     
                                     cont.removeItem(p);
-                                    this.game.getHero().setShield(p);
+                                    this.gameM.getHero().setShield(p);
 
                                 }
                                 res = true;
                             }
                             else
                             {
-                                System.out.println(Message.wrongItem("equip"));
+                                System.out.println(MessageM.wrongItem("equip"));
                             }
                         }
                     }

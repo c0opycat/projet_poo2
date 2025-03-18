@@ -8,13 +8,13 @@ being able to register scores
 (table)
 
 GAME
-being able to save game
+being able to save gameM
 rename main to runingGame
 
 IMPLEMENTS
 undo
 language choice
-game options and preferences
+gameM options and preferences
 
 HERO
 class OK

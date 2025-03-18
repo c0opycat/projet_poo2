@@ -3,7 +3,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import model.game.*;
-import model.game.commands.*;
+import model.game.commandM.*;
 import model.location.LocationName;
 import model.character.monster.*;
 
@@ -12,44 +12,44 @@ import model.character.monster.*;
 public class Main {
     public static void main(String[] args) {
 
-        Game game = new Game();
+        GameM gameM = new GameM();
         boolean theend = false;
         
         Scanner scan = new Scanner(System.in);
         scan.useDelimiter("\n");
         Command cmd;
         
-        LocationName nameCurLoc = game.getCurLocation().getName();
+        LocationName nameCurLoc = gameM.getCurLocation().getName();
         Monster curMonster;
-        game.start();
+        gameM.start();
 
         while(!theend)
         {
-            if(nameCurLoc != game.getCurLocation().getName())
+            if(nameCurLoc != gameM.getCurLocation().getName())
             {
-                curMonster = game.getCurLocation().getMonster();
+                curMonster = gameM.getCurLocation().getMonster();
                 
-                if(curMonster instanceof Dried)
+                if(curMonster instanceof DriedM)
                 {
-                    curMonster.attack(game.getHero());
-                    System.out.println(Message.herosHP(game.getHero()));
+                    curMonster.attack(gameM.getHero());
+                    System.out.println(MessageM.herosHP(gameM.getHero()));
                 }
                 
-                nameCurLoc = game.getCurLocation().getName();
+                nameCurLoc = gameM.getCurLocation().getName();
             }
             else
             {
-                game.getCurLocation().removeMonsterIfKO();
-                curMonster = game.getCurLocation().getMonster();
+                gameM.getCurLocation().removeMonsterIfKO();
+                curMonster = gameM.getCurLocation().getMonster();
 
                 if(curMonster != null)
                 {
-                    curMonster.attack(game.getHero());
-                    System.out.println(Message.herosHP(game.getHero()));
+                    curMonster.attack(gameM.getHero());
+                    System.out.println(MessageM.herosHP(gameM.getHero()));
                 }
             }
             
-            theend = game.isEnd();
+            theend = gameM.isEnd();
 
             if(!theend){
                 cmd = null;
@@ -58,13 +58,13 @@ public class Main {
 
                     String s = scan.next().trim();
 
-                    cmd = new Command(s, game, scan);
+                    cmd = new Command(s, gameM, scan);
                 }
             }
         }
         
         scan.close();
 
-        game.displayEnd();
+        gameM.displayEnd();
     }
 }

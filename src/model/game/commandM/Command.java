@@ -1,4 +1,4 @@
-package model.game.commands;
+package model.game.commandM;
 
 import java.util.Scanner;
 
@@ -6,14 +6,14 @@ import model.game.*;
 
 public class Command {
     protected String[] commands;
-    protected Game game;
+    protected GameM gameM;
     protected Scanner scan;
 
     public Command() {}
 
-    public Command(String command, Game game, Scanner scan) {
+    public Command(String command, GameM gameM, Scanner scan) {
         this.commands = (command.toLowerCase()).split(" ");
-        this.game = game;
+        this.gameM = gameM;
         this.scan = scan;
     }
 
@@ -51,64 +51,64 @@ public class Command {
         switch(commands[0]){
             case "go":
                 if (commands.length == 1) {
-                    new Go(commands, game, scan).help();
+                    new Go(commands, gameM, scan).help();
                     return false;
                 } else if ((commands.length != 2) || (!isInteger(commands[1]))) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Go(commands, game, scan).execute();
+                return new Go(commands, gameM, scan).execute();
             case "help":
                 if (commands.length != 1) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Help(game).execute();
+                return new Help(gameM).execute();
             case "look":
                 if ((commands.length > 2) || ((commands.length == 2) && (!isInteger(commands[1])))) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Look(commands, game).execute(false);
+                return new Look(commands, gameM).execute(false);
             case "attack":
                 if (commands.length != 1) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Attack(commands, game).execute();
+                return new Attack(commands, gameM).execute();
             case "take":
                 if ((commands.length < 2) || (commands.length > 3) || (!isInteger(commands[1])) || ((commands.length == 3) && (!isInteger(commands[2])))) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Take(commands, game).execute();
+                return new Take(commands, gameM).execute();
             case "use":
                 if ((commands.length < 2) || (commands.length > 3) || (!isInteger(commands[1])) || ((commands.length == 3) && (!isInteger(commands[2])))) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Use(commands, game, scan).execute();
+                return new Use(commands, gameM, scan).execute();
             case "quit":
                 if (commands.length != 1) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Quit(commands, game).execute();
+                return new Quit(commands, gameM).execute();
             case "drop":
                 if ((commands.length != 2) || (!isInteger(commands[1]))) {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Drop(commands, game).execute();
+                return new Drop(commands, gameM).execute();
             case "equip":
                 if((commands.length != 3) || (!isInteger(commands[1])) || (!isInteger(commands[2])))
                 {
-                    System.out.println(Message.invalidCommand());
+                    System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Equip(commands, game).execute();
+                return new Equip(commands, gameM).execute();
             default:
-                System.out.println(Message.invalidCommand());
+                System.out.println(MessageM.invalidCommand());
                 return false;
         }
     }

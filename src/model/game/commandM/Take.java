@@ -1,8 +1,8 @@
-package model.game.commands;
+package model.game.commandM;
 
-import model.character.heros.Hero;
-import model.game.Game;
-import model.game.Message;
+import model.character.heros.HeroM;
+import model.game.GameM;
+import model.game.MessageM;
 import model.item.Item;
 import model.item.container.Container;
 import model.item.Protection;
@@ -11,8 +11,8 @@ import model.item.container.Crate;
 public class Take extends Command {
     private int nb_arg; 
 
-    public Take(String[] cmd, Game game) {
-        this.game = game;
+    public Take(String[] cmd, GameM gameM) {
+        this.gameM = gameM;
         this.commands = cmd;
         this.nb_arg = this.commands.length;
     }
@@ -22,29 +22,29 @@ public class Take extends Command {
 
         Item toTake;
         int ind = Integer.parseInt(commands[1]);
-        int locNbItems = this.game.getCurLocation().itemList.size();
+        int locNbItems = this.gameM.getCurLocation().itemList.size();
 
         if(nb_arg == 2)
         {
             if(ind < 0 || ind >= locNbItems)
             {
-                System.out.println(Message.InvalidNumber(ind));
+                System.out.println(MessageM.InvalidNumber(ind));
             }
             else
             {
-                toTake = this.game.getCurLocation().itemList.get(ind);
+                toTake = this.gameM.getCurLocation().itemList.get(ind);
 
                 if((toTake instanceof Container) || (toTake instanceof Protection))
                 {
-                    System.out.println(Message.wrongItem("take"));
+                    System.out.println(MessageM.wrongItem("take"));
                 }
                 else
                 {
-                    boolean taken = Hero.gBackpack().addItem(toTake);
+                    boolean taken = HeroM.gBackpack().addItem(toTake);
                     
                     if(taken)
                     {
-                        this.game.getCurLocation().removeItem(toTake);
+                        this.gameM.getCurLocation().removeItem(toTake);
                         res = true;
                     }
                 }
@@ -55,15 +55,15 @@ public class Take extends Command {
 
             if(indCont < 0 || indCont >= locNbItems)
             {
-                System.out.println(Message.InvalidNumber(indCont));
+                System.out.println(MessageM.InvalidNumber(indCont));
             }
             else
             {
-                Item toTakeFrom = this.game.getCurLocation().itemList.get(indCont);
+                Item toTakeFrom = this.gameM.getCurLocation().itemList.get(indCont);
 
                 if(!(toTakeFrom instanceof Container))
                 {
-                    System.out.println(Message.wrongItem("take something from"));
+                    System.out.println(MessageM.wrongItem("take something from"));
                 }
                 else
                 {
@@ -72,7 +72,7 @@ public class Take extends Command {
                         Crate crate = (Crate)toTakeFrom;
                         if(!crate.open)
                         {
-                            System.out.println(Message.toolRequired());
+                            System.out.println(MessageM.toolRequired());
                             return res;
                         }
                     }
@@ -82,13 +82,13 @@ public class Take extends Command {
                     
                     if(ind < 0 || ind >= contNbItems)
                     {
-                        System.out.println(Message.InvalidNumber(ind));
+                        System.out.println(MessageM.InvalidNumber(ind));
                     }
                     else
                     {
                         toTake = container.getNthItem(ind);
 
-                        boolean taken = Hero.gBackpack().addItem(toTake);
+                        boolean taken = HeroM.gBackpack().addItem(toTake);
                     
                         if(taken)
                         {

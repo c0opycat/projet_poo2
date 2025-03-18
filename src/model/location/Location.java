@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 import model.character.monster.Monster;
 import model.item.*;
-import model.game.GameMap;
-import model.game.Message;
+import model.game.GameMapM;
+import model.game.MessageM;
 
 public class Location {
     public LocationName name;
@@ -21,7 +21,9 @@ public class Location {
     public Location(LocationName name){
         this.exits = new HashMap<>();
         this.name = name;
-        this.description = Message.locationDescription(this);
+        //description will not be displayed but will keep being there as help for audio-description for
+        //people with sight disabilities
+        this.description = MessageM.locationDescription(this);
         this.itemList = new ArrayList<>();
         //this.structure  = new matrix (height, width)
 
@@ -129,7 +131,7 @@ public class Location {
     //Displays the description of the location
     public void displayLocation()
     {
-        System.out.println(Message.locationDescription(this));
+        System.out.println(MessageM.locationDescription(this));
     }
 
     //Getter for Location Name
@@ -157,113 +159,113 @@ public class Location {
 
     public static void northPoitiers(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(5));
+        Exit e1 = new Exit(location, GameMapM.locations.get(5));
         Exit[] exits = {e1};
         location.setExits(exits);
     }
 
     public static void beaulieu(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(7));
-        Exit e2 = new Exit(location, GameMap.locations.get(8));
-        Exit e3 = new Exit(location, GameMap.locations.get(10));
-        Exit e4 = new Exit(location, GameMap.locations.get(11));
+        Exit e1 = new Exit(location, GameMapM.locations.get(7));
+        Exit e2 = new Exit(location, GameMapM.locations.get(8));
+        Exit e3 = new Exit(location, GameMapM.locations.get(10));
+        Exit e4 = new Exit(location, GameMapM.locations.get(11));
         Exit[] exits = {e1, e2, e3, e4};
         location.setExits(exits);
     }
 
     public static void cityCenter(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(5));
-        Exit e2 = new Exit(location, GameMap.locations.get(6));
-        Exit e3 = new Exit(location, GameMap.locations.get(7));
+        Exit e1 = new Exit(location, GameMapM.locations.get(5));
+        Exit e2 = new Exit(location, GameMapM.locations.get(6));
+        Exit e3 = new Exit(location, GameMapM.locations.get(7));
         Exit[] exits = {e1, e2, e3};
         location.setExits(exits);
     }
 
     public static void couronneries(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(10));
-        Exit e2 = new Exit(location, GameMap.locations.get(5));
-        Exit e3 = new Exit(location, GameMap.locations.get(8));
+        Exit e1 = new Exit(location, GameMapM.locations.get(10));
+        Exit e2 = new Exit(location, GameMapM.locations.get(5));
+        Exit e3 = new Exit(location, GameMapM.locations.get(8));
         Exit[] exits = {e1, e2, e3};
         location.setExits(exits);
     }
 
     public static void gibauderie(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(11));
-        Exit e2 = new Exit(location, GameMap.locations.get(1));
-        Exit e3 = new Exit(location, GameMap.locations.get(7));
+        Exit e1 = new Exit(location, GameMapM.locations.get(11));
+        Exit e2 = new Exit(location, GameMapM.locations.get(1));
+        Exit e3 = new Exit(location, GameMapM.locations.get(7));
         Exit[] exits = {e1, e2, e3};
         location.setExits(exits);
     }
 
     public static void westPoitiers(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(0));
-        Exit e2 = new Exit(location, GameMap.locations.get(2));
-        Exit e3 = new Exit(location, GameMap.locations.get(6));
+        Exit e1 = new Exit(location, GameMapM.locations.get(0));
+        Exit e2 = new Exit(location, GameMapM.locations.get(2));
+        Exit e3 = new Exit(location, GameMapM.locations.get(6));
         Exit[] exits = {e1, e2, e3};
         location.setExits(exits);
     }
 
     public static void southPoitiers(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(5));
-        Exit e2 = new Exit(location, GameMap.locations.get(9));
+        Exit e1 = new Exit(location, GameMapM.locations.get(5));
+        Exit e2 = new Exit(location, GameMapM.locations.get(9));
         Exit[] exits = {e1, e2};
         location.setExits(exits);
     }
 
     public static void pontNeuf(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(9));
-        Exit e2 = new Exit(location, GameMap.locations.get(4));
-        Exit e3 = new Exit(location, GameMap.locations.get(10));
+        Exit e1 = new Exit(location, GameMapM.locations.get(9));
+        Exit e2 = new Exit(location, GameMapM.locations.get(4));
+        Exit e3 = new Exit(location, GameMapM.locations.get(10));
         Exit[] exits = {e1, e2, e3};
         location.setExits(exits);
     }
 
     public static void saintEloi(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(3));
-        Exit e2 = new Exit(location, GameMap.locations.get(10));
-        Exit e3 = new Exit(location, GameMap.locations.get(1));
+        Exit e1 = new Exit(location, GameMapM.locations.get(3));
+        Exit e2 = new Exit(location, GameMapM.locations.get(10));
+        Exit e3 = new Exit(location, GameMapM.locations.get(1));
         Exit[] exits = {e1, e2, e3};
         location.setExits(exits);
     }
 
     public static void troisCites(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(2));
-        Exit e2 = new Exit(location, GameMap.locations.get(4));
+        Exit e1 = new Exit(location, GameMapM.locations.get(2));
+        Exit e2 = new Exit(location, GameMapM.locations.get(4));
         Exit[] exits = {e1, e2};
         location.setExits(exits);
     }
 
     public static void montbernage(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(2));
-        Exit e2 = new Exit(location, GameMap.locations.get(5));
-        Exit e3 = new Exit(location, GameMap.locations.get(7));
-        Exit e4 = new Exit(location, GameMap.locations.get(8));
+        Exit e1 = new Exit(location, GameMapM.locations.get(2));
+        Exit e2 = new Exit(location, GameMapM.locations.get(5));
+        Exit e3 = new Exit(location, GameMapM.locations.get(7));
+        Exit e4 = new Exit(location, GameMapM.locations.get(8));
         Exit[] exits = {e1, e2, e3, e4};
         location.setExits(exits);
     }
 
     public static void miletrie(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(4));
-        Exit e2 = new Exit(location, GameMap.locations.get(1));
-        Exit e3 = new Exit(location, GameMap.locations.get(12));
+        Exit e1 = new Exit(location, GameMapM.locations.get(4));
+        Exit e2 = new Exit(location, GameMapM.locations.get(1));
+        Exit e3 = new Exit(location, GameMapM.locations.get(12));
         Exit[] exits = {e1, e2, e3};
         location.setExits(exits);
     }
 
     public static void finalExit(Location location)
     {
-        Exit e1 = new Exit(location, GameMap.locations.get(11));
+        Exit e1 = new Exit(location, GameMapM.locations.get(11));
         Exit[] exits = {e1};
         location.setExits(exits);
     }
