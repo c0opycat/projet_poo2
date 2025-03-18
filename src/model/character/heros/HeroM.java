@@ -43,7 +43,7 @@ public class HeroM extends CharacterM {
         this.jobM = DEFAULT_JOBM;
     }
 
-    
+
     public JobM getJob() {
         return jobM;
     }
@@ -70,7 +70,6 @@ public class HeroM extends CharacterM {
     //Returns true if the hero has succeeded his attack
     public boolean attack(CharacterM c){
         boolean res = false;
-
         if(this.getWeapon() != null)
         {
             if (c.getShield() == null){
@@ -78,10 +77,8 @@ public class HeroM extends CharacterM {
             } else {
                 c.setHealth(c.getHealth() - c.getShield().protect(weapon.getDamage(), weapon.getType()));
             }
-
             res = true;
         }
-
         return res;
     }
 

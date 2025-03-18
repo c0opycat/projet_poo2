@@ -11,7 +11,7 @@ import model.location.LocationName;
 
 import java.util.Random;
 
-public class Messagefr {
+public class MessageMfr {
     //Returns the start of game message
     public static String startGame(Location start, Location end)
     {
@@ -142,7 +142,7 @@ public class Messagefr {
     }
 
     public static String itemUsed (Item item){
-        return "You used your "+item+"to "+ Messagefr.itemEffect(item);
+        return "You used your "+item+"to "+ MessageMfr.itemEffect(item);
     }
     public static String itemEffect (Item item){
         if (item instanceof Crowbar)
