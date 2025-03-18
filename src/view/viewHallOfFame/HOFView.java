@@ -46,6 +46,10 @@ public class HOFView extends BorderWithButtons{
         Button menu = new Button("Menu");
         buttons.add(menu);
 
+        menu.setOnAction(e -> {
+            
+        });
+
         return buttons;
     }
 }
