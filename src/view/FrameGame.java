@@ -2,9 +2,14 @@ package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.image.ImageView;
 
 public class FrameGame extends GridPane {
     public FrameGame(int col, int row)
@@ -56,30 +61,43 @@ public class FrameGame extends GridPane {
 
     private void addLabels(int nbCol, int nbRow)
     {
-        /*/
-        //1e colonne à gauche
-        for(int i = 1; i <= nbRow; i++)
-        {
-            this.setCell("" + i, 0, i, "transparent");
-        }
-
-        //1e ligne en haut
-        char c = 'A';
-        for(int i = 1; i <= nbCol; i++)
-        {
-            this.setCell(c, i, 0, "transparent");
-            c++;
-        }
-        */
-
         //Remplissage de la grid
         for(int i = 0; i <= nbCol; i++)
         {
             for(int j = 0; j <= nbRow; j++)
-            this.setCell(' ', i, j, "#8A2BE2");
+            {
+                StackPane cell = new StackPane();
+                cell.setPrefSize(50, 50);
+                cell.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
+
+                // Accepter le dépôt
+                cell.setOnDragOver(event -> {
+                    if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
+                        event.acceptTransferModes(TransferMode.MOVE);
+                    }
+                    event.consume();
+                });
+
+                // Gérer le dépôt
+                cell.setOnDragDropped(event -> {
+                    Dragboard db = event.getDragboard();
+                    if (db.hasString()) {
+                        String itemNom = db.getString();
+                        ImageView itemImage = new ImageView(new Image(getClass().getResourceAsStream("/images/" + itemNom + ".png")));
+                        itemImage.setFitWidth(50);
+                        itemImage.setFitHeight(50);
+                            cell.getChildren().add(itemImage);                            event.setDropCompleted(true);
+                    } else {
+                        event.setDropCompleted(false);
+                    }
+                    event.consume();
+                });
+
+                this.add(cell, i, j);
+            }
         }
     }
-
+    
     private void defineColRow(int size, int nbCol, int nbRow)
     {
         for (int i = 0; i <= nbCol; i++)

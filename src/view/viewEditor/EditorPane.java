@@ -146,8 +146,9 @@ public class EditorPane extends HBox{
         //ainsi que les commandes et paramètres
         VBox rightPane = new VBox();
 
+        String[] strTab = {"Hey", "Hoy"};
         //Ajout des onglets d'ajout
-        SelectElem selectElem = new SelectElem();
+        SelectTypeElem selectTypeElem = new SelectTypeElem(strTab);
 
         Region spring1 = new Region();
         VBox.setVgrow(spring1, Priority.ALWAYS);
@@ -165,11 +166,11 @@ public class EditorPane extends HBox{
         HBox widthTxtField = this.width();
         
         String[] namesRtr = {"Reset", "Restore", "Re-init"};
-        String[] namesSt = {"Save", "Param", "Quit"};
+        String[] namesSt = {"Save", "Menu", "Quit"};
         HBox buttonRetour = this.buttonsNb(3, namesRtr);
         HBox buttonStatus = this.buttonsNb(3, namesSt);
 
-        rightPane.getChildren().addAll(selectElem, spring1, widthTxtField, spring2, buttonRetour, spring3, buttonStatus, springS);
+        rightPane.getChildren().addAll(selectTypeElem, spring1, widthTxtField, spring2, buttonRetour, spring3, buttonStatus, springS);
         
         return rightPane;
     }

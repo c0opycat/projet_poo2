@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import model.Main;
+//import model.Main;
 import view.mainDisplay.MainDisplay;
 import view.viewConfig.ConfigView;
 import view.viewHallOfFame.HOFView;
