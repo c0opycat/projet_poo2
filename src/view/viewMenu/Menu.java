@@ -4,27 +4,34 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-//import model.Main;
-import view.mainDisplay.MainDisplay;
-import view.viewConfig.ConfigView;
+import view.BorderWithButtons;
+import view.MainScene;
 import view.viewHallOfFame.HOFView;
 
-public class Menu extends VBox{
+public class Menu extends BorderWithButtons{
     
 
 
-    public Menu(MainDisplay mainDisplay)
+    public Menu()
     {
         super();
 
-        this.addcomp(mainDisplay);
+        this.addcomp();
     }
 
 
-    private void addcomp(MainDisplay mainDisplay)
+    private void addcomp()
     {
+
+        VBox vb = new VBox();
 
         Label title = new Label("Menu");
 
@@ -33,8 +40,12 @@ public class Menu extends VBox{
         Button edit = new Button("Editor");
         Button hof = new Button("Hall of Fame");
 
-
         //style du menu
+        
+        Image backgroundImage = new Image("file:../resources/assets/post_apocalyptic_city_background_600x600_new.jpg");
+        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        this.setBackground(new Background(background));
+
         title.setStyle("-fx-font-weight: bold; -fx-font-size: 34px; -fx-text-fill: #373737");
 
         this.getStylesheets().add("file:../resources/style.css");
@@ -48,30 +59,36 @@ public class Menu extends VBox{
         hof.setPrefSize(buttonWidth, buttonHeight);
 
 
-        this.getChildren().addAll(jouer, cfg, edit, hof);
 
-        this.setAlignment(Pos.CENTER);
+
+        vb.getChildren().addAll(jouer, cfg, edit, hof);
+
+        vb.setAlignment(Pos.CENTER);
 
         VBox.setMargin(jouer, new Insets(0, 10, 10, 10));
         VBox.setMargin(cfg, new Insets(10));
         VBox.setMargin(edit, new Insets(10));
         VBox.setMargin(hof, new Insets(10));
-
+        
         BorderPane.setAlignment(title, Pos.CENTER);
         BorderPane.setMargin(title, new Insets(75, 0, 0, 0));
 
-        //Listerner pour les boutons
+        this.setTop(title);
+        this.setCenter(vb);
 
-        cfg.setOnAction(e -> { 
-            mainDisplay.setCenter(new ConfigView());
-            e.consume();
-        });
-
-        hof.setOnAction(e -> {
-            mainDisplay.setCenter(new HOFView());
-        });
-        
     }
 
+    private Button getConfig(){
+        return (Button) ((VBox)this.getCenter()).getChildren().get(1);
+    }
+
+    public void addHandlers()
+    {
+        MainScene scene = (MainScene) this.getScene();
+
+        getConfig().setOnAction(e -> {
+            scene.setContent(new HOFView());
+        });
+    }
 
 }
