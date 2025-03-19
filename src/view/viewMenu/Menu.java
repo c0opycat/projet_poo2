@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import model.Main;
 import view.mainDisplay.MainDisplay;
 import view.viewConfig.ConfigView;
+import view.viewHallOfFame.HOFView;
 
 public class Menu extends VBox{
     
@@ -62,8 +63,12 @@ public class Menu extends VBox{
         //Listerner pour les boutons
 
         cfg.setOnAction(e -> { 
-            mainDisplay.setCenter(new ConfigView(mainDisplay));
+            mainDisplay.setCenter(new ConfigView());
             e.consume();
+        });
+
+        hof.setOnAction(e -> {
+            mainDisplay.setCenter(new HOFView());
         });
         
     }
