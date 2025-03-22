@@ -12,7 +12,6 @@ public class GameMapM {
         GameMapM.locations = new ArrayList<>();
         buildMap();
     }
-
     public static void buildMap(){
         Location northPoitiers = new Location(LocationName.NORTH_POITIERS);
         GameMapM.locations.add(northPoitiers);
