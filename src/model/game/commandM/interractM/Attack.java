@@ -1,7 +1,8 @@
-package model.game.commandM;
+package model.game.commandM.interractM;
 
 import model.game.GameM;
 import model.game.MessageM;
+import model.game.commandM.Command;
 
 public class Attack extends Command {
     public Attack(String[] cmd, GameM gameM) {

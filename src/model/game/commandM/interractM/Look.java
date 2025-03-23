@@ -1,7 +1,8 @@
-package model.game.commandM;
+package model.game.commandM.interractM;
 
 import model.game.GameM;
 import model.game.MessageM;
+import model.game.commandM.Command;
 import model.item.Item;
 import model.location.Exit;
 import model.character.heros.HeroM;

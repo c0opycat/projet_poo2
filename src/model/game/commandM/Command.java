@@ -3,6 +3,11 @@ package model.game.commandM;
 import java.util.Scanner;
 
 import model.game.*;
+import model.game.commandM.interractM.*;
+import model.game.commandM.itemComM.Equip;
+import model.game.commandM.itemComM.Use;
+import model.game.commandM.menuCommandM.Help;
+import model.game.commandM.menuCommandM.Quit;
 
 public class Command {
     protected String[] commands;

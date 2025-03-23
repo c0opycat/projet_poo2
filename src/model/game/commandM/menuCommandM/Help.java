@@ -1,6 +1,7 @@
-package model.game.commandM;
+package model.game.commandM.menuCommandM;
 
 import model.game.GameM;
+import model.game.commandM.Command;
 
 public class Help extends Command {
     public Help(GameM gameM) {

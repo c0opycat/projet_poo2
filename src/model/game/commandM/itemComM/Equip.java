@@ -1,7 +1,8 @@
-package model.game.commandM;
+package model.game.commandM.itemComM;
 
 import model.game.GameM;
 import model.game.MessageM;
+import model.game.commandM.Command;
 import model.item.Item;
 import model.item.container.*;
 import model.location.Location;
@@ -9,7 +10,7 @@ import model.item.weapon.Weapon;
 import model.item.Protection;
 import model.character.heros.HeroM;
 
-public class Equip extends Command{
+public class Equip extends Command {
     private int fstArg;
     private int scdArg;
 
@@ -24,7 +25,6 @@ public class Equip extends Command{
     public String toString() {
         return "equip anything";
     }
-
     public boolean execute()
     {
         boolean res = false;

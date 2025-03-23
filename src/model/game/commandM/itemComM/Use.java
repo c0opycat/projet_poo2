@@ -1,8 +1,9 @@
-package model.game.commandM;
+package model.game.commandM.itemComM;
 
 import java.util.Scanner;
 import model.game.GameM;
 import model.game.MessageM;
+import model.game.commandM.Command;
 import model.item.Crowbar;
 import model.item.Item;
 import model.item.Protection;
