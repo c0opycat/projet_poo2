@@ -2,20 +2,41 @@ package model.character;
 
 import model.item.Protection;
 import model.item.weapon.Weapon;
+import model.location.Location;
 
 public abstract class CharacterM {
+    private Location curLoc;
+    private Location lastLoc;
+    public int posx;
+    public int posy;
     protected int health;
     public final int MAXHEALTH;
     protected Protection shield; //Can be null
     protected Weapon weapon; //Can be null
 
-    public CharacterM(int health, int maxHealth) {
+    public CharacterM(int health, int maxHealth, Location location,int posx, int posy) {
+        this.posx = posx;
+        this.posy = posy;
+        this.lastLoc = null;
+        this.curLoc = location;
         this.health = health;
         this.MAXHEALTH = maxHealth;
         this.shield = null;
         this.weapon = null;
     }
-
+    //GET and SET position of charcter ont the
+    public int getPosx() {
+        return posx;
+    }
+    public void setPosx(int posx) {
+        this.posx = posx;
+    }
+    public int getPosy() {
+        return posy;
+    }
+    public void setPosy(int posy) {
+        this.posy = posy;
+    }
     //Returns the character's health
     public int getHealth(){
         return health;

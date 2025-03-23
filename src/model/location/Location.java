@@ -3,7 +3,6 @@ package model.location;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
-import java.util.HashMap;
 
 import model.character.monster.Monster;
 import model.item.*;
@@ -11,7 +10,10 @@ import model.game.GameMapM;
 import model.game.MessageM;
 
 public class Location {
+    public int width;
+    public int height;
     public LocationName name;
+    public Step[][] locMap;
     public Map<Integer, Exit> exits;
     public ArrayList<Item> itemList;
     public String description;
@@ -19,14 +21,13 @@ public class Location {
 
     
     public Location(LocationName name){
-        this.exits = new HashMap<>();
+        //this.exits = new HashMap<>();
         this.name = name;
         //description will not be displayed but will keep being there as help for audio-description for
         //people with sight disabilities
-        this.description = MessageM.locationDescription(this);
+        //this.description = MessageM.locationDescription(this);
         this.itemList = new ArrayList<>();
         //this.structure  = new matrix (height, width)
-
         boolean hasContainer = false;
         
         Item item;
