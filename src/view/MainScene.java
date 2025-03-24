@@ -11,9 +11,9 @@ public class MainScene extends Scene{
         ((Menu) this.getRoot()).addHandlers();
     }
 
+    //Set the root of the Scene with a instance of a class extending BorderWithButtons
     public void setContent(Parent root)
     {
         this.setRoot(root);
     }
-    
 }

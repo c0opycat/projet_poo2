@@ -1,19 +1,22 @@
 package view.viewMenu;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.MainScene;
+import view.viewConfig.ConfigView;
+import view.viewGame.GameView;
+import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 import view.viewHallOfFame.HOFView;
 
 public class Menu extends BorderWithButtons{
@@ -24,7 +27,20 @@ public class Menu extends BorderWithButtons{
     {
         super();
 
+        this.addTitle("Menu");
+        this.setButtons();
         this.addcomp();
+    }
+
+    //Add a quit button
+    private void setButtons()
+    {
+        ArrayList<Button> buttons = new ArrayList<>();
+
+        QuitView quit = new QuitView();
+        buttons.add(quit);
+
+        this.addButtons(buttons);
     }
 
 
@@ -32,8 +48,6 @@ public class Menu extends BorderWithButtons{
     {
 
         VBox vb = new VBox();
-
-        Label title = new Label("Menu");
 
         Button jouer = new Button("Play");
         Button cfg = new Button("Config");
@@ -46,10 +60,6 @@ public class Menu extends BorderWithButtons{
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         this.setBackground(new Background(background));
 
-        title.setStyle("-fx-font-weight: bold; -fx-font-size: 34px; -fx-text-fill: #373737");
-
-        this.getStylesheets().add("file:../resources/style.css");
-
         //Met tous les button a la meme taille
         double buttonWidth = 150;
         double buttonHeight = 35;
@@ -57,8 +67,6 @@ public class Menu extends BorderWithButtons{
         cfg.setPrefSize(buttonWidth, buttonHeight);
         edit.setPrefSize(buttonWidth, buttonHeight);
         hof.setPrefSize(buttonWidth, buttonHeight);
-
-
 
 
         vb.getChildren().addAll(jouer, cfg, edit, hof);
@@ -70,24 +78,48 @@ public class Menu extends BorderWithButtons{
         VBox.setMargin(edit, new Insets(10));
         VBox.setMargin(hof, new Insets(10));
         
-        BorderPane.setAlignment(title, Pos.CENTER);
-        BorderPane.setMargin(title, new Insets(75, 0, 0, 0));
 
-        this.setTop(title);
         this.setCenter(vb);
 
+    }
+
+    private Button getPlay(){
+        return (Button) ((VBox)this.getCenter()).getChildren().get(0);
     }
 
     private Button getConfig(){
         return (Button) ((VBox)this.getCenter()).getChildren().get(1);
     }
 
+    private Button getEditor(){
+        return (Button) ((VBox)this.getCenter()).getChildren().get(2);
+    }
+
+    private Button getHOF(){
+        return (Button) ((VBox)this.getCenter()).getChildren().get(3);
+    }
+
     public void addHandlers()
     {
-        MainScene scene = (MainScene) this.getScene();
+        MainScene scene = this.getMainScene();
+
+        getPlay().setOnAction(e -> {
+            GameView gameView = new GameView();
+            scene.setContent(gameView);
+            gameView.setButtons();
+        });
 
         getConfig().setOnAction(e -> {
-            scene.setContent(new HOFView());
+            scene.setContent(new ConfigView());
+        });
+
+        getEditor().setOnAction(e -> {
+        });
+
+        getHOF().setOnAction(e -> {
+            HOFView hofView = new HOFView();
+            scene.setContent(hofView);
+            hofView.setButtons();
         });
     }
 

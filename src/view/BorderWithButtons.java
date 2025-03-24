@@ -1,45 +1,30 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 //Main pane.
 //Subclass of BorderPane that has buttons at the bottom.
 public class BorderWithButtons extends BorderPane{
-    //Default constructor that place a quit button at the bottom of the pane.
+    //Default constructor
     public BorderWithButtons()
     {
         super();
-
-        this.addButtons(new ArrayList<>());
     }
 
-    //Constructor that takes a list of buttons and place them and a quit button at the bottom of the pane.
-    //Hypothesis : the list is not null (but it can be empty)
-    public BorderWithButtons(ArrayList<Button> buttons)
+    //Returns the scene
+    public MainScene getMainScene()
     {
-        super();
-
-        this.addButtons(buttons);
+        return (MainScene)this.getScene();
     }
 
-    //Returns the quit button
-    public Button getQuitButton()
-    {
-        return (Button)((HBox)this.getBottom()).getChildren().getLast();
-    }
 
     //Returns the button that has a specific text
     //Returns null and print a message if no button was found
@@ -67,68 +52,34 @@ public class BorderWithButtons extends BorderPane{
         return res;
     }
 
+    public void addTitle(String title)
+    {
+        Label titleLabel = new Label(title);
+
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 34px; -fx-text-fill: #373737");
+        BorderPane.setAlignment(titleLabel, Pos.CENTER);
+        BorderPane.setMargin(titleLabel, new Insets(75, 0, 0, 0));
+
+        this.setTop(titleLabel);
+    }
+
     
     //Add each button of the list and a quit button at the bottom of the pane.
-    public void addButtons(ArrayList<Button> buttons)
+    public void addButtons(ArrayList<? extends Button> buttons)
     {
         HBox buttonsBox = new HBox();
-        
-        //Adding a quit button in the list
-        Button quitButton = new Button("Quit");
-        buttons.addLast(quitButton);
-
-        quitButton.setOnAction(e -> {
-            //Creation of a dialog to confirm the exit of the application. 
-            Alert quitAlert = new Alert(AlertType.CONFIRMATION);
-            quitAlert.setTitle("Exit game");
-            quitAlert.setContentText("You are about to quit the game.");
-
-            //Creation of the options (because the cancel one was in French).
-            ButtonType bt1 = new ButtonType("OK");
-            ButtonType bt2 = new ButtonType("Cancel");
-
-            quitAlert.getButtonTypes().setAll(bt1, bt2);
-
-            Optional<ButtonType> choice = quitAlert.showAndWait();
-            if(choice.get() == bt1)
-            {
-                //Exit the application if the user choose OK.
-                Platform.exit();
-            }
-            else
-            {
-                //Close the dialog otherwise.
-                quitAlert.close();
-            }
-        });
 
         //Adding each button of the list
         for(Button button : buttons)
         {
             buttonsBox.getChildren().add(button);
             HBox.setMargin(button, new Insets(5));
+            button.setAlignment(Pos.CENTER_RIGHT);
         }
 
-        buttonsBox.setAlignment(Pos.CENTER_RIGHT);
+        buttonsBox.setAlignment(Pos.BOTTOM_RIGHT);
+        this.getStylesheets().add("file:../resources/style.css");
+
         this.setBottom(buttonsBox);
-    }
-
-    public Button getButton(String text)
-    {
-        Button res = null;
-
-        ObservableList<Node> nodes = ((HBox)this.getBottom()).getChildren();
-        for(Node node : nodes)
-        {
-            Button button = (Button)node;
-
-            if(button.getText().equals(text))
-            {
-                res = button;
-                break;
-            }
-        }
-
-        return res;
     }
 }
