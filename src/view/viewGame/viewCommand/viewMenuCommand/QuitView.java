@@ -2,6 +2,7 @@ package view.viewGame.viewCommand.viewMenuCommand;
 
 import java.util.Optional;
 
+import controller.controllerGame.controllerCommand.QuitController;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -9,10 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 public class QuitView extends Button{
+    private final QuitController quitController;
+
     public QuitView(){
         super("Quit");
 
+        this.quitController = new QuitController(this);
+
         this.setOnAction(e -> {
+
             //Creation of a dialog to confirm the exit of the application. 
             Alert quitAlert = new Alert(AlertType.CONFIRMATION);
             quitAlert.setTitle("Exit game");
@@ -36,5 +42,10 @@ public class QuitView extends Button{
                 quitAlert.close();
             }
         });
+    }
+
+    public QuitController getQuitController()
+    {
+        return this.quitController;
     }
 }
