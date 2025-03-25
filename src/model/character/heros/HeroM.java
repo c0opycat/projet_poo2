@@ -28,7 +28,7 @@ public class HeroM extends CharacterM {
 
     //Visually needs a String input in the view & a menu to chose only one job -> one visual/job
     public HeroM(String name, JobM jobM) {
-        super(100, 100);
+        super(100, 100, null, 5, 10); //penser a modifier
         HeroM.backpack = new Backpack();
         this.names = name;
         this.jobM = jobM;
@@ -37,7 +37,7 @@ public class HeroM extends CharacterM {
 
     //Hero
     public HeroM() {
-        super(30, 60);
+        super(30, 60, null, 5, 15); //penser a modifier
         HeroM.backpack = new Backpack();
         this.names = DEFAULT_NAME;
         this.jobM = DEFAULT_JOBM;

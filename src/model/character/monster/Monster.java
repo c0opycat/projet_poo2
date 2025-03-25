@@ -15,7 +15,7 @@ public abstract class Monster extends CharacterM {
     protected int monsterDamage;
 
     public Monster(int monsterDamage, int health, int maxHealth) {
-        super(health, maxHealth);
+        super(health, maxHealth, null, 5, 10);
         this.monsterDamage = monsterDamage;
         int weapon = (int)(Math.random() * 4);
         switch (weapon) {
