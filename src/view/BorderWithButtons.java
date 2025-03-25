@@ -67,7 +67,8 @@ public class BorderWithButtons extends BorderPane{
     {
         Label titleLabel = new Label(title);
 
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 34px; -fx-text-fill: #373737");
+        titleLabel.getStyleClass().add("title");
+
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
         BorderPane.setMargin(titleLabel, new Insets(75, 0, 0, 0));
 
@@ -95,7 +96,7 @@ public class BorderWithButtons extends BorderPane{
     }
 
     public void addBackground(){
-        Image backgroundImage = new Image("file:../resources/assets/post_apocalyptic_city_background_600x600_new.jpg");
+        Image backgroundImage = new Image("file:../resources/assets/background.jpeg");
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         this.setBackground(new Background(background));
     }

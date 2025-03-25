@@ -21,7 +21,6 @@ public class EditorPane extends HBox{
     {
         super();
 
-
         //Ajout des éléments à gauche
         VBox leftNodes = this.leftNodes();
         this.getChildren().add(leftNodes);

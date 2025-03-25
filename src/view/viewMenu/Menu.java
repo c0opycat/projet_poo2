@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.MainScene;
 import view.viewConfig.ConfigView;
+import view.viewEditor.EditorView;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 import view.viewHallOfFame.HOFView;
@@ -108,6 +109,9 @@ public class Menu extends BorderWithButtons{
         });
 
         getEditor().setOnAction(e -> {
+            EditorView editorView = new EditorView();
+            scene.setContent(editorView);
+            editorView.setButtons();
         });
 
         getHOF().setOnAction(e -> {

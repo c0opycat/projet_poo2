@@ -22,19 +22,16 @@ public class ConfigView extends BorderWithButtons{
 
     private void addComp()
     {
+        this.addTitle("Configuration");
+
         VBox vb = new VBox();
 
         KeybindConfigView kb = new KeybindConfigView();
-        Button lang = new Button("Language");
-        Button vol = new Button("Volume");
-        Button res = new Button("Resolution");
 
         vb.setAlignment(Pos.CENTER);
-        VBox.setMargin(lang, new Insets(0, 10, 10, 10));
-        VBox.setMargin(vol, new Insets(10));
-        VBox.setMargin(res, new Insets(10));
+ 
 
-        vb.getChildren().addAll(kb, lang, vol, res);
+        vb.getChildren().addAll(kb);
 
         this.setContent(vb);
         this.addBackground();
