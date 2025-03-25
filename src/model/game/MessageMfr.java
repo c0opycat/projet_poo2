@@ -6,14 +6,14 @@ import model.game.commandM.Command;
 import model.item.Crowbar;
 import model.item.Item;
 import model.item.consumable.Consumable;
-import model.location.Location;
+import model.location.LocationM;
 import model.location.LocationName;
 
 import java.util.Random;
 
 public class MessageMfr {
     //Returns the start of game message
-    public static String startGame(Location start, Location end)
+    public static String startGame(LocationM start, LocationM end)
     {
         return
         "You're waking up in a devastated land. Another monday.\n"+
@@ -68,7 +68,7 @@ public class MessageMfr {
     }
 
     //Return the Location description
-    public static String getDescription(Location location){
+    public static String getDescription(LocationM location){
         LocationName name = location.getName();
         return getDAux(name);
     }
@@ -119,7 +119,7 @@ public class MessageMfr {
         };
     }
     //returns the description of the location in parameter by calling the switch case on top
-    public static String locationDescription(Location location){
+    public static String locationDescription(LocationM location){
         String intro = "You're at ";
         LocationName lName = location.getName();
         String desc = getDescription(location);

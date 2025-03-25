@@ -9,7 +9,7 @@ import model.item.*;
 import model.game.GameMapM;
 import model.game.MessageM;
 
-public class Location {
+public class LocationM {
     public int width;
     public int height;
     public LocationName name;
@@ -20,7 +20,7 @@ public class Location {
     public Monster monster;
 
     
-    public Location(LocationName name){
+    public LocationM(LocationName name){
         //this.exits = new HashMap<>();
         this.name = name;
         //description will not be displayed but will keep being there as help for audio-description for
@@ -158,14 +158,14 @@ public class Location {
         };
     }
 
-    public static void northPoitiers(Location location)
+    public static void northPoitiers(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(5));
         Exit[] exits = {e1};
         location.setExits(exits);
     }
 
-    public static void beaulieu(Location location)
+    public static void beaulieu(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(7));
         Exit e2 = new Exit(location, GameMapM.locations.get(8));
@@ -175,7 +175,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void cityCenter(Location location)
+    public static void cityCenter(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(5));
         Exit e2 = new Exit(location, GameMapM.locations.get(6));
@@ -184,7 +184,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void couronneries(Location location)
+    public static void couronneries(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(10));
         Exit e2 = new Exit(location, GameMapM.locations.get(5));
@@ -193,7 +193,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void gibauderie(Location location)
+    public static void gibauderie(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(11));
         Exit e2 = new Exit(location, GameMapM.locations.get(1));
@@ -202,7 +202,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void westPoitiers(Location location)
+    public static void westPoitiers(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(0));
         Exit e2 = new Exit(location, GameMapM.locations.get(2));
@@ -211,7 +211,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void southPoitiers(Location location)
+    public static void southPoitiers(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(5));
         Exit e2 = new Exit(location, GameMapM.locations.get(9));
@@ -219,7 +219,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void pontNeuf(Location location)
+    public static void pontNeuf(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(9));
         Exit e2 = new Exit(location, GameMapM.locations.get(4));
@@ -228,7 +228,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void saintEloi(Location location)
+    public static void saintEloi(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(3));
         Exit e2 = new Exit(location, GameMapM.locations.get(10));
@@ -237,7 +237,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void troisCites(Location location)
+    public static void troisCites(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(2));
         Exit e2 = new Exit(location, GameMapM.locations.get(4));
@@ -245,7 +245,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void montbernage(Location location)
+    public static void montbernage(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(2));
         Exit e2 = new Exit(location, GameMapM.locations.get(5));
@@ -255,7 +255,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void miletrie(Location location)
+    public static void miletrie(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(4));
         Exit e2 = new Exit(location, GameMapM.locations.get(1));
@@ -264,7 +264,7 @@ public class Location {
         location.setExits(exits);
     }
 
-    public static void finalExit(Location location)
+    public static void finalExit(LocationM location)
     {
         Exit e1 = new Exit(location, GameMapM.locations.get(11));
         Exit[] exits = {e1};

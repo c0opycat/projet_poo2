@@ -5,7 +5,7 @@ import model.game.MessageM;
 import model.game.commandM.Command;
 import model.item.Item;
 import model.item.container.*;
-import model.location.Location;
+import model.location.LocationM;
 import model.item.weapon.Weapon;
 import model.item.Protection;
 import model.character.heros.HeroM;
@@ -35,7 +35,7 @@ public class Equip extends Command {
         }
         else
         {
-            Location loc = this.gameM.getCurLocation();
+            LocationM loc = this.gameM.getCurLocation();
             int nbItems = 0;
             Item toEquip;
 

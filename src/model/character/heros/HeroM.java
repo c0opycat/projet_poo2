@@ -13,7 +13,7 @@ package model.character.heros;
 import model.item.consumable.Medicine;
 import model.item.container.*;
 import model.item.weapon.*;
-import model.location.Location;
+import model.location.LocationM;
 import model.character.CharacterM;
 import model.game.MessageM;
 
@@ -88,7 +88,7 @@ public class HeroM extends CharacterM {
         else System.out.println(MessageM.handFull(this.getWeapon()));
     }
 
-    public void dropWeapon(Location l){
+    public void dropWeapon(LocationM l){
         if(this.getWeapon() != null)
         {
             l.addItem(this.weapon);
@@ -96,7 +96,7 @@ public class HeroM extends CharacterM {
         }
     }
 
-    public void dropProtection(Location l){
+    public void dropProtection(LocationM l){
         if(this.getShield() != null)
         {
             l.addItem(this.getShield());
@@ -104,7 +104,7 @@ public class HeroM extends CharacterM {
         }
     }
 
-    public void switchBackpack(Backpack BP, Location l){
+    public void switchBackpack(Backpack BP, LocationM l){
         l.removeItem(BP);
         Backpack toDrop = HeroM.backpack;
         l.addItem(toDrop);

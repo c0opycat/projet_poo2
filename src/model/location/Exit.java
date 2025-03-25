@@ -1,14 +1,14 @@
 package model.location;
 
 public class Exit {
-    public Location destination;
-    public Location start;
+    public LocationM destination;
+    public LocationM start;
     public int strtX;
     public int strtY;
     public int destX;
     public int destY;
     
-    public Exit(Location start, Location destination){
+    public Exit(LocationM start, LocationM destination){
         this.destination = destination;
         this.start = start;
     }

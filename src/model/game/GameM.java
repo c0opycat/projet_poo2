@@ -6,7 +6,7 @@ import model.location.*;
 public class GameM {
     private final HeroM HEROM;
     public GameMapM map;
-    private Location currentLocation;
+    private LocationM currentLocation;
     private boolean isEnd;
     private boolean isWon;
 
@@ -36,13 +36,13 @@ public class GameM {
     }
 
     //Returns the current Location
-    public Location getCurLocation()
+    public LocationM getCurLocation()
     {
         return this.currentLocation;
     }
 
     //Sets the current location to l
-    public void setCurLocation(Location l)
+    public void setCurLocation(LocationM l)
     {
         this.currentLocation = l;
     }

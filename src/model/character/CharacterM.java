@@ -2,11 +2,11 @@ package model.character;
 
 import model.item.Protection;
 import model.item.weapon.Weapon;
-import model.location.Location;
+import model.location.LocationM;
 
 public abstract class CharacterM {
-    private Location curLoc;
-    private Location lastLoc;
+    private LocationM curLoc;
+    private LocationM lastLoc;
     public int posx;
     public int posy;
     protected int health;
@@ -14,7 +14,7 @@ public abstract class CharacterM {
     protected Protection shield; //Can be null
     protected Weapon weapon; //Can be null
 
-    public CharacterM(int health, int maxHealth, Location location,int posx, int posy) {
+    public CharacterM(int health, int maxHealth, LocationM location, int posx, int posy) {
         this.posx = posx;
         this.posy = posy;
         this.lastLoc = null;
