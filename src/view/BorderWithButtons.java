@@ -7,6 +7,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -25,6 +31,11 @@ public class BorderWithButtons extends BorderPane{
         return (MainScene)this.getScene();
     }
 
+
+    public void setContent(Node cotent)
+    {
+        this.setCenter(cotent);
+    }
 
     //Returns the button that has a specific text
     //Returns null and print a message if no button was found
@@ -81,5 +92,11 @@ public class BorderWithButtons extends BorderPane{
         this.getStylesheets().add("file:../resources/style.css");
 
         this.setBottom(buttonsBox);
+    }
+
+    public void addBackground(){
+        Image backgroundImage = new Image("file:../resources/assets/post_apocalyptic_city_background_600x600_new.jpg");
+        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        this.setBackground(new Background(background));
     }
 }

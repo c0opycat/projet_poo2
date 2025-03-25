@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.MainScene;
@@ -56,9 +50,7 @@ public class Menu extends BorderWithButtons{
 
         //style du menu
         
-        Image backgroundImage = new Image("file:../resources/assets/post_apocalyptic_city_background_600x600_new.jpg");
-        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        this.setBackground(new Background(background));
+       this.addBackground();
 
         //Met tous les button a la meme taille
         double buttonWidth = 150;
@@ -110,7 +102,9 @@ public class Menu extends BorderWithButtons{
         });
 
         getConfig().setOnAction(e -> {
-            scene.setContent(new ConfigView());
+            ConfigView configView = new ConfigView();
+            scene.setContent(configView);
+            configView.setButtons();
         });
 
         getEditor().setOnAction(e -> {
