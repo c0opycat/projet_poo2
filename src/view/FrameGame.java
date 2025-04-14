@@ -83,7 +83,7 @@ public class FrameGame extends GridPane {
                     Dragboard db = event.getDragboard();
                     if (db.hasString()) {
                         String itemNom = db.getString();
-                        ImageView itemImage = new ImageView(new Image(getClass().getResourceAsStream("/images/" + itemNom + ".png")));
+                        ImageView itemImage = new ImageView(new Image("file:../resources/image/"+ itemNom+".jpg"));
                         itemImage.setFitWidth(50);
                         itemImage.setFitHeight(50);
                             cell.getChildren().add(itemImage);                            event.setDropCompleted(true);

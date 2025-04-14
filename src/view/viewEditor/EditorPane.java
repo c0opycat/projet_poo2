@@ -16,6 +16,7 @@ import javafx.scene.layout.Region;
 //CODE A RECOMMANTER PROPREMENT et A ENCAPSULER/METTRE EN CLASSE
 //CODER ESTHETIQUE A AJOUTER
 
+
 public class EditorPane extends HBox{
     public EditorPane()
     {

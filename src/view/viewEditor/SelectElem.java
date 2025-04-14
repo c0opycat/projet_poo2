@@ -3,6 +3,7 @@ package view.viewEditor;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.ColumnConstraints;
@@ -19,6 +20,7 @@ public class SelectElem extends GridPane {
         int nbCol = col - 1;
         int nbRow = row - 1;
         this.addLabels(nbCol, nbRow);
+        this.addItems(nbCol, nbRow);
 
         this.setHgap(1);
         this.setVgap(1);
@@ -83,7 +85,7 @@ public class SelectElem extends GridPane {
                     Dragboard db = event.getDragboard();
                     if (db.hasString()) {
                         String itemNom = db.getString();
-                        ImageView itemImage = new ImageView(new Image(getClass().getResourceAsStream("/images/" + itemNom + ".png")));
+                        ImageView itemImage = new ImageView(new Image("file:../resources/image/"+ itemNom+".jpg"));
                         itemImage.setFitWidth(50);
                         itemImage.setFitHeight(50);
                             cell.getChildren().add(itemImage);                            event.setDropCompleted(true);
@@ -110,6 +112,37 @@ public class SelectElem extends GridPane {
             this.getRowConstraints().add(new RowConstraints(size));
         }
         
+    }
+
+    private void addItems(int nbCol, int nbRow){
+        String[] nomsItems = {"maison_bleu", "maison_jaune"};
+        int nbItems = nomsItems.length;
+        int j = 0;
+        int k = 0;
+        for (int i = 0; i < nbItems ; i++) 
+        {
+            final int index = i;
+            ImageView item = new ImageView(new Image("file:../resources/image/"+nomsItems[index]+".jpg"));
+            item.setFitWidth(40);
+            item.setFitHeight(40);
+            
+            // Activer le glissé
+            item.setOnDragDetected(event -> {
+                Dragboard db = item.startDragAndDrop(TransferMode.MOVE);
+                ClipboardContent content = new ClipboardContent();                    
+                content.putString(nomsItems[index]);  // Enregistre le nom de l'item
+                db.setContent(content);
+                event.consume();
+            });
+
+            this.add(item, j, k);
+            j = (j+1)%nbCol;
+            if (j == 0){
+                k = (k+1)%nbRow;
+            }
+            
+            
+        }
     }
 }
 
