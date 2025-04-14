@@ -32,9 +32,9 @@ public class BorderWithButtons extends BorderPane{
     }
 
 
-    public void setContent(Node cotent)
+    public void setContent(Node content)
     {
-        this.setCenter(cotent);
+        this.setCenter(content);
     }
 
     //Returns the button that has a specific text
