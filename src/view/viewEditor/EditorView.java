@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Button;
 import view.BorderWithButtons;
 import view.ButtonMenu;
-import view.viewGame.viewCommand.viewMenuCommand.QuitView;
+import view.ButtonQuit;
 
 public class EditorView extends BorderWithButtons{
     
@@ -29,7 +29,7 @@ public class EditorView extends BorderWithButtons{
         ArrayList<Button> buttons = new ArrayList<>();
 
         ButtonMenu menu = new ButtonMenu(this.getMainScene());
-        QuitView quit = new QuitView();
+        ButtonQuit quit = new ButtonQuit();
 
         buttons.add(menu);
         buttons.add(quit);

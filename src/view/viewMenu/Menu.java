@@ -7,11 +7,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
+import view.ButtonQuit;
 import view.MainScene;
 import view.viewConfig.ConfigView;
 import view.viewEditor.EditorView;
 import view.viewGame.GameView;
-import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 import view.viewHallOfFame.HOFView;
 
 public class Menu extends BorderWithButtons{
@@ -32,7 +32,7 @@ public class Menu extends BorderWithButtons{
     {
         ArrayList<Button> buttons = new ArrayList<>();
 
-        QuitView quit = new QuitView();
+        ButtonQuit quit = new ButtonQuit();
         buttons.add(quit);
 
         this.addButtons(buttons);

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.ButtonMenu;
+import view.ButtonQuit;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 import view.viewGame.viewCommand.viewMenuCommand.SaveView;
 
@@ -43,7 +44,7 @@ public class ConfigView extends BorderWithButtons{
         ArrayList<Button> buttons = new ArrayList<>();
 
         ButtonMenu menu = new ButtonMenu(this.getMainScene());
-        QuitView quit = new QuitView();
+        ButtonQuit quit = new ButtonQuit();
         SaveView save = new SaveView();
 
         buttons.add(menu);
