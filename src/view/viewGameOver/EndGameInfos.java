@@ -6,11 +6,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import view.viewGame.GameView;
 
 public class EndGameInfos extends VBox{
-    public EndGameInfos()
+    private final GameView gameView;
+
+    public EndGameInfos(GameView gameView)
     {
         super();
+
+        this.gameView = gameView;
 
         this.addElements();
     }
@@ -18,7 +23,6 @@ public class EndGameInfos extends VBox{
     private void addElements()
     {
         //Get the end of the game message
-        //Récupérer ds Message le message de victoire ou défaite dans la bonne langue.
         String endText = "You died !"; //Exemple
         Label endLabel = new Label(endText);
 

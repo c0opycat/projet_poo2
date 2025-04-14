@@ -8,19 +8,22 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import view.BorderWithButtons;
 import view.ButtonMenu;
-import view.viewGame.viewCommand.viewMenuCommand.QuitView;
+import view.ButtonQuit;
+import view.viewGame.GameView;
 
 //Game Over pane, that is shown when a game is finished.
 public class GameOverView extends BorderWithButtons{
-    public GameOverView()
+
+    public GameOverView(GameView gameView)
     {
         super();
 
         this.addTitle("Game Over");
 
-        EndGameInfos infos = new EndGameInfos();
+        EndGameInfos infos = new EndGameInfos(gameView);
 
         this.setCenter(infos);
+        this.setButtons();
 
         //Style
         infos.setAlignment(Pos.TOP_CENTER);
@@ -34,7 +37,7 @@ public class GameOverView extends BorderWithButtons{
         ArrayList<Button> buttons = new ArrayList<>();
         
         ButtonMenu menu = new ButtonMenu(this.getMainScene());
-        QuitView quit = new QuitView();
+        ButtonQuit quit = new ButtonQuit();
 
         buttons.add(menu);
         buttons.add(quit);
