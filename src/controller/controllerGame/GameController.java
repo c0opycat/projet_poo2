@@ -1,6 +1,9 @@
 package controller.controllerGame;
 
+import java.io.PrintStream;
+
 import model.game.GameM;
+import view.viewGame.GameInfosStream;
 import view.viewGame.GameView;
 
 public class GameController {
@@ -13,7 +16,7 @@ public class GameController {
         this.gameModel = new GameM();
     }
 
-    public GameM getGameM()
+    public GameM getGameModel()
     {
         return this.gameModel;
     }
@@ -21,5 +24,18 @@ public class GameController {
     public GameView getGameView()
     {
         return this.gameView;
+    }
+
+    public void start()
+    {
+        PrintStream newOut = new PrintStream(new GameInfosStream(this.getGameView().getGameInfos()));
+        System.setOut(newOut);
+
+        this.getGameModel().start();
+    }
+
+    public void end()
+    {
+        System.setOut(System.out);
     }
 }
