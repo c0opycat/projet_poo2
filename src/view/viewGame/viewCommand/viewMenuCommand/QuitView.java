@@ -36,7 +36,10 @@ public class QuitView extends Button{
             {
                 //Exit the application if the user choose OK.
                 this.getQuitController().forfeit();
-                gameView.getMainScene().setContent(new GameOverView(gameView));
+
+                GameOverView goView = new GameOverView(gameView);
+                gameView.getMainScene().setContent(goView);
+                goView.setButtons();
             }
             else
             {

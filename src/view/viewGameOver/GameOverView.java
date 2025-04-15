@@ -23,7 +23,6 @@ public class GameOverView extends BorderWithButtons{
         EndGameInfos infos = new EndGameInfos(gameView);
 
         this.setCenter(infos);
-        this.setButtons();
 
         //Style
         infos.setAlignment(Pos.TOP_CENTER);
