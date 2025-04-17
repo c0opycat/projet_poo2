@@ -3,6 +3,7 @@ package view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.ColumnConstraints;
@@ -110,6 +111,64 @@ public class FrameGame extends GridPane {
             this.getRowConstraints().add(new RowConstraints(size));
         }
         
+    }
+
+    //Ajout de cellule dans lesquels on peut faire du drag and drop, et supprimer des elements
+    public void addCellsToFrame(GridPane gridTarget, int nbCol, int nbRow) {
+        for (int i = 0; i <= nbCol; i++) {
+            for (int j = 0; j <= nbRow; j++) {
+                StackPane cell = new StackPane();
+                cell.setPrefSize(50, 50);
+                cell.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
+    
+                // Accepter le dépôt
+                cell.setOnDragOver(event -> {
+                    if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
+                        event.acceptTransferModes(TransferMode.MOVE);
+                    }
+                    event.consume();
+                });
+    
+                // Gérer le dépôt
+                cell.setOnDragDropped(event -> {
+                    Dragboard db = event.getDragboard();
+                    if (db.hasString()) {
+                        String itemName = db.getString();
+                        ImageView newItem = createDraggableImage(itemName, nbCol, nbRow);
+                        cell.getChildren().clear(); // ou garder plusieurs si besoin
+                        cell.getChildren().add(newItem);
+                        event.setDropCompleted(true);
+                    } else {
+                        event.setDropCompleted(false);
+                    }
+                    event.consume();
+                });
+    
+                gridTarget.add(cell, i, j);
+            }
+        }
+    }
+
+    //Création d'une image (element) qu'on puisse prendre et déposer dans un autre gridPane
+    private ImageView createDraggableImage(String imageName, int nbCol, int nbRow) {
+        ImageView image = new ImageView(new Image("file:../resources/image/" + imageName + ".jpg"));
+        image.setPreserveRatio(true);
+        image.setSmooth(true);
+        image.setCache(true);
+    
+        image.fitWidthProperty().bind(image.getScene().widthProperty().divide(nbCol));  // adaptatif
+        image.fitHeightProperty().bind(image.getScene().heightProperty().divide(nbRow));
+    
+        // Activer le drag and drop
+        image.setOnDragDetected(event -> {
+            Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(imageName);
+            db.setContent(content);
+            event.consume();
+        });
+    
+        return image;
     }
 }
 

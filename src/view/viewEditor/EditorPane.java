@@ -44,8 +44,18 @@ public class EditorPane extends HBox{
 
     }
 
+    private int getCol(){
+        return 10;
+    }
+
+    private int getRow(){
+        return 10;
+    }
+
     private VBox leftNodes ()
     {
+        int col = getCol();
+        int row = getRow();
         //VBox pour ajouter la preview du niveau, 
         //les textfields de nom et de descriptions en deux langues
         VBox leftPane = new VBox();
@@ -59,7 +69,8 @@ public class EditorPane extends HBox{
         //Aperçu du jeu 
         //Attention pour le moment j'ai juste mis le code de board du tp2
         //taille à gérer? -> sujet demande deux tailles
-        FrameGame preview = new FrameGame(16, 10);
+        FrameGame preview = new FrameGame(col, row);
+        preview.addCellsToFrame(preview, col, row);
         
         //Ressort pour mettre entre l'aperçu et les zones de textes
         //A ENCAPSULER
