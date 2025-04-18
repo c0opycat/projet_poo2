@@ -134,6 +134,17 @@ public class EditorPane extends HBox{
     private HBox width(){
         HBox width = new HBox();
 
+        VBox heightBox = new VBox();
+        VBox lenghtBox = new VBox();
+        
+        Label hauteurLabel = new Label("Hauteur");
+        Label heightLabel = new Label("Height");
+        Label largeurLabel = new Label("Largeur");
+        Label lenghtLabel = new Label("Lenght");
+
+        heightBox.getChildren().addAll(hauteurLabel, heightLabel);
+        lenghtBox.getChildren().addAll(largeurLabel, lenghtLabel);
+
         Spinner<Integer> heightSpinner = getNbRowSpinner();
         Spinner<Integer> lenghtSpinner = getNbColSpinner();
 
@@ -148,7 +159,7 @@ public class EditorPane extends HBox{
         //Ressort pour mettre entre les deux Spinner
         Region spring = new Region();
 
-        width.getChildren().addAll(heightSpinner, spring, lenghtSpinner);
+        width.getChildren().addAll(heightBox, heightSpinner, spring, lenghtBox, lenghtSpinner);
         HBox.setMargin(heightSpinner, new Insets(10, 5, 10, 0));
         HBox.setMargin(lenghtSpinner, new Insets(10, 0, 10, 5));
 

@@ -25,8 +25,6 @@ public class FrameGame extends GridPane {
         this.setVgap(1);
         this.setAlignment(Pos.CENTER);
 
-        this.defineColRow(30, nbCol, nbRow);
-
         //this.resetCell(4, 4);
     }
 
@@ -98,20 +96,7 @@ public class FrameGame extends GridPane {
             }
         }
     }
-    
-    private void defineColRow(int size, int nbCol, int nbRow)
-    {
-        for (int i = 0; i < nbCol; i++)
-        {
-            this.getColumnConstraints().add(new ColumnConstraints(size)); 
-        }
-        
-        for (int i = 0; i < nbRow; i++)
-        {
-            this.getRowConstraints().add(new RowConstraints(size));
-        }
-        
-    }
+
 
     //Ajout de cellule dans lesquels on peut faire du drag and drop, et supprimer des elements
     public void addCellsToFrame(GridPane gridTarget, int nbCol, int nbRow) {
