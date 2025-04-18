@@ -24,7 +24,7 @@ public class EditorPane extends HBox{
     private FrameGame frameGame;
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
-    private String[] nomsType = {"Hey", "Hoy", "Houi", "Ouille"};
+    private String[] nomsType = {"Monstre / Monster", "Portes / Doors", "Houi", "Ouille"};
     private String[][] nomsItems = {{"maison_bleu", "maison_jaune"},{}, {"maison_bleu", "maison_jaune"}, {"maison_jaune"}, {"maison_bleu", "maison_jaune"}};
 
     public EditorPane()
@@ -82,20 +82,6 @@ public class EditorPane extends HBox{
             initFrameGame(getRow(), getCol());
         });
         
-        //Ressort pour mettre entre l'aperçu et les zones de textes
-        //A ENCAPSULER
-        Region spring1 = new Region();
-        VBox.setVgrow(spring1, Priority.SOMETIMES);
-
-        Region spring2 = new Region();
-        VBox.setVgrow(spring2, Priority.SOMETIMES);
-
-        Region spring3 = new Region();
-        VBox.setVgrow(spring3, Priority.SOMETIMES);
-
-        Region springS = new Region();
-        VBox.setVgrow(springS, Priority.SOMETIMES);
-
         //zone de texte nom, description en français et anglais
         //Textfield a parametrer 
         //(style de police, nombre de caractère autorisée, nombre de ligne, espace pris dans la fenêtre)
@@ -107,7 +93,7 @@ public class EditorPane extends HBox{
         VBox.setVgrow(descriptionEn, Priority.ALWAYS);
 
 
-        leftPane.getChildren().addAll(previewLabelfr, previewLabelen, springS, preview, spring1, name, spring2, descriptionFr, spring3, descriptionEn);
+        leftPane.getChildren().addAll(previewLabelfr, previewLabelen, spring(), preview, spring(), name, spring(), descriptionFr, spring(), descriptionEn);
 
         //Style
         VBox.setMargin(name, new Insets(10, 10, 20, 10));
@@ -116,6 +102,13 @@ public class EditorPane extends HBox{
 
         return leftPane;
     }
+
+    //Ressort pour mettre entre l'aperçu et les zones de textes
+    private Region spring(){
+        Region spring = new Region();
+        VBox.setVgrow(spring, Priority.SOMETIMES);
+        return spring;
+     }
 
     // Met à jour la taille du frameGame en reinitialisant tout
     private FrameGame initFrameGame(int newRow, int newCol) {

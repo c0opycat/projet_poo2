@@ -32,36 +32,6 @@ public class SelectElem extends GridPane {
         //this.defineColRow(30, nbCol, nbRow);
     }
 
-    private void setCell(String val, int x, int y, String numberColor)
-    {
-
-        //Style du label en CSS
-        String label_style = "-fx-background-color: " + numberColor;
-
-        Label to_add = new Label(val);
-        
-        //Style
-        to_add.setStyle(label_style);
-        //taille des cases
-        to_add.setMaxHeight(Double.MAX_VALUE);
-        to_add.setMaxWidth(Double.MAX_VALUE);
-        to_add.setAlignment(Pos.CENTER);
-
-        this.add(to_add, x, y);
-    }
-
-    public void setCell(char val, int x, int y, String numberColor)
-    {
-        String label_text = "" + val;
-        
-        this.setCell(label_text, x, y, numberColor);
-    }
-
-    public void resetCell(int x, int y)
-    {
-        this.setCell(" ", x, y, "#8A2BE2");
-    }
-
     //Add Items To TypeElem (ajouter un choix dans le gridPane des élèments)
     private void addItemsToTypeElem(GridPane gridSource, int nbCol) {
         int nbItems = nomsItems.length;
