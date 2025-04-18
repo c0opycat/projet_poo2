@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import view.FrameGame;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
@@ -18,23 +20,26 @@ import javafx.scene.layout.Region;
 
 
 public class EditorPane extends HBox{
+    private Spinner<Integer> nbColSpinner;
+    private Spinner<Integer> nbRowSpinner;
+
     public EditorPane()
     {
         super();
 
+        //Ajout des onglets à droite
+        //Attention bien créer rightNodes avant LeftNodes car on créé dedans les spinners avec leurs valeurs par défauts
+        VBox rightNodes = this.rightNodes();
+
         //Ajout des éléments à gauche
         VBox leftNodes = this.leftNodes();
-        this.getChildren().add(leftNodes);
         leftNodes.setAlignment(Pos.CENTER);
 
         //Ajout d'un ressort pour faire de l'espace entre la partie gauche et celle de droite
         Region spring = new Region();
         HBox.setHgrow(spring, Priority.ALWAYS);
-        this.getChildren().add(spring);
 
-        //Ajout des onglets à droite
-        VBox rightNodes = this.rightNodes();
-        this.getChildren().add(rightNodes);
+        this.getChildren().addAll(leftNodes, spring, rightNodes);
         
         super.setAlignment(Pos.CENTER);
         HBox.setHgrow(leftNodes, Priority.ALWAYS);
@@ -42,14 +47,6 @@ public class EditorPane extends HBox{
         HBox.setHgrow(rightNodes, Priority.ALWAYS);
         HBox.setMargin(rightNodes, new Insets(5,10, 0, 20));
 
-    }
-
-    private int getCol(){
-        return 10;
-    }
-
-    private int getRow(){
-        return 10;
     }
 
     private VBox leftNodes ()
@@ -109,17 +106,27 @@ public class EditorPane extends HBox{
     
     private HBox width(){
         HBox width = new HBox();
-        //Hauteur et longueur a parametrer pour avoir uniquement des doubles
-        //Est ce qu'on peut avoir un texte descriptif en filigranne?
-        TextField height = new TextField("Hauteur / Height");
-        TextField lenght = new TextField("Longueur / Length");
 
-        //Ressort pour mettre entre les deux TextFields
+        Spinner<Integer> heightSpinner = new Spinner<>();
+        Spinner<Integer> lenghtSpinner = new Spinner<>();
+
+        SpinnerValueFactory<Integer> valueFactoryH = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
+        SpinnerValueFactory<Integer> valueFactoryL = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
+        heightSpinner.setValueFactory(valueFactoryH);
+        heightSpinner.setEditable(true); // Permet la saisie manuelle
+
+        lenghtSpinner.setValueFactory(valueFactoryL);
+        lenghtSpinner.setEditable(true); 
+
+        //Ressort pour mettre entre les deux Spinner
         Region spring = new Region();
 
-        width.getChildren().addAll(height, spring, lenght);
-        HBox.setMargin(height, new Insets(10, 5, 10, 0));
-        HBox.setMargin(lenght, new Insets(10, 0, 10, 5));
+        width.getChildren().addAll(heightSpinner, spring, lenghtSpinner);
+        HBox.setMargin(heightSpinner, new Insets(10, 5, 10, 0));
+        HBox.setMargin(lenghtSpinner, new Insets(10, 0, 10, 5));
+
+        this.nbColSpinner = lenghtSpinner;
+        this.nbRowSpinner = heightSpinner;
 
         return width;
     }
@@ -177,12 +184,20 @@ public class EditorPane extends HBox{
         HBox widthTxtField = this.width();
         
         String[] namesRtr = {"Reset", "Restore", "Re-init"};
-        String[] namesSt = {"Save", "Menu", "Quit"};
         HBox buttonRetour = this.buttonsNb(3, namesRtr);
-        HBox buttonStatus = this.buttonsNb(3, namesSt);
 
-        rightPane.getChildren().addAll(selectTypeElem, spring1, widthTxtField, spring2, buttonRetour, spring3, buttonStatus, springS);
+        rightPane.getChildren().addAll(selectTypeElem, spring1, widthTxtField, spring2, buttonRetour, spring3, springS);
         
         return rightPane;
     }
+
+
+    private int getCol(){
+        return this.nbColSpinner.getValue();
+    }
+
+    private int getRow(){
+        return this.nbRowSpinner.getValue();
+    }
+
 }
