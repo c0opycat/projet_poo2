@@ -3,6 +3,7 @@ package view.viewEditor;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -10,9 +11,10 @@ import view.FrameGame;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+//import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 
 //REMARQUE AJOUT DES COMMANDES A FAIRE SUR TOUTES L'INTERFACE RIEN N'EST FONCTIONNEL C'EST UNIQUEMENT LA VUE SANS INTERACTION POSSIBLE
 //CODE A RECOMMANTER PROPREMENT et A ENCAPSULER/METTRE EN CLASSE
@@ -20,8 +22,9 @@ import javafx.scene.layout.Region;
 
 
 public class EditorPane extends HBox{
-    private Spinner<Integer> nbColSpinner;
-    private Spinner<Integer> nbRowSpinner;
+    private FrameGame frameGame;
+    private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
+    private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
 
     public EditorPane()
     {
@@ -66,8 +69,17 @@ public class EditorPane extends HBox{
         //Aperçu du jeu 
         //Attention pour le moment j'ai juste mis le code de board du tp2
         //taille à gérer? -> sujet demande deux tailles
-        FrameGame preview = new FrameGame(col, row);
-        preview.addCellsToFrame(preview, col, row);
+
+        FrameGame preview = initFrameGame(col, row);
+        
+        // Lier les Spinners aux tailles du GridPane
+        this.getNbColSpinner().valueProperty().addListener((obs, oldValue, newValue) -> {
+            initFrameGame(getRow(), getCol());
+        });
+
+        this.getNbRowSpinner().valueProperty().addListener((obs, oldValue, newValue) -> {
+            initFrameGame(getRow(), getCol());
+        });
         
         //Ressort pour mettre entre l'aperçu et les zones de textes
         //A ENCAPSULER
@@ -103,19 +115,34 @@ public class EditorPane extends HBox{
 
         return leftPane;
     }
+
+    // Met à jour la taille du frameGame en reinitialisant tout
+    private FrameGame initFrameGame(int newRow, int newCol) {
+        FrameGame preview = new FrameGame(newCol, newRow);
+        preview.addCellsToFrame(preview, newCol, newRow);
+        if (!this.getChildren().isEmpty())
+        {
+            VBox leftBox = ((VBox)this.getChildren().getFirst());
+            FrameGame oldFrame = ((FrameGame)leftBox.getChildren().get(3));
+            leftBox.getChildren().remove(oldFrame);
+            leftBox.getChildren().add(3, preview);
+        }
+        this.frameGame = preview;
+        return preview;
+    }
     
     private HBox width(){
         HBox width = new HBox();
 
-        Spinner<Integer> heightSpinner = new Spinner<>();
-        Spinner<Integer> lenghtSpinner = new Spinner<>();
+        Spinner<Integer> heightSpinner = getNbRowSpinner();
+        Spinner<Integer> lenghtSpinner = getNbColSpinner();
 
-        SpinnerValueFactory<Integer> valueFactoryH = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
-        SpinnerValueFactory<Integer> valueFactoryL = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
-        heightSpinner.setValueFactory(valueFactoryH);
+        //SpinnerValueFactory<Integer> valueFactoryH = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
+        //SpinnerValueFactory<Integer> valueFactoryL = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
+        //heightSpinner.setValueFactory(valueFactoryH);
         heightSpinner.setEditable(true); // Permet la saisie manuelle
 
-        lenghtSpinner.setValueFactory(valueFactoryL);
+        //lenghtSpinner.setValueFactory(valueFactoryL);
         lenghtSpinner.setEditable(true); 
 
         //Ressort pour mettre entre les deux Spinner
@@ -125,12 +152,22 @@ public class EditorPane extends HBox{
         HBox.setMargin(heightSpinner, new Insets(10, 5, 10, 0));
         HBox.setMargin(lenghtSpinner, new Insets(10, 0, 10, 5));
 
-        this.nbColSpinner = lenghtSpinner;
-        this.nbRowSpinner = heightSpinner;
+        // Ajouter les écouteurs sur les valeurs des spinners
+        nbColSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            updateFrameGameDimensions();
+        });
+
+        nbRowSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            updateFrameGameDimensions();
+        });
 
         return width;
     }
 
+    // Methode pour transmettre les changements des spinners
+    private void updateFrameGameDimensions() {
+        
+    }
 
     //transformer cette fonction pour qu'à partir d'une liste elle créé trois bouttons
     private HBox buttonsNb (int nb, String[] names)
@@ -193,11 +230,20 @@ public class EditorPane extends HBox{
 
 
     private int getCol(){
-        return this.nbColSpinner.getValue();
+        return getNbColSpinner().getValue();
     }
 
     private int getRow(){
-        return this.nbRowSpinner.getValue();
+        return getNbRowSpinner().getValue();
+    }
+
+    // Getter pour les Spinners
+    public Spinner<Integer> getNbColSpinner() {
+        return this.nbColSpinner;
+    }
+    
+    public Spinner<Integer> getNbRowSpinner() {
+        return this.nbRowSpinner;
     }
 
 }
