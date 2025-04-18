@@ -1,5 +1,7 @@
 *.class
 
 compile.sh
+run.sh
 
 /.idea
+/.vscode

@@ -2,14 +2,12 @@ package view.viewConfig;
 
 import java.util.ArrayList;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.ButtonMenu;
 import view.ButtonQuit;
-import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 import view.viewGame.viewCommand.viewMenuCommand.SaveView;
 
 public class ConfigView extends BorderWithButtons{
