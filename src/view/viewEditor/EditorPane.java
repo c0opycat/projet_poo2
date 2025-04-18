@@ -25,7 +25,7 @@ public class EditorPane extends HBox{
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
     private String[] nomsType = {"Monstre / Monster", "Portes / Doors", "Houi", "Ouille"};
-    private String[][] nomsItems = {{"maison_bleu", "maison_jaune"},{}, {"maison_bleu", "maison_jaune"}, {"maison_jaune"}, {"maison_bleu", "maison_jaune"}};
+    private String[][] nomsItems = {{"maison_bleu", "maison_jaune"},{"noDoor", "door0", "door1", "door2", "door3"}, {"maison_bleu", "maison_jaune"}, {"maison_jaune"}, {"maison_bleu", "maison_jaune"}};
 
     public EditorPane()
     {
@@ -149,12 +149,8 @@ public class EditorPane extends HBox{
         Spinner<Integer> heightSpinner = getNbRowSpinner();
         Spinner<Integer> lenghtSpinner = getNbColSpinner();
 
-        //SpinnerValueFactory<Integer> valueFactoryH = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
-        //SpinnerValueFactory<Integer> valueFactoryL = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 20, 10);
-        //heightSpinner.setValueFactory(valueFactoryH);
         heightSpinner.setEditable(true); // Permet la saisie manuelle
 
-        //lenghtSpinner.setValueFactory(valueFactoryL);
         lenghtSpinner.setEditable(true); 
 
         //Ressort pour mettre entre les deux Spinner
