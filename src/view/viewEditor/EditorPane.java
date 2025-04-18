@@ -93,7 +93,7 @@ public class EditorPane extends HBox{
         VBox.setVgrow(descriptionEn, Priority.ALWAYS);
 
 
-        leftPane.getChildren().addAll(previewLabelfr, previewLabelen, spring(), preview, spring(), name, spring(), descriptionFr, spring(), descriptionEn);
+        leftPane.getChildren().addAll(previewLabelfr, previewLabelen, springS(), preview, springS(), name, springS(), descriptionFr, springS(), descriptionEn);
 
         //Style
         VBox.setMargin(name, new Insets(10, 10, 20, 10));
@@ -103,12 +103,19 @@ public class EditorPane extends HBox{
         return leftPane;
     }
 
-    //Ressort pour mettre entre l'aperçu et les zones de textes
-    private Region spring(){
+    //Ressort pour mettre entre les zones sometimes
+    private Region springS(){
         Region spring = new Region();
         VBox.setVgrow(spring, Priority.SOMETIMES);
         return spring;
-     }
+    }
+
+    //Ressort pour mettre entre les zones always
+    private Region springA(){
+        Region spring = new Region();
+        VBox.setVgrow(spring, Priority.ALWAYS);
+        return spring;
+    }
 
     // Met à jour la taille du frameGame en reinitialisant tout
     private FrameGame initFrameGame(int newRow, int newCol) {
@@ -152,6 +159,7 @@ public class EditorPane extends HBox{
 
         //Ressort pour mettre entre les deux Spinner
         Region spring = new Region();
+        HBox.setHgrow(spring, Priority.ALWAYS);
 
         width.getChildren().addAll(heightBox, heightSpinner, spring, lenghtBox, lenghtSpinner);
         HBox.setMargin(heightSpinner, new Insets(10, 5, 10, 0));
@@ -220,18 +228,7 @@ public class EditorPane extends HBox{
 
         //Ajout des onglets d'ajout
         SelectTypeElem selectTypeElem = new SelectTypeElem(strTab2, itemTab2);
-
-        Region spring1 = new Region();
-        VBox.setVgrow(spring1, Priority.ALWAYS);
-
-        Region spring2 = new Region();
-        VBox.setVgrow(spring2, Priority.ALWAYS);
-
-        Region spring3 = new Region();
-        VBox.setVgrow(spring3, Priority.ALWAYS);
-
-        Region springS = new Region();
-        VBox.setVgrow(springS, Priority.ALWAYS);
+        VBox.setVgrow(selectTypeElem, Priority.ALWAYS);
 
         //Ajout des commandes
         HBox widthField = this.width();
@@ -239,7 +236,7 @@ public class EditorPane extends HBox{
         String[] namesRtr = {"Reset", "Restore", "Re-init"};
         HBox buttonRetour = this.buttonsNb(3, namesRtr);
 
-        rightPane.getChildren().addAll(selectTypeElem, spring1, widthField, spring2, buttonRetour, spring3, springS);
+        rightPane.getChildren().addAll(selectTypeElem, springA(), widthField, springA(), buttonRetour, springA());
         
         return rightPane;
     }

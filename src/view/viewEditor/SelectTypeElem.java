@@ -49,7 +49,7 @@ public class SelectTypeElem extends TabPane {
 
    private Region spring(){
       Region spring = new Region();
-      VBox.setVgrow(spring, Priority.SOMETIMES);
+      VBox.setVgrow(spring, Priority.ALWAYS);
       return spring;
    }
    
