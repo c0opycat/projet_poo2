@@ -3,5 +3,5 @@
 compile.sh
 run.sh
 
-/.idea
-/.vscode
+.idea
+.vscode
