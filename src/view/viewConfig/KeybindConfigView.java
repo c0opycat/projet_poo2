@@ -95,19 +95,14 @@ public class KeybindConfigView extends VBox{
         String backward = ((TextField)((HBox)this.getChildren().get(2)).getChildren().get(1)).getText();
         String right = ((TextField)((HBox)this.getChildren().get(3)).getChildren().get(1)).getText();
         String left = ((TextField)((HBox)this.getChildren().get(4)).getChildren().get(1)).getText();
-
-        System.out.println("Forward : " + forward);
-        System.out.println("Backward : " + backward);
-        System.out.println("Right : " + right);
-        System.out.println("Left : " + left);
-
+        
         JSONObject keybinds = new JSONObject();
         keybinds.put("forward", forward);
         keybinds.put("backward", backward);
         keybinds.put("right", right);
         keybinds.put("left", left);
 
-        try(FileWriter file = new FileWriter("../../../save/keybinds.json")) {
+        try(FileWriter file = new FileWriter("../save/keybinds.json")) {
             file.write(keybinds.toString(4));
             System.out.println("Keybinds saved to keybinds.json");
         } catch (IOException e){
