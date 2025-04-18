@@ -123,6 +123,7 @@ public class SelectTypeElem extends TabPane {
    }
 
    private String[] getDoors(){
+      //recuperer le contenu via le controller
       String[] doors = {"Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
       return doors;
    }
