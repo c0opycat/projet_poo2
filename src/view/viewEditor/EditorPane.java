@@ -154,19 +154,13 @@ public class EditorPane extends HBox{
 
         // Ajouter les écouteurs sur les valeurs des spinners
         nbColSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateFrameGameDimensions();
+
         });
 
         nbRowSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateFrameGameDimensions();
         });
 
         return width;
-    }
-
-    // Methode pour transmettre les changements des spinners
-    private void updateFrameGameDimensions() {
-        
     }
 
     //transformer cette fonction pour qu'à partir d'une liste elle créé trois bouttons

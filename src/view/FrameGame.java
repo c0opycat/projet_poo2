@@ -63,9 +63,9 @@ public class FrameGame extends GridPane {
     private void addLabels(int nbCol, int nbRow)
     {
         //Remplissage de la grid
-        for(int i = 0; i <= nbCol; i++)
+        for(int i = 0; i < nbCol; i++)
         {
-            for(int j = 0; j <= nbRow; j++)
+            for(int j = 0; j < nbRow; j++)
             {
                 StackPane cell = new StackPane();
                 cell.setPrefSize(50, 50);
@@ -101,12 +101,12 @@ public class FrameGame extends GridPane {
     
     private void defineColRow(int size, int nbCol, int nbRow)
     {
-        for (int i = 0; i <= nbCol; i++)
+        for (int i = 0; i < nbCol; i++)
         {
             this.getColumnConstraints().add(new ColumnConstraints(size)); 
         }
         
-        for (int i = 0; i <= nbRow; i++)
+        for (int i = 0; i < nbRow; i++)
         {
             this.getRowConstraints().add(new RowConstraints(size));
         }
@@ -115,8 +115,8 @@ public class FrameGame extends GridPane {
 
     //Ajout de cellule dans lesquels on peut faire du drag and drop, et supprimer des elements
     public void addCellsToFrame(GridPane gridTarget, int nbCol, int nbRow) {
-        for (int i = 0; i <= nbCol; i++) {
-            for (int j = 0; j <= nbRow; j++) {
+        for (int i = 0; i < nbCol; i++) {
+            for (int j = 0; j < nbRow; j++) {
                 StackPane cell = new StackPane();
                 cell.setPrefSize(50, 50);
                 cell.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
