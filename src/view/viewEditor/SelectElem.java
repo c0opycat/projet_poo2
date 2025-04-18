@@ -6,25 +6,28 @@ import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.image.ImageView;
 
 public class SelectElem extends GridPane {
-    public SelectElem(int col, int row)
+    private double prefHeight = 50;
+    private double prefWidth = 50;
+    private String[] nomsItems = {"maison_bleu", "maison_jaune"};
+
+    //A terme pour avoir des gridPane pour chaque type d'element il faudra ajouter la liste des nomsItems en paramètre du constructeur
+    public SelectElem(int col)
     {
         super();
 
         int nbCol = col - 1;
-        int nbRow = row - 1;
 
-        addItemsToTypeElem(this, nbCol, nbRow);
+        addItemsToTypeElem(this, nbCol);
+
         this.setHgap(1);
         this.setVgap(1);
         this.setAlignment(Pos.CENTER);
 
-        this.defineColRow(30, nbCol, nbRow);
+        //this.defineColRow(30, nbCol, nbRow);
     }
 
     private void setCell(String val, int x, int y, String numberColor)
@@ -56,32 +59,18 @@ public class SelectElem extends GridPane {
     {
         this.setCell(" ", x, y, "#8A2BE2");
     }
-    
-    private void defineColRow(int size, int nbCol, int nbRow)
-    {
-        for (int i = 0; i <= nbCol; i++)
-        {
-            this.getColumnConstraints().add(new ColumnConstraints(size)); 
-        }
-        
-        for (int i = 0; i <= nbRow; i++)
-        {
-            this.getRowConstraints().add(new RowConstraints(size));
-        }
-        
-    }
 
     //Add Items To TypeElem (ajouter un choix dans le gridPane des élèments)
-    private void addItemsToTypeElem(GridPane gridSource, int nbCol, int nbRow) {
-        String[] nomsItems = {"maison_bleu", "maison_jaune"};
+    private void addItemsToTypeElem(GridPane gridSource, int nbCol) {
         int nbItems = nomsItems.length;
+        int nbRow = nbItems % nbCol;
+
         int j = 0, k = 0;
     
         for (int i = 0; i < nbItems; i++) {
             final String itemName = nomsItems[i];
+            // Drag uniquement (pas de drop ici)
             ImageView item = createDraggableImage(itemName, nbCol, nbRow);
-    
-            // Drag uniquement (pas de drop dans la source)
             gridSource.add(item, j, k);
             j = (j + 1) % nbCol;
             if (j == 0) k++;
@@ -95,6 +84,19 @@ public class SelectElem extends GridPane {
         image.setSmooth(true);
         image.setCache(true);
     
+        // Adapter la taille de l'image une fois qu'elle est posé dans la scène (pour éviter NullPointerException)
+        image.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            double h = this.prefHeight;
+            double w = this.prefWidth;
+            if (h < w){
+                image.setFitHeight(h);
+            }
+            else{
+                image.setFitWidth(w);
+            }
+            
+        });
+
         // Activer le drag and drop
         image.setOnDragDetected(event -> {
             Dragboard db = image.startDragAndDrop(TransferMode.MOVE);

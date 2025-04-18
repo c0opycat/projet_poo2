@@ -10,7 +10,7 @@ public class SelectTypeElem extends TabPane {
         for(String s : Types)
         {
             Tab tab = new Tab(s);
-            tab.setContent(new SelectElem(8,4));
+            tab.setContent(new SelectElem(8));
             this.getTabs().add(tab);
         }
    }
