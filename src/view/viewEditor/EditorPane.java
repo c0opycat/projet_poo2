@@ -1,5 +1,7 @@
 package view.viewEditor;
 
+import java.util.Arrays;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -22,6 +24,8 @@ public class EditorPane extends HBox{
     private FrameGame frameGame;
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
+    private String[] nomsType = {"Hey", "Hoy", "Houi", "Ouille"};
+    private String[][] nomsItems = {{"maison_bleu", "maison_jaune"},{}, {"maison_bleu", "maison_jaune"}, {"maison_jaune"}, {"maison_bleu", "maison_jaune"}};
 
     public EditorPane()
     {
@@ -203,9 +207,26 @@ public class EditorPane extends HBox{
         //ainsi que les commandes et paramètres
         VBox rightPane = new VBox();
 
-        String[] strTab = {"Hey", "Hoy"};
+        String[] strTab = this.nomsType;
+        String[][] itemTab = this.nomsItems;
+
+        int nbTypes = strTab.length;
+        int nbItems = itemTab.length;
+
+        String strTab2[];
+        String itemTab2[][];
+
+        if (nbTypes < nbItems){
+            strTab2 = strTab;
+            itemTab2 = Arrays.copyOfRange(itemTab, 0, nbTypes);
+        }
+        else{
+            strTab2 = Arrays.copyOfRange(strTab, 0, nbItems);
+            itemTab2 = this.nomsItems;
+        }
+
         //Ajout des onglets d'ajout
-        SelectTypeElem selectTypeElem = new SelectTypeElem(strTab);
+        SelectTypeElem selectTypeElem = new SelectTypeElem(strTab2, itemTab2);
 
         Region spring1 = new Region();
         VBox.setVgrow(spring1, Priority.ALWAYS);

@@ -12,12 +12,14 @@ import javafx.scene.image.ImageView;
 public class SelectElem extends GridPane {
     private double prefHeight = 50;
     private double prefWidth = 50;
-    private String[] nomsItems = {"maison_bleu", "maison_jaune"};
+    private String[] nomsItems;
 
     //A terme pour avoir des gridPane pour chaque type d'element il faudra ajouter la liste des nomsItems en paramètre du constructeur
-    public SelectElem(int col)
+    public SelectElem(String[] listItem, int col)
     {
         super();
+
+        this.nomsItems = listItem;
 
         int nbCol = col - 1;
 
