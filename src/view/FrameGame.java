@@ -135,6 +135,25 @@ public class FrameGame extends GridPane {
                     if (db.hasString()) {
                         String itemName = db.getString();
                         ImageView newItem = createDraggableImage(itemName, nbCol, nbRow);
+                        
+                        newItem.setOnDragDetected(ev -> {
+                            Dragboard dragboard = newItem.startDragAndDrop(TransferMode.MOVE);
+                            ClipboardContent content = new ClipboardContent();
+                            content.putString(itemName);
+                            dragboard.setContent(content);
+    
+                            // Retirer l'image de la cellule source
+                            cell.getChildren().remove(newItem);
+                            ev.consume();
+                        });
+    
+                        newItem.setOnDragDone(ev -> {
+                            if (!ev.isDropCompleted()) {
+                                // L'image a été relâchée ailleurs → elle est supprimée (déjà retirée)
+                            }
+                            ev.consume();
+                        });
+
                         cell.getChildren().clear(); // ou garder plusieurs si besoin
                         cell.getChildren().add(newItem);
                         event.setDropCompleted(true);
