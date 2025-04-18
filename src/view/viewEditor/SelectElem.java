@@ -95,9 +95,6 @@ public class SelectElem extends GridPane {
         image.setSmooth(true);
         image.setCache(true);
     
-        image.fitWidthProperty().bind(image.getScene().widthProperty().divide(nbCol));  // adaptatif
-        image.fitHeightProperty().bind(image.getScene().heightProperty().divide(nbRow));
-    
         // Activer le drag and drop
         image.setOnDragDetected(event -> {
             Dragboard db = image.startDragAndDrop(TransferMode.MOVE);

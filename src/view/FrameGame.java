@@ -134,25 +134,7 @@ public class FrameGame extends GridPane {
                     Dragboard db = event.getDragboard();
                     if (db.hasString()) {
                         String itemName = db.getString();
-                        ImageView newItem = createDraggableImage(itemName, nbCol, nbRow);
-                        
-                        newItem.setOnDragDetected(ev -> {
-                            Dragboard dragboard = newItem.startDragAndDrop(TransferMode.MOVE);
-                            ClipboardContent content = new ClipboardContent();
-                            content.putString(itemName);
-                            dragboard.setContent(content);
-    
-                            // Retirer l'image de la cellule source
-                            cell.getChildren().remove(newItem);
-                            ev.consume();
-                        });
-    
-                        newItem.setOnDragDone(ev -> {
-                            if (!ev.isDropCompleted()) {
-                                // L'image a été relâchée ailleurs → elle est supprimée (déjà retirée)
-                            }
-                            ev.consume();
-                        });
+                        ImageView newItem = createDraggableImage(cell, itemName, nbCol, nbRow);
 
                         cell.getChildren().clear(); // ou garder plusieurs si besoin
                         cell.getChildren().add(newItem);
@@ -169,21 +151,36 @@ public class FrameGame extends GridPane {
     }
 
     //Création d'une image (element) qu'on puisse prendre et déposer dans un autre gridPane
-    private ImageView createDraggableImage(String imageName, int nbCol, int nbRow) {
+    private ImageView createDraggableImage(StackPane cell, String imageName, int nbCol, int nbRow) {
         ImageView image = new ImageView(new Image("file:../resources/image/" + imageName + ".jpg"));
         image.setPreserveRatio(true);
         image.setSmooth(true);
         image.setCache(true);
-    
-        image.fitWidthProperty().bind(image.getScene().widthProperty().divide(nbCol));  // adaptatif
-        image.fitHeightProperty().bind(image.getScene().heightProperty().divide(nbRow));
-    
+
+        // Adapter la taille de l'image une fois qu'elle est posé dans la scène (pour éviter NullPointerException)
+        image.sceneProperty().addListener((obs, oldScene, newScene) -> {
+        if (newScene != null) {
+            image.fitWidthProperty().bind(newScene.widthProperty().divide(nbCol));
+            image.fitHeightProperty().bind(newScene.heightProperty().divide(nbRow));
+        }
+        });
+
         // Activer le drag and drop
         image.setOnDragDetected(event -> {
             Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
             content.putString(imageName);
             db.setContent(content);
+
+            cell.getChildren().remove(image);
+
+            event.consume();
+        });
+
+        image.setOnDragDone(event -> {
+            if (!event.isDropCompleted()) {
+                // L'image a été relâchée ailleurs → elle est supprimée (déjà retirée)
+            }
             event.consume();
         });
     
