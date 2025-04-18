@@ -1,13 +1,8 @@
 package view;
 
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.image.ImageView;
 
 public class FrameGame extends GridPane {
     private double prefHeight = 50;

@@ -5,8 +5,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -74,38 +72,42 @@ public class SelectTypeElem extends TabPane {
    private void otherInfoDoor(VBox infoBox, String[] listImgDoors){
       String[] listDoors = getDoors();
 
-      HBox wayBox = new HBox();
-
-      VBox labelBox = new VBox();
-      Label vers = new Label("Vers :");
-      Label towards = new Label("Towards :");
-      labelBox.getChildren().addAll(vers, towards);
-
+      //Creation image drag & drop
+      ViewImage image = new ViewImage();
+      image.createDraggableImage("noDoor", " ", 100, 100);
+      
+      //Creation de la boîte choix
       ComboBox<String> choiceDoor = new ComboBox<>();
       choiceDoor.getItems().addAll(listDoors);
       choiceDoor.setValue(" "); // Valeur par défaut = rien
 
-      ImageView image = new ImageView(new Image("file:../resources/image/noDoor.png"));
-      image.setPreserveRatio(true);
-      image.setSmooth(true);
+      //Creation et ajout des labels Vers:
+      Label vers = new Label("Vers :");
+      Label towards = new Label("Towards :");
 
-      image.setFitHeight(100);
+      VBox labelBox = new VBox();
+      labelBox.getChildren().addAll(vers, towards);
       
-      choiceDoor.valueProperty().addListener((obs, oldVal, newVal) -> {
-         int i = find(listDoors, newVal, listImgDoors);
-         if (i > -1){
-            image.setImage(new Image("file:../resources/image/door" + i + ".png"));
-         }
-         else{
-            image.setImage(new Image("file:../resources/image/noDoor.png"));
-         }
-         
-      });
-
+      //Ajout du choix de la direction
+      HBox wayBox = new HBox();
       wayBox.getChildren().addAll(labelBox, choiceDoor);
       wayBox.setAlignment(Pos.CENTER);
       
+      //Ajout dans la box principal
       infoBox.getChildren().addAll(image, wayBox);
+
+      //Mis à jour de l'image
+      choiceDoor.valueProperty().addListener((obs, oldVal, newVal) -> {
+         int i = find(listDoors, newVal, listImgDoors);
+         if (i > -1){
+            image.createDraggableImage("door" + i, newVal, 100, 100);
+            //image.setImage(new Image("file:../resources/image/door" + i + ".png"));
+         }
+         else{
+            //image.setImage(new Image("file:../resources/image/noDoor.png"));
+            image.createDraggableImage("noDoor", " ", 100, 100);
+         }
+      });
    }
 
    private int find(String[] listDoors, String elem, String[] listImages){

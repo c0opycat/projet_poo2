@@ -1,12 +1,7 @@
 package view.viewEditor;
 
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.image.ImageView;
 
 public class SelectElem extends GridPane {
     private double prefHeight = 50;
@@ -34,50 +29,19 @@ public class SelectElem extends GridPane {
     //Add Items To TypeElem (ajouter un choix dans le gridPane des élèments)
     private void addItemsToTypeElem(GridPane gridSource, int nbCol) {
         int nbItems = nomsItems.length;
-        int nbRow = nbItems % nbCol;
 
         int j = 0, k = 0;
     
         for (int i = 0; i < nbItems; i++) {
-            final String itemName = nomsItems[i];
+            final String imageName = nomsItems[i];
+            final String elemName = nomsItems[i];
             // Drag uniquement (pas de drop ici)
-            ImageView item = createDraggableImage(itemName, nbCol, nbRow);
+            ViewImage item = new ViewImage();
+            item.createDraggableImage(imageName, elemName, this.prefHeight, this.prefWidth);
             gridSource.add(item, j, k);
             j = (j + 1) % nbCol;
             if (j == 0) k++;
         }
-    }
-
-    //Création d'une image (element) qu'on puisse prendre et déposer dans un autre gridPane
-    private ImageView createDraggableImage(String imageName, int nbCol, int nbRow) {
-        ImageView image = new ImageView(new Image("file:../resources/image/" + imageName + ".jpg"));
-        image.setPreserveRatio(true);
-        image.setSmooth(true);
-        image.setCache(true);
-    
-        // Adapter la taille de l'image une fois qu'elle est posé dans la scène (pour éviter NullPointerException)
-        image.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            double h = this.prefHeight;
-            double w = this.prefWidth;
-            if (h < w){
-                image.setFitHeight(h);
-            }
-            else{
-                image.setFitWidth(w);
-            }
-            
-        });
-
-        // Activer le drag and drop
-        image.setOnDragDetected(event -> {
-            Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent content = new ClipboardContent();
-            content.putString(imageName);
-            db.setContent(content);
-            event.consume();
-        });
-    
-        return image;
     }
 
 }
