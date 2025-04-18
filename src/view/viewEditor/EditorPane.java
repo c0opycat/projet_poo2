@@ -181,12 +181,12 @@ public class EditorPane extends HBox{
         VBox.setVgrow(springS, Priority.ALWAYS);
 
         //Ajout des commandes
-        HBox widthTxtField = this.width();
+        HBox widthField = this.width();
         
         String[] namesRtr = {"Reset", "Restore", "Re-init"};
         HBox buttonRetour = this.buttonsNb(3, namesRtr);
 
-        rightPane.getChildren().addAll(selectTypeElem, spring1, widthTxtField, spring2, buttonRetour, spring3, springS);
+        rightPane.getChildren().addAll(selectTypeElem, spring1, widthField, spring2, buttonRetour, spring3, springS);
         
         return rightPane;
     }
