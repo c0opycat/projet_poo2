@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.image.ImageView;
 
 public class FrameGame extends GridPane {
+    private double prefHeight = 50;
+    private double prefWidth = 50;
     public FrameGame(int col, int row)
     {
         super();
@@ -66,7 +68,6 @@ public class FrameGame extends GridPane {
             for(int j = 0; j < nbRow; j++)
             {
                 StackPane cell = new StackPane();
-                cell.setPrefSize(50, 50);
                 cell.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
 
                 // Accepter le dépôt
@@ -83,9 +84,8 @@ public class FrameGame extends GridPane {
                     if (db.hasString()) {
                         String itemNom = db.getString();
                         ImageView itemImage = new ImageView(new Image("file:../resources/image/"+ itemNom+".jpg"));
-                        itemImage.setFitWidth(50);
-                        itemImage.setFitHeight(50);
-                            cell.getChildren().add(itemImage);                            event.setDropCompleted(true);
+                        cell.getChildren().add(itemImage);                            
+                        event.setDropCompleted(true);
                     } else {
                         event.setDropCompleted(false);
                     }
@@ -103,7 +103,7 @@ public class FrameGame extends GridPane {
         for (int i = 0; i < nbCol; i++) {
             for (int j = 0; j < nbRow; j++) {
                 StackPane cell = new StackPane();
-                cell.setPrefSize(50, 50);
+                cell.setPrefSize(prefWidth, prefHeight);
                 cell.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
     
                 // Accepter le dépôt
@@ -144,10 +144,15 @@ public class FrameGame extends GridPane {
 
         // Adapter la taille de l'image une fois qu'elle est posé dans la scène (pour éviter NullPointerException)
         image.sceneProperty().addListener((obs, oldScene, newScene) -> {
-        if (newScene != null) {
-            image.fitWidthProperty().bind(newScene.widthProperty().divide(nbCol));
-            image.fitHeightProperty().bind(newScene.heightProperty().divide(nbRow));
-        }
+            double h = this.prefHeight;
+            double w = this.prefWidth;
+            if (h < w){
+                image.setFitHeight(h);
+            }
+            else{
+                image.setFitWidth(w);
+            }
+            
         });
 
         // Activer le drag and drop
