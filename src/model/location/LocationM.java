@@ -1,6 +1,7 @@
 package model.location;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public class LocationM {
 
     
     public LocationM(LocationName name){
-        //this.exits = new HashMap<>();
+        this.exits = new HashMap<>();
         this.name = name;
         //description will not be displayed but will keep being there as help for audio-description for
         //people with sight disabilities

@@ -1,6 +1,10 @@
 {
+    "take": "f",
     "left": "d",
     "forward": "z",
+    "attack": "a",
+    "use": "c",
     "backward": "s",
+    "equipment": "e",
     "right": "q"
 }
