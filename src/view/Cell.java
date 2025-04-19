@@ -49,6 +49,7 @@ public class Cell extends StackPane {
                     this.getChildren().clear();
                     this.getChildren().add(newItem);
                     this.elem = elemName;
+                    updateTooltip();
 
                     event.setDropCompleted(true);
                 }
@@ -73,15 +74,8 @@ public class Cell extends StackPane {
 
         // Adapter la taille de l'image une fois qu'elle est posé dans la scène (pour éviter NullPointerException)
         image.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            double h = prefHeight;
-            double w = prefWidth;
-            if (h < w){
-                image.setFitHeight(h);
-            }
-            else{
-                image.setFitWidth(w);
-            }
-            
+            image.fitWidthProperty().bind(this.widthProperty());
+            image.fitHeightProperty().bind(this.heightProperty());
         });
 
         // Activer le drag and drop
