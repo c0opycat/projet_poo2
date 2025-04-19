@@ -95,9 +95,13 @@ public class BorderWithButtons extends BorderPane{
         this.setBottom(buttonsBox);
     }
 
-    public void addBackground(){
-        Image backgroundImage = new Image("file:../resources/assets/background.jpeg");
-        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+    public void addBackground(String bckgd){
+        String nameBackground = "file:../resources/assets/"+ bckgd;
+        Image backgroundImage = new Image(nameBackground);
+        //width, height, widthAsPercentage, heightAsPercentage, contain, cover
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
+        
+        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         this.setBackground(new Background(background));
     }
 }

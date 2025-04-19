@@ -19,12 +19,12 @@ public class Cell extends StackPane {
         Tooltip.install(this,tooltip);
         updateTooltip();
 
-        this.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
+        this.setStyle("-fx-border-color: black;");
     }
 
     public void addCellDraggable(double prefHeight, double prefWidth, int nbCol, int nbRow){
         this.setPrefSize(prefWidth, prefHeight);
-        this.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
+        // this.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
 
          // Accepter le dépôt
         this.setOnDragOver(event -> {

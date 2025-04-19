@@ -1,7 +1,5 @@
 package view.viewEditor;
 
-import java.util.ArrayList;
-
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

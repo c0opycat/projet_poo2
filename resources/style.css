@@ -109,3 +109,72 @@
     -fx-background-radius: 5px;
 }
 
+/* Style Label */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 0.3, 1, 1);
+}
+
+/* Style textfield et textarea */
+.text-input {
+    -fx-background-color: #474747;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #602e0c;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: 'Wasteland';
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+}
+
+.text-area .content {
+    -fx-background-color: #474747;
+}
+
+/* Style Spinner*/
+/* .spinner {
+    -fx-background-color: #474747;
+    -fx-background-radius: 3;
+    -fx-text-fill: #ffffff;
+} */
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: #474747;     /* Couleur de fond */
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-background-color: #602e0c;     /* Survol */
+}
+
+.spinner .increment-arrow,
+.spinner .decrement-arrow {
+    -fx-background-color: #ff6600;     /* Couleur de la flèche */
+}
+
+/* Style ComboBox */
+.combo-box {
+    -fx-background-color: #474747;
+    -fx-border-color: #602e0c;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 10px;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #474747;
+    -fx-text-fill: #ffffff;
+}
+
+/* Style imageView */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 6, 0.4, 2, 2);
+    -fx-cursor: hand;
+    -fx-opacity: 0.9;
+}
+
+

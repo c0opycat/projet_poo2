@@ -26,13 +26,21 @@ public class EditorPane extends HBox{
     private FrameGame frameGame;
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
-    private String[] nomsType = {"Monstre / Monster", "Portes / Doors", "Objets / Items", "Houi", "Ouille"};
+    private String[] nomsType = {"Décors / Sets", "Portes / Doors", "Objets / Items"};
     private ArrayList<ArrayList<String>> nomsItems = new ArrayList<>(List.of(
-                new ArrayList<>(List.of("maison_bleu", "maison_jaune")),
+                new ArrayList<>(List.of("cathedrale", "immeuble", "immeubles", "maison abandonnée", "palais")),
                 new ArrayList<>(List.of("noDoor", "door0", "door1", "door2", "door3")), 
-                new ArrayList<>(List.of("maison_bleu/blue_house;taille:3/len:3 ; poids:4/weight:4", "maison_jaune/yellow_house;taille:3/len:5 ; poids:6/weight:6")), 
-                new ArrayList<>(List.of("maison_jaune")), 
-                new ArrayList<>(List.of("maison_bleu", "maison_jaune"))));
+                new ArrayList<>(List.of("sac à dos/backpack ; capacité : 5/capacity: 5", 
+                    "coffre/chest ; capacité : 5/capacity: 5", 
+                    "caisse1/crate1 ; capacité : 5/capacity: 5; fermé/close", 
+                    "caisse2/crate2 ; capacité : 5/capacity: 5; fermé/close", 
+                    "pied de biche/crowbar ; poids : 1 / weight:1", 
+                    "pistolet/gun ; poids : 1 / weight:1 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
+                    "fusil/shotgun; poids : 2 / weight:2 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
+                    "épée/sword ; poids : 2 / weight:2 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
+                    "batte/baseball Bat; poids : 2 / weight:2 ; dégâts : 2/damage: 2 ; type de dégât : assommant / damage type: stunning ", 
+                    "armure/armor ; reduction des dommages : 2 ;damage reduction: 2" ))
+                ));
 
     public EditorPane()
     {

@@ -40,14 +40,14 @@ public class SelectTypeElem extends TabPane {
    private void detailsTab(Tab tab, VBox infoBox, String type, ArrayList<ArrayList<String>> listElem, int i){
 
       ArrayList<String> listCurrType = listElem.get(i);
+      SelectElem elems= new SelectElem(listCurrType, 8);
 
       switch (type) {
-         // case "Monstre / Monster":
-         //    SelectElem elems= new SelectElem(listCurrType, 8);
-         //    infoBox.getChildren().add(elems);
-         //    otherInfoMonster(infoBox);
-         //    tab.setContent(infoBox);
-         //    break;
+         case "Monstres / Monsters":
+            infoBox.getChildren().add(elems);
+            otherInfoMonster(infoBox);
+            tab.setContent(infoBox);
+            break;
          case "Portes / Doors":
             otherInfoDoor(infoBox, listCurrType);
             tab.setContent(infoBox);
@@ -57,7 +57,6 @@ public class SelectTypeElem extends TabPane {
             tab.setContent(infoBox);
             break;
          default: 
-            SelectElem elems= new SelectElem(listCurrType, 8);;
             tab.setContent(elems);
             break;
       }
@@ -139,10 +138,10 @@ public class SelectTypeElem extends TabPane {
 
    private void otherInfoItem(VBox infoBox, ArrayList<String> listInfoItem)
    {
-      //Sous Tab choix entre weapon / Container / Consommable / Other
+      //Sous Tab choix entre Weapon / Container / Consommable / Other ????
 
       //Je pars du principe que chaque item est enregistré sous la même forme
-      //nom de l'image/item ; paramètres : valeur 
+      //nom de l'image/item ; type d'item ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
       //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
       ArrayList<String> imgItems = new ArrayList<>();
       ArrayList<String> msgFList = new ArrayList<>();
@@ -156,8 +155,14 @@ public class SelectTypeElem extends TabPane {
          String[] parts = currItem.split(";");
 
          String[] lang = parts[0].split("/");
-         msgF = "Cet objet est un/une " + lang[0] + ".\n";
-         msgE = "This object is a/an " + lang[1] + ".\n";
+         if (lang.length >= 2){
+            msgF = "Cet objet est un/une " + lang[0] + ".\n";
+            msgE = "This object is a/an " + lang[1] + ".\n";
+         }
+         else {
+            msgF = "Sans nom \n";
+            msgE = "No name \n";
+         }
 
          imgItems.add(lang[0]);
 
@@ -168,8 +173,14 @@ public class SelectTypeElem extends TabPane {
             for (int i = 1; i < len; i++)
             {
                lang = parts[i].split("/");
-               msgF += lang[0];
-               msgE += lang[1];
+               if (lang.length >= 2){
+                  msgF += lang[0];
+                  msgE += lang[1];
+               }
+               else{
+                  msgF += "Il n'a pas de paramètre particulier.";
+                  msgE += "It has no particular parameter.";
+               }
             }
          }
          else{

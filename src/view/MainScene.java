@@ -7,7 +7,8 @@ import view.viewMenu.Menu;
 public class MainScene extends Scene{
 
     public MainScene(){
-        super(new Menu(), 1024, 768);
+        //Taille d'origine 1024 * 768
+        super(new Menu(), 1331, 998);
         ((Menu) this.getRoot()).addHandlers();
     }
 

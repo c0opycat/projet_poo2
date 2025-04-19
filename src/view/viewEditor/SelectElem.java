@@ -3,7 +3,6 @@ package view.viewEditor;
 import java.util.ArrayList;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class SelectElem extends GridPane {

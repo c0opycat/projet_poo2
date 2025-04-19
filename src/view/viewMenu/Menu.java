@@ -51,7 +51,7 @@ public class Menu extends BorderWithButtons{
 
         //style du menu
         
-       this.addBackground();
+       this.addBackground("background.jpeg");
 
         //Met tous les button a la meme taille
         double buttonWidth = 150;
