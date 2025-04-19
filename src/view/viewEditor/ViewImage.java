@@ -1,5 +1,7 @@
 package view.viewEditor;
 
+import java.util.ArrayList;
+
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,9 +45,10 @@ public class ViewImage extends ImageView{
 
     }
 
-    public void addListenerOnClicked(Label msgLabel, String msg ){
+    public void addListenerOnClicked(Label msgFLabel, String msgF, Label msgELabel, String msgE ){
         this.setOnMouseClicked(event -> {
-            msgLabel.setText(msg);
+            msgFLabel.setText(msgF);
+            msgELabel.setText(msgE);
         });
     }
 }

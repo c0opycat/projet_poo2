@@ -149,22 +149,22 @@ public class SelectTypeElem extends TabPane {
       ArrayList<String> msgEList = new ArrayList<>();
       String msgF;
       String msgE;
-      Label msgFLabel = new Label();
-      Label msgELabel = new Label();
+      Label msgFLabel = new Label("Paramètres de l'objet");
+      Label msgELabel = new Label("Item's parameters");
 
       for (String currItem : listInfoItem){
          String[] parts = currItem.split(";");
 
          String[] lang = parts[0].split("/");
-         msgF = "Cet objet est un/une " + lang[0] + ". ";
-         msgE = "This object is a/an " + lang[1] + ". ";
+         msgF = "Cet objet est un/une " + lang[0] + ".\n";
+         msgE = "This object is a/an " + lang[1] + ".\n";
 
          imgItems.add(lang[0]);
 
          int len = parts.length;
          if ( len > 1 ){
-            msgF = "Ces paramètres sont ";
-            msgE = "These parameters are ";
+            msgF += "Ses paramètres sont ";
+            msgE += "Its parameters are ";
             for (int i = 1; i < len; i++)
             {
                lang = parts[i].split("/");

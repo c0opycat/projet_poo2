@@ -30,7 +30,7 @@ public class EditorPane extends HBox{
     private ArrayList<ArrayList<String>> nomsItems = new ArrayList<>(List.of(
                 new ArrayList<>(List.of("maison_bleu", "maison_jaune")),
                 new ArrayList<>(List.of("noDoor", "door0", "door1", "door2", "door3")), 
-                new ArrayList<>(List.of("maison_bleu/blue_house;taille:3/len:3 poids:4/weight:4", "maison_jaune/yellow_house;taille:3/len:5 poids:6/weight:6")), 
+                new ArrayList<>(List.of("maison_bleu/blue_house;taille:3/len:3 ; poids:4/weight:4", "maison_jaune/yellow_house;taille:3/len:5 ; poids:6/weight:6")), 
                 new ArrayList<>(List.of("maison_jaune")), 
                 new ArrayList<>(List.of("maison_bleu", "maison_jaune"))));
 

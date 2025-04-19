@@ -14,18 +14,18 @@ public class SelectElemItem extends SelectElem {
         super(listItem, col);
         this.msgF = msgFItem;
         this.msgE = msgEItem;
-        this.addListenersOnClicked(msgFLabel, msgF);
-        this.addListenersOnClicked(msgELabel, msgE);
+        this.addsListenersOnClicked(msgFLabel, msgF, msgELabel, msgE);
     }
 
-    public void addListenersOnClicked(Label msgLabel, ArrayList<String> msg){
-        int nbItems = msg.size();
+    public void addsListenersOnClicked(Label msgFLabel, ArrayList<String> msgF, Label msgELabel, ArrayList<String> msgE){
+        int nbItems = msgF.size();
 
             
         for (int i = 0; i < nbItems; i++){
-            final String currentMsg = msg.get(i);
+            final String currentFMsg = msgF.get(i);
+            final String currentEMsg = msgE.get(i);
             ViewImage img = ((ViewImage)this.getChildren().get(i));
-            img.addListenerOnClicked(msgLabel, currentMsg);
+            img.addListenerOnClicked(msgFLabel, currentFMsg, msgELabel, currentEMsg);
         }
     }
 }
