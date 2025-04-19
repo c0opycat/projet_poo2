@@ -1,5 +1,7 @@
 package view.viewEditor;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -16,7 +18,7 @@ import javafx.scene.layout.VBox;
 //DANS listElem
 public class SelectTypeElem extends TabPane {
  
-   public SelectTypeElem(String types[], String listElem[][]) {
+   public SelectTypeElem(String types[], ArrayList<ArrayList<String>> listElem) {
       super();
 
          int nbTypes = types.length;
@@ -35,22 +37,29 @@ public class SelectTypeElem extends TabPane {
          }
    }
 
-   private void detailsTab(Tab tab, VBox infoBox, String type, String listElem[][], int i){
+   private void detailsTab(Tab tab, VBox infoBox, String type, ArrayList<ArrayList<String>> listElem, int i){
 
-      String[] listCurrType = listElem[i];
-      SelectElem elems= new SelectElem(listCurrType, 8);
+      ArrayList<String> listCurrType = listElem.get(i);
 
       switch (type) {
-         case "Monstre / Monster":
-            infoBox.getChildren().add(elems);
-            otherInfoMonster(infoBox);
-            tab.setContent(infoBox);
-            break;
+         // case "Monstre / Monster":
+         //    SelectElem elems= new SelectElem(listCurrType, 8);
+         //    infoBox.getChildren().add(elems);
+         //    otherInfoMonster(infoBox);
+         //    tab.setContent(infoBox);
+         //    break;
          case "Portes / Doors":
             otherInfoDoor(infoBox, listCurrType);
             tab.setContent(infoBox);
             break;
-         default: tab.setContent(elems);
+         case "Objets / Items":
+            otherInfoItem(infoBox, listCurrType);
+            tab.setContent(infoBox);
+            break;
+         default: 
+            SelectElem elems= new SelectElem(listCurrType, 8);;
+            tab.setContent(elems);
+            break;
       }
       
    }
@@ -69,7 +78,7 @@ public class SelectTypeElem extends TabPane {
       infoBox.getChildren().addAll(spring(), attention, spring(), warning, spring());
    }
 
-   private void otherInfoDoor(VBox infoBox, String[] listImgDoors){
+   private void otherInfoDoor(VBox infoBox, ArrayList<String> listImgDoors){
       String[] listDoors = getDoors();
 
       //Creation image drag & drop
@@ -101,16 +110,14 @@ public class SelectTypeElem extends TabPane {
          int i = find(listDoors, newVal, listImgDoors);
          if (i > -1){
             image.createDraggableImage("door" + i, newVal, 100, 100);
-            //image.setImage(new Image("file:../resources/image/door" + i + ".png"));
          }
          else{
-            //image.setImage(new Image("file:../resources/image/noDoor.png"));
             image.createDraggableImage("noDoor", " ", 100, 100);
          }
       });
    }
 
-   private int find(String[] listDoors, String elem, String[] listImages){
+   private int find(String[] listDoors, String elem, ArrayList<String> listImages){
       int lenNbDoor = listDoors.length; //len - 1 car dans la liste on a aussi noDoor
       int i = lenNbDoor;
       for (String currDoor : listDoors){
@@ -120,7 +127,7 @@ public class SelectTypeElem extends TabPane {
          i--;
       }
 
-      int currI = i % (listImages.length - 1);
+      int currI = i % (listImages.size() - 1);
       return currI;
    }
 
@@ -128,6 +135,53 @@ public class SelectTypeElem extends TabPane {
       //recuperer le contenu via le controller
       String[] doors = {"Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
       return doors;
+   }
+
+   private void otherInfoItem(VBox infoBox, ArrayList<String> listInfoItem)
+   {
+      //Sous Tab choix entre weapon / Container / Consommable / Other
+
+      //Je pars du principe que chaque item est enregistré sous la même forme
+      //nom de l'image/item ; paramètres : valeur 
+      //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
+      ArrayList<String> imgItems = new ArrayList<>();
+      ArrayList<String> msgFList = new ArrayList<>();
+      ArrayList<String> msgEList = new ArrayList<>();
+      String msgF;
+      String msgE;
+      Label msgFLabel = new Label();
+      Label msgELabel = new Label();
+
+      for (String currItem : listInfoItem){
+         String[] parts = currItem.split(";");
+
+         String[] lang = parts[0].split("/");
+         msgF = "Cet objet est un/une " + lang[0] + ". ";
+         msgE = "This object is a/an " + lang[1] + ". ";
+
+         imgItems.add(lang[0]);
+
+         int len = parts.length;
+         if ( len > 1 ){
+            msgF = "Ces paramètres sont ";
+            msgE = "These parameters are ";
+            for (int i = 1; i < len; i++)
+            {
+               lang = parts[i].split("/");
+               msgF += lang[0];
+               msgE += lang[1];
+            }
+         }
+         else{
+            msgF += "Il n'a pas de paramètre particulier.";
+            msgE += "It has no particular parameter.";
+         }
+         msgFList.add(msgF);
+         msgEList.add(msgE);
+      }
+
+      SelectElemItem listItem= new SelectElemItem(imgItems, 8, msgFList, msgEList, msgFLabel, msgELabel );
+      infoBox.getChildren().addAll(listItem, spring(), msgFLabel, spring(), msgELabel);
    }
 
 }

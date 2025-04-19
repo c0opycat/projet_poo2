@@ -1,5 +1,6 @@
 package view.viewEditor;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -10,26 +11,6 @@ public class ViewImage extends ImageView{
 
     public ViewImage(){
         super();
-    }
-
-    //Création d'une image (element) qu'on puisse prendre et déposer dans un autre gridPane
-    public void createDraggableImageGrid(String imageName, String elemName, double prefHeight, double prefWidth) {
-
-        createDraggableImage(imageName, elemName, prefHeight, prefWidth);
-
-        // Adapter la taille de l'image une fois qu'elle est posé dans la scène (pour éviter NullPointerException)
-        // this.sceneProperty().addListener((obs, oldScene, newScene) -> {
-        //     double h = prefHeight;
-        //     double w = prefWidth;
-        //     if (h < w){
-        //         this.setFitHeight(h);
-        //     }
-        //     else{
-        //         this.setFitWidth(w);
-        //     }
-            
-        // });
-
     }
 
     //Création d'une image (element) qu'on puisse prendre et déposer dans un gridPane
@@ -60,6 +41,12 @@ public class ViewImage extends ImageView{
             event.consume();
         });
 
+    }
+
+    public void addListenerOnClicked(Label msgLabel, String msg ){
+        this.setOnMouseClicked(event -> {
+            msgLabel.setText(msg);
+        });
     }
 }
 

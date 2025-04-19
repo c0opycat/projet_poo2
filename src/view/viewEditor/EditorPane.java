@@ -1,6 +1,8 @@
 package view.viewEditor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,8 +26,13 @@ public class EditorPane extends HBox{
     private FrameGame frameGame;
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
-    private String[] nomsType = {"Monstre / Monster", "Portes / Doors", "Houi", "Ouille"};
-    private String[][] nomsItems = {{"maison_bleu", "maison_jaune"},{"noDoor", "door0", "door1", "door2", "door3"}, {"maison_bleu", "maison_jaune"}, {"maison_jaune"}, {"maison_bleu", "maison_jaune"}};
+    private String[] nomsType = {"Monstre / Monster", "Portes / Doors", "Objets / Items", "Houi", "Ouille"};
+    private ArrayList<ArrayList<String>> nomsItems = new ArrayList<>(List.of(
+                new ArrayList<>(List.of("maison_bleu", "maison_jaune")),
+                new ArrayList<>(List.of("noDoor", "door0", "door1", "door2", "door3")), 
+                new ArrayList<>(List.of("maison_bleu/blue_house;taille:3/len:3 poids:4/weight:4", "maison_jaune/yellow_house;taille:3/len:5 poids:6/weight:6")), 
+                new ArrayList<>(List.of("maison_jaune")), 
+                new ArrayList<>(List.of("maison_bleu", "maison_jaune"))));
 
     public EditorPane()
     {
@@ -205,17 +212,17 @@ public class EditorPane extends HBox{
         VBox rightPane = new VBox();
 
         String[] strTab = this.nomsType;
-        String[][] itemTab = this.nomsItems;
+        ArrayList<ArrayList<String>> itemTab = this.nomsItems;
 
         int nbTypes = strTab.length;
-        int nbItems = itemTab.length;
+        int nbItems = itemTab.size();
 
         String strTab2[];
-        String itemTab2[][];
+        ArrayList<ArrayList<String>> itemTab2;
 
         if (nbTypes < nbItems){
             strTab2 = strTab;
-            itemTab2 = Arrays.copyOfRange(itemTab, 0, nbTypes);
+            itemTab2 = new ArrayList<>(itemTab.subList( 0, nbTypes));
         }
         else{
             strTab2 = Arrays.copyOfRange(strTab, 0, nbItems);
