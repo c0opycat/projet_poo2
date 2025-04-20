@@ -9,10 +9,25 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+/**
+ * FrameGame corresponds to the game board. 
+ * It inherits from a gridPane.
+ * 
+ * @author C. Besançon
+ */
 public class FrameGame extends GridPane {
+    /**preferred height - fixed height of a grid square */
     private double prefHeight = 60;
+    /**preferred width - fixed width of a grid square */
     private double prefWidth = 60;
     
+    //// Public ////
+
+    /**
+     * Constructor
+     * @param col number of columns in the gridPane
+     * @param row number of rows in the gridPane
+     */
     public FrameGame(int col, int row)
     {
         super();
@@ -40,9 +55,24 @@ public class FrameGame extends GridPane {
         
     }
 
+    /**
+     * Added cells in which you can drag and drop and delete elements
+     */
+    public void setCellsDraggableInFrame() {
+        for (Node node : this.getChildren()) {
+                Cell cell = (Cell)node;
+                cell.setCellDraggable(this.prefHeight, this.prefWidth);
+            }
+    }
+
+    //// Private ////
+    /**
+     * adds the default cells in the gridPane (frameGame) by setting the sizes of the boxes.
+     * @param nbCol number of columns in the gridPane
+     * @param nbRow number of rows in the gridPane
+     */
     private void addStackPane(int nbCol, int nbRow)
     {
-        //Remplissage de la grid
         for(int i = 0; i < nbCol; i++)
         {
             for(int j = 0; j < nbRow; j++)
@@ -56,14 +86,6 @@ public class FrameGame extends GridPane {
         }
     }
 
-
-    //Ajout de cellule dans lesquels on peut faire du drag and drop, et supprimer des elements
-    public void addCellsToFrame() {
-        for (Node node : this.getChildren()) {
-                Cell cell = (Cell)node;
-                cell.addCellDraggable(this.prefHeight, this.prefWidth);
-            }
-    }
-
+    
 }
 

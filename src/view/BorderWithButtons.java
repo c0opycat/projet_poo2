@@ -37,6 +37,11 @@ public class BorderWithButtons extends BorderPane{
         this.setCenter(content);
     }
 
+    public Node getContent()
+    {
+        return this.getCenter();
+    }
+
     //Returns the button that has a specific text
     //Returns null and print a message if no button was found
     public Button getSpecButton(String buttonText)

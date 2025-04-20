@@ -19,6 +19,7 @@ public class EditorView extends BorderWithButtons{
     private void addComp()
     {
         EditorPane ep = new EditorPane();
+        ep.addHandlers();
 
         this.setContent(ep);
         this.addBackground("backgroundEditor.png");
@@ -36,7 +37,5 @@ public class EditorView extends BorderWithButtons{
 
         this.addButtons(buttons);
     }
-
-
 
 }
