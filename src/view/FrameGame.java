@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -65,5 +66,15 @@ public class FrameGame extends GridPane {
             }
     }
 
+    public void setSize(Scene scene){
+        // Ajouter un Listener pour ajuster la taille du GridPane lorsque la taille de la scène change
+        scene.widthProperty().addListener((observable, oldValue, newValue) -> {
+            this.prefWidthProperty().set(newValue.doubleValue());
+        });
+
+        scene.heightProperty().addListener((observable, oldValue, newValue) -> {
+            this.prefHeightProperty().set(newValue.doubleValue());
+        });
+    }
 }
 

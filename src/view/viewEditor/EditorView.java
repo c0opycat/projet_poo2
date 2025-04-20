@@ -37,6 +37,4 @@ public class EditorView extends BorderWithButtons{
         this.addButtons(buttons);
     }
 
-
-
 }

@@ -12,6 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import view.FrameGame;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
@@ -23,7 +24,6 @@ import javafx.scene.layout.Region;
 
 
 public class EditorPane extends HBox{
-    private FrameGame frameGame;
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
     private String[] nomsType = {"Décors / Sets", "Portes / Doors", "Objets / Items"};
@@ -52,7 +52,6 @@ public class EditorPane extends HBox{
 
         //Ajout des éléments à gauche
         VBox leftNodes = this.leftNodes();
-        leftNodes.setAlignment(Pos.CENTER);
 
         //Ajout d'un ressort pour faire de l'espace entre la partie gauche et celle de droite
         Region spring = new Region();
@@ -75,7 +74,6 @@ public class EditorPane extends HBox{
         //VBox pour ajouter la preview du niveau, 
         //les textfields de nom et de descriptions en deux langues
         VBox leftPane = new VBox();
-        leftPane.setAlignment(Pos.CENTER);
 
         //Presentation de l'aperçu en français et anglais
         Label previewLabelfr = new Label("Aperçu du niveau");
@@ -83,9 +81,6 @@ public class EditorPane extends HBox{
 
 
         //Aperçu du jeu 
-        //Attention pour le moment j'ai juste mis le code de board du tp2
-        //taille à gérer? -> sujet demande deux tailles
-
         FrameGame preview = initFrameGame(col, row);
         
         // Lier les Spinners aux tailles du GridPane
@@ -118,17 +113,23 @@ public class EditorPane extends HBox{
         return leftPane;
     }
 
-    //Ressort pour mettre entre les zones sometimes
+    //Ressort pour mettre entre les zones sometimes VBox
     private Region springS(){
         Region spring = new Region();
         VBox.setVgrow(spring, Priority.SOMETIMES);
         return spring;
     }
 
-    //Ressort pour mettre entre les zones always
+    //Ressort pour mettre entre les zones always VBox
     private Region springA(){
         Region spring = new Region();
         VBox.setVgrow(spring, Priority.ALWAYS);
+        return spring;
+    }
+
+    private Region springH(){
+        Region spring = new Region();
+        HBox.setHgrow(spring, Priority.ALWAYS);
         return spring;
     }
 
@@ -143,7 +144,6 @@ public class EditorPane extends HBox{
             leftBox.getChildren().remove(oldFrame);
             leftBox.getChildren().add(3, preview);
         }
-        this.frameGame = preview;
         return preview;
     }
     
@@ -193,24 +193,62 @@ public class EditorPane extends HBox{
         HBox buttonNbBox = new HBox();
         VBox.setVgrow(buttonNbBox, Priority.ALWAYS);
 
+        buttonNbBox.getChildren().add(springH());
+
         for (int i = 0; i<nb; ++i)
         {
-            //LIER A UNE ACTION
             String name = names[i];
             Button bt = new Button(name);
 
-            Region spring = new Region();
-            HBox.setHgrow(spring, Priority.ALWAYS);
 
-            buttonNbBox.getChildren().addAll(bt, spring);
+            buttonNbBox.getChildren().addAll(bt, springH());
         }
-        
-
-        //mise en page / style à faire
 
         return buttonNbBox;
     }
 
+    private HBox saveLevel(){
+        HBox sl = selectLevel();
+
+        Button btSave = new Button("Save");
+
+        sl.getChildren().addAll(springH(), btSave, springH());
+
+        return sl;
+    }
+
+    public String[] getLevels(){
+        //A RECUPERER DEPUIS LE CONTROLLER
+        String[] levels = {"new", "Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
+        return levels;
+    }
+
+    private HBox selectLevel(){
+      String[] listLevel = getLevels();
+
+      //Creation de la boîte choix
+      ComboBox<String> choiceLevel = new ComboBox<>();
+      choiceLevel.getItems().addAll(listLevel);
+      choiceLevel.setValue("new"); // Valeur par défaut = rien
+
+      //Creation et ajout des labels Vers:
+      Label selectionner = new Label("Selectionner :");
+      Label select = new Label("Select:");
+
+      VBox labelBox = new VBox();
+      labelBox.getChildren().addAll(selectionner, select);
+      
+      //Ajout du choix de la direction
+      HBox wayBox = new HBox();
+      VBox.setVgrow(wayBox, Priority.ALWAYS);
+
+      wayBox.getChildren().addAll(springH(), labelBox, choiceLevel);
+      wayBox.setAlignment(Pos.CENTER);
+      
+      
+      //Ajout dans la box principal
+      return wayBox;
+   }
 
 
     private VBox rightNodes()
@@ -244,15 +282,16 @@ public class EditorPane extends HBox{
         //Ajout des commandes
         HBox widthField = this.width();
         
-        String[] namesRtr = {"Reset", "Restore", "Re-init"};
+        String[] namesRtr = {"Back", "Foward", "Re-init"};
         HBox buttonRetour = this.buttonsNb(3, namesRtr);
+        HBox saveLevel = saveLevel();
 
-        rightPane.getChildren().addAll(selectTypeElem, springA(), widthField, springA(), buttonRetour, springA());
+        rightPane.getChildren().addAll(selectTypeElem, springA(), widthField, springA(), buttonRetour, springA(), saveLevel, springA());
         
         return rightPane;
     }
 
-
+    // Getter pour le nombre de colonnes  et de lignes
     private int getCol(){
         return getNbColSpinner().getValue();
     }
@@ -270,4 +309,34 @@ public class EditorPane extends HBox{
         return this.nbRowSpinner;
     }
 
+
+    //Getter pour les boutons
+    private Button getBack(){
+        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().getFirst();
+    }
+
+    private Button getFoward(){
+        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(1);
+    }
+
+    private Button getReinit(){
+        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().getLast();
+    }
+
+    //Action des boutons
+    public void addHandlers()
+    {
+
+        getBack().setOnAction(e -> {
+            
+        });
+
+        getFoward().setOnAction(e -> {
+            
+        });
+
+        getReinit().setOnAction(e -> {
+            initFrameGame(getRow(), getCol());
+        });
+    }
 }
