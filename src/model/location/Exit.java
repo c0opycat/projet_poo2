@@ -8,13 +8,29 @@ public class Exit {
     private int destX;
     private int destY;
     
-    public Exit(LocationM start, LocationM destination, int stx, int sty, int dstx, int dsty){
-        this.strtX = stx;
-        this.strtY = sty;
-        this.destX = dstx;
-        this.destY = dsty;
-        this.destination = destination;
-        this.start = start;
+    public Exit(LocationM start, LocationM destination){
+        ArrayList<Exit> startExits = start.getExits();
+        int stExNb = startExits.size();
+        ArrayList<Exit> destExits = destination.getExits();
+        int deExNb = destExits.size();
+        if (stExNb >= 4){
+           throw new IllegalArgumentException("you can't add more exits to the starting location");
+        }
+        if (deExNb >= 4){
+            throw new IllegalArgumentException("you can't add more exits to the destination location");
+        }
+        /***/
+        else{
+            this.destination = destination;
+            this.start = start;
+        }
+        /* TO DO
+        * get the dimensions of start and destination
+        * add a switch case with value 1,2,3,4
+        * sets random coordinates for exits
+        * in both start and dest
+        * so you can set things
+        * **/
     }
 
     @Override

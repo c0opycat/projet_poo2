@@ -2,7 +2,7 @@
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.MainScene;
+import view.*;
 
 public class Main extends Application{
     @Override
