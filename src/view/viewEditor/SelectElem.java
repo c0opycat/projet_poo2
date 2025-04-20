@@ -6,8 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 
 public class SelectElem extends GridPane {
-    private double prefHeight = 50;
-    private double prefWidth = 50;
+    private double prefHeight = 100;
+    private double prefWidth = 100;
     private ArrayList<String> nomsItems;
 
     //A terme pour avoir des gridPane pour chaque type d'element il faudra ajouter la liste des nomsItems en paramètre du constructeur

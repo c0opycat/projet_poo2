@@ -10,8 +10,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 public class FrameGame extends GridPane {
-    private double prefHeight = 50;
-    private double prefWidth = 50;
+    private double prefHeight = 60;
+    private double prefWidth = 60;
     
     public FrameGame(int col, int row)
     {

@@ -180,5 +180,4 @@
 /* Effet de calque */
 .transparent-layer {
     -fx-background-color: rgba(255, 255, 255, 0.4);
-    -fx-background-radius: 10;
 }

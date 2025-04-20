@@ -39,7 +39,7 @@ public class EditorPane extends HBox{
                     "fusil/shotgun; poids : 2 / weight:2 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
                     "épée/sword ; poids : 2 / weight:2 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
                     "batte/baseball Bat; poids : 2 / weight:2 ; dégâts : 2/damage: 2 ; type de dégât : assommant / damage type: stunning ", 
-                    "armure/armor ; reduction des dommages : 2 ;damage reduction: 2" ))
+                    "armure/armor ; reduction des dommages : 2 /damage reduction: 2" ))
                 ));
 
     public EditorPane()
