@@ -83,12 +83,12 @@ public class SelectTypeElem extends TabPane {
 
       //Creation image drag & drop
       ViewImage image = new ViewImage();
-      image.createDraggableImage("noDoor", " ", 100, 100);
+      image.createDraggableImage("noDoor", "noDoor", 100, 100);
       
       //Creation de la boîte choix
       ComboBox<String> choiceDoor = new ComboBox<>();
       choiceDoor.getItems().addAll(listDoors);
-      choiceDoor.setValue(" "); // Valeur par défaut = rien
+      choiceDoor.setValue("noDoor"); // Valeur par défaut = rien
 
       //Creation et ajout des labels Vers:
       Label vers = new Label("Vers :");
@@ -112,7 +112,7 @@ public class SelectTypeElem extends TabPane {
             image.createDraggableImage("door" + i, newVal, 100, 100);
          }
          else{
-            image.createDraggableImage("noDoor", " ", 100, 100);
+            image.createDraggableImage("noDoor", "noDoor", 100, 100);
          }
       });
    }
@@ -133,7 +133,7 @@ public class SelectTypeElem extends TabPane {
 
    private String[] getDoors(){
       //recuperer le contenu via le controller
-      String[] doors = {"Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
+      String[] doors = {"noDoor", "Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
       return doors;
    }
 
