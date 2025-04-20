@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import view.ImageCache;
 
 public class ViewImage extends ImageView{
 
@@ -15,22 +16,15 @@ public class ViewImage extends ImageView{
 
     //Création d'une image (element) qu'on puisse prendre et déposer dans un gridPane
     public void createDraggableImage(String imageName, String elemName, double prefHeight, double prefWidth) {
-        Image image = new Image("file:../resources/image/" + imageName + ".png");
+        Image image = ImageCache.getImage(imageName + ".png", prefWidth, prefHeight);
         this.setImage(image);
         this.setPreserveRatio(true);
-        this.setSmooth(true);
-        this.setCache(true);
 
-        this.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            double h = prefHeight;
-            double w = prefWidth;
-            if (h < w){
-                this.setFitHeight(h);
-            }
-            else{
-                this.setFitWidth(w);
-            }
-        });
+        if (prefHeight < prefWidth) {
+            this.setFitHeight(prefHeight);
+        } else {
+            this.setFitWidth(prefWidth);
+        }
 
         // Activer le drag and drop
         this.setOnDragDetected(event -> {
