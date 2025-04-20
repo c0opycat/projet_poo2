@@ -23,12 +23,20 @@ import javafx.scene.layout.Region;
 //CODER ESTHETIQUE A AJOUTER
 
 /**
- * 
+ * HBox containing the editor interface.
+ * The left section is dedicated to level information - game board, level name, and description.
+ * The right section is dedicated to customization tools 
+ * - tabs for item selection, board size, undo, redo, reset, save, and level editing.
+ * @author C. Besançon
  */
 public class EditorPane extends HBox{
+    /**Spinner to choose the number of columns */
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
+    /**Spinner to choose the number of rows */
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
+    /**Array of Name of the different object tabs*/
     private String[] nomsType = {"Décors / Sets", "Portes / Doors", "Objets / Items"};
+    /**List of list of information about object that can be put on the board. One list for each tabs*/
     private ArrayList<ArrayList<String>> nomsItems = new ArrayList<>(List.of(
                 new ArrayList<>(List.of("cathedrale", "immeuble", "immeubles", "maison abandonnée", "palais")),
                 new ArrayList<>(List.of("noDoor", "door0", "door1", "door2", "door3")), 
@@ -43,7 +51,10 @@ public class EditorPane extends HBox{
                     "batte/baseball Bat; poids : 2 / weight:2 ; dégâts : 2/damage: 2 ; type de dégât : assommant / damage type: stunning ", 
                     "armure/armor ; reduction des dommages : 2 /damage reduction: 2" ))
                 ));
-
+    
+    /**
+     * Constructor
+     */
     public EditorPane()
     {
         super();
@@ -51,9 +62,11 @@ public class EditorPane extends HBox{
         //Ajout des onglets à droite
         //Attention bien créer rightNodes avant LeftNodes car on créé dedans les spinners avec leurs valeurs par défauts
         VBox rightNodes = this.rightNodes();
+        rightNodes.setAlignment(Pos.CENTER);
 
         //Ajout des éléments à gauche
         VBox leftNodes = this.leftNodes();
+        leftNodes.setAlignment(Pos.CENTER);
 
         //Ajout d'un ressort pour faire de l'espace entre la partie gauche et celle de droite
         Region spring = new Region();
@@ -69,6 +82,10 @@ public class EditorPane extends HBox{
 
     }
 
+    /**
+     * Creation of the left part of the interface. Contains the game board, a text box for the level title, 
+     * a text box for the description needed for the level in French, and another box for the English description.
+     */
     private VBox leftNodes ()
     {
         int col = getCol();
@@ -314,17 +331,14 @@ public class EditorPane extends HBox{
 
     //Getter pour les boutons
     private Button getUndo(){
-        System.out.println("getUndo");
         return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(1);
     }
 
     private Button getRedo(){
-        System.out.println("getRedo");
         return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(3);
     }
 
     private Button getReinit(){
-        System.out.println("getReinit");
         return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(5);
     }
 
