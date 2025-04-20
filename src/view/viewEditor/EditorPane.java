@@ -52,6 +52,8 @@ public class EditorPane extends HBox{
                     "armure/armor ; reduction des dommages : 2 /damage reduction: 2" ))
                 ));
     
+
+    /// Public ///
     /**
      * Constructor
      */
@@ -82,9 +84,62 @@ public class EditorPane extends HBox{
 
     }
 
+        /**
+     * Recover the levels saved using the control.
+     * This function currently hard-codes the level names so that you can test them while waiting for the final model.
+     * @return an array with all the level names (and data?)
+     */
+    public String[] getLevels(){
+        //A RECUPERER DEPUIS LE CONTROLLER
+        String[] levels = {"new", "Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
+        return levels;
+    }
+
+    /**
+     * Get the spinner for the number of column
+     * @return spinner for number of column
+     */
+    public Spinner<Integer> getNbColSpinner() {
+        return this.nbColSpinner;
+    }
+    
+    /**
+     * Get the spinner for the number of row
+     * @return spinner for number of row
+     */
+    public Spinner<Integer> getNbRowSpinner() {
+        return this.nbRowSpinner;
+    }
+
+    /**
+     * Add action for each button
+     */
+    public void addHandlers()
+    {
+
+        getUndo().setOnAction(e -> {
+            
+        });
+
+        getRedo().setOnAction(e -> {
+            
+        });
+
+        getReinit().setOnAction(e -> {
+            initFrameGame(getRow(), getCol());
+        });
+
+        getSave().setOnAction(e -> {
+            
+        });
+    }
+
+    /// Private ///
+
     /**
      * Creation of the left part of the interface. Contains the game board, a text box for the level title, 
      * a text box for the description needed for the level in French, and another box for the English description.
+     * @return VBox left part of the editor
      */
     private VBox leftNodes ()
     {
@@ -132,27 +187,42 @@ public class EditorPane extends HBox{
         return leftPane;
     }
 
-    //Ressort pour mettre entre les zones sometimes VBox
+    /**
+     * Spring to put between the zones in VBox set on sometimes
+     * @return region -> spring
+     */
     private Region springS(){
         Region spring = new Region();
         VBox.setVgrow(spring, Priority.SOMETIMES);
         return spring;
     }
 
-    //Ressort pour mettre entre les zones always VBox
+    /**
+     * Spring to put between the zones in VBox set on always
+     * @return region -> spring
+     */
     private Region springA(){
         Region spring = new Region();
         VBox.setVgrow(spring, Priority.ALWAYS);
         return spring;
     }
 
+    /**
+     * Spring to put between the zones in HBox set on always
+     * @return region -> spring
+     */
     private Region springH(){
         Region spring = new Region();
         HBox.setHgrow(spring, Priority.ALWAYS);
         return spring;
     }
 
-    // Met à jour la taille du frameGame en reinitialisant tout
+    /**
+     * Updates the size of the frameGame by resetting everything
+     * @param newRow new number of rows
+     * @param newCol new number of columns
+     * @return FrameGame -> board game
+     */
     private FrameGame initFrameGame(int newRow, int newCol) {
         FrameGame preview = new FrameGame(newCol, newRow);
         preview.setCellsDraggableInFrame();
@@ -166,8 +236,13 @@ public class EditorPane extends HBox{
         return preview;
     }
     
-    private HBox width(){
-        HBox width = new HBox();
+    /**
+     * Added an HBox containing two VBoxes, one for height and the other for width.
+     * Each VBox contains a spinner and an HBox with a French label and an English label.
+     * @return HBox with element to choose the new size of the frameGame 
+     */
+    private HBox size(){
+        HBox size = new HBox();
 
         VBox heightBox = new VBox();
         VBox lenghtBox = new VBox();
@@ -191,7 +266,7 @@ public class EditorPane extends HBox{
         Region spring = new Region();
         HBox.setHgrow(spring, Priority.ALWAYS);
 
-        width.getChildren().addAll(heightBox, heightSpinner, spring, lenghtBox, lenghtSpinner);
+        size.getChildren().addAll(heightBox, heightSpinner, spring, lenghtBox, lenghtSpinner);
         HBox.setMargin(heightSpinner, new Insets(10, 5, 10, 0));
         HBox.setMargin(lenghtSpinner, new Insets(10, 0, 10, 5));
 
@@ -203,10 +278,15 @@ public class EditorPane extends HBox{
         nbRowSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
         });
 
-        return width;
+        return size;
     }
 
-    //transformer cette fonction pour qu'à partir d'une liste elle créé trois bouttons
+    /**
+     * Create a HBox with an alternance of spring button spring button spring ...
+     * @param nb number of button to create
+     * @param names array with the name of each button to create
+     * @return Hbox with buttons and regions
+     */
     private HBox buttonsNb (int nb, String[] names)
     {
         HBox buttonNbBox = new HBox();
@@ -226,6 +306,10 @@ public class EditorPane extends HBox{
         return buttonNbBox;
     }
 
+    /**
+     * Create a HBox with an HBox to select the level to edit and a button to save the edit.
+     * @return HBox
+     */
     private HBox saveLevel(){
         HBox sl = selectLevel();
 
@@ -236,12 +320,11 @@ public class EditorPane extends HBox{
         return sl;
     }
 
-    public String[] getLevels(){
-        //A RECUPERER DEPUIS LE CONTROLLER
-        String[] levels = {"new", "Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
-        return levels;
-    }
-
+    /**
+     * HBox with two Labels one in french the other in english 
+     * and a comboBox with the name of all the Levels already edit and newOne
+     * @return HBox
+     */
     private HBox selectLevel(){
       String[] listLevel = getLevels();
 
@@ -270,6 +353,13 @@ public class EditorPane extends HBox{
    }
 
 
+    /**
+    * Creation of the right part of the interface. Contains a tab to select different type of object
+    * a HBox with two Spinner to choose the number of column and row for the game board,
+    * a HBox with three button undo redo reinit and another HBox with a comboBox to choose a level to edit,
+    * and a button save
+    * @return VBox -> right part of the editor
+    */
     private VBox rightNodes()
     {
         //VBox pour ajouter les choix d'éléments à ajouter 
@@ -299,7 +389,7 @@ public class EditorPane extends HBox{
         VBox.setVgrow(selectTypeElem, Priority.ALWAYS);
 
         //Ajout des commandes
-        HBox widthField = this.width();
+        HBox widthField = this.size();
         
         String[] namesRtr = {"Undo", "Redo", "Re-init"};
         HBox buttonRetour = this.buttonsNb(3, namesRtr);
@@ -311,51 +401,52 @@ public class EditorPane extends HBox{
     }
 
     // Getter pour le nombre de colonnes  et de lignes
+    /**
+     * get number of column
+     * @return int number of columns
+     */
     private int getCol(){
         return getNbColSpinner().getValue();
     }
 
+    /**
+     * get number of row
+     * @return int number of row
+     */
     private int getRow(){
         return getNbRowSpinner().getValue();
     }
 
-    // Getter pour les Spinners
-    public Spinner<Integer> getNbColSpinner() {
-        return this.nbColSpinner;
-    }
-    
-    public Spinner<Integer> getNbRowSpinner() {
-        return this.nbRowSpinner;
-    }
-
-
     //Getter pour les boutons
+    /**
+     * get button undo
+     * @return button undo
+     */
     private Button getUndo(){
         return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(1);
     }
 
+    /**
+     * get button redo
+     * @return button redo
+     */
     private Button getRedo(){
         return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(3);
     }
 
+    /**
+     * get button reinit
+     * @return button Reinit
+     */
     private Button getReinit(){
         return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(5);
     }
 
-    //Action des boutons
-    public void addHandlers()
-    {
-
-        getUndo().setOnAction(e -> {
-            
-        });
-
-        getRedo().setOnAction(e -> {
-            
-        });
-
-        getReinit().setOnAction(e -> {
-            initFrameGame(getRow(), getCol());
-        });
+    /**
+     * get button save
+     * @return button save
+     */
+    private Button getSave(){
+        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(6)).getChildren().get(4);
     }
 }
