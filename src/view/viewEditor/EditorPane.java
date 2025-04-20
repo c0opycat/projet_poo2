@@ -282,7 +282,7 @@ public class EditorPane extends HBox{
         //Ajout des commandes
         HBox widthField = this.width();
         
-        String[] namesRtr = {"Back", "Foward", "Re-init"};
+        String[] namesRtr = {"Undo", "Redo", "Re-init"};
         HBox buttonRetour = this.buttonsNb(3, namesRtr);
         HBox saveLevel = saveLevel();
 

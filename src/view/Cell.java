@@ -8,10 +8,23 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 
+/**
+ * View of a cell on the game board.
+ * This class manages the image displayed on the board.
+ *
+ * @author C. Besançon
+ */
 public class Cell extends StackPane {
+    /** Name of the element save on the cell */
     private String elem;
+    /**Information show about the element */
     private Tooltip tooltip;
 
+    //// Public ////
+    
+    /**
+     * Constructor
+     */
     public Cell(){
         super();
 
@@ -23,63 +36,110 @@ public class Cell extends StackPane {
         this.getStyleClass().add("transparent-layer");
     }
 
-    public void addCellDraggable(double prefHeight, double prefWidth){
-        this.setPrefSize(prefWidth, prefHeight);
-        // this.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
 
-         // Accepter le dépôt
-        this.setOnDragOver(event -> {
+    /**
+     * Set the cell to recognize drag and drop and change the cell to a new item in it
+     * @param prefHeight preferred height - fixed height of a grid square
+     * @param prefWidth preferred width - fixed width of a grid square
+     */
+    public void setCellDraggable(double prefHeight, double prefWidth){
+        this.setDragOver();
+        this.setDragDropped(prefHeight, prefWidth);
+        
+    }
+
+    //// Private ////
+    
+    /**
+     * Set the cell to recognize drag over
+     */
+    private void setDragOver(){
+         this.setOnDragOver(event -> {
             if (event.getGestureSource() != this && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
             }
             event.consume();
         });
-    
-        // Gérer le dépôt
-        this.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            if (db.hasString()) {
-                String itemNom = db.getString();
-                String[] parts = itemNom.split(";");
-
-                if (parts.length == 2){
-                    String imageName = parts[0];
-                    String elemName = parts[1];
-                    ImageView newItem = createDraggableImage(imageName, elemName, prefHeight, prefWidth);
-
-                    this.getChildren().clear();
-                    this.getChildren().add(newItem);
-                    this.elem = elemName;
-                    updateTooltip();
-
-                    event.setDropCompleted(true);
-                }
-                else{
-                    event.setDropCompleted(false);
-                }
-            } 
-            else {
-                event.setDropCompleted(false);
-            }
-            event.consume();
-        });
-        
     }
 
-    //Création d'une image (element) qu'on puisse prendre et déposer dans un autre gridPane
+    /**
+     * Defines drag and drop: when dropping, retrieves the name of the image and the element 
+     * and creates a cell (image view) containing the element (displays its image and in the tooltip its name). 
+     * Empty the old cell and replace it with the new one.
+     * @param prefHeight preferred height - fixed height of a grid square
+     * @param prefWidth preferred width - fixed width of a grid square
+     */
+    private void setDragDropped(double prefHeight, double prefWidth){
+                this.setOnDragDropped(event -> {
+                    Dragboard db = event.getDragboard();
+                    if (db.hasString()) {
+                        String itemNom = db.getString();
+                        String[] parts = itemNom.split(";");
+        
+                        if (parts.length == 2){
+                            String imageName = parts[0];
+                            String elemName = parts[1];
+                            ImageView newItem = createDraggableImage(imageName, elemName, prefHeight, prefWidth);
+        
+                            this.getChildren().clear();
+                            this.getChildren().add(newItem);
+                            this.elem = elemName;
+                            updateTooltip();
+        
+                            event.setDropCompleted(true);
+                        }
+                        else{
+                            event.setDropCompleted(false);
+                        }
+                    } 
+                    else {
+                        event.setDropCompleted(false);
+                    }
+                    event.consume();
+                });
+    }
+
+    
+    /**
+     * Creating an image (element) that can be taken and dropped into another gridPane
+     * @param imageName name of the image to display
+     * @param elemName name of the element to display
+     * @param prefHeight preferred height - fixed height of a grid square
+     * @param prefWidth preferred width - fixed width of a grid square
+     * @return
+     */
     private ImageView createDraggableImage(String imageName, String elemName, double prefHeight, double prefWidth) {
         ImageView image = new ImageView(new Image("file:../resources/image/" + imageName + ".png"));
         image.setPreserveRatio(true);
         image.setSmooth(true);
         image.setCache(true);
 
-        // Adapter la taille de l'image une fois qu'elle est posé dans la scène (pour éviter NullPointerException)
+        fitSize(image);
+
+        setDragDetected(image, imageName, elemName);
+    
+        return image;
+    }
+    
+    /**
+     * Resize the image once it is placed in the scene to avoid NullPointerException
+     * @param image ImageView that contains the image to display in the grid cell
+     */
+    private void fitSize(ImageView image){
         image.sceneProperty().addListener((obs, oldScene, newScene) -> {
             image.fitWidthProperty().bind(this.widthProperty());
             image.fitHeightProperty().bind(this.heightProperty());
         });
+    }
 
-        // Activer le drag and drop
+    /**
+     * Set the ability to retrieve the image and element name 
+     * and then remove the image from the cell when a drag is detected
+     * @param image ImageView that contains the image to display in the grid cell
+     * @param imageName Name of the image show on the cell
+     * @param elemName Name of the element save on the cell
+     */
+    private void setDragDetected(ImageView image, String imageName, String elemName){
         image.setOnDragDetected(event -> {
             Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
@@ -91,17 +151,11 @@ public class Cell extends StackPane {
 
             event.consume();
         });
-
-        image.setOnDragDone(event -> {
-            if (!event.isDropCompleted()) {
-                // L'image a été relâchée ailleurs → elle est supprimée (déjà retirée)
-            }
-            event.consume();
-        });
-    
-        return image;
     }
 
+    /**
+     * Changes the name of the element to be displayed when hovering over a box in the tooltip
+     */
     private void updateTooltip(){
         if (elem == null){
             tooltip.setText("");
