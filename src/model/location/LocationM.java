@@ -13,7 +13,7 @@ import model.game.MessageM;
 public class LocationM {
     public int width;
     public int height;
-    public LocationName name;
+    public String name;
     public Step[][] locMap;
     public Map<Integer, Exit> exits;
     public ArrayList<Item> itemList;
@@ -21,7 +21,7 @@ public class LocationM {
     public Monster monster;
 
     
-    public LocationM(LocationName name){
+    public LocationM(String name){
         this.exits = new HashMap<>();
         this.name = name;
         //description will not be displayed but will keep being there as help for audio-description for
@@ -143,19 +143,19 @@ public class LocationM {
 
     public String toString(){
         return switch (name) {
-            case BEAULIEU -> "Beaulieu ";
-            case MILETRIE -> "Milétrie";
-            case CITY_CENTER -> "the city center ";
-            case COURONNERIES -> "the Couronneries ";
-            case GIBAUDERIE -> "the Gibauderie ";
-            case WEST_POITIERS -> "west Poitiers ";
-            case SOUTH_POITIERS -> "south Poitiers ";
-            case PONT_NEUF -> "the Pont neuf ";
-            case SAINT_ELOI -> "Saint Éloi ";
-            case TROIS_CITES -> "the trois cités ";
-            case NORTH_POITIERS -> "north Poitiers ";
-            case MONTBERNAGE -> "Montbernage ";
-            case FINAL_EXIT -> "the limits of the city ";
+            case "BEAULIEU" -> "Beaulieu ";
+            case "MILETRIE" -> "Milétrie";
+            case "CITY_CENTER" -> "the city center ";
+            case "COURONNERIES" -> "the Couronneries ";
+            case "GIBAUDERIE" -> "the Gibauderie ";
+            case "WEST_POITIERS" -> "west Poitiers ";
+            case "SOUTH_POITIERS" -> "south Poitiers ";
+            case "PONT_NEUF" -> "the Pont neuf ";
+            case "SAINT_ELOI" -> "Saint Éloi ";
+            case "TROIS_CITES" -> "the trois cités ";
+            case "NORTH_POITIERS" -> "north Poitiers ";
+            case "MONTBERNAGE" -> "Montbernage ";
+            case "FINAL_EXIT" -> "the limits of the city ";
         };
     }
 
