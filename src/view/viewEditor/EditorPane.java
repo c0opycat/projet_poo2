@@ -22,7 +22,9 @@ import javafx.scene.layout.Region;
 //CODE A RECOMMANTER PROPREMENT et A ENCAPSULER/METTRE EN CLASSE
 //CODER ESTHETIQUE A AJOUTER
 
-
+/**
+ * 
+ */
 public class EditorPane extends HBox{
     private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
@@ -311,27 +313,30 @@ public class EditorPane extends HBox{
 
 
     //Getter pour les boutons
-    private Button getBack(){
-        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().getFirst();
-    }
-
-    private Button getFoward(){
+    private Button getUndo(){
+        System.out.println("getUndo");
         return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(1);
     }
 
+    private Button getRedo(){
+        System.out.println("getRedo");
+        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(3);
+    }
+
     private Button getReinit(){
-        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().getLast();
+        System.out.println("getReinit");
+        return (Button) ((HBox)((VBox)this.getChildren().getLast()).getChildren().get(4)).getChildren().get(5);
     }
 
     //Action des boutons
     public void addHandlers()
     {
 
-        getBack().setOnAction(e -> {
+        getUndo().setOnAction(e -> {
             
         });
 
-        getFoward().setOnAction(e -> {
+        getRedo().setOnAction(e -> {
             
         });
 

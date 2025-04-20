@@ -21,6 +21,8 @@ public class FrameGame extends GridPane {
     /**preferred width - fixed width of a grid square */
     private double prefWidth = 60;
     
+    //// Public ////
+
     /**
      * Constructor
      * @param col number of columns in the gridPane
@@ -54,6 +56,17 @@ public class FrameGame extends GridPane {
     }
 
     /**
+     * Added cells in which you can drag and drop and delete elements
+     */
+    public void setCellsDraggableInFrame() {
+        for (Node node : this.getChildren()) {
+                Cell cell = (Cell)node;
+                cell.setCellDraggable(this.prefHeight, this.prefWidth);
+            }
+    }
+
+    //// Private ////
+    /**
      * adds the default cells in the gridPane (frameGame) by setting the sizes of the boxes.
      * @param nbCol number of columns in the gridPane
      * @param nbRow number of rows in the gridPane
@@ -66,20 +79,13 @@ public class FrameGame extends GridPane {
             {
                 StackPane cell = new Cell();
                 cell.setPrefSize(this.prefHeight, this.prefWidth);
+                cell.setMaxSize(this.prefHeight, this.prefWidth);
+                cell.setMinSize(this.prefHeight, this.prefWidth);
                 this.add(cell, i, j);
             }
         }
     }
 
-
-    /**
-     * Added cells in which you can drag and drop and delete elements
-     */
-    public void setCellsDraggableInFrame() {
-        for (Node node : this.getChildren()) {
-                Cell cell = (Cell)node;
-                cell.setCellDraggable(this.prefHeight, this.prefWidth);
-            }
-    }
+    
 }
 
