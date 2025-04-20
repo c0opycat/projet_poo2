@@ -135,7 +135,7 @@ public class EditorPane extends HBox{
     // Met à jour la taille du frameGame en reinitialisant tout
     private FrameGame initFrameGame(int newRow, int newCol) {
         FrameGame preview = new FrameGame(newCol, newRow);
-        preview.addCellsToFrame(preview, newCol, newRow);
+        preview.addCellsToFrame();
         if (!this.getChildren().isEmpty())
         {
             VBox leftBox = ((VBox)this.getChildren().getFirst());

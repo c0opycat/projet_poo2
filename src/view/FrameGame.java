@@ -4,6 +4,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -16,8 +17,8 @@ public class FrameGame extends GridPane {
     {
         super();
 
-        int nbCol = col - 1;
-        int nbRow = row - 1;
+        int nbCol = col;
+        int nbRow = row;
         // Définir la taille des colonnes
         for (int i = 0; i < col; i++) {
             ColumnConstraints colConst = new ColumnConstraints(prefWidth); // largeur fixe
@@ -36,6 +37,7 @@ public class FrameGame extends GridPane {
         this.setHgap(1);
         this.setVgap(1);
         this.setAlignment(Pos.CENTER);
+        
     }
 
     private void addStackPane(int nbCol, int nbRow)
@@ -56,17 +58,11 @@ public class FrameGame extends GridPane {
 
 
     //Ajout de cellule dans lesquels on peut faire du drag and drop, et supprimer des elements
-    public void addCellsToFrame(GridPane gridTarget, int nbCol, int nbRow) {
-        for (int i = 0; i < nbCol; i++) {
-            for (int j = 0; j < nbRow; j++) {
-                Cell cell = new Cell();
-                cell.addCellDraggable(this.prefHeight, this.prefWidth, nbCol, nbRow);
-                cell.setPrefSize(this.prefHeight, this.prefWidth);
-                cell.setMaxSize(this.prefHeight, this.prefWidth);
-                cell.setMinSize(this.prefHeight, this.prefWidth);
-                gridTarget.add(cell, i, j);
+    public void addCellsToFrame() {
+        for (Node node : this.getChildren()) {
+                Cell cell = (Cell)node;
+                cell.addCellDraggable(this.prefHeight, this.prefWidth);
             }
-        }
     }
 
 }

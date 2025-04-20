@@ -34,6 +34,7 @@ public class SelectTypeElem extends TabPane {
             detailsTab(tab, infoBox, type, listElem, i);
 
             this.getTabs().add(tab);
+            this.getStyleClass().add("transparent-layer");
          }
    }
 

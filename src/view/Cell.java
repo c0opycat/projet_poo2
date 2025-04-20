@@ -20,9 +20,10 @@ public class Cell extends StackPane {
         updateTooltip();
 
         this.setStyle("-fx-border-color: black;");
+        this.getStyleClass().add("transparent-layer");
     }
 
-    public void addCellDraggable(double prefHeight, double prefWidth, int nbCol, int nbRow){
+    public void addCellDraggable(double prefHeight, double prefWidth){
         this.setPrefSize(prefWidth, prefHeight);
         // this.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
 
@@ -44,7 +45,7 @@ public class Cell extends StackPane {
                 if (parts.length == 2){
                     String imageName = parts[0];
                     String elemName = parts[1];
-                    ImageView newItem = createDraggableImage(imageName, elemName, nbCol, nbRow, prefHeight, prefWidth);
+                    ImageView newItem = createDraggableImage(imageName, elemName, prefHeight, prefWidth);
 
                     this.getChildren().clear();
                     this.getChildren().add(newItem);
@@ -66,7 +67,7 @@ public class Cell extends StackPane {
     }
 
     //Création d'une image (element) qu'on puisse prendre et déposer dans un autre gridPane
-    private ImageView createDraggableImage(String imageName, String elemName, int nbCol, int nbRow, double prefHeight, double prefWidth) {
+    private ImageView createDraggableImage(String imageName, String elemName, double prefHeight, double prefWidth) {
         ImageView image = new ImageView(new Image("file:../resources/image/" + imageName + ".png"));
         image.setPreserveRatio(true);
         image.setSmooth(true);
