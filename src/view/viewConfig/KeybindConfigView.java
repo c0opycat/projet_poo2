@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONObject;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

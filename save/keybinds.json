@@ -1,9 +1,9 @@
 {
-    "take": "f",
+    "take": "t",
     "left": "d",
     "forward": "z",
     "attack": "a",
-    "use": "c",
+    "use": "f",
     "backward": "s",
     "equipment": "e",
     "right": "q"

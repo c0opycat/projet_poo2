@@ -2,7 +2,6 @@ package view.viewMenu;
 
 import java.util.ArrayList;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -42,7 +41,7 @@ public class Menu extends BorderWithButtons{
     private void addcomp()
     {
 
-        VBox vb = new VBox();
+        VBox vb = new VBox(20);
 
         Button jouer = new Button("Play");
         Button cfg = new Button("Config");
@@ -61,16 +60,12 @@ public class Menu extends BorderWithButtons{
         edit.setPrefSize(buttonWidth, buttonHeight);
         hof.setPrefSize(buttonWidth, buttonHeight);
 
+        vb.setMaxHeight(350);
+        vb.setMaxWidth(450);
 
         vb.getChildren().addAll(jouer, cfg, edit, hof);
 
         vb.setAlignment(Pos.CENTER);
-
-        VBox.setMargin(jouer, new Insets(0, 10, 10, 10));
-        VBox.setMargin(cfg, new Insets(10));
-        VBox.setMargin(edit, new Insets(10));
-        VBox.setMargin(hof, new Insets(10));
-        
 
         this.setCenter(vb);
 

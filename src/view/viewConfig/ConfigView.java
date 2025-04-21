@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import view.BorderWithButtons;
 import view.ButtonMenu;
 import view.ButtonQuit;
 
 
 /**
- * Classe représentant la vue de configuration.
+ * Classe représentant la vue de configuration Générale.
  * Elle permet à l'utilisateur de configurer les paramètres du jeu.
  * @author A. Bertrand-Bernard
  */
@@ -30,26 +30,27 @@ public class ConfigView extends BorderWithButtons{
         this.addTitle("Configuration");
 
         // Créer un VBox pour contenir les composants
-        VBox vb = new VBox();
-        vb.setAlignment(Pos.CENTER);
+        HBox Hb = new HBox(20);
+        Hb.setAlignment(Pos.CENTER);
 
 
         // Créer une instance de KeybindConfigView
         KeybindConfigView kb = new KeybindConfigView();
+        ResolutionConfigView res = new ResolutionConfigView();
 
         // Ajouter KeybindConfigView dans un ScrollPane
         ScrollPane scrollPane = new ScrollPane(kb);
         scrollPane.setFitToWidth(true); // Ajuste la largeur du contenu au ScrollPane
         scrollPane.setFitToHeight(false); // Permet le défilement vertical uniquement
-        scrollPane.setPrefHeight(500); // Hauteur préférée du ScrollPane (modifiable selon vos besoins)
+        scrollPane.setPrefHeight(500); // Hauteur préférée du ScrollPane
         scrollPane.setPrefWidth(300);
         scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
 
         // Ajouter le ScrollPane au VBox
-        vb.getChildren().add(scrollPane);
+        Hb.getChildren().addAll(scrollPane, res);
 
         // Ajouter le VBox au contenu principal
-        this.setContent(vb);
+        this.setContent(Hb);
         this.addBackground("background.jpeg");
     }
 
