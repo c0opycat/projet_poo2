@@ -167,12 +167,18 @@ public class KeybindConfigView extends VBox{
 
 
         // Check si les touches sont vides
-        if (forward.isEmpty() || backward.isEmpty() || right.isEmpty() || left.isEmpty() ||
-            attack.isEmpty() || equipment.isEmpty() || take.isEmpty() || use.isEmpty()) {
+        if (forward.isEmpty() || 
+            backward.isEmpty() || 
+            right.isEmpty() || 
+            left.isEmpty() ||
+            attack.isEmpty() || 
+            equipment.isEmpty() || 
+            take.isEmpty() || 
+            use.isEmpty()){
             MyAlert alert = new MyAlert("Keybinds", "Key empty", "Please fill all the keybinds");
             alert.show();
             return;
-        }
+            }   
         
         // Check si les touches sont déjà utilisées
         Set<String> keys = new HashSet<>();
@@ -203,9 +209,11 @@ public class KeybindConfigView extends VBox{
         // sauvegarder les keybinds dans un fichier JSON
         try(FileWriter file = new FileWriter("../save/keybinds.json")) {
             file.write(keybinds.toString(4));
-            System.out.println("Keybinds saved to keybinds.json");
+            MyAlert alert = new MyAlert("Keybinds", "Keybinds saved", "Keybinds saved successfully");
+            alert.show();
         } catch (IOException e){
-            System.out.println("Error while saving keybinds");
+            MyAlert alert = new MyAlert("Keybinds", "Error", "Error while saving keybinds");
+            alert.show();
             e.printStackTrace();
         }
 
