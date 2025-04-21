@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONObject;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -106,7 +105,7 @@ public class KeybindConfigView extends VBox{
         equipment.getChildren().addAll(equipmentl, equipmenttf);
         equipmenttf.setAlignment(Pos.CENTER);
         equipmenttf.setMaxWidth(50);
-        equipment.setAlignment(Pos.CENTER);
+        equipment.setAlignment(Pos.TOP_CENTER);
 
         // Touche prendre
         HBox take = new HBox();
@@ -168,12 +167,18 @@ public class KeybindConfigView extends VBox{
 
 
         // Check si les touches sont vides
-        if (forward.isEmpty() || backward.isEmpty() || right.isEmpty() || left.isEmpty() ||
-            attack.isEmpty() || equipment.isEmpty() || take.isEmpty() || use.isEmpty()) {
+        if (forward.isEmpty() || 
+            backward.isEmpty() || 
+            right.isEmpty() || 
+            left.isEmpty() ||
+            attack.isEmpty() || 
+            equipment.isEmpty() || 
+            take.isEmpty() || 
+            use.isEmpty()){
             MyAlert alert = new MyAlert("Keybinds", "Key empty", "Please fill all the keybinds");
             alert.show();
             return;
-        }
+            }   
         
         // Check si les touches sont déjà utilisées
         Set<String> keys = new HashSet<>();
@@ -204,9 +209,11 @@ public class KeybindConfigView extends VBox{
         // sauvegarder les keybinds dans un fichier JSON
         try(FileWriter file = new FileWriter("../save/keybinds.json")) {
             file.write(keybinds.toString(4));
-            System.out.println("Keybinds saved to keybinds.json");
+            MyAlert alert = new MyAlert("Keybinds", "Keybinds saved", "Keybinds saved successfully");
+            alert.show();
         } catch (IOException e){
-            System.out.println("Error while saving keybinds");
+            MyAlert alert = new MyAlert("Keybinds", "Error", "Error while saving keybinds");
+            alert.show();
             e.printStackTrace();
         }
 
