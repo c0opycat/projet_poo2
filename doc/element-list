@@ -1,0 +1,11 @@
+view
+view.viewConfig
+view.viewEditor
+view.viewGame
+view.viewGame.viewCommand.viewMenuCommand
+view.viewGameOver
+view.viewHallOfFame
+view.viewItem
+view.viewLocation
+view.viewMenu
+view.viewMonster

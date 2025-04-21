@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"view"},{"l":"view.viewConfig"},{"l":"view.viewEditor"},{"l":"view.viewGame"},{"l":"view.viewGame.viewCommand.viewMenuCommand"},{"l":"view.viewGameOver"},{"l":"view.viewHallOfFame"},{"l":"view.viewItem"},{"l":"view.viewLocation"},{"l":"view.viewMenu"},{"l":"view.viewMonster"}];updateSearchResults();
