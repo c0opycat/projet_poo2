@@ -30,13 +30,14 @@ public class ConfigView extends BorderWithButtons{
         this.addTitle("Configuration");
 
         // Créer un VBox pour contenir les composants
-        HBox Hb = new HBox(20);
+        HBox Hb = new HBox(60);
         Hb.setAlignment(Pos.CENTER);
 
 
         // Créer une instance de KeybindConfigView
         KeybindConfigView kb = new KeybindConfigView();
         ResolutionConfigView res = new ResolutionConfigView();
+        LanguageConfigView lang = new LanguageConfigView();
 
         // Ajouter KeybindConfigView dans un ScrollPane
         ScrollPane scrollPane = new ScrollPane(kb);
@@ -47,7 +48,7 @@ public class ConfigView extends BorderWithButtons{
         scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
 
         // Ajouter le ScrollPane au VBox
-        Hb.getChildren().addAll(scrollPane, res);
+        Hb.getChildren().addAll(scrollPane, res, lang);
 
         // Ajouter le VBox au contenu principal
         this.setContent(Hb);

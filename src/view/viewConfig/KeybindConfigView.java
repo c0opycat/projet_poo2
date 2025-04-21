@@ -105,7 +105,7 @@ public class KeybindConfigView extends VBox{
         equipment.getChildren().addAll(equipmentl, equipmenttf);
         equipmenttf.setAlignment(Pos.CENTER);
         equipmenttf.setMaxWidth(50);
-        equipment.setAlignment(Pos.CENTER);
+        equipment.setAlignment(Pos.TOP_CENTER);
 
         // Touche prendre
         HBox take = new HBox();

@@ -1,5 +1,6 @@
 package view.viewConfig;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,9 @@ public class ResolutionConfigView extends VBox{
         Label title = new Label("Resolution :");
         title.getStyleClass().add("under-title");
 
+        double buttonWidth = 150;
+        double buttonHeight = 35;
+
         Button res1 = new Button("1024x768");
         res1.setOnAction(e -> {
             setRes(1024, 768);
@@ -41,7 +45,13 @@ public class ResolutionConfigView extends VBox{
             setRes(1920, 1080);
         });
 
+        // Définir la taille des boutons
+        res1.setPrefSize(buttonWidth, buttonHeight);
+        res2.setPrefSize(buttonWidth, buttonHeight);
+        res3.setPrefSize(buttonWidth, buttonHeight);
+
         this.getChildren().addAll(title, res1, res2, res3);
+        this.setAlignment(Pos.TOP_CENTER);
     }
 
     /**
