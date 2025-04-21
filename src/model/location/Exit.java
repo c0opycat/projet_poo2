@@ -1,4 +1,5 @@
 package model.location;
+import java.util.ArrayList;
 
 public class Exit {
     public LocationM destination;

@@ -4,10 +4,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import view.*;
 
-public class Main extends Application{
+public class Main extends Application {
     @Override
-    public void start (Stage stage) throws Exception{
-        
+    public void start(Stage stage) throws Exception {
+
         //Scene
         final MainScene scene = new MainScene();
 
@@ -15,8 +15,8 @@ public class Main extends Application{
         stage.setTitle("OOP 2 Project");
         stage.show();
     }
-    
-    public static void main (String args []) {
-		launch(args);
-    }    
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
