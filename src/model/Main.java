@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import model.game.*;
 import model.game.commandM.*;
-import model.location.LocationName;
+import model.location.*;
 import model.character.monster.*;
 
 
@@ -19,7 +19,7 @@ public class Main {
         scan.useDelimiter("\n");
         Command cmd;
         
-        LocationName nameCurLoc = gameM.getCurLocation().getName();
+        String nameCurLoc = gameM.getCurLocation().getName();
         Monster curMonster;
         gameM.start();
 
