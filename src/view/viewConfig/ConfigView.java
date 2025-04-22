@@ -52,7 +52,7 @@ public class ConfigView extends BorderWithButtons{
 
         // Ajouter le VBox au contenu principal
         this.setContent(Hb);
-        this.addBackground("background.jpeg");
+        this.addBackground("background.png");
     }
 
     /**
