@@ -17,8 +17,8 @@ import model.game.MessageM;
 public class LocationM {
     private static final int DEF_WIDTH = 30;
     private static final int DEF_HEIGHT = 20;
-    public int width;
-    public int height;
+    private int width;
+    private int height;
     public String name;
     public Step[][] locMap;
     public Map<Integer, Exit> exits;
@@ -48,6 +48,19 @@ public class LocationM {
         }
 
         this.monster = new Random().nextInt(2) == 0 ? null : Monster.randMonster();
+    }
+    /**
+     * Constructs a new location with a name, random items, and possibly a random monster.
+     * @param name : the name of the location
+     */
+    public LocationM(String name, int width, int height,Map<Integer, Exit> exits, Step[][] locMap,ArrayList<Item> itemList,Monster monster) {
+        this.width = width;
+        this.height = height;
+        this.name = name;
+        this.exits = exits;
+        this.locMap = locMap;
+        this.itemList = itemList;
+        this.monster = monster;
     }
 
     /**
@@ -143,6 +156,15 @@ public class LocationM {
      * Returns a human-readable name based on the location's identifier.
      * @return the location name as a string
      */
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
     public String toString() {
         return switch (name) {
             case "BEAULIEU" -> "Beaulieu ";
