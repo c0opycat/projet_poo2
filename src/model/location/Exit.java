@@ -21,10 +21,8 @@ public class Exit {
             throw new IllegalArgumentException("you can't add more exits to the destination location");
         }
         /***/
-        else{
-            this.destination = destination;
-            this.start = start;
-        }
+        this.destination = destination;
+        this.start = start;
         /* TO DO
         * get the dimensions of start and destination
         * add a switch case with value 1,2,3,4
