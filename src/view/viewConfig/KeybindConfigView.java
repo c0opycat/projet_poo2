@@ -129,6 +129,17 @@ public class KeybindConfigView extends VBox{
         usetf.setMaxWidth(50);
         use.setAlignment(Pos.CENTER);
 
+        // Touche pour ouvrir le backpack
+        HBox backpack = new HBox();
+        backpack.getStyleClass().add("keybind-row"); // Ajouter une classe CSS
+        Label backpackl = new Label("Backpack : ");
+        TextField backpacktf = new TextField();
+        backpacktf.setTextFormatter(createSingleCharFormatter());
+        backpack.getChildren().addAll(backpackl, backpacktf);
+        backpacktf.setAlignment(Pos.CENTER);
+        backpacktf.setMaxWidth(50);
+        backpack.setAlignment(Pos.CENTER);
+
         // Taille max des TextField
         forward.setMaxSize(200, 50);
         backward.setMaxSize(200, 50);
@@ -138,6 +149,7 @@ public class KeybindConfigView extends VBox{
         equipment.setMaxSize(200, 50);
         take.setMaxSize(200, 50);
         use.setMaxSize(200, 50);
+        backpack.setMaxSize(200, 50);
 
 
         Button save = new Button("Save");
@@ -147,7 +159,7 @@ public class KeybindConfigView extends VBox{
             saveKeys();
         });
 
-        this.getChildren().addAll(title, forward, backward, right, left, attack, equipment, take, use, save);
+        this.getChildren().addAll(title, forward, backward, right, left, attack, equipment, take, use, backpack, save);
         this.setAlignment(Pos.CENTER);
     }
 
@@ -164,6 +176,7 @@ public class KeybindConfigView extends VBox{
         String equipment = ((TextField)((HBox)this.getChildren().get(6)).getChildren().get(1)).getText();
         String take = ((TextField)((HBox)this.getChildren().get(7)).getChildren().get(1)).getText();
         String use = ((TextField)((HBox)this.getChildren().get(8)).getChildren().get(1)).getText();
+        String backpack = ((TextField)((HBox)this.getChildren().get(9)).getChildren().get(1)).getText();
 
 
         // Check si les touches sont vides
@@ -174,7 +187,8 @@ public class KeybindConfigView extends VBox{
             attack.isEmpty() || 
             equipment.isEmpty() || 
             take.isEmpty() || 
-            use.isEmpty()){
+            use.isEmpty() ||
+            backpack.isEmpty()) {
             MyAlert alert = new MyAlert("Keybinds", "Key empty", "Please fill all the keybinds");
             alert.show();
             return;
@@ -189,7 +203,8 @@ public class KeybindConfigView extends VBox{
            !keys.add(attack) ||
            !keys.add(equipment) ||
            !keys.add(take) ||
-           !keys.add(use)) {
+           !keys.add(use) ||
+           !keys.add(backpack)) {
             MyAlert alert = new MyAlert("Keybinds", "Key already used", "Please use different keys for each action");
             alert.show();
             return;
@@ -205,6 +220,7 @@ public class KeybindConfigView extends VBox{
         keybinds.put("equipment", equipment);
         keybinds.put("take", take);
         keybinds.put("use", use);
+        keybinds.put("backpack", backpack);
 
         // sauvegarder les keybinds dans un fichier JSON
         try(FileWriter file = new FileWriter("../save/keybinds.json")) {
