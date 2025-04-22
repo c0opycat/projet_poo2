@@ -1,7 +1,9 @@
 package view;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class MyAlert {
 
@@ -21,5 +23,25 @@ public class MyAlert {
     alert.setHeaderText(HEADER);
     alert.setContentText(CONTENT);
     alert.showAndWait();
+  }
+
+  public boolean show(AlertType type) {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle(TITLE);
+    alert.setHeaderText(HEADER);
+    alert.setContentText(CONTENT);
+
+    ButtonType bt1 = new ButtonType("OK");
+    ButtonType bt2 = new ButtonType("Cancel");
+
+    alert.getButtonTypes().setAll(bt1, bt2);
+
+    Optional<ButtonType> choices = alert.showAndWait();
+
+    if (choices.get() == bt1) {
+      return true;
+    }
+
+    return false;
   }
 }
