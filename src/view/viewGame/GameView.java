@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.ButtonMenu;
+import view.viewContainer.ContainerView;
 import view.viewGame.viewCommand.viewMenuCommand.HelpView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 import view.viewLocation.LocationView;
@@ -31,10 +32,6 @@ public class GameView extends BorderWithButtons {
     this.addContent();
 
     this.getGameController().start();
-
-    if (true) {
-      System.out.println("titi");
-    }
   }
 
   //Set the bottom of the pane with buttons
@@ -102,12 +99,21 @@ public class GameView extends BorderWithButtons {
   private void addContent() {
     VBox contentBox = new VBox();
 
+    HBox mainGame = new HBox(20);
+    mainGame.getChildren().addAll(initGridPanes(), initContainer());
+    mainGame.setAlignment(Pos.CENTER);
+
     contentBox
       .getChildren()
-      .addAll(initGridPanes(), initGameButtons(), initTextInfos());
+      .addAll(mainGame, initGameButtons(), initTextInfos());
     contentBox.setAlignment(Pos.CENTER);
 
     this.setContent(contentBox);
+  }
+
+  private VBox initContainer() {
+    ContainerView container = new ContainerView();
+    return container;
   }
 
   //Returns the view of the level and the one that will display the containers' content
