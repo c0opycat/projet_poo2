@@ -7,6 +7,10 @@ import view.BorderWithButtons;
 import view.ButtonMenu;
 import view.ButtonQuit;
 
+/**
+ * 
+ * @author
+ */
 public class EditorView extends BorderWithButtons{
     
     public EditorView()

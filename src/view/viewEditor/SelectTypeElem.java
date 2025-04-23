@@ -18,6 +18,12 @@ import javafx.scene.layout.VBox;
 //DANS listElem
 public class SelectTypeElem extends TabPane {
  
+   /// Public ///
+   /**
+    * Constructor
+    * @param types
+    * @param listElem
+    */
    public SelectTypeElem(String types[], ArrayList<ArrayList<String>> listElem) {
       super();
 
@@ -38,6 +44,15 @@ public class SelectTypeElem extends TabPane {
          }
    }
 
+   /// Private ///
+   /**
+    * 
+    * @param tab
+    * @param infoBox
+    * @param type
+    * @param listElem
+    * @param i
+    */
    private void detailsTab(Tab tab, VBox infoBox, String type, ArrayList<ArrayList<String>> listElem, int i){
 
       ArrayList<String> listCurrType = listElem.get(i);
@@ -64,6 +79,10 @@ public class SelectTypeElem extends TabPane {
       
    }
 
+   /**
+    * 
+    * @return
+    */
    private Region spring(){
       Region spring = new Region();
       VBox.setVgrow(spring, Priority.ALWAYS);
@@ -72,12 +91,22 @@ public class SelectTypeElem extends TabPane {
    
    //Attention seulement les labels ils faut faire une fonction pour empêcher de mettre plus d'un monstre
    //Sinon gestion initial des monstres via random et ne pas permettre à l'utilisateur de mettre des monstres
+   /**
+    * Put into the VBox infoBox two label (and three sping) with warning about monster
+    * Not really use because we choose to spawn monster during the game and not to choose they position with the editor
+    * @param infoBox VBox with a gridPane to choose type of monster
+    */
    private void otherInfoMonster(VBox infoBox){
       Label attention = new Label("Attention : vous ne pouvez mettre qu'un seul monstre par niveau");
       Label warning = new Label("Warning : you can put only one monster per level");
       infoBox.getChildren().addAll(spring(), attention, spring(), warning, spring());
    }
 
+   /**
+    * 
+    * @param infoBox
+    * @param listImgDoors
+    */
    private void otherInfoDoor(VBox infoBox, ArrayList<String> listImgDoors){
       String[] listDoors = getDoors();
 
@@ -117,6 +146,14 @@ public class SelectTypeElem extends TabPane {
       });
    }
 
+
+   /**
+    * 
+    * @param listDoors
+    * @param elem
+    * @param listImages
+    * @return
+    */
    private int find(String[] listDoors, String elem, ArrayList<String> listImages){
       int lenNbDoor = listDoors.length; //len - 1 car dans la liste on a aussi noDoor
       int i = lenNbDoor;
@@ -131,12 +168,21 @@ public class SelectTypeElem extends TabPane {
       return currI;
    }
 
+   /**
+    * 
+    * @return
+    */
    private String[] getDoors(){
       //recuperer le contenu via le controller
       String[] doors = {"noDoor", "Place Lepetit", "Beaulieu", "Notre-Dame", "Blossac"};
       return doors;
    }
 
+   /**
+    * 
+    * @param infoBox
+    * @param listInfoItem
+    */
    private void otherInfoItem(VBox infoBox, ArrayList<String> listInfoItem)
    {
       //Sous Tab choix entre Weapon / Container / Consommable / Other ????
