@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -63,8 +61,8 @@ public class GameView extends BorderWithButtons {
       .get(0);
   }
 
-  public GridPane getContainersContent() {
-    return (GridPane) ((HBox) ((VBox) this.getCenter()).getChildren()
+  public ContainerView getContainersContent() {
+    return (ContainerView) ((HBox) ((VBox) this.getCenter()).getChildren()
         .get(0)).getChildren()
       .get(1);
   }
@@ -104,7 +102,7 @@ public class GameView extends BorderWithButtons {
     VBox contentBox = new VBox();
 
     HBox mainGame = new HBox(20);
-    mainGame.getChildren().addAll(initGridPanes(), initContainer());
+    mainGame.getChildren().addAll(initMainFrame());
     mainGame.setAlignment(Pos.CENTER);
 
     contentBox
@@ -115,8 +113,8 @@ public class GameView extends BorderWithButtons {
     this.setContent(contentBox);
   }
 
-  private VBox initContainer() {
-    ContainerView container = new ContainerView();
+  private ContainerView initContainer() {
+    ContainerView container = new ContainerView(this);
 
     ArrayList<Item> test = new ArrayList<>();
 
@@ -130,18 +128,11 @@ public class GameView extends BorderWithButtons {
   }
 
   //Returns the view of the level and the one that will display the containers' content
-  private HBox initGridPanes() {
+  private HBox initMainFrame() {
     HBox gridPanesBox = new HBox(10);
 
     LocationView level = new LocationView();
-    GridPane containersContent = new GridPane();
-
-    //a supp
-    for (int i = 0; i < 5; i++) {
-      for (int j = 0; j < 6; j++) {
-        containersContent.add(new Label("(" + i + "," + j + ")"), i, j);
-      }
-    }
+    ContainerView containersContent = initContainer();
 
     gridPanesBox.getChildren().addAll(level, containersContent);
 

@@ -4,8 +4,18 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import view.viewMenu.Menu;
 
+/**
+ * Button that redirects to the Menu after confirmation.
+ *
+ */
 public class ButtonMenu extends Button {
 
+  //// Public ////
+
+  /**
+   * Constructor
+   * @param mainScene The scene that contains every pane.
+   */
   public ButtonMenu(MainScene mainScene) {
     super("Menu");
     this.setOnAction(e -> {

@@ -136,7 +136,6 @@
 .label {
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;
-    -fx-effect: dropshadow(gaussian, #000000, 2, 0.3, 1, 1);
 }
 
 /* Style textfield et textarea */
