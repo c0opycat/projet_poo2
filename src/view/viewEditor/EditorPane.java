@@ -35,11 +35,21 @@ public class EditorPane extends HBox{
     /**Spinner to choose the number of rows */
     private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
     /**Array of Name of the different object tabs*/
-    private String[] nomsType = {"Décors / Sets", "Portes / Doors", "Objets / Items"};
+    private String[] nomsType = {"Décors / Sets", "Portes / Doors", "Objets / Items", "Personnages / Characters"};
     /**List of list of information about object that can be put on the board. One list for each tabs*/
     private ArrayList<ArrayList<String>> nomsItems = new ArrayList<>(List.of(
                 new ArrayList<>(List.of("cathedrale", "immeuble", "immeubles", "maison abandonnée", "palais")),
                 new ArrayList<>(List.of("noDoor", "door0", "door1", "door2", "door3")), 
+                new ArrayList<>(List.of("sac à dos/backpack ; capacité : 5/capacity: 5", 
+                    "coffre/chest ; capacité : 5/capacity: 5", 
+                    "caisse1/crate1 ; capacité : 5/capacity: 5; fermé/close", 
+                    "caisse2/crate2 ; capacité : 5/capacity: 5; fermé/close", 
+                    "pied de biche/crowbar ; poids : 1 / weight:1", 
+                    "pistolet/gun ; poids : 1 / weight:1 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
+                    "fusil/shotgun; poids : 2 / weight:2 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
+                    "épée/sword ; poids : 2 / weight:2 ; dégâts : 3/damage: 3 ; type de dégât : perçant / damage type: piercing ", 
+                    "batte/baseball Bat; poids : 2 / weight:2 ; dégâts : 2/damage: 2 ; type de dégât : assommant / damage type: stunning ", 
+                    "armure/armor ; reduction des dommages : 2 /damage reduction: 2" )),
                 new ArrayList<>(List.of("sac à dos/backpack ; capacité : 5/capacity: 5", 
                     "coffre/chest ; capacité : 5/capacity: 5", 
                     "caisse1/crate1 ; capacité : 5/capacity: 5; fermé/close", 

@@ -62,6 +62,7 @@ public class SelectTypeElem extends TabPane {
       case "Personnages / Characters":
         otherInfoCharactere(infoBox, listCurrType);
         tab.setContent(infoBox);
+        break;
       default:
         tab.setContent(elems);
         break;
