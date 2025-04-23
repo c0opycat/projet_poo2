@@ -1,5 +1,6 @@
 package model.location;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class LocationM {
     private int width;
     private int height;
     public String name;
-    public Step[][] locMap;
+    public HashMap<Point, Step> locMap;
     public Map<Integer, Exit> exits;
     public ArrayList<Item> itemList;
     public String description;
@@ -35,7 +36,7 @@ public class LocationM {
         this.height = DEF_HEIGHT;
         this.exits = new HashMap<>();
         this.name = name;
-        this.locMap = new Step[width][height];
+        this.locMap = new HashMap<>();
         this.itemList = new ArrayList<>();
         boolean hasContainer = false;
 
@@ -53,7 +54,7 @@ public class LocationM {
      * Constructs a new location with a name, random items, and possibly a random monster.
      * @param name : the name of the location
      */
-    public LocationM(String name, int width, int height,Map<Integer, Exit> exits, Step[][] locMap,ArrayList<Item> itemList,Monster monster) {
+    public LocationM(String name, int width, int height,Map<Integer, Exit> exits, HashMap<Point,Step> locMap,ArrayList<Item> itemList,Monster monster) {
         this.width = width;
         this.height = height;
         this.name = name;
@@ -163,6 +164,10 @@ public class LocationM {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public void setNewStep(int x, int y,Object obj) {
+        this.locMap.put(new Point(x,y),new Step(obj));
     }
 
     public String toString() {
