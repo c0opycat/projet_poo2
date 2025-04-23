@@ -31,16 +31,22 @@ public class ContainerView extends VBox {
       label.setId("" + index);
       label.getStyleClass().add("item-label");
       label.setStyle("-fx-text-fill: #000000;");
-
-      Button use = new Button("Use");
-      use.getStyleClass().add("button-Commande");
-      Button equip = new Button("Equip");
-      equip.getStyleClass().add("button-Commande");
-
-      li.setAlignment(Pos.CENTER);
-      li.getChildren().addAll(label, use, equip);
+      li.setAlignment(Pos.CENTER_RIGHT);
+      li.getChildren().addAll(label, add_Buse(), add_Bequip());
 
       this.getChildren().add(li);
     }
+  }
+
+  private Button add_Buse() {
+    Button use = new Button("Use");
+    use.getStyleClass().add("button-Commande");
+    return use;
+  }
+
+  private Button add_Bequip() {
+    Button equip = new Button("Equip");
+    equip.getStyleClass().add("button-Commande");
+    return equip;
   }
 }
