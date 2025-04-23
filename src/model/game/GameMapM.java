@@ -13,31 +13,31 @@ public class GameMapM {
         buildMap();
     }
     public static void buildMap(){
-        LocationM northPoitiers = new LocationM(LocationName.NORTH_POITIERS);
+        LocationM northPoitiers = new LocationM("NORTH_POITIERS");
         GameMapM.locations.add(northPoitiers);
-        LocationM beaulieu = new LocationM(LocationName.BEAULIEU);
+        LocationM beaulieu = new LocationM("BEAULIEU");
         GameMapM.locations.add(beaulieu);
-        LocationM cityCenter = new LocationM(LocationName.CITY_CENTER);
+        LocationM cityCenter = new LocationM("CITY_CENTER");
         GameMapM.locations.add(cityCenter);
-        LocationM couronneries = new LocationM(LocationName.COURONNERIES);
+        LocationM couronneries = new LocationM("COURONNERIES");
         GameMapM.locations.add(couronneries);
-        LocationM gibauderie = new LocationM(LocationName.GIBAUDERIE);
+        LocationM gibauderie = new LocationM("GIBAUDERIE");
         GameMapM.locations.add(gibauderie);
-        LocationM westPoitiers = new LocationM(LocationName.WEST_POITIERS);
+        LocationM westPoitiers = new LocationM("WEST_POITIERS");
         GameMapM.locations.add(westPoitiers);
-        LocationM southPoitiers = new LocationM(LocationName.SOUTH_POITIERS);
+        LocationM southPoitiers = new LocationM("SOUTH_POITIERS");
         GameMapM.locations.add(southPoitiers);
-        LocationM pontNeuf = new LocationM(LocationName.PONT_NEUF);
+        LocationM pontNeuf = new LocationM("PONT_NEUF");
         GameMapM.locations.add(pontNeuf);
-        LocationM saintEloi = new LocationM(LocationName.SAINT_ELOI);
+        LocationM saintEloi = new LocationM("SAINT_ELOI");
         GameMapM.locations.add(saintEloi);
-        LocationM troisCites = new LocationM(LocationName.TROIS_CITES);
+        LocationM troisCites = new LocationM("TROIS_CITES");
         GameMapM.locations.add(troisCites);
-        LocationM montbernage = new LocationM(LocationName.MONTBERNAGE);
+        LocationM montbernage = new LocationM("MONTBERNAGE");
         GameMapM.locations.add(montbernage);
-        LocationM miletrie = new LocationM(LocationName.MILETRIE);
+        LocationM miletrie = new LocationM("MILETRIE");
         GameMapM.locations.add(miletrie);
-        LocationM finalExit = new LocationM(LocationName.FINAL_EXIT);
+        LocationM finalExit = new LocationM("FINAL_EXIT");
         GameMapM.locations.add(finalExit);
 
         LocationM.northPoitiers(GameMapM.locations.get(0));

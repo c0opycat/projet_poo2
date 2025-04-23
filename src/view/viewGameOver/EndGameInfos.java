@@ -9,13 +9,13 @@ import javafx.scene.layout.VBox;
 import view.viewGame.GameView;
 
 public class EndGameInfos extends VBox{
-    private final GameView gameView;
+    //private final GameView gameView;
 
     public EndGameInfos(GameView gameView)
     {
         super();
 
-        this.gameView = gameView;
+        //this.gameView = gameView;
 
         this.addElements();
     }

@@ -34,6 +34,7 @@ public class BorderWithButtons extends BorderPane{
 
     public void setContent(Node content)
     {
+        BorderPane.setMargin(content, new Insets(50, 0, 0, 0));
         this.setCenter(content);
     }
 

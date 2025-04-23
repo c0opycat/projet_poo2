@@ -7,7 +7,6 @@ import model.item.Item;
 import model.character.CharacterM;
 import model.item.consumable.Consumable;
 import model.location.LocationM;
-import model.location.LocationName;
 
 import java.util.Random;
 
@@ -69,59 +68,60 @@ public class MessageM {
 
     //Return the Location description
     public static String getDescription(LocationM location){
-        LocationName name = location.getName();
+        String name = location.getName();
         return getDAux(name);
     }
 
     //Secondary function of the getDescription function
-    private static String getDAux(LocationName name){
+    private static String getDAux(String name){
         return switch (name) {
-            case  BEAULIEU -> "On the ruins of the mall stands the burned remains of an aircraft.\n"+
+            case  "BEAULIEU" -> "On the ruins of the mall stands the burned remains of an aircraft.\n"+
                             "Maybe there's food left somewhere around.\n"+
                             "You can spot a few movements in the distance.\n"+
                             "Whatever you plan to do, better be quick.";
-            case MILETRIE -> "There seems to be a lot of activity there.\n"+
+            case "MILETRIE" -> "There seems to be a lot of activity there.\n"+
                             "The hospital is still menacingly standing.\n"+
                             "Exploring it would be a high stake but dangerous choice.\n"+
                             "Finding meds would help but you heard rumors about the abominations roaming there.\n";
-            case CITY_CENTER -> "You remember that survivors used Notre Dame as a base for some time.\n"+
+            case "CITY_CENTER" -> "You remember that survivors used Notre Dame as a base for some time.\n"+
                             "It seems that they've abandoned it already but maybe they left useful things behind.\n"+
                             "A smell of burned flesh comes to your nose. What happened here?\n";
-            case COURONNERIES -> "The main part of the buildings are in bad shape.\n"+
+            case "COURONNERIES" -> "The main part of the buildings are in bad shape.\n"+
                             "A few towers are still standing, maybe there's still people there.\n"+
                             "You can hear distant sounds of water flowing.\n";
-            case GIBAUDERIE -> "There is a lot of abandoned business and care building.\n"+
+            case "GIBAUDERIE" -> "There is a lot of abandoned business and care building.\n"+
                             "Everything is quiet and you can ear your own steps on the dirty road.\n"+
                             "There might be some useful stuff hidden there.\n";
-            case WEST_POITIERS -> "Everything is now covered by a dense forrest.\n"+
+            case "WEST_POITIERS" -> "Everything is now covered by a dense forrest.\n"+
                             "Life... eh... Finds a way.\n"+
                             "\n";
-            case SOUTH_POITIERS -> "It looks like it's been devastated by explosives.\n"+
+            case "SOUTH_POITIERS" -> "It looks like it's been devastated by explosives.\n"+
                             "The strong density of ashes and chemicals are hurting your lungs.\n"+
                             "Better get out of here.\n";
-            case PONT_NEUF -> "It stinks. Coming from the highs a mud slide dragged a tide of rotting corpse down to the river.\n"+
+            case "PONT_NEUF" -> "It stinks. Coming from the highs a mud slide dragged a tide of rotting corpse down to the river.\n"+
                             "Construction machines are scattered all around.\n"+
                             "With a smile you think that nobody will ever witness the work done.\n";
-            case SAINT_ELOI -> "This is so quiet and probably the area that suffered the least damages.\n"+
+            case "SAINT_ELOI" -> "This is so quiet and probably the area that suffered the least damages.\n"+
                             "The neat aspect of the recent buildings makes you feel eerily isolated.\n"+
                             "\n";
-            case TROIS_CITES -> "The small mall has been fortified and you know there is a community leaving there.\n"+
+            case "TROIS_CITES" -> "The small mall has been fortified and you know there is a community leaving there.\n"+
                             "They are known to be helpful to wandering strangers but you don't trust people.\n"+
                             "\n";
-            case NORTH_POITIERS -> "On the heights of the Clain valley, you can see the panorama.\n"+
+            case "NORTH_POITIERS" -> "On the heights of the Clain valley, you can see the panorama.\n"+
                             "The quiet Statue faces you on the other side.\n"+
                             "Her left side has been darkened by fire and her right arm is missing.\n";
-            case MONTBERNAGE -> "The tall bridge supporting the urban motorways still spans the Clain.\n"+
+            case "MONTBERNAGE" -> "The tall bridge supporting the urban motorways still spans the Clain.\n"+
                             "Its tall silhouette is a remain of the world you used to know.\n"+
                             "\n";
-            case FINAL_EXIT -> "The long road seems desert.\n"+
+            case "FINAL_EXIT" -> "The long road seems desert.\n"+
                             "You're finally out.\n" + "\n";
+            default -> "";
         };
     }
     //returns the description of the location in parameter by calling the switch case on top
     public static String locationDescription(LocationM location){
         String intro = "You're at ";
-        LocationName lName = location.getName();
+        String lName = location.getName();
         String desc = getDescription(location);
         return intro+lName+":\n"+desc+"\n";
     }

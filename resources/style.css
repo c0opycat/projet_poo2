@@ -65,6 +65,29 @@
     -fx-font-weight: bold;
 }
 
+
+.button-Commande {
+    -fx-background-color: #fecaca;
+    -fx-text-fill: #000000;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 2, 2);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+/* Effet au survol */
+.button-Commande:hover {
+    -fx-background-color: #feceee;
+    -fx-border-color: #ff6600;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 102, 0, 0.8), 10, 0, 4, 4);
+}
+
+
 .under-title {
     -fx-background-color: #2e2e2e;
     -fx-padding: 10px, 15px;
