@@ -59,6 +59,9 @@ public class SelectTypeElem extends TabPane {
         otherInfoItem(infoBox, listCurrType);
         tab.setContent(infoBox);
         break;
+      case "Personnages / Characters":
+        otherInfoCharactere(infoBox, listCurrType);
+        tab.setContent(infoBox);
       default:
         tab.setContent(elems);
         break;
@@ -155,66 +158,89 @@ public class SelectTypeElem extends TabPane {
     return doors;
   }
 
-  private void otherInfoItem(VBox infoBox, ArrayList<String> listInfoItem) {
-    //Sous Tab choix entre Weapon / Container / Consommable / Other ????
+    private void otherInfoItem(VBox infoBox, ArrayList<String> listInfoItem) {
+        //Sous Tab choix entre Weapon / Container / Consommable / Other ????
 
-    //Je pars du principe que chaque item est enregistré sous la même forme
-    //nom de l'image/item ; type d'item ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
-    //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
-    ArrayList<String> imgItems = new ArrayList<>();
-    ArrayList<String> msgFList = new ArrayList<>();
-    ArrayList<String> msgEList = new ArrayList<>();
-    String msgF;
-    String msgE;
-    Label msgFLabel = new Label("Paramètres de l'objet");
-    Label msgELabel = new Label("Item's parameters");
+        //Je pars du principe que chaque item est enregistré sous la même forme
+        //nom de l'image/item ; type d'item ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
+        //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
+        Label msgFLabel = new Label("Paramètres de l'objet");
+        Label msgELabel = new Label("Item's parameters");
+        String presFr = "Cet objet est un/une ";
+        String presEn = "This object is a/an ";
 
-    for (String currItem : listInfoItem) {
-      String[] parts = currItem.split(";");
+        otherInfoData(infoBox, listInfoItem, msgFLabel, msgELabel, presFr, presEn);
 
-      String[] lang = parts[0].split("/");
-      if (lang.length >= 2) {
-        msgF = "Cet objet est un/une " + lang[0] + ".\n";
-        msgE = "This object is a/an " + lang[1] + ".\n";
-      } else {
-        msgF = "Sans nom \n";
-        msgE = "No name \n";
-      }
-
-      imgItems.add(lang[0]);
-
-      int len = parts.length;
-      if (len > 1) {
-        msgF += "Ses paramètres sont ";
-        msgE += "Its parameters are ";
-        for (int i = 1; i < len; i++) {
-          lang = parts[i].split("/");
-          if (lang.length >= 2) {
-            msgF += lang[0];
-            msgE += lang[1];
-          } else {
-            msgF += "Il n'a pas de paramètre particulier.";
-            msgE += "It has no particular parameter.";
-          }
-        }
-      } else {
-        msgF += "Il n'a pas de paramètre particulier.";
-        msgE += "It has no particular parameter.";
-      }
-      msgFList.add(msgF);
-      msgEList.add(msgE);
     }
 
-    SelectElemItem listItem = new SelectElemItem(
-      imgItems,
-      8,
-      msgFList,
-      msgEList,
-      msgFLabel,
-      msgELabel
-    );
-    infoBox
-      .getChildren()
-      .addAll(listItem, spring(), msgFLabel, spring(), msgELabel);
-  }
+    // private LocationM curLoc;
+    // private LocationM lastLoc;
+    // public int posx;
+    // public int posy;
+    // protected int health;
+    // public final int MAXHEALTH;
+    // protected Protection shield; //Can be null
+    // protected Weapon weapon; //Can be null
+    private void otherInfoCharactere(VBox infoBox, ArrayList<String> listInfoItem) {
+        //Sous Tab choix entre Weapon / Container / Consommable / Other ????
+    
+        //Je pars du principe que chaque item est enregistré sous la même forme
+        //nom de l'image/item ; type d'item ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
+        //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
+        Label msgFLabel = new Label("Information personnage : ");
+        Label msgELabel = new Label("Charater's information: ");
+        String presFr = "Cet objet est un/une ";
+        String presEn = "This object is a/an ";
+    
+        otherInfoData(infoBox, listInfoItem, msgFLabel, msgELabel, presFr, presEn);
+    
+    }
+
+    public void otherInfoData(VBox infoBox, ArrayList<String> listInfoItem, Label msgFLabel, Label msgELabel, String presFr, String presEn){
+        ArrayList<String> imgItems = new ArrayList<>();
+        ArrayList<String> msgFList = new ArrayList<>();
+        ArrayList<String> msgEList = new ArrayList<>();
+        String msgF;
+        String msgE;
+
+        for (String currItem : listInfoItem) {
+            String[] parts = currItem.split(";");
+  
+            String[] lang = parts[0].split("/");
+            if (lang.length >= 2) {
+                msgF = presFr + lang[0] + ".\n";
+                msgE = presEn + lang[1] + ".\n";
+            } else {
+                msgF = "Sans nom \n";
+                msgE = "No name \n";
+            }
+  
+            imgItems.add(lang[0]);
+  
+            int len = parts.length;
+            if (len > 1) {
+                msgF += "Autres informations :";
+                msgE += "Others datas:";
+            for (int i = 1; i < len; i++) {
+                lang = parts[i].split("/");
+                if (lang.length >= 2) {
+                    msgF += lang[0];
+                    msgE += lang[1];
+                } else {
+                    msgF += "Pas d'autres informations";
+                    msgE += "No other data";
+                }
+            }
+            } else {
+                msgF += "Pas d'autres informations";
+                msgE += "No other data";
+            }
+            msgFList.add(msgF);
+            msgEList.add(msgE);
+        }
+  
+        SelectElemItem listItem = new SelectElemItem(imgItems,8, msgFList, msgEList, msgFLabel, msgELabel );
+        infoBox.getChildren().addAll(listItem, spring(), msgFLabel, spring(), msgELabel);
+    }
+  
 }
