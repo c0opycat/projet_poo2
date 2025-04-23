@@ -1,27 +1,25 @@
 package view.viewGame.viewCommand.viewMenuCommand;
 
+import controller.controllerGame.controllerCommand.controllerMenuCommand.HelpController;
 import javafx.scene.control.Button;
 import view.viewGame.GameView;
-import controller.controllerGame.controllerCommand.HelpController;
 
-public class HelpView extends Button{
-    private final HelpController helpController;
+public class HelpView extends Button {
 
-    public HelpView(GameView gameView)
-    {
-        super("Help");
+  private final HelpController helpController;
 
-        this.helpController = new HelpController(this, gameView);
+  public HelpView(GameView gameView) {
+    super("Help");
+    this.helpController = new HelpController(this, gameView);
 
-        this.setOnAction(e -> {
-            this.getHelpController().help();
+    this.setOnAction(e -> {
+        this.getHelpController().help();
 
-            e.consume();
-        });
-    }
+        e.consume();
+      });
+  }
 
-    public HelpController getHelpController()
-    {
-        return this.helpController;
-    }
+  public HelpController getHelpController() {
+    return this.helpController;
+  }
 }
