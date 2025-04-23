@@ -43,7 +43,6 @@ public class HeroM extends CharacterM {
         this.jobM = DEFAULT_JOBM;
     }
 
-
     public JobM getJob() {
         return jobM;
     }
@@ -54,8 +53,8 @@ public class HeroM extends CharacterM {
             case STARTUP:setHealth(30);break;
             case MEDIC:
                 HeroM.backpack.addItem(new Medicine());break;
-            case TEACHER:;break;
-            case DELIVERY:;break;
+            //case TEACHER:;break; coming soon
+            //case DELIVERY:;break; coming soon
             case SECURITY:
                 HeroM.backpack.addItem(Weapon.randWeapon());break;
             case VETERINARY:this.weapon = new Doggo(MessageM.randName());break;
