@@ -12,6 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import model.item.Crowbar;
+import model.item.Item;
+import model.item.Protection;
+import model.item.consumable.Medicine;
 import view.BorderWithButtons;
 import view.ButtonMenu;
 import view.viewContainer.ContainerView;
@@ -113,6 +117,15 @@ public class GameView extends BorderWithButtons {
 
   private VBox initContainer() {
     ContainerView container = new ContainerView();
+
+    ArrayList<Item> test = new ArrayList<>();
+
+    test.add(new Crowbar());
+    test.add(new Protection());
+    test.add(new Medicine());
+
+    container.addItemList(test);
+
     return container;
   }
 
