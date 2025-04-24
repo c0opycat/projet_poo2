@@ -2,20 +2,20 @@ package view.viewGame;
 
 import controller.controllerGame.GameController;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCharacterCombination;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import model.item.Crowbar;
-import model.item.Item;
-import model.item.Protection;
-import model.item.consumable.Medicine;
 import view.BorderWithButtons;
 import view.ButtonMenu;
+import view.Keybinds;
 import view.viewContainer.ContainerView;
 import view.viewGame.viewCommand.viewMenuCommand.HelpView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
@@ -23,10 +23,15 @@ import view.viewLocation.LocationView;
 
 public class GameView extends BorderWithButtons {
 
+  private final Keybinds keybinds;
+
   private final GameController gameController;
 
   public GameView() {
     super();
+    this.keybinds = new Keybinds();
+    this.keybinds.loadKeybinds();
+
     this.gameController = new GameController(this);
 
     this.addTitle("Game");
@@ -49,6 +54,10 @@ public class GameView extends BorderWithButtons {
     buttons.add(quit);
 
     this.addButtons(buttons);
+  }
+
+  public Keybinds getKeybinds() {
+    return this.getKeybinds();
   }
 
   public GameController getGameController() {

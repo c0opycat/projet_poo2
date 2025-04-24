@@ -30,7 +30,7 @@ public class ConfigView extends BorderWithButtons {
     Hb.setAlignment(Pos.CENTER);
 
     // Créer une instance de KeybindConfigView
-    KeybindConfigView kb = new KeybindConfigView();
+    AllKeybindsConfigView kb = new AllKeybindsConfigView();
     ResolutionConfigView res = new ResolutionConfigView();
     LanguageConfigView lang = new LanguageConfigView();
 

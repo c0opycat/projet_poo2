@@ -44,14 +44,6 @@
     -fx-weight: bold;
 }
 
-.keybind-row > .text-field {
-    -fx-background-color: #474747;
-    -fx-text-fill: #ffffff;
-    -fx-border-color: #5a5a5a;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-}
-
 /* style pour les title */
 .title {
     -fx-background-color: #2e2e2e;

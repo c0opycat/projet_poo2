@@ -1,11 +1,11 @@
 {
-    "take": "n",
-    "left": "d",
-    "forward": "z",
-    "attack": "t",
-    "use": "b",
-    "backpack": "e",
-    "backward": "s",
-    "equipment": "r",
-    "right": "q"
+    "take": "T",
+    "equip": "E",
+    "left": "D",
+    "forward": "Z",
+    "attack": "A",
+    "use": "U",
+    "backpack": "B",
+    "backward": "W",
+    "right": "Q"
 }
