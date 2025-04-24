@@ -1,7 +1,5 @@
 package model.item.container;
 
-import java.util.Scanner;
-
 import model.game.*;
 import model.item.Crowbar;
 import model.item.Item;
@@ -30,13 +28,13 @@ public class Crate extends Container {
         return this.open;
     }
     
-    public boolean open(Crowbar c, Scanner scan){
+    public boolean open(Crowbar c){
         boolean res = false;
 
         if(c != null)
         {
             Backpack bp = HeroM.gBackpack();
-            boolean use = c.use(bp, scan);
+            boolean use = c.use(bp);
 
             if (use)
             {

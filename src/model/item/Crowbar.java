@@ -12,7 +12,7 @@ public class Crowbar extends Item
         super(7);
     }
 
-    public boolean use(Backpack b, Scanner scan)
+    public boolean useConfirmation(Backpack b, Scanner scan)
     {
         System.out.println(MessageM.useItem(this));
         boolean ans;
@@ -22,5 +22,11 @@ public class Crowbar extends Item
             return true;
         }
         else return false;
+    }
+
+    public boolean use(Backpack b)
+    {
+            b.removeItem(this);
+            return true;
     }
 }

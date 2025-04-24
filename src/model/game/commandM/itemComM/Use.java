@@ -1,6 +1,5 @@
 package model.game.commandM.itemComM;
 
-import java.util.Scanner;
 import model.game.GameM;
 import model.game.MessageM;
 import model.game.commandM.Command;
@@ -15,12 +14,11 @@ import model.character.heros.HeroM;
 public class Use extends Command {
     private int nb_arg;
 
-    public Use(String[] cmd, GameM gameM, Scanner scan) {
+    public Use(String[] cmd, GameM gameM) {
         this.gameM = gameM;
         this.commands = cmd;
         this.nb_arg = this.commands.length;
 
-        this.scan = scan;
     }
 
 
@@ -62,7 +60,7 @@ public class Use extends Command {
                             Crate crate = (Crate)arg2;
                             Crowbar c = (Crowbar)toUse;
 
-                            if(crate.open(c, scan))
+                            if(crate.open(c))
                             {
                                 res = true;
                                 System.out.println(MessageM.commandOnItem("used ",toUse));

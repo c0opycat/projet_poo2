@@ -92,7 +92,7 @@ public class Command {
                     System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Use(commands, gameM, scan).execute();
+                return new Use(commands, gameM).execute();
             case "quit":
                 if (commands.length != 1) {
                     System.out.println(MessageM.invalidCommand());

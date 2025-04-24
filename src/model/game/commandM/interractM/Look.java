@@ -11,23 +11,42 @@ import model.item.container.Crate;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the "look" command in the game.
+ * <p>
+ * This command allows the player to observe the current location,
+ * including visible items, exits, monsters, and their own Hero.
+ * It also allows inspecting specific items or opening containers.
+ */
 public class Look extends Command {
     public Look(String[] cmd, GameM gameM) {
         this.gameM = gameM;
         this.commands = cmd;
     }
 
+    /**
+     * Constructs a Look command with command arguments and a game instance.
+     *
+     * @param cmd   the parsed player input
+     * @param gameM the current game instance
+     */
     public Look(GameM gameM) {
         this.gameM = gameM;
         this.commands = null;
     }
 
+    /**
+     * Executes the look command with context.
+     * @param enter whether the player is entering a new room (true) or just observing (false)
+     * @return true if execution is successful, false if the command was invalid or no action occurred
+     */
     public boolean execute(boolean enter) {
         if (!enter){
             ArrayList<Exit> exits = gameM.getCurLocation().getExits();
             int nbExits = exits.size();
             ArrayList<Item> items = gameM.getCurLocation().itemList;
             int nbItems = items.size();
+
             if (commands == null || commands.length == 1){
                 // Locations
                 System.out.println(MessageM.displayExitsInLoc());
@@ -54,13 +73,13 @@ public class Look extends Command {
                 
                 return false;
             } else {
+                // Looking at a specific item by index
                 int arg = Integer.parseInt(commands[1]);
                 if (arg >= 0 && arg < nbItems){
                     Item i = items.get(arg);
-                    
+                    // If it's a Crate, check if it can be opened
                     if(Item.isContainer(i))
                     {
-
                         if(i instanceof Crate)
                         {   
                             Crate c = (Crate) i;
@@ -70,7 +89,6 @@ public class Look extends Command {
                                 return false;
                             }
                         }
-                        
                         Container c = (Container)i;
                         c.displayContent();
                     }
@@ -79,6 +97,7 @@ public class Look extends Command {
                         System.out.println(items.get(arg));
                     }
                 } else if (arg == nbItems){
+                    // Look into the backpack
                     HeroM.gBackpack().displayContent();
                 }
                 else
@@ -88,7 +107,7 @@ public class Look extends Command {
                 }
             }
         } else {
-            //Monsters
+            //Monsters when entering in a new location
             if(gameM.getCurLocation().getMonster() != null)
             {
                 System.out.println(MessageM.monsterApparition(gameM.getCurLocation().getMonster()));
