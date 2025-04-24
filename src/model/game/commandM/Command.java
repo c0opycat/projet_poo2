@@ -56,13 +56,13 @@ public class Command {
         switch(commands[0]){
             case "go":
                 if (commands.length == 1) {
-                    new Go(commands, gameM, scan).help();
+                    new Go(commands, gameM).help();
                     return false;
                 } else if ((commands.length != 2) || (!isInteger(commands[1]))) {
                     System.out.println(MessageM.invalidCommand());
                     return false;
                 }
-                return new Go(commands, gameM, scan).execute();
+                return new Go(commands, gameM).execute();
             case "help":
                 if (commands.length != 1) {
                     System.out.println(MessageM.invalidCommand());

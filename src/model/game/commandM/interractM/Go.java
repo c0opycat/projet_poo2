@@ -5,16 +5,28 @@ import model.game.commandM.Command;
 import model.location.Exit;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import model.character.monster.ColossusM;
 
+/**
+ * Represents the "go" command in the game.
+ * <p>
+ * Allows the Hero to move from one location to another via an exit.
+ * The command uses an argument to determine which exit to take.
+ * If a monster is still alive in the current room, the command is blocked.
+ */
 public class Go extends Command {
     private ArrayList<Exit> exits;
     private int nbExits;
     private int arg;
 
-    public Go(String[] cmd, GameM gameM, Scanner scan) {
+    /**
+     * Constructs the Go command with arguments and the current game state.
+     *
+     * @param cmd   the command array (e.g., {"go", "1"})
+     * @param gameM the current game instance
+     */
+    public Go(String[] cmd, GameM gameM) {
         this.commands = cmd;
         this.gameM = gameM;
 
@@ -24,19 +36,28 @@ public class Go extends Command {
         
         this.exits = gameM.getCurLocation().getExits();
         this.nbExits = exits.size();
-
-        this.scan = scan;
     }
 
+    /**
+     * Executes the "go" command.
+     * <p>
+     * Moves the Hero to another location based on the selected exit.
+     * The command checks if the chosen index is within bounds,
+     * and whether a monster is still alive in the current room.
+     * It also verifies if the exit is one-way or bi-directional.
+     *
+     * @return true if the Hero successfully moves to another location, false otherwise
+     * @throws RuntimeException if the argument index is out of bounds
+     */
     public boolean execute() {
         if (arg < 0 || arg >= nbExits){
-            return false;
+            throw new RuntimeException("argument out of range");
         }
 
         ArrayList<Exit> nextExits = this.exits.get(arg).destination.getExits();
 
         if (gameM.getCurLocation().getMonster() == null){
-
+            //removed "use one-way exit" confirmation
             boolean isOneWay = true;
             for(Exit e : nextExits)
             {
@@ -49,8 +70,7 @@ public class Go extends Command {
             }
             
             if (isOneWay){
-                System.out.println("This exit is one way only\n Are you sure you want to take this exit ? (y/n)\n");
-                boolean yn = Command.confirmation(scan);
+                boolean yn = true;
                 if (yn){
                     this.gameM.setCurLocation(exits.get(arg).destination);
                     this.gameM.getCurLocation().displayLocation();
@@ -67,20 +87,6 @@ public class Go extends Command {
                 return new Look(null, gameM).execute(true);
             }
         }
-        else if(this.gameM.getCurLocation().getMonster().getClass() == ColossusM.class)
-        {
-            System.out.println("There is a colossus !\nDo you want to flee ? (y/n)\n");
-                if(!Command.confirmation(scan))
-                {
-                    return false;
-                }
-                else
-                {
-                    this.gameM.setCurLocation(exits.get(arg).destination);
-                    this.gameM.getCurLocation().displayLocation();
-                    return new Look(null, gameM).execute(true);
-                }
-        }
         else 
         {
             System.out.println("You have to kill all the monsters in the room before you can go to another room\n");
@@ -88,11 +94,13 @@ public class Go extends Command {
         }
     }
 
+    /**
+     * Displays help text showing available exits and their corresponding indices.
+     */
     public void help(){
         System.out.println("You can go to :");
         for (int i = 0 ; i < nbExits ; i++) {
             System.out.println("    " + i + ": " + exits.get(i).destination);
         }
     }
-
 }
