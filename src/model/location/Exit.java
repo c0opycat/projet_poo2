@@ -63,9 +63,6 @@ public class Exit {
         if (stExNb >= 4) {
             throw new IllegalArgumentException("you can't add more exits to the starting location");
         }
-        if (deExNb >= 4) {
-            throw new IllegalArgumentException("you can't add more exits to the destination location");
-        }
 
         this.destination = destination;
         this.start = start;
