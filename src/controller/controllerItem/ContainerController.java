@@ -1,5 +1,8 @@
 package controller.controllerItem;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import model.item.Item;
 import model.item.container.Backpack;
 import model.item.container.Container;
 import view.viewContainer.ContainerView;
@@ -31,5 +34,14 @@ public class ContainerController {
   public void setContainerModel(Container container) {
     this.containerModel = container;
   }
+
   //Fonction pour récupérer ce qu'il y a dans le container
+
+  public ArrayList<Item> getItems() {
+    return containerModel.getItemList();
+  }
+
+  public void setItemsContainer() {
+    containerView.addItemList(getItems());
+  }
 }

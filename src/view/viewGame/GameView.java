@@ -115,15 +115,6 @@ public class GameView extends BorderWithButtons {
 
   private ContainerView initContainer() {
     ContainerView container = new ContainerView(this);
-
-    ArrayList<Item> test = new ArrayList<>();
-
-    test.add(new Crowbar());
-    test.add(new Protection());
-    test.add(new Medicine());
-
-    container.addItemList(test);
-
     return container;
   }
 
@@ -134,7 +125,14 @@ public class GameView extends BorderWithButtons {
     LocationView level = new LocationView();
     ContainerView containersContent = initContainer();
 
-    gridPanesBox.getChildren().addAll(level, containersContent);
+    // /!\ TEST /!\
+    Button test = new Button("test");
+    test.setOnAction(e -> {
+      containersContent.getContainerController().setItemsContainer();
+      e.consume();
+    });
+
+    gridPanesBox.getChildren().addAll(test, level, containersContent);
 
     gridPanesBox.setAlignment(Pos.CENTER);
     gridPanesBox.setPadding(new Insets(10));
