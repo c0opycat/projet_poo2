@@ -1,6 +1,5 @@
 package view;
 
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import view.viewMenu.Menu;
 
@@ -26,7 +25,7 @@ public class ButtonMenu extends Button {
           "You are about to go to the menu."
         );
 
-        boolean isOk = menuAlert.show(AlertType.CONFIRMATION);
+        boolean isOk = menuAlert.showConfirmation();
 
         if (isOk) {
           //Exit the application if the user choose OK.

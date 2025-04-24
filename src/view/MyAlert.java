@@ -17,7 +17,7 @@ public class MyAlert {
     this.CONTENT = content;
   }
 
-  public void show() {
+  public void showInformation() {
     Alert alert = new Alert(AlertType.INFORMATION);
     alert.setTitle(TITLE);
     alert.setHeaderText(HEADER);
@@ -25,7 +25,7 @@ public class MyAlert {
     alert.showAndWait();
   }
 
-  public boolean show(AlertType type) {
+  public boolean showConfirmation() {
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle(TITLE);
     alert.setHeaderText(HEADER);
