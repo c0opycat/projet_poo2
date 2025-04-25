@@ -18,7 +18,7 @@ import model.location.LocationM;
 public class Drop extends Command {
     /**
      * Constructs a Drop command with the provided input and game state.
-     * @param cmd   the full command input from the player (tokenized)
+     * @param cmd   the parsed user command (e.g. {"drop", "1"})
      * @param gameM the current game instance
      */
     public Drop(String[] cmd, GameM gameM) {
@@ -38,14 +38,14 @@ public class Drop extends Command {
     /**
      * Executes the drop command.
      * <p>
-     * If no arguments are provided, the backpack contents are printed.
-     * If an index is provided:
+     * Behavior depends on the number and value of command arguments:
      * <ul>
-     *     <li>If the index is valid for the backpack, drops the selected item.</li>
-     *     <li>If the index is equal to the backpack size, drops the Hero's protection.</li>
-     *     <li>If the index is one above the backpack size, drops the Hero's weapon.</li>
+     *     <li>no index is provided -> the contents of the backpack are displayed.</li>
+     *     <li>an index within backpack bounds is provided -> the corresponding item is dropped on the map.</li>
+     *     <li>the index equals the number of items -> the Hero's protection is dropped.</li>
+     *     <li>the index is one above that -> the Hero's weapon is dropped.</li>
      * </ul>
-     * @return true if the item/protection/weapon was successfully dropped, false otherwise
+     * @return true if something was successfully dropped, false otherwise
      */
     public boolean execute() {
         Backpack bp = HeroM.gBackpack();

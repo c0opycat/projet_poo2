@@ -100,7 +100,6 @@ public class Take extends Command {
                 }
             }
         }
-
         return res;
     }
 }

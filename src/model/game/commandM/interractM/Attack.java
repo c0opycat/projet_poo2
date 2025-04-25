@@ -15,7 +15,6 @@ import model.game.commandM.Command;
 public class Attack extends Command {
     /**
      * Constructs an Attack command with the given command parameters and game instance.
-     *
      * @param cmd   the command arguments (typically user input split into words)
      * @param gameM the game instance to operate on
      */
@@ -26,7 +25,6 @@ public class Attack extends Command {
 
     /**
      * Returns the string identifier for this command.
-     *
      * @return the string "attack"
      */
     @Override
@@ -37,12 +35,12 @@ public class Attack extends Command {
     /**
      * Executes the attack command.
      * <p>
-     * If there is a monster in the current location:
-     * - The Hero attempts to attack it.
-     * - If successful, the monster takes damage and its HP is printed.
-     * - If the Hero has no weapon, a message is displayed.
-     * If no monster is present, a message is displayed indicating the action is not possible.
-     *
+     * If there is a monster in the current location, the Hero attempts to attack it.
+     * <ul>
+     *     <li>If successful -> the monster takes damage and its HP is printed.</li>
+     *     <li>If the Hero has no weapon -> a message is displayed.</li>
+     *     <li>If no monster is present -> a message is displayed indicating the action is not possible.</li>
+     * </ul>
      * @return true if the attack was successfully executed, false otherwise
      */
     public boolean execute() {

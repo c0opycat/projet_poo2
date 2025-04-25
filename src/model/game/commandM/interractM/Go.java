@@ -13,7 +13,7 @@ import model.character.monster.ColossusM;
  * <p>
  * Allows the Hero to move from one location to another via an exit.
  * The command uses an argument to determine which exit to take.
- * If a monster is still alive in the current room, the command is blocked.
+ * Movement is blocked if a monster is still alive in the current location.
  */
 public class Go extends Command {
     private ArrayList<Exit> exits;
@@ -21,9 +21,8 @@ public class Go extends Command {
     private int arg;
 
     /**
-     * Constructs the Go command with arguments and the current game state.
-     *
-     * @param cmd   the command array (e.g., {"go", "1"})
+     * Constructs a Go command with arguments and the current game state.
+     * @param cmd   the command array (ex:{"go", "1"})
      * @param gameM the current game instance
      */
     public Go(String[] cmd, GameM gameM) {
@@ -43,9 +42,9 @@ public class Go extends Command {
      * <p>
      * Moves the Hero to another location based on the selected exit.
      * The command checks if the chosen index is within bounds,
-     * and whether a monster is still alive in the current room.
-     * It also verifies if the exit is one-way or bi-directional.
-     *
+     * and whether a monster is still alive in the current location.
+     * It also checks whether the chosen exit is a one-way path
+     * and simulates confirmation logic (currently always true)
      * @return true if the Hero successfully moves to another location, false otherwise
      * @throws RuntimeException if the argument index is out of bounds
      */
@@ -55,33 +54,30 @@ public class Go extends Command {
         }
 
         ArrayList<Exit> nextExits = this.exits.get(arg).destination.getExits();
-
+        //check for monsters before allowing exit
         if (gameM.getCurLocation().getMonster() == null){
             //removed "use one-way exit" confirmation
             boolean isOneWay = true;
-            for(Exit e : nextExits)
-            {
-                if(e.destination == gameM.getCurLocation())
-                {
-                    
+            for(Exit e : nextExits) {
+                if(e.destination == gameM.getCurLocation()) {
                     isOneWay = false;
                     break;
                 }
             }
-            
             if (isOneWay){
                 boolean yn = true;
                 if (yn){
+                    // Move to new location
                     this.gameM.setCurLocation(exits.get(arg).destination);
                     this.gameM.getCurLocation().displayLocation();
                     return new Look(null, gameM).execute(true);
                 }
-                else
-                {
+                else {
                     return false;
                 }
             } 
             else{
+                // Move to new location
                 this.gameM.setCurLocation(exits.get(arg).destination);
                 this.gameM.getCurLocation().displayLocation();
                 return new Look(null, gameM).execute(true);
