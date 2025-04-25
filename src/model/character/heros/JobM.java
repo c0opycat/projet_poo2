@@ -8,7 +8,7 @@ public enum JobM {
     MEDIC,
 
     /**Can use special shortcuts in the city*/
-    DELIVERY,
+    //DELIVERY,
 
     /**Has an animal which can attack too*/
     VETERINARY,
@@ -17,5 +17,5 @@ public enum JobM {
     SECURITY,
 
     /**Can run away from any monster*/
-    TEACHER
+    //TEACHER
 }
