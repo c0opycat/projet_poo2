@@ -6,29 +6,33 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import view.Keybinds;
 
-public class KeybindConfigView extends HBox {
+public class KeybindConfigView extends GridPane {
 
   public KeybindConfigView(
     String labelText,
     String defaultKey,
     Keybinds keybinds
   ) {
-    HBox keybindRow = new HBox();
-    keybindRow.getStyleClass().add("keybind-row");
+    this.getStyleClass().add("keybind-row");
+    this.setAlignment(Pos.CENTER);
+
+    ColumnConstraints labelColumn = new ColumnConstraints();
+    labelColumn.setMinWidth(100); // Largeur minimale pour les labels
+    labelColumn.setPrefWidth(100); // Largeur préférée pour les labels
+    labelColumn.setHgrow(Priority.NEVER); // Pas d'agrandissement horizontal
+
+    this.getColumnConstraints().addAll(labelColumn);
 
     Label keybindLabel = new Label(labelText + ": ");
-    Button keybindButton = new Button(defaultKey);
-    keybindRow.getChildren().addAll(keybindLabel, keybindButton);
+    keybindLabel.setAlignment(Pos.CENTER_LEFT);
 
-    // Le style est à refaire, ce qui serait bien c que les boutons soient alignés à droite
-    // Et aussi jsp pq tout est super à gauche wtf ? mdrrr tu verras qd tu ouvriras config ds l'app
-    // T fier de moi pr mon beau travail ?
-    keybindRow.setAlignment(Pos.CENTER);
-    keybindLabel.setAlignment(Pos.CENTER);
-    keybindButton.setAlignment(Pos.CENTER_RIGHT);
+    Button keybindButton = new Button(defaultKey);
+    keybindButton.setAlignment(Pos.CENTER);
 
     keybindButton.setOnAction(e -> {
       Alert configAlert = new Alert(AlertType.CONFIRMATION);
@@ -49,26 +53,13 @@ public class KeybindConfigView extends HBox {
           ke.consume();
         });
 
-      //   this.removeEventHandler(KeyEvent.KEY_PRESSED, ke -> {
-      //       System.out.println(ke.getCode().getName());
-      //       System.out.println(ke.getText());
-      //       if (!keybinds.isKeybindPresent(ke.getText())) {
-      //         keybindButton.setText(ke.getText());
-      //         configAlert.setContentText("The current key is " + ke.getText());
-      //       } else {
-      //         configAlert.setContentText(
-      //           "This key is already binded. The current key is " + ke.getText()
-      //         );
-      //       }
-      //       ke.consume();
-      //     });
-
       configAlert.showAndWait();
 
       e.consume();
     });
 
-    this.getChildren().addAll(keybindLabel, keybindButton);
+    this.add(keybindLabel, 0, 0);
+    this.add(keybindButton, 1, 0);
   }
 
   public Button getkeybindButton() {
