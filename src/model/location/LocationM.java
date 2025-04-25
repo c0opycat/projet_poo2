@@ -45,7 +45,7 @@ public class LocationM {
             if (!hasContainer && Item.isContainer(item)) {
                 hasContainer = true;
             }
-            this.addItem(item);
+            this.addItem(item,this.getRandomFreeStepCoord());
         }
 
         this.monster = new Random().nextInt(2) == 0 ? null : Monster.randMonster();
@@ -127,6 +127,7 @@ public class LocationM {
      * @param item the item to remove
      */
     public void removeItem(Item item) {
+        this.locMap.remove(item);
         this.itemList.remove(item);
     }
 
@@ -134,8 +135,25 @@ public class LocationM {
      * Adds an item to the location.
      * @param item the item to add
      */
-    public void addItem(Item item) {
+    public void addItem(Item item, Point coord) {
         this.itemList.add(item);
+        if (this.locMap.containsKey(coord)) {
+            throw new RuntimeException("place already occupied");
+        }
+        else this.locMap.put(coord,new Step(item));
+    }
+
+    public Point getRandomFreeStepCoord() {
+        int x = new Random().nextInt(width);
+        int y = new Random().nextInt(height);
+        Point p = new Point(x, y);
+        for (int i = 0; i < height*width; i++) {
+            if (this.locMap.containsKey(p)) {
+                this.getRandomFreeStepCoord();
+            }
+            else return p;break;
+        }
+        throw new RuntimeException("wtf, the location is full, how did you manage to do that???");
     }
 
     /**
@@ -190,7 +208,6 @@ public class LocationM {
     }
 
     // Location initialization methods for each named location
-
     /**
      * Sets exits for North Poitiers.
      */

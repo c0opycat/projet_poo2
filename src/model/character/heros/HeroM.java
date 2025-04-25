@@ -128,7 +128,7 @@ public class HeroM extends CharacterM {
      */
     public void dropWeapon(LocationM l) {
         if (this.getWeapon() != null) {
-            l.addItem(this.weapon);
+            l.addItem(this.weapon, l.getRandomFreeStepCoord());
             this.setWeapon(null);
         }
     }
@@ -139,7 +139,7 @@ public class HeroM extends CharacterM {
      */
     public void dropProtection(LocationM l) {
         if (this.getShield() != null) {
-            l.addItem(this.getShield());
+            l.addItem(this.getShield(),l.getRandomFreeStepCoord());
             this.setShield(null);
         }
     }
@@ -152,7 +152,7 @@ public class HeroM extends CharacterM {
     public void switchBackpack(Backpack BP, LocationM l) {
         l.removeItem(BP);
         Backpack toDrop = HeroM.backpack;
-        l.addItem(toDrop);
+        l.addItem(toDrop, l.getRandomFreeStepCoord());
         HeroM.backpack = BP;
     }
 

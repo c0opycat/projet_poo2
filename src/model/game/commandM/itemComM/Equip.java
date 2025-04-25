@@ -67,7 +67,7 @@ public class Equip extends Command {
                             boolean switched = bp.addItem(herosWeapon);
                             if(!switched)
                             {
-                                loc.addItem(herosWeapon);
+                                loc.addItem(herosWeapon,loc.getRandomFreeStepCoord());
                             }
                         }
                         
@@ -101,7 +101,7 @@ public class Equip extends Command {
                             
                             if(herosWeapon != null)
                             {
-                                loc.addItem(herosWeapon);
+                                loc.addItem(herosWeapon, loc.getRandomFreeStepCoord());
                             }
                             
                             this.gameM.getHero().setWeapon(w);
@@ -116,7 +116,7 @@ public class Equip extends Command {
 
                             if(herosProtection != null)
                             {
-                                loc.addItem(herosProtection);
+                                loc.addItem(herosProtection, loc.getRandomFreeStepCoord());
                             }
 
                             this.gameM.getHero().setShield(p);
@@ -192,7 +192,7 @@ public class Equip extends Command {
                                         boolean switched = cont.addItem(herosWeapon);
                                         if(!switched)
                                         {
-                                            loc.addItem(herosWeapon);
+                                            loc.addItem(herosWeapon, loc.getRandomFreeStepCoord());
                                         }
                                     }
 
@@ -210,7 +210,7 @@ public class Equip extends Command {
                                         boolean switched = cont.addItem(herosProtection);
                                         if(!switched)
                                         {
-                                            loc.addItem(herosProtection);
+                                            loc.addItem(herosProtection, loc.getRandomFreeStepCoord());
                                         }
                                     }
                                     

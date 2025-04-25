@@ -6,6 +6,8 @@ import model.game.commandM.Command;
 import model.item.container.Backpack;
 import model.character.heros.HeroM;
 import model.item.Item;
+import model.location.LocationM;
+
 
 /**
  * Represents the "drop" command in the game.
@@ -54,7 +56,8 @@ public class Drop extends Command {
             int arg = Integer.parseInt(commands[1]);
             if (arg >= 0 && arg < bp.getNbItems()){
                 Item toDrop = bp.getNthItem(arg);
-                this.gameM.getCurLocation().addItem(toDrop);
+                LocationM l = this.gameM.getCurLocation();
+                l.addItem(toDrop,l.getRandomFreeStepCoord());
                 bp.removeItem(toDrop);
                 System.out.println(MessageM.commandOnItem("dropped ",toDrop));
                 return true;
