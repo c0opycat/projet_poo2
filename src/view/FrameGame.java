@@ -61,7 +61,7 @@ public class FrameGame extends GridPane {
     public void setCellsDraggableInFrame() {
         for (Node node : this.getChildren()) {
                 Cell cell = (Cell)node;
-                cell.setCellDraggable(this.prefHeight, this.prefWidth);
+                cell.setCellDraggable();
             }
     }
 

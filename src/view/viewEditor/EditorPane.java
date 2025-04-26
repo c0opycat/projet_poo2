@@ -11,11 +11,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import view.FrameGame;
+import view.viewEditor.viewHistory.HistoryManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
 //REMARQUE AJOUT DES COMMANDES A FAIRE SUR TOUTES L'INTERFACE RIEN N'EST FONCTIONNEL C'EST UNIQUEMENT LA VUE SANS INTERACTION POSSIBLE
@@ -61,6 +61,7 @@ public class EditorPane extends HBox{
                     "batte/baseball Bat; poids : 2 / weight:2 ; dégâts : 2/damage: 2 ; type de dégât : assommant / damage type: stunning ", 
                     "armure/armor ; reduction des dommages : 2 /damage reduction: 2" ))
                 ));
+    private HistoryManager history = new HistoryManager();
     
 
     /// Public ///
@@ -128,11 +129,11 @@ public class EditorPane extends HBox{
     {
 
         getUndo().setOnAction(e -> {
-            
+            history.undo();
         });
 
         getRedo().setOnAction(e -> {
-            
+            history.redo();
         });
 
         getReinit().setOnAction(e -> {
@@ -180,19 +181,16 @@ public class EditorPane extends HBox{
         //Textfield a parametrer 
         //(style de police, nombre de caractère autorisée, nombre de ligne, espace pris dans la fenêtre)
         TextField name = new TextField("Nom / Name");
-        
-        TextArea descriptionFr = new TextArea("Description du quartier");
-        TextArea descriptionEn = new TextArea("Description of the neighborhood");
-        VBox.setVgrow(descriptionFr, Priority.ALWAYS);
-        VBox.setVgrow(descriptionEn, Priority.ALWAYS);
 
+        
+        TextView descriptionFr = new TextView("Description du quartier", history);
+        TextView descriptionEn = new TextView("Description of the neighborhood", history);
 
         leftPane.getChildren().addAll(previewLabelfr, previewLabelen, springS(), preview, springS(), name, springS(), descriptionFr, springS(), descriptionEn);
 
         //Style
         VBox.setMargin(name, new Insets(10, 10, 20, 10));
-        VBox.setMargin(descriptionFr, new Insets(10, 10, 10, 10));
-        VBox.setMargin(descriptionEn, new Insets(10, 10, 10, 10));
+        
 
         return leftPane;
     }

@@ -42,9 +42,9 @@ public class Cell extends StackPane {
      * @param prefHeight preferred height - fixed height of a grid square
      * @param prefWidth preferred width - fixed width of a grid square
      */
-    public void setCellDraggable(double prefHeight, double prefWidth){
+    public void setCellDraggable(){
         this.setDragOver();
-        this.setDragDropped(prefHeight, prefWidth);
+        this.setDragDropped();
         
     }
 
@@ -69,7 +69,7 @@ public class Cell extends StackPane {
      * @param prefHeight preferred height - fixed height of a grid square
      * @param prefWidth preferred width - fixed width of a grid square
      */
-    private void setDragDropped(double prefHeight, double prefWidth){
+    private void setDragDropped(){
                 this.setOnDragDropped(event -> {
                     Dragboard db = event.getDragboard();
                     if (db.hasString()) {
@@ -77,14 +77,7 @@ public class Cell extends StackPane {
                         String[] parts = itemNom.split(";");
         
                         if (parts.length == 2){
-                            String imageName = parts[0];
-                            String elemName = parts[1];
-                            ImageView newItem = createDraggableImage(imageName, elemName, prefHeight, prefWidth);
-        
-                            this.getChildren().clear();
-                            this.getChildren().add(newItem);
-                            this.elem = elemName;
-                            updateTooltip();
+                            setElement(parts);
         
                             event.setDropCompleted(true);
                         }
@@ -108,7 +101,7 @@ public class Cell extends StackPane {
      * @param prefWidth preferred width - fixed width of a grid square
      * @return
      */
-    private ImageView createDraggableImage(String imageName, String elemName, double prefHeight, double prefWidth) {
+    private ImageView createDraggableImage(String imageName, String elemName) {
         ImageView image = new ImageView(new Image("file:../resources/image/" + imageName + ".png"));
         image.setPreserveRatio(true);
         image.setSmooth(true);
@@ -163,5 +156,21 @@ public class Cell extends StackPane {
         else{
             tooltip.setText(this.elem);
         }
+    }
+
+    public void setElement(String[] elem) {
+
+        String imageName = elem[0];
+        String elemName = elem[1];
+        ImageView newItem = createDraggableImage(imageName, elemName);
+        
+        this.getChildren().clear();
+        this.getChildren().add(newItem);
+        this.elem = elemName;
+        updateTooltip();
+    }
+
+    public String getElement() {
+        return elem;
     }
 }
