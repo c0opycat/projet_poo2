@@ -1,5 +1,6 @@
 package model.modelLocation;
 
+import controller.controllerLocation.LocationController;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,7 @@ public class LocationModel {
   public ArrayList<ItemModel> itemList;
   public String description;
   public MonsterModel monster;
+  private final LocationController locationController;
 
   /**
    * Constructs a new modelLocation with a name, random items, and possibly a random monster.
@@ -39,6 +41,8 @@ public class LocationModel {
     this.name = name;
     this.locMap = new HashMap<>();
     this.itemList = new ArrayList<>();
+    this.locationController = new LocationController(this);
+
     boolean hasContainer = false;
 
     for (int i = 0; i < 3; i++) {
@@ -79,6 +83,7 @@ public class LocationModel {
     this.locMap = locMap;
     this.itemList = itemList;
     this.monster = monster;
+    this.locationController = new LocationController(this);
   }
 
   /**
@@ -168,12 +173,14 @@ public class LocationModel {
     this.locMap.put(p, new StepModel(item));
   }
 
-  public ArrayList<Point> getAllPoints() {
+  public ArrayList<Point> getAllFreePoints() {
     ArrayList<Point> allPoints = new ArrayList<>();
     for (int i = 0; i < this.getWidth(); i++) {
       for (int j = 0; j < this.getHeight(); j++) {
         Point p = new Point(i, j);
-        allPoints.add(p);
+        if (!this.getLocMap().containsKey(p)) {
+          allPoints.add(p);
+        }
       }
     }
 
@@ -183,7 +190,8 @@ public class LocationModel {
   }
 
   public Point getRandomFreeStepCoord() {
-    ArrayList<Point> allPoints = this.getAllPoints();
+    ArrayList<Point> allPoints = this.getAllFreePoints();
+
     Point p = null;
 
     for (int i = 0; i < allPoints.size(); i++) {
@@ -230,6 +238,10 @@ public class LocationModel {
 
   public int getHeight() {
     return this.height;
+  }
+
+  public LocationController getLocationController() {
+    return this.locationController;
   }
 
   public void setNewStep(int x, int y, ItemModel item) {
