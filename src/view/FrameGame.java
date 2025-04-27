@@ -1,4 +1,4 @@
-package view.viewEditor;
+package view;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -8,7 +8,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
-import view.Cell;
 
 /**
  * FrameGame corresponds to the modelGame board.
