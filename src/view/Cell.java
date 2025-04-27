@@ -9,7 +9,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 
 /**
- * View of a cell on the game board.
+ * View of a cell on the modelGame board.
  * This class manages the image displayed on the board.
  *
  * @author C. Besançon
@@ -38,7 +38,7 @@ public class Cell extends StackPane {
 
 
     /**
-     * Set the cell to recognize drag and drop and change the cell to a new item in it
+     * Set the cell to recognize drag and drop and change the cell to a new modelItem in it
      * @param prefHeight preferred height - fixed height of a grid square
      * @param prefWidth preferred width - fixed width of a grid square
      */

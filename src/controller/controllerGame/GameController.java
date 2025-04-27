@@ -2,21 +2,21 @@ package controller.controllerGame;
 
 import java.io.PrintStream;
 
-import model.game.GameM;
+import model.modelGame.GameModel;
 import view.viewGame.GameInfosStream;
 import view.viewGame.GameView;
 
 public class GameController {
-    private final GameM gameModel;
+    private final GameModel gameModel;
     private final GameView gameView;
 
     public GameController(GameView gameView)
     {
         this.gameView = gameView;
-        this.gameModel = new GameM();
+        this.gameModel = new GameModel();
     }
 
-    public GameM getGameModel()
+    public GameModel getGameModel()
     {
         return this.gameModel;
     }

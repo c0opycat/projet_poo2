@@ -1,24 +1,24 @@
 package controller.controllerGame.controllerCommand.controllerMenuCommand;
 
-import model.game.commandM.menuCommandM.Help;
+import model.modelGame.commandM.modelMenuCom.HelpModel;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewMenuCommand.HelpView;
 
 public class HelpController {
 
   private final HelpView helpView;
-  private final Help helpModel;
+  private final HelpModel helpModel;
 
   public HelpController(HelpView helpView, GameView gameView) {
     this.helpView = helpView;
-    this.helpModel = new Help(gameView.getGameController().getGameModel());
+    this.helpModel = new HelpModel(gameView.getGameController().getGameModel());
   }
 
   public HelpView getHelpView() {
     return this.helpView;
   }
 
-  public Help getHelpModel() {
+  public HelpModel getHelpModel() {
     return this.helpModel;
   }
 

@@ -20,8 +20,8 @@ public class QuitView extends Button {
     this.setOnAction(e -> {
         //Creation of a dialog to confirm the exit of the application.
         Alert quitAlert = new Alert(AlertType.CONFIRMATION);
-        quitAlert.setTitle("Exit game");
-        quitAlert.setContentText("You are about to forfeit the game.");
+        quitAlert.setTitle("ExitModel modelGame");
+        quitAlert.setContentText("You are about to forfeit the modelGame.");
 
         //Creation of the options (because the cancel one was in French).
         ButtonType bt1 = new ButtonType("OK");
@@ -31,7 +31,7 @@ public class QuitView extends Button {
 
         Optional<ButtonType> choice = quitAlert.showAndWait();
         if (choice.get() == bt1) {
-          //Exit the application if the user choose OK.
+          //ExitModel the application if the user choose OK.
           this.getQuitController().forfeit();
 
           GameOverView goView = new GameOverView(gameView);

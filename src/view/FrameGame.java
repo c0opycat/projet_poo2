@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 /**
- * FrameGame corresponds to the game board. 
+ * FrameGame corresponds to the modelGame board.
  * It inherits from a gridPane.
  * 
  * @author C. Besançon

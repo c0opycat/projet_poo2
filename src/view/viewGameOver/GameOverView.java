@@ -11,7 +11,7 @@ import view.ButtonMenu;
 import view.ButtonQuit;
 import view.viewGame.GameView;
 
-//Game Over pane, that is shown when a game is finished.
+//Game Over pane, that is shown when a modelGame is finished.
 public class GameOverView extends BorderWithButtons{
 
     public GameOverView(GameView gameView)

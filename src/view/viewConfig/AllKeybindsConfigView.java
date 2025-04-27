@@ -84,7 +84,7 @@ public class AllKeybindsConfigView extends VBox {
       keybinds
     );
     KeybindConfigView backpack = new KeybindConfigView(
-      "Backpack",
+      "BackpackModel",
       keybinds.getSpecKeybind("backpack"),
       keybinds
     );
@@ -177,7 +177,7 @@ public class AllKeybindsConfigView extends VBox {
     // // Touche pour ouvrir le backpack
     // HBox backpack = new HBox();
     // backpack.getStyleClass().add("keybind-row"); // Ajouter une classe CSS
-    // Label backpackl = new Label("Backpack : ");
+    // Label backpackl = new Label("BackpackModel : ");
     // TextField backpacktf = new TextField();
     // backpacktf.setTextFormatter(createSingleCharFormatter());
     // backpack.getChildren().addAll(backpackl, backpacktf);

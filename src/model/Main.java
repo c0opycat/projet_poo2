@@ -2,25 +2,24 @@ package model;
 import java.util.Objects;
 import java.util.Scanner;
 
-import model.game.*;
-import model.game.commandM.*;
-import model.location.*;
-import model.character.monster.*;
+import model.modelGame.*;
+import model.modelGame.commandM.*;
+import model.modelCharacter.modelMonster.*;
 
 
 //A changer en tant que partie
 public class Main {
     public static void main(String[] args) {
 
-        GameM gameM = new GameM();
+        GameModel gameM = new GameModel();
         boolean theend = false;
         
         Scanner scan = new Scanner(System.in);
         scan.useDelimiter("\n");
-        Command cmd;
+        CommandModel cmd;
         
         String nameCurLoc = gameM.getCurLocation().getName();
-        Monster curMonster;
+        MonsterModel curMonster;
         gameM.start();
 
         while(!theend)
@@ -29,10 +28,10 @@ public class Main {
             {
                 curMonster = gameM.getCurLocation().getMonster();
                 
-                if(curMonster instanceof DriedM)
+                if(curMonster instanceof DriedModel)
                 {
                     curMonster.attack(gameM.getHero());
-                    System.out.println(MessageM.herosHP(gameM.getHero()));
+                    System.out.println(MessageEnModel.herosHP(gameM.getHero()));
                 }
                 
                 nameCurLoc = gameM.getCurLocation().getName();
@@ -45,7 +44,7 @@ public class Main {
                 if(curMonster != null)
                 {
                     curMonster.attack(gameM.getHero());
-                    System.out.println(MessageM.herosHP(gameM.getHero()));
+                    System.out.println(MessageEnModel.herosHP(gameM.getHero()));
                 }
             }
             
@@ -58,7 +57,7 @@ public class Main {
 
                     String s = scan.next().trim();
 
-                    cmd = new Command(s, gameM, scan);
+                    cmd = new CommandModel(s, gameM, scan);
                 }
             }
         }

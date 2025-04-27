@@ -22,7 +22,7 @@ public class EndGameInfos extends VBox{
 
     private void addElements()
     {
-        //Get the end of the game message
+        //Get the end of the modelGame message
         String endText = "You died !"; //Exemple
         Label endLabel = new Label(endText);
 

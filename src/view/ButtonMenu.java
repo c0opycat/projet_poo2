@@ -28,7 +28,7 @@ public class ButtonMenu extends Button {
         boolean isOk = menuAlert.showConfirmation();
 
         if (isOk) {
-          //Exit the application if the user choose OK.
+          //ExitModel the application if the user choose OK.
           Menu menu = new Menu();
           mainScene.setContent(menu);
           menu.addHandlers();

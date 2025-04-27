@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import model.item.Item;
+import model.modelItem.ItemModel;
 import view.viewGame.GameView;
 
 public class ContainerView extends VBox {
@@ -23,20 +23,20 @@ public class ContainerView extends VBox {
   }
 
   private void initComp() {
-    Label uTitle = new Label("Container : ");
+    Label uTitle = new Label("ContainerModel : ");
     uTitle.getStyleClass().add("under-title");
     this.setAlignment(Pos.TOP_CENTER);
     this.getChildren().add(uTitle);
   }
 
-  public void addItemList(ArrayList<Item> itemList) {
+  public void addItemList(ArrayList<ItemModel> itemList) {
     int index = 0;
-    for (Item item : itemList) {
+    for (ItemModel item : itemList) {
       HBox li = new HBox(20);
       Label label = new Label(item.toString());
 
       label.setId("" + index);
-      label.getStyleClass().add("item-label");
+      label.getStyleClass().add("modelItem-label");
       label.setStyle("-fx-text-fill: #000000;");
       li.setAlignment(Pos.CENTER_RIGHT);
       li.getChildren().addAll(label, add_Buse(), add_Bequip());

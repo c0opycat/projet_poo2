@@ -46,7 +46,7 @@ public class GameView extends BorderWithButtons {
     ArrayList<Button> buttons = new ArrayList<>();
 
     ButtonMenu menu = new ButtonMenu(this.getMainScene());
-    //SaveView save = new SaveView(); //??? Ce n'est précisé nul part qu'il faut pouvoir save/load une game.
+    //SaveView save = new SaveView(); //??? Ce n'est précisé nul part qu'il faut pouvoir save/load une modelGame.
     QuitView quit = new QuitView(this);
 
     buttons.add(menu);
@@ -106,7 +106,7 @@ public class GameView extends BorderWithButtons {
       .get(1);
   }
 
-  //Add every informations about the game at the center of the pane
+  //Add every informations about the modelGame at the center of the pane
   private void addContent() {
     VBox contentBox = new VBox();
 
@@ -168,7 +168,7 @@ public class GameView extends BorderWithButtons {
     return gameButtonsBox;
   }
 
-  //Returns the textual informations of the game and the hero's characteristics
+  //Returns the textual informations of the modelGame and the hero's characteristics
   private HBox initTextInfos() {
     HBox textInfosBox = new HBox(10);
 

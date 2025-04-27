@@ -10,15 +10,15 @@ public class ButtonQuit extends Button {
     this.setOnAction(e -> {
         //Creation of a dialog to confirm the exit of the application.
         MyAlert quitAlert = new MyAlert(
-          "Exit game",
+          "ExitModel modelGame",
           null,
-          "You are about to quit the game."
+          "You are about to quit the modelGame."
         );
 
         boolean isOk = quitAlert.showConfirmation();
 
         if (isOk) {
-          //Exit the application if the user choose OK.
+          //ExitModel the application if the user choose OK.
           Platform.exit();
         }
       });

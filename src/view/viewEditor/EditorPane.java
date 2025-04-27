@@ -23,10 +23,10 @@ import javafx.scene.layout.Region;
 //CODER ESTHETIQUE A AJOUTER
 
 /**
- * HBox containing the editor interface.
- * The left section is dedicated to level information - game board, level name, and description.
+ * HBox containing the modelEditor interface.
+ * The left section is dedicated to level information - modelGame board, level name, and description.
  * The right section is dedicated to customization tools 
- * - tabs for item selection, board size, undo, redo, reset, save, and level editing.
+ * - tabs for modelItem selection, board size, undo, redo, reset, save, and level editing.
  * @author C. Besançon
  */
 public class EditorPane extends HBox{
@@ -148,9 +148,9 @@ public class EditorPane extends HBox{
     /// Private ///
 
     /**
-     * Creation of the left part of the interface. Contains the game board, a text box for the level title, 
+     * Creation of the left part of the interface. Contains the modelGame board, a text box for the level title,
      * a text box for the description needed for the level in French, and another box for the English description.
-     * @return VBox left part of the editor
+     * @return VBox left part of the modelEditor
      */
     private VBox leftNodes ()
     {
@@ -229,7 +229,7 @@ public class EditorPane extends HBox{
      * Updates the size of the frameGame by resetting everything
      * @param newRow new number of rows
      * @param newCol new number of columns
-     * @return FrameGame -> board game
+     * @return FrameGame -> board modelGame
      */
     private FrameGame initFrameGame(int newRow, int newCol) {
         FrameGame preview = new FrameGame(newCol, newRow);
@@ -363,10 +363,10 @@ public class EditorPane extends HBox{
 
     /**
     * Creation of the right part of the interface. Contains a tab to select different type of object
-    * a HBox with two Spinner to choose the number of column and row for the game board,
+    * a HBox with two Spinner to choose the number of column and row for the modelGame board,
     * a HBox with three button undo redo reinit and another HBox with a comboBox to choose a level to edit,
     * and a button save
-    * @return VBox -> right part of the editor
+    * @return VBox -> right part of the modelEditor
     */
     private VBox rightNodes()
     {

@@ -160,13 +160,13 @@ public class SelectTypeElem extends TabPane {
   }
 
     private void otherInfoItem(VBox infoBox, ArrayList<String> listInfoItem) {
-        //Sous Tab choix entre Weapon / Container / Consommable / Other ????
+        //Sous Tab choix entre WeaponModel / ContainerModel / Consommable / Other ????
 
-        //Je pars du principe que chaque item est enregistré sous la même forme
-        //nom de l'image/item ; type d'item ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
+        //Je pars du principe que chaque modelItem est enregistré sous la même forme
+        //nom de l'image/modelItem ; type d'modelItem ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
         //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
         Label msgFLabel = new Label("Paramètres de l'objet");
-        Label msgELabel = new Label("Item's parameters");
+        Label msgELabel = new Label("ItemModel's parameters");
         String presFr = "Cet objet est un/une ";
         String presEn = "This object is a/an ";
 
@@ -174,19 +174,19 @@ public class SelectTypeElem extends TabPane {
 
     }
 
-    // private LocationM curLoc;
-    // private LocationM lastLoc;
+    // private LocationModel curLoc;
+    // private LocationModel lastLoc;
     // public int posx;
     // public int posy;
     // protected int health;
     // public final int MAXHEALTH;
-    // protected Protection shield; //Can be null
-    // protected Weapon weapon; //Can be null
+    // protected ProtectionModel shield; //Can be null
+    // protected WeaponModel modelWeapon; //Can be null
     private void otherInfoCharactere(VBox infoBox, ArrayList<String> listInfoItem) {
-        //Sous Tab choix entre Weapon / Container / Consommable / Other ????
+        //Sous Tab choix entre WeaponModel / ContainerModel / Consommable / Other ????
     
-        //Je pars du principe que chaque item est enregistré sous la même forme
-        //nom de l'image/item ; type d'item ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
+        //Je pars du principe que chaque modelItem est enregistré sous la même forme
+        //nom de l'image/modelItem ; type d'modelItem ; paramètre1 : valeur / 1parameter : value ; paramètre2 : valeur / 2parameter : value
         //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
         Label msgFLabel = new Label("Information personnage : ");
         Label msgELabel = new Label("Charater's information: ");

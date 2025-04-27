@@ -1,23 +1,23 @@
 package controller.controllerGame.controllerCommand.controllerMenuCommand;
 
-import model.game.commandM.menuCommandM.Quit;
+import model.modelGame.commandM.modelMenuCom.QuitModel;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 
 public class QuitController {
 
   private final QuitView quitView;
-  private final Quit quitModel;
+  private final QuitModel quitModel;
 
   public QuitController(QuitView qv, GameView gv) {
     this.quitView = qv;
-    this.quitModel = new Quit(
+    this.quitModel = new QuitModel(
       new String[] { "QUIT" },
       gv.getGameController().getGameModel()
     );
   }
 
-  public Quit getQuitModel() {
+  public QuitModel getQuitModel() {
     return this.quitModel;
   }
 
