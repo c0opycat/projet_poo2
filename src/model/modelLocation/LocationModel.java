@@ -46,7 +46,6 @@ public class LocationModel {
     boolean hasContainer = false;
 
     for (int i = 0; i < 3; i++) {
-      System.out.println(i);
       ItemModel item = hasContainer
         ? ItemModel.NonContainerRI()
         : ItemModel.randomItem();
@@ -54,7 +53,6 @@ public class LocationModel {
         hasContainer = true;
       }
       Point p = this.getRandomFreeStepCoord();
-      System.out.println(p);
       if (p != null) {
         this.addItem(item, p);
       }
@@ -187,10 +185,6 @@ public class LocationModel {
     }
 
     Collections.shuffle(allPoints);
-
-    for (Point p : allPoints) {
-      System.out.println(p);
-    }
 
     return allPoints;
   }
