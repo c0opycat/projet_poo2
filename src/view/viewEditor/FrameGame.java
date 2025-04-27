@@ -1,4 +1,4 @@
-package view;
+package view.viewEditor;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -8,6 +8,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import view.Cell;
 
 /**
  * FrameGame corresponds to the modelGame board.
@@ -52,6 +53,8 @@ public class FrameGame extends GridPane {
     this.setVgap(1);
     this.setAlignment(Pos.CENTER);
   }
+
+  public FrameGame() {}
 
   /**
    * Added cells in which you can drag and drop and delete elements
