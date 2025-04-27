@@ -21,15 +21,25 @@ public class TextView extends TextArea{
     }
 
     public void historyText(HistoryManager history){
+        final String[] oldText = {this.getText()};
+
         this.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
             if (!newFocus) {
-                history.recordAction(new TextAction(this, this.getText()));
+                changeText(oldText, history);
             }
         });
         this.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER)
+            changeText(oldText, history);
             history.recordAction(new TextAction(this, this.getText()));
         });
+    }
+
+    private void changeText(String[] oldText, HistoryManager history){
+        if (!oldText[0].equals(this.getText())) {
+            history.recordAction(new TextAction(this, oldText[0])); 
+            oldText[0] = this.getText();
+        }
     }
     
 }

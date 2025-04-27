@@ -18,6 +18,8 @@ public class Cell extends StackPane {
 
   /** Name of the element save on the cell */
   private String elem;
+  /** Name of the image */
+  private String img;
   /**Information show about the element */
   private Tooltip tooltip;
 
@@ -39,6 +41,18 @@ public class Cell extends StackPane {
   public Cell(String elem) {
     super();
     this.elem = elem;
+    this.tooltip = new Tooltip();
+    Tooltip.install(this, tooltip);
+    updateTooltip();
+
+    this.setStyle("-fx-border-color: black;");
+    this.getStyleClass().add("transparent-layer");
+  }
+
+  public Cell(String elem, String img) {
+    super();
+    this.elem = elem;
+    this.img = img;
     this.tooltip = new Tooltip();
     Tooltip.install(this, tooltip);
     updateTooltip();
@@ -88,7 +102,19 @@ public class Cell extends StackPane {
           String[] parts = itemNom.split(";");
 
           if (parts.length == 2) {
+            String oldElem = getElement();
+            String oldImg = getImage();
+
             setElement(parts);
+            
+            String[] oldElement = {oldImg, oldElem};
+            String[] newElement = parts;
+
+            view.viewEditor.viewHistory.HistoryManager.getInstance().recordAction
+            (
+              new view.viewEditor.viewHistory.CellAction(this, oldElement, newElement)
+
+            );
 
             event.setDropCompleted(true);
           } else {
@@ -157,6 +183,7 @@ public class Cell extends StackPane {
 
       this.getChildren().remove(image);
       this.elem = null;
+      this.img = null;
 
       event.consume();
     });
@@ -181,10 +208,16 @@ public class Cell extends StackPane {
     this.getChildren().clear();
     this.getChildren().add(newItem);
     this.elem = elemName;
+    this.elem = imageName;
     updateTooltip();
   }
 
   public String getElement() {
     return elem;
   }
+
+  public String getImage() {
+    return this.img;
+}
+
 }
