@@ -36,7 +36,7 @@ public class GameModel {
   public static String loadLanguage() {
     String language = null;
     try {
-      FileReader reader = new FileReader("../save/language.json");
+      FileReader reader = new FileReader("./save/language.json");
       JSONObject jsonObject = new JSONObject(new JSONTokener(reader));
       language = (String) jsonObject.get("language");
     } catch (Exception e) {

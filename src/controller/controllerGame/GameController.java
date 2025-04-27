@@ -47,8 +47,4 @@ public class GameController {
 
     return jobs;
   }
-
-  public static String getLang() {
-    return GameModel.loadLanguage();
-  }
 }
