@@ -111,7 +111,7 @@ public class Cell extends StackPane {
    */
   private ImageView createDraggableImage(String imageName, String elemName) {
     ImageView image = new ImageView(
-      new Image("file:../resources/image/" + imageName + ".png")
+      new Image("file:./resources/image/" + imageName + ".png")
     );
     image.setPreserveRatio(true);
     image.setSmooth(true);

@@ -59,7 +59,7 @@ public class LanguageConfigView extends VBox {
   public void saveLanguage(String language) {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("language", language);
-    try (FileWriter fileWriter = new FileWriter("../save/language.json")) {
+    try (FileWriter fileWriter = new FileWriter("./save/language.json")) {
       fileWriter.write(jsonObject.toString());
       MyAlert alert = new MyAlert(
         "Language",

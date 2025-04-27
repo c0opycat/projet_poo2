@@ -96,13 +96,13 @@ public class BorderWithButtons extends BorderPane{
         }
 
         buttonsBox.setAlignment(Pos.BOTTOM_RIGHT);
-        this.getStylesheets().add("file:../resources/style.css");
+        this.getStylesheets().add("file:./resources/style.css");
 
         this.setBottom(buttonsBox);
     }
 
     public void addBackground(String bckgd){
-        String nameBackground = "file:../resources/assets/"+ bckgd;
+        String nameBackground = "file:./resources/assets/"+ bckgd;
         Image backgroundImage = new Image(nameBackground);
         //width, height, widthAsPercentage, heightAsPercentage, contain, cover
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);

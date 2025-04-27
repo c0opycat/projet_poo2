@@ -53,7 +53,7 @@ public class Keybinds {
     HashMap<String, String> keybinds = new HashMap<>();
 
     try {
-      FileReader reader = new FileReader("../save/keybinds.json");
+      FileReader reader = new FileReader("./save/keybinds.json");
       JSONObject keybindsObject = new JSONObject(new JSONTokener(reader));
 
       Iterator<String> entries = keybindsObject.keys();
@@ -77,7 +77,7 @@ public class Keybinds {
       keybindsObject.put(row.getKey(), row.getValue());
     }
 
-    try (FileWriter file = new FileWriter("../save/keybinds.json")) {
+    try (FileWriter file = new FileWriter("./save/keybinds.json")) {
       file.write(keybindsObject.toString(4));
       this.setKeybinds(keybinds);
       MyAlert alert = new MyAlert(
