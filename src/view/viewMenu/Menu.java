@@ -1,7 +1,6 @@
 package view.viewMenu;
 
 import java.util.ArrayList;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -10,110 +9,104 @@ import view.ButtonQuit;
 import view.MainScene;
 import view.viewConfig.ConfigView;
 import view.viewEditor.EditorView;
+import view.viewGame.CharacterChoiceView;
 import view.viewGame.GameView;
 import view.viewHallOfFame.HOFView;
 
-public class Menu extends BorderWithButtons{
-    
+public class Menu extends BorderWithButtons {
 
+  public Menu() {
+    super();
+    this.addTitle("Menu");
+    this.setButtons();
+    this.addcomp();
+  }
 
-    public Menu()
-    {
-        super();
+  //Add a quit button
+  private void setButtons() {
+    ArrayList<Button> buttons = new ArrayList<>();
 
-        this.addTitle("Menu");
-        this.setButtons();
-        this.addcomp();
-    }
+    ButtonQuit quit = new ButtonQuit();
+    buttons.add(quit);
 
-    //Add a quit button
-    private void setButtons()
-    {
-        ArrayList<Button> buttons = new ArrayList<>();
+    this.addButtons(buttons);
+  }
 
-        ButtonQuit quit = new ButtonQuit();
-        buttons.add(quit);
+  private void addcomp() {
+    VBox vb = new VBox(20);
 
-        this.addButtons(buttons);
-    }
+    Button jouer = new Button("Play");
+    Button cfg = new Button("Config");
+    Button edit = new Button("Editor");
+    Button hof = new Button("Hall of Fame");
 
+    //style du menu
 
-    private void addcomp()
-    {
+    this.addBackground("background.png");
 
-        VBox vb = new VBox(20);
+    //Met tous les button a la meme taille
+    double buttonWidth = 150;
+    double buttonHeight = 35;
+    jouer.setPrefSize(buttonWidth, buttonHeight);
+    cfg.setPrefSize(buttonWidth, buttonHeight);
+    edit.setPrefSize(buttonWidth, buttonHeight);
+    hof.setPrefSize(buttonWidth, buttonHeight);
 
-        Button jouer = new Button("Play");
-        Button cfg = new Button("Config");
-        Button edit = new Button("Editor");
-        Button hof = new Button("Hall of Fame");
+    vb.setMaxHeight(350);
+    vb.setMaxWidth(450);
 
-        //style du menu
-        
-       this.addBackground("background.png");
+    vb.getChildren().addAll(jouer, cfg, edit, hof);
 
-        //Met tous les button a la meme taille
-        double buttonWidth = 150;
-        double buttonHeight = 35;
-        jouer.setPrefSize(buttonWidth, buttonHeight);
-        cfg.setPrefSize(buttonWidth, buttonHeight);
-        edit.setPrefSize(buttonWidth, buttonHeight);
-        hof.setPrefSize(buttonWidth, buttonHeight);
+    vb.setAlignment(Pos.CENTER);
 
-        vb.setMaxHeight(350);
-        vb.setMaxWidth(450);
+    this.setCenter(vb);
+  }
 
-        vb.getChildren().addAll(jouer, cfg, edit, hof);
+  private Button getPlay() {
+    return (Button) ((VBox) this.getCenter()).getChildren().get(0);
+  }
 
-        vb.setAlignment(Pos.CENTER);
+  private Button getConfig() {
+    return (Button) ((VBox) this.getCenter()).getChildren().get(1);
+  }
 
-        this.setCenter(vb);
+  private Button getEditor() {
+    return (Button) ((VBox) this.getCenter()).getChildren().get(2);
+  }
 
-    }
+  private Button getHOF() {
+    return (Button) ((VBox) this.getCenter()).getChildren().get(3);
+  }
 
-    private Button getPlay(){
-        return (Button) ((VBox)this.getCenter()).getChildren().get(0);
-    }
+  public void addHandlers() {
+    MainScene scene = this.getMainScene();
 
-    private Button getConfig(){
-        return (Button) ((VBox)this.getCenter()).getChildren().get(1);
-    }
+    getPlay()
+      .setOnAction(e -> {
+        CharacterChoiceView characterChoiceView = new CharacterChoiceView();
+        scene.setContent(characterChoiceView);
+        characterChoiceView.setButtons();
+      });
 
-    private Button getEditor(){
-        return (Button) ((VBox)this.getCenter()).getChildren().get(2);
-    }
+    getConfig()
+      .setOnAction(e -> {
+        ConfigView configView = new ConfigView();
+        scene.setContent(configView);
+        configView.setButtons();
+      });
 
-    private Button getHOF(){
-        return (Button) ((VBox)this.getCenter()).getChildren().get(3);
-    }
+    getEditor()
+      .setOnAction(e -> {
+        EditorView editorView = new EditorView();
+        scene.setContent(editorView);
+        editorView.setButtons();
+      });
 
-    public void addHandlers()
-    {
-        MainScene scene = this.getMainScene();
-
-        getPlay().setOnAction(e -> {
-            GameView gameView = new GameView();
-            scene.setContent(gameView);
-            gameView.setButtons();
-        });
-
-        getConfig().setOnAction(e -> {
-            ConfigView configView = new ConfigView();
-            scene.setContent(configView);
-            configView.setButtons();
-        });
-
-        getEditor().setOnAction(e -> {
-            EditorView editorView = new EditorView();
-            scene.setContent(editorView);
-            editorView.setButtons();
-        });
-
-        getHOF().setOnAction(e -> {
-            HOFView hofView = new HOFView();
-            scene.setContent(hofView);
-            hofView.setButtons();
-        });
-    }
-
+    getHOF()
+      .setOnAction(e -> {
+        HOFView hofView = new HOFView();
+        scene.setContent(hofView);
+        hofView.setButtons();
+      });
+  }
 }

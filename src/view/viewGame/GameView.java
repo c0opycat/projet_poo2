@@ -2,13 +2,10 @@ package view.viewGame;
 
 import controller.controllerGame.GameController;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCharacterCombination;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -27,12 +24,12 @@ public class GameView extends BorderWithButtons {
 
   private final GameController gameController;
 
-  public GameView() {
+  public GameView(String name, String jobChoice) {
     super();
     this.keybinds = new Keybinds();
     this.keybinds.loadKeybinds();
 
-    this.gameController = new GameController(this);
+    this.gameController = new GameController(this, name, jobChoice);
 
     this.addTitle("Game");
 

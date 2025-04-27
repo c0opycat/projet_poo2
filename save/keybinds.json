@@ -4,8 +4,8 @@
     "left": "D",
     "forward": "Z",
     "attack": "A",
-    "use": "U",
     "backpack": "B",
+    "go": "H",
     "backward": "W",
     "right": "Q"
 }

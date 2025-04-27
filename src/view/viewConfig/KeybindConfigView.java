@@ -35,12 +35,13 @@ public class KeybindConfigView extends GridPane {
     keybindButton.setAlignment(Pos.CENTER);
 
     keybindButton.setOnAction(e -> {
+      String key = keybinds.getSpecKeybind(labelText.toLowerCase());
       Alert configAlert = new Alert(AlertType.CONFIRMATION);
       configAlert.setTitle("Keybinds configuration");
       configAlert.setHeaderText(
         "Please press the key that you want to bind to " + labelText
       );
-      configAlert.setContentText("The current key is " + defaultKey);
+      configAlert.setContentText("The current key is " + key);
 
       configAlert
         .getDialogPane()

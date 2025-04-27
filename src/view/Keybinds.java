@@ -86,6 +86,8 @@ public class Keybinds {
         "Keybinds saved successfully"
       );
       alert.showInformation();
+
+      this.keybinds = keybinds;
     } catch (IOException e) {
       MyAlert alert = new MyAlert(
         "Keybinds",
