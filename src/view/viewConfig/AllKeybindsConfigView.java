@@ -84,7 +84,7 @@ public class AllKeybindsConfigView extends VBox {
       keybinds
     );
     KeybindConfigView backpack = new KeybindConfigView(
-      "BackpackModel",
+      "Backpack",
       keybinds.getSpecKeybind("backpack"),
       keybinds
     );
