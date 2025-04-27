@@ -11,6 +11,7 @@ package model.modelCharacter.modelHeros;
 import static model.modelCharacter.modelHeros.JobModel.MEDIC;
 import static model.modelCharacter.modelHeros.JobModel.STARTUP;
 
+import controller.controllerCharacter.controllerHeros.HeroController;
 import java.awt.Point;
 import model.modelCharacter.CharacterModel;
 import model.modelGame.MessageEnModel;
@@ -22,6 +23,10 @@ import model.modelLocation.LocationModel;
 public class HeroModel extends CharacterModel {
 
   /**
+   * The controller associated with the hero.
+   */
+  private final HeroController heroController;
+  /**
    * The backpack that holds the Hero's inventory.
    */
   private static BackpackModel backpack;
@@ -29,7 +34,7 @@ public class HeroModel extends CharacterModel {
   /**
    * The name of the Hero.
    */
-  public String names;
+  public String name;
 
   /**
    * The job assigned to this Hero.
@@ -48,9 +53,10 @@ public class HeroModel extends CharacterModel {
   public HeroModel(String name, JobModel jobM) {
     super(100, 100, null, 5, 10);
     HeroModel.backpack = new BackpackModel();
-    this.names = name;
+    this.name = name;
     this.jobM = jobM;
     this.jobEffect();
+    this.heroController = new HeroController(this);
   }
 
   /**
@@ -59,8 +65,9 @@ public class HeroModel extends CharacterModel {
   public HeroModel() {
     super(30, 60, null, 5, 15);
     HeroModel.backpack = new BackpackModel();
-    this.names = DEFAULT_NAME;
+    this.name = DEFAULT_NAME;
     this.jobM = DEFAULT_JOBM;
+    this.heroController = new HeroController(this);
   }
 
   /**
@@ -69,6 +76,22 @@ public class HeroModel extends CharacterModel {
    */
   public JobModel getJob() {
     return jobM;
+  }
+
+  /**
+   * Gets the name of the Hero.
+   * @return the Hero's name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Gets the Hero's controller.
+   * @return the Hero's controller
+   */
+  public HeroController getHeroController() {
+    return this.heroController;
   }
 
   /**

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -16,6 +17,8 @@ import org.json.JSONTokener;
 import view.BorderWithButtons;
 import view.ButtonMenu;
 import view.Keybinds;
+import view.MainScene;
+import view.viewCharacter.HeroView;
 import view.viewContainer.ContainerView;
 import view.viewGame.viewCommand.viewMenuCommand.HelpView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
@@ -23,9 +26,10 @@ import view.viewLocation.LocationView;
 
 public class GameView extends BorderWithButtons {
 
+  private final HeroView heroView;
   private final Keybinds keybinds;
-
   private final GameController gameController;
+  private LocationView currentLocationView;
 
   public GameView(String name, String jobChoice) {
     super();
@@ -33,6 +37,8 @@ public class GameView extends BorderWithButtons {
     this.keybinds.loadKeybinds();
 
     this.gameController = new GameController(this, name, jobChoice);
+
+    this.heroView = new HeroView(this.getGameController().getHeroController());
 
     this.addTitle("Game");
 
@@ -45,15 +51,15 @@ public class GameView extends BorderWithButtons {
   public void setButtons() {
     ArrayList<Button> buttons = new ArrayList<>();
 
-    ButtonMenu menu = new ButtonMenu(this.getMainScene());
-    //SaveView save = new SaveView(); //??? Ce n'est précisé nul part qu'il faut pouvoir save/load une modelGame.
     QuitView quit = new QuitView(this);
 
-    buttons.add(menu);
-    //buttons.add(save);
     buttons.add(quit);
 
     this.addButtons(buttons);
+  }
+
+  public HeroView getHeroView() {
+    return this.heroView;
   }
 
   public Keybinds getKeybinds() {
@@ -64,8 +70,21 @@ public class GameView extends BorderWithButtons {
     return this.gameController;
   }
 
-  public LocationView getLocationView() {
-    return (LocationView) ((HBox) ((VBox) this.getCenter()).getChildren()
+  public LocationView getCurrentLocationView() {
+    return this.currentLocationView;
+  }
+
+  public void setCurrentLocationView(LocationView currentLocation) {
+    this.currentLocationView = currentLocation;
+    this.getCurrentLocationView().addHandlers(this.getMainScene());
+  }
+
+  public void updateCurrentLocation() {
+    this.getGameController().updateCurrentLocation();
+  }
+
+  public HBox getLevelBox() {
+    return (HBox) ((HBox) ((VBox) this.getCenter()).getChildren()
         .get(0)).getChildren()
       .get(0);
   }
@@ -109,14 +128,9 @@ public class GameView extends BorderWithButtons {
   //Add every informations about the modelGame at the center of the pane
   private void addContent() {
     VBox contentBox = new VBox();
-
-    HBox mainGame = new HBox(20);
-    mainGame.getChildren().addAll(initMainFrame());
-    mainGame.setAlignment(Pos.CENTER);
-
     contentBox
       .getChildren()
-      .addAll(mainGame, initGameButtons(), initTextInfos());
+      .addAll(initMainFrame(), initGameButtons(), initTextInfos());
     contentBox.setAlignment(Pos.CENTER);
 
     this.setContent(contentBox);
@@ -129,19 +143,12 @@ public class GameView extends BorderWithButtons {
 
   //Returns the view of the level and the one that will display the containers' content
   private HBox initMainFrame() {
-    HBox gridPanesBox = new HBox(10);
+    HBox gridPanesBox = new HBox(20);
 
-    LocationView level = new LocationView();
+    HBox levelBox = new HBox();
     ContainerView containersContent = initContainer();
 
-    // /!\ TEST /!\
-    Button test = new Button("test");
-    test.setOnAction(e -> {
-      containersContent.getContainerController().setItemsContainer();
-      e.consume();
-    });
-
-    gridPanesBox.getChildren().addAll(test, level, containersContent);
+    gridPanesBox.getChildren().addAll(levelBox, containersContent);
 
     gridPanesBox.setAlignment(Pos.CENTER);
     gridPanesBox.setPadding(new Insets(10));

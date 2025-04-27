@@ -18,8 +18,8 @@ import model.modelItem.*;
  */
 public class LocationModel {
 
-  private static final int DEF_WIDTH = 30;
-  private static final int DEF_HEIGHT = 20;
+  private static final int DEF_WIDTH = 10;
+  private static final int DEF_HEIGHT = 10;
   private int width;
   private int height;
   public String name;

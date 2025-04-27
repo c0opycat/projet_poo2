@@ -5,6 +5,7 @@ import java.util.HashMap;
 import model.modelLocation.LocationModel;
 import model.modelLocation.StepModel;
 import view.Cell;
+import view.viewCharacter.HeroView;
 import view.viewLocation.LocationView;
 
 public class LocationController {
@@ -14,7 +15,7 @@ public class LocationController {
 
   public LocationController(LocationModel locationModel) {
     this.locationModel = locationModel;
-    this.locationView = new LocationView();
+    this.locationView = new LocationView(this);
   }
 
   public LocationView getLocationView() {
@@ -23,6 +24,14 @@ public class LocationController {
 
   public LocationModel getLocationModel() {
     return this.locationModel;
+  }
+
+  public int getWidth() {
+    return this.getLocationModel().getWidth();
+  }
+
+  public int getHeight() {
+    return this.getLocationModel().getHeight();
   }
 
   public HashMap<Point, Cell> getLocElements() {
@@ -35,14 +44,24 @@ public class LocationController {
       Cell cell;
 
       if (step.getItem() != null) {
-        cell = new Cell(step.getItem().getClass().getName());
+        String elemName = step.getItem().getClass().getSimpleName();
+        cell = new Cell(elemName.substring(0, elemName.length() - 5));
       } else {
-        cell = new Cell(step.getExit().getClass().getName());
+        String elemName = step.getExit().getClass().getSimpleName();
+        cell = new Cell(elemName.substring(0, elemName.length() - 5));
       }
 
       elements.put(point, cell);
     }
 
     return elements;
+  }
+
+  public void loadLocation() {
+    this.getLocationView().addElements();
+  }
+
+  public void addHero(HeroView heroView) {
+    this.getLocationView().addHero(heroView);
   }
 }

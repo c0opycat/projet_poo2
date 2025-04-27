@@ -61,6 +61,81 @@ public class Cell extends StackPane {
     this.getStyleClass().add("transparent-layer");
   }
 
+  public void deleteImage(ImageView image) {
+    this.getChildren().remove(image);
+  }
+
+  public void addImage(ImageView image) {
+    fitSize(image);
+    this.getChildren().add(image);
+  }
+
+  public void addImage() {
+    String imageName = Cell.getImageName(this.getElement());
+
+    ImageView imageView = new ImageView(
+      new Image(imageName, 25, 25, true, true)
+    );
+
+    imageView.setCache(true);
+
+    fitSize(imageView);
+
+    this.getChildren().add(imageView);
+  }
+
+  public static String getImageName(String nameItem) {
+    String path = "file:./resources/image/";
+    String ext = ".png";
+    String imageElement = null;
+    switch (nameItem) {
+      case "Protection":
+        imageElement = "armure";
+        break;
+      case "Crowbar":
+        imageElement = "pied de biche";
+        break;
+      case "BaseballBat":
+        imageElement = "batte";
+        break;
+      case "Doggo":
+        imageElement = "grand chien";
+        break;
+      case "Gun":
+        imageElement = "pistolet";
+        break;
+      case "Sword":
+        imageElement = "épée";
+        break;
+      case "Backpack":
+        imageElement = "sac à dos";
+        break;
+      case "Crate":
+        imageElement = "caisse2";
+        break;
+      case "Chest":
+        imageElement = "coffre";
+        break;
+      case "Medicine":
+        imageElement = "flacon de gellules";
+        break;
+      case "Meat":
+        imageElement = "steak";
+        break;
+      case "Fruit":
+        imageElement = "pommes";
+        break;
+      case "Cake":
+        imageElement = "gateau";
+        break;
+      case "Exit":
+        imageElement = "door1";
+        break;
+    }
+
+    return path + imageElement + ext;
+  }
+
   /**
    * Set the cell to recognize drag and drop and change the cell to a new modelItem in it
    * @param prefHeight preferred height - fixed height of a grid square
@@ -106,15 +181,18 @@ public class Cell extends StackPane {
             String oldImg = getImage();
 
             setElement(parts);
-            
-            String[] oldElement = {oldImg, oldElem};
+
+            String[] oldElement = { oldImg, oldElem };
             String[] newElement = parts;
 
-            view.viewEditor.viewHistory.HistoryManager.getInstance().recordAction
-            (
-              new view.viewEditor.viewHistory.CellAction(this, oldElement, newElement)
-
-            );
+            view.viewEditor.viewHistory.HistoryManager.getInstance()
+              .recordAction(
+                new view.viewEditor.viewHistory.CellAction(
+                  this,
+                  oldElement,
+                  newElement
+                )
+              );
 
             event.setDropCompleted(true);
           } else {
@@ -216,8 +294,12 @@ public class Cell extends StackPane {
     return elem;
   }
 
+  public void setElement(String elem) {
+    this.elem = elem;
+    updateTooltip();
+  }
+
   public String getImage() {
     return this.img;
-}
-
+  }
 }

@@ -1,5 +1,6 @@
 package controller.controllerGame;
 
+import controller.controllerCharacter.controllerHeros.HeroController;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import model.modelCharacter.modelHeros.JobModel;
@@ -32,10 +33,41 @@ public class GameController {
     System.setOut(newOut);
 
     this.getGameModel().start();
+
+    this.getGameView()
+      .getLevelBox()
+      .getChildren()
+      .add(
+        this.getGameModel()
+          .getCurLocation()
+          .getLocationController()
+          .getLocationView()
+      );
+  }
+
+  public void updateCurrentLocation() {
+    this.getGameModel().getCurLocation().getLocationController().loadLocation();
+
+    this.getGameView()
+      .setCurrentLocationView(
+        this.getGameModel()
+          .getCurLocation()
+          .getLocationController()
+          .getLocationView()
+      );
+
+    this.getGameModel()
+      .getCurLocation()
+      .getLocationController()
+      .addHero(this.getGameModel().getHero().getHeroController().getHeroView());
   }
 
   public void end() {
     System.setOut(System.out);
+
+    this.getGameView()
+      .getCurrentLocationView()
+      .removeHandlers(this.getGameView().getMainScene());
   }
 
   public static ArrayList<String> getJobs() {
@@ -46,5 +78,9 @@ public class GameController {
     }
 
     return jobs;
+  }
+
+  public HeroController getHeroController() {
+    return this.getGameModel().getHero().getHeroController();
   }
 }

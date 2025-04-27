@@ -125,10 +125,10 @@
 }
 
 /* Style Label */
-.label {
+/* .label {
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;
-}
+} */
 
 /* Style textfield et textarea */
 .text-input {

@@ -55,7 +55,9 @@ public class CharacterChoiceView extends BorderWithButtons {
 
     start.setOnAction(e -> {
       GameView gameView = new GameView("Hihi", "MEDIC");
-      this.setContent(gameView);
+      this.getMainScene().setContent(gameView);
+      gameView.updateCurrentLocation();
+      gameView.setButtons();
     });
   }
 }
