@@ -21,7 +21,7 @@ public class CommandsView {
   private final KeyCode keybindForward;
   private final KeyCode keybindBackward;
   private final KeyCode keybindBackpack;
-  private final LocationView locationView;
+  private LocationView locationView;
   private final EventHandler<KeyEvent> moveHandler;
 
   /**
@@ -30,6 +30,7 @@ public class CommandsView {
    * @param locationView the LocationView object
    */
   public CommandsView(LocationView locationView, ContainerView containerView) {
+    System.out.println(locationView);
     Keybinds keybinds = new Keybinds();
     this.keybindLeft = keybinds.getSpecKeyCode("left");
     this.keybindRight = keybinds.getSpecKeyCode("right");
@@ -112,6 +113,14 @@ public class CommandsView {
    */
   public KeyCode getKeybindBackpack() {
     return this.keybindBackpack;
+  }
+
+  /**
+   * setLocationView is a method that returns the LocationView object.
+   * @param locationView the LocationView object
+   */
+  public void setLocationView(LocationView locationView) {
+    this.locationView = locationView;
   }
 
   /**

@@ -33,24 +33,6 @@ public class LocationView extends GridPane {
   }
 
   /**
-   * addHandlers is a method that adds the handlers to the MovementsView object.
-   * its use for the manage the movements of the hero in the level.
-   * @param scene the MainScene object
-   */
-  public void addHandlers(MainScene scene) {
-    this.getCommandsView().addHandlers(scene);
-  }
-
-  /**
-   * removeHandlers is a method that removes the handlers from the MovementsView object.
-   * its use for remove the handlers at the end of the game.
-   * @param mainScene the MainScene object
-   */
-  public void removeHandlers(MainScene mainScene) {
-    this.getCommandsView().removeHandlers(mainScene);
-  }
-
-  /**
    * getMovementsView is a method that returns the MovementsView object.
    * @return CommandsView object
    */

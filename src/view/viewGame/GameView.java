@@ -15,8 +15,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import view.BorderWithButtons;
 import view.Keybinds;
+import view.MainScene;
 import view.viewCharacter.HeroView;
 import view.viewContainer.ContainerView;
+import view.viewGame.viewCommand.CommandsView;
 import view.viewGame.viewCommand.viewMenuCommand.HelpView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 import view.viewLocation.LocationView;
@@ -27,6 +29,7 @@ public class GameView extends BorderWithButtons {
   private final Keybinds keybinds;
   private final GameController gameController;
   private LocationView currentLocationView;
+  private CommandsView commandsView;
 
   public GameView(String name, String jobChoice) {
     super();
@@ -42,6 +45,8 @@ public class GameView extends BorderWithButtons {
     this.addContent();
 
     this.getGameController().start();
+
+    this.commandsView = null;
   }
 
   //Set the bottom of the pane with buttons
@@ -71,9 +76,16 @@ public class GameView extends BorderWithButtons {
     return this.currentLocationView;
   }
 
+  public CommandsView getCommandsView() {
+    return this.commandsView;
+  }
+
+  public void setCommandsView(CommandsView commandsView) {
+    this.commandsView = commandsView;
+  }
+
   public void setCurrentLocationView(LocationView currentLocation) {
     this.currentLocationView = currentLocation;
-    this.getCurrentLocationView().addHandlers(this.getMainScene());
   }
 
   public void updateCurrentLocation() {
@@ -120,6 +132,28 @@ public class GameView extends BorderWithButtons {
     return (TextArea) ((HBox) ((VBox) this.getCenter()).getChildren()
         .get(2)).getChildren()
       .get(1);
+  }
+
+  /**
+   * addHandlers is a method that adds the handlers to the MovementsView object.
+   * its use for the manage the movements of the hero in the level.
+   * @param scene the MainScene object
+   */
+  public void addHandlers(MainScene scene) {
+    this.setCommandsView(
+        new CommandsView(currentLocationView, getContainersContent())
+      );
+    System.out.println("ds addHandlers");
+    this.getCommandsView().addHandlers(scene);
+  }
+
+  /**
+   * removeHandlers is a method that removes the handlers from the MovementsView object.
+   * its use for remove the handlers at the end of the game.
+   * @param mainScene the MainScene object
+   */
+  public void removeHandlers(MainScene mainScene) {
+    this.getCommandsView().removeHandlers(mainScene);
   }
 
   //Add every informations about the modelGame at the center of the pane

@@ -56,6 +56,10 @@ public class GameController {
           .getLocationView()
       );
 
+    this.getGameView()
+      .getCurrentLocationView()
+      .setCommandsView(this.getGameView().getCommandsView());
+
     this.getGameModel()
       .getCurLocation()
       .getLocationController()
@@ -66,7 +70,7 @@ public class GameController {
     System.setOut(System.out);
 
     this.getGameView()
-      .getCurrentLocationView()
+      .getCommandsView()
       .removeHandlers(this.getGameView().getMainScene());
   }
 
