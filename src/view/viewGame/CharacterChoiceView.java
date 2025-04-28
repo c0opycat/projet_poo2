@@ -1,8 +1,13 @@
 package view.viewGame;
 
+import controller.controllerGame.GameController;
 import java.util.ArrayList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.ButtonMenu;
@@ -30,26 +35,45 @@ public class CharacterChoiceView extends BorderWithButtons {
   }
 
   private void addContent() {
-    VBox box = new VBox();
+    VBox box = new VBox(20);
+    box.setId("character-choice");
 
     String lang = GameView.loadLanguage();
 
+    HBox nameBox = new HBox(5);
+    HBox jobBox = new HBox(5);
     Label nameLabel = new Label();
-    Label classLabel = new Label();
+
+    Label jobLabel = new Label();
     Button start = new Button();
 
     if (lang.toUpperCase() == "EN") {
-      nameLabel.setText("Name: ");
-      classLabel.setText("Class: ");
+      nameLabel.setText("Enter your name:");
+      jobLabel.setText("Choose your class:");
       start.setText("Start");
     } else {
-      nameLabel.setText("Nom : ");
-      classLabel.setText("Classe : ");
+      nameLabel.setText("Entre ton nom :");
+      jobLabel.setText("Choisis ta classe :");
       start.setText("Commencer");
     }
-    // TextArea nameTA
 
-    box.getChildren().addAll(nameLabel, classLabel, start);
+    TextField nameTF = new TextField();
+    nameTF.setMaxWidth(300);
+
+    ComboBox<String> jobList = new ComboBox<>();
+    jobList.setStyle("-fx-font-size: 16px");
+
+    for (String job : GameController.getJobs()) {
+      jobList.getItems().add(job);
+    }
+
+    nameBox.getChildren().addAll(nameLabel, nameTF);
+    jobBox.getChildren().addAll(jobLabel, jobList);
+    box.getChildren().addAll(nameBox, jobBox, start);
+
+    nameBox.setAlignment(Pos.CENTER);
+    jobBox.setAlignment(Pos.CENTER);
+    box.setAlignment(Pos.CENTER);
 
     this.setContent(box);
 
@@ -58,6 +82,10 @@ public class CharacterChoiceView extends BorderWithButtons {
       this.getMainScene().setContent(gameView);
       gameView.updateCurrentLocation();
       gameView.setButtons();
+      // gameView
+      //   .getCurrentLocationView()
+      //   .setCommandsView(gameView.getCommandsView());
+      gameView.addHandlers(gameView.getMainScene());
     });
   }
 }

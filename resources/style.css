@@ -147,12 +147,17 @@
     -fx-background-color: #474747;
 }
 
+
 /* Style Spinner*/
 /* .spinner {
     -fx-background-color: #474747;
     -fx-background-radius: 3;
     -fx-text-fill: #ffffff;
 } */
+
+#character-choice{
+    -fx-font-size: 16px;
+}
 
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button {
