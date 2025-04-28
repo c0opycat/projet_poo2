@@ -9,7 +9,7 @@ import javafx.scene.layout.RowConstraints;
 import view.Cell;
 import view.MainScene;
 import view.viewCharacter.HeroView;
-import view.viewGame.MovementsView;
+import view.viewGame.viewCommand.CommandsView;
 
 /**
  * LocationView is a class that represents the view of a level in the game.
@@ -24,20 +24,12 @@ public class LocationView extends GridPane {
 
   private final LocationController locationController;
   private HeroView heroView;
-  private final MovementsView movementsView;
+  private CommandsView commandsView;
 
   public LocationView(LocationController locationController) {
     this.locationController = locationController;
     this.heroView = null;
-    this.movementsView = new MovementsView(this);
-  }
-
-  /**
-   * getMovementsView is a method that returns the MovementsView object.
-   * @return MovementsView object
-   */
-  public MovementsView getMovementsView() {
-    return this.movementsView;
+    this.commandsView = null;
   }
 
   /**
@@ -46,7 +38,7 @@ public class LocationView extends GridPane {
    * @param scene the MainScene object
    */
   public void addHandlers(MainScene scene) {
-    this.getMovementsView().addHandlers(scene);
+    this.getCommandsView().addHandlers(scene);
   }
 
   /**
@@ -55,7 +47,15 @@ public class LocationView extends GridPane {
    * @param mainScene the MainScene object
    */
   public void removeHandlers(MainScene mainScene) {
-    this.getMovementsView().removeHandlers(mainScene);
+    this.getCommandsView().removeHandlers(mainScene);
+  }
+
+  /**
+   * getMovementsView is a method that returns the MovementsView object.
+   * @return CommandsView object
+   */
+  public CommandsView getCommandsView() {
+    return this.commandsView;
   }
 
   /**
@@ -64,14 +64,6 @@ public class LocationView extends GridPane {
    */
   public HeroView getHeroView() {
     return this.heroView;
-  }
-
-  /**
-   * setHeroView is a method that sets the HeroView object.
-   * @param heroView the HeroView object
-   */
-  public void setHeroView(HeroView heroView) {
-    this.heroView = heroView;
   }
 
   /**
@@ -118,6 +110,35 @@ public class LocationView extends GridPane {
   }
 
   /**
+   * setHeroView is a method that sets the HeroView object.
+   * @param heroView the HeroView object
+   */
+  public void setHeroView(HeroView heroView) {
+    this.heroView = heroView;
+  }
+
+  public void setCommandsView(CommandsView commandsView) {
+    this.commandsView = commandsView;
+  }
+
+  /**
+   * setGridConstraints is a method that sets the constraints of the GridPane.
+   * It sets the width and height of the cells in the GridPane.
+   * @param width the width of the GridPane
+   * @param height the height of the GridPane
+   */
+  private void setGridConstraints(int width, int height) {
+    for (int i = 0; i < width; i++) {
+      ColumnConstraints colConst = new ColumnConstraints(25); // largeur fixe
+      this.getColumnConstraints().add(colConst);
+    }
+    for (int i = 0; i < height; i++) {
+      RowConstraints rowConst = new RowConstraints(25); // hauteur fixe
+      this.getRowConstraints().add(rowConst);
+    }
+  }
+
+  /**
    * addElements is a method that adds the elements (exits and items) to the level.
    * It creates the cells and adds them to the GridPane.
    */
@@ -139,23 +160,6 @@ public class LocationView extends GridPane {
       Cell cell = this.getCell((int) point.getX(), (int) point.getY());
       cell.setElement(elements.get(point).getElement());
       cell.addImage();
-    }
-  }
-
-  /**
-   * setGridConstraints is a method that sets the constraints of the GridPane.
-   * It sets the width and height of the cells in the GridPane.
-   * @param width the width of the GridPane
-   * @param height the height of the GridPane
-   */
-  private void setGridConstraints(int width, int height) {
-    for (int i = 0; i < width; i++) {
-      ColumnConstraints colConst = new ColumnConstraints(25); // largeur fixe
-      this.getColumnConstraints().add(colConst);
-    }
-    for (int i = 0; i < height; i++) {
-      RowConstraints rowConst = new RowConstraints(25); // hauteur fixe
-      this.getRowConstraints().add(rowConst);
     }
   }
 
@@ -241,8 +245,6 @@ public class LocationView extends GridPane {
       newCell.addImage(this.getHeroView());
       newCell.setElement(this.getHeroView().getName());
       this.getHeroView().setActualCoord(newCoord);
-    } else {
-      System.out.println("Invalid move");
     }
   }
 }

@@ -1,10 +1,11 @@
-package view.viewGame;
+package view.viewGame.viewCommand;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import view.Keybinds;
 import view.MainScene;
+import view.viewContainer.ContainerView;
 import view.viewLocation.LocationView;
 
 /**
@@ -13,12 +14,13 @@ import view.viewLocation.LocationView;
  * @author L. Cooper
  * @author A. Bertrand-Bernard
  */
-public class MovementsView {
+public class CommandsView {
 
   private final KeyCode keybindLeft;
   private final KeyCode keybindRight;
   private final KeyCode keybindForward;
   private final KeyCode keybindBackward;
+  private final KeyCode keybindBackpack;
   private final LocationView locationView;
   private final EventHandler<KeyEvent> moveHandler;
 
@@ -27,32 +29,29 @@ public class MovementsView {
    * initializes the handlers for the movements of the hero
    * @param locationView the LocationView object
    */
-  public MovementsView(LocationView locationView) {
+  public CommandsView(LocationView locationView, ContainerView containerView) {
     Keybinds keybinds = new Keybinds();
     this.keybindLeft = keybinds.getSpecKeyCode("left");
     this.keybindRight = keybinds.getSpecKeyCode("right");
     this.keybindForward = keybinds.getSpecKeyCode("forward");
     this.keybindBackward = keybinds.getSpecKeyCode("backward");
+    this.keybindBackpack = keybinds.getSpecKeyCode("backpack");
 
     this.locationView = locationView;
 
     this.moveHandler = e -> {
-      System.out.println("ds l'handler");
-
       KeyCode kc = e.getCode();
 
       if (kc == this.getKeybindLeft()) {
-        System.out.println("LEFTTTTTTTT");
         locationView.moveHero("East");
       } else if (kc == this.getKeybindRight()) {
-        System.out.println("RIGHTTTTTTT");
         locationView.moveHero("West");
       } else if (kc == this.getKeybindForward()) {
-        System.out.println("FORWARDDDDD");
         locationView.moveHero("North");
       } else if (kc == this.getKeybindBackward()) {
-        System.out.println("BACKWARDDDD");
         locationView.moveHero("South");
+      } else if (kc == this.getKeybindBackpack()) {
+        System.out.println("Backpack");
       }
 
       e.consume();
@@ -105,6 +104,14 @@ public class MovementsView {
    */
   public KeyCode getKeybindBackward() {
     return this.keybindBackward;
+  }
+
+  /**
+   * getKeybindBackpack is a method that returns the keybind for backward movement.
+   * @return KeyCode object
+   */
+  public KeyCode getKeybindBackpack() {
+    return this.keybindBackpack;
   }
 
   /**
