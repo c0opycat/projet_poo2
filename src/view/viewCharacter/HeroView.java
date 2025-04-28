@@ -2,14 +2,8 @@ package view.viewCharacter;
 
 import controller.controllerCharacter.controllerHeros.HeroController;
 import java.awt.Point;
-import java.util.HashMap;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import view.Cell;
-import view.viewGame.MovementsView;
-import view.viewLocation.LocationView;
 
 public class HeroView extends ImageView {
 

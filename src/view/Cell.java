@@ -294,6 +294,11 @@ public class Cell extends StackPane {
     return elem;
   }
 
+  public void removeElement() {
+    this.elem = null;
+    this.updateTooltip();
+  }
+
   public void setElement(String elem) {
     this.elem = elem;
     updateTooltip();

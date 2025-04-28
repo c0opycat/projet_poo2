@@ -3,7 +3,9 @@ package view.viewLocation;
 import controller.controllerLocation.LocationController;
 import java.awt.Point;
 import java.util.HashMap;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import view.Cell;
 import view.MainScene;
 import view.viewCharacter.HeroView;
@@ -63,7 +65,7 @@ public class LocationView extends GridPane {
     int width = this.getLocationController().getWidth();
     int height = this.getLocationController().getHeight();
     HashMap<Point, Cell> elements = this.getLocElements();
-
+    this.setGridConstraints(width, height);
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         Cell cell = new Cell();
@@ -80,7 +82,18 @@ public class LocationView extends GridPane {
     }
   }
 
-  public void addHero(HeroView heroView) {
+  private void setGridConstraints(int width, int height) {
+    for (int i = 0; i < width; i++) {
+      ColumnConstraints colConst = new ColumnConstraints(25); // largeur fixe
+      this.getColumnConstraints().add(colConst);
+    }
+    for (int i = 0; i < height; i++) {
+      RowConstraints rowConst = new RowConstraints(25); // hauteur fixe
+      this.getRowConstraints().add(rowConst);
+    }
+  }
+
+  public void initHero(HeroView heroView) {
     int width = this.getLocationController().getWidth();
     int height = this.getLocationController().getHeight();
     Point def_coord = heroView.getDefaultCoord();
@@ -105,6 +118,71 @@ public class LocationView extends GridPane {
           }
         }
       }
+    }
+  }
+
+  public void removeHero() {
+    Cell cell =
+      this.getCell(
+          (int) this.getHeroView().getActualCoord().getX(),
+          (int) this.getHeroView().getActualCoord().getY()
+        );
+    cell.deleteImage(this.getHeroView());
+    cell.removeElement();
+  }
+
+  public void moveHero(String direction) {
+    Cell newCell = null;
+    Point newCoord = null;
+
+    if (direction == "North") {
+      newCell = this.getCell(
+          (int) this.getHeroView().getActualCoord().getX() - 1,
+          (int) this.getHeroView().getActualCoord().getY()
+        );
+      newCoord = new Point(
+        (int) this.getHeroView().getActualCoord().getX() - 1,
+        (int) this.getHeroView().getActualCoord().getY()
+      );
+    } else if (direction == "South") {
+      newCell = this.getCell(
+          (int) this.getHeroView().getActualCoord().getX() + 1,
+          (int) this.getHeroView().getActualCoord().getY()
+        );
+      newCoord = new Point(
+        (int) this.getHeroView().getActualCoord().getX() + 1,
+        (int) this.getHeroView().getActualCoord().getY()
+      );
+    } else if (direction == "East") {
+      newCell = this.getCell(
+          (int) this.getHeroView().getActualCoord().getX(),
+          (int) this.getHeroView().getActualCoord().getY() + 1
+        );
+      newCoord = new Point(
+        (int) this.getHeroView().getActualCoord().getX(),
+        (int) this.getHeroView().getActualCoord().getY() + 1
+      );
+    } else if (direction == "West") {
+      newCell = this.getCell(
+          (int) this.getHeroView().getActualCoord().getX(),
+          (int) this.getHeroView().getActualCoord().getY() - 1
+        );
+      newCoord = new Point(
+        (int) this.getHeroView().getActualCoord().getX(),
+        (int) this.getHeroView().getActualCoord().getY() - 1
+      );
+    } else {
+      System.out.println("Invalid direction");
+      return;
+    }
+
+    if (newCell != null) {
+      this.removeHero();
+      newCell.addImage(this.getHeroView());
+      newCell.setElement(this.getHeroView().getName());
+      this.getHeroView().setActualCoord(newCoord);
+    } else {
+      System.out.println("Invalid move");
     }
   }
 }

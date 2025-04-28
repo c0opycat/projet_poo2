@@ -62,6 +62,6 @@ public class LocationController {
   }
 
   public void addHero(HeroView heroView) {
-    this.getLocationView().addHero(heroView);
+    this.getLocationView().initHero(heroView);
   }
 }

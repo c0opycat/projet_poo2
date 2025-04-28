@@ -32,12 +32,16 @@ public class MovementsView {
 
       if (kc == this.getKeybindLeft()) {
         System.out.println("LEFTTTTTTTT");
+        locationView.moveHero("East");
       } else if (kc == this.getKeybindRight()) {
         System.out.println("RIGHTTTTTTT");
+        locationView.moveHero("West");
       } else if (kc == this.getKeybindForward()) {
         System.out.println("FORWARDDDDD");
+        locationView.moveHero("North");
       } else if (kc == this.getKeybindBackward()) {
         System.out.println("BACKWARDDDD");
+        locationView.moveHero("South");
       }
 
       e.consume();
