@@ -3,12 +3,16 @@ package view.viewLocation;
 import controller.controllerLocation.LocationController;
 import java.awt.Point;
 import java.util.HashMap;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import view.Cell;
-import view.MainScene;
 import view.viewCharacter.HeroView;
+import view.viewContainer.ContainerView;
+import view.viewGame.GameView;
 import view.viewGame.viewCommand.CommandsView;
 
 /**
@@ -23,12 +27,12 @@ import view.viewGame.viewCommand.CommandsView;
 public class LocationView extends GridPane {
 
   private final LocationController locationController;
-  private HeroView heroView;
+  private GameView gameView;
   private CommandsView commandsView;
 
   public LocationView(LocationController locationController) {
     this.locationController = locationController;
-    this.heroView = null;
+    this.gameView = null;
     this.commandsView = null;
   }
 
@@ -40,12 +44,16 @@ public class LocationView extends GridPane {
     return this.commandsView;
   }
 
+  public GameView getGameView() {
+    return this.gameView;
+  }
+
   /**
    * getHeroView is a method that returns the HeroView object.
    * @return HeroView object
    */
   public HeroView getHeroView() {
-    return this.heroView;
+    return this.getGameView().getHeroView();
   }
 
   /**
@@ -92,11 +100,12 @@ public class LocationView extends GridPane {
   }
 
   /**
-   * setHeroView is a method that sets the HeroView object.
-   * @param heroView the HeroView object
+   * setGameView is a method that sets the GameView object.
+   * @param heroView the GamView object
    */
-  public void setHeroView(HeroView heroView) {
-    this.heroView = heroView;
+  public void setGameView(GameView gameView) {
+    this.gameView = gameView;
+    this.initHero(this.getGameView().getHeroView());
   }
 
   public void setCommandsView(CommandsView commandsView) {
@@ -135,6 +144,15 @@ public class LocationView extends GridPane {
         cell.setMinWidth(25);
         cell.setMinHeight(25);
         this.add(cell, i, j);
+
+        if (
+          cell.getElement() != null &&
+          (cell.getElement().equalsIgnoreCase("chest") ||
+            cell.getElement().equalsIgnoreCase("crate") ||
+            cell.getElement().equalsIgnoreCase("backpack"))
+        ) {
+          this.addContainerHandler(cell, i, j);
+        }
       }
     }
 
@@ -143,6 +161,24 @@ public class LocationView extends GridPane {
       cell.setElement(elements.get(point).getElement());
       cell.addImage();
     }
+  }
+
+  private void addContainerHandler(Cell cell, int i, int j) {
+    cell.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+      System.out.println("ds l'event handler");
+      VBox containerBox = this.getGameView().getContainerBox();
+
+      Label containerLabel = (Label) containerBox.getChildren().get(0);
+      ContainerView containerView = (ContainerView) containerBox
+        .getChildren()
+        .get(1);
+
+      containerLabel.setText(cell.getElement());
+
+      containerView.addItemList(
+        containerView.getContainerController().getItems(new Point(i, j))
+      );
+    });
   }
 
   /**
@@ -160,7 +196,6 @@ public class LocationView extends GridPane {
     if (cell.getChildren().isEmpty()) {
       cell.addImage(heroView);
       cell.setElement(heroView.getName());
-      this.setHeroView(heroView);
     } else {
       for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
@@ -170,7 +205,6 @@ public class LocationView extends GridPane {
             cell.addImage(heroView);
             cell.setElement(heroView.getName());
 
-            this.setHeroView(heroView);
             heroView.setActualCoord(new Point(i, j));
             break;
           }

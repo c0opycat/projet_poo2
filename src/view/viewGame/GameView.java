@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -38,11 +39,11 @@ public class GameView extends BorderWithButtons {
 
     this.gameController = new GameController(this, name, jobChoice);
 
+    this.addContent();
+
     this.heroView = new HeroView(this.getGameController().getHeroController());
 
     this.addTitle("Game");
-
-    this.addContent();
 
     this.getGameController().start();
 
@@ -86,6 +87,7 @@ public class GameView extends BorderWithButtons {
 
   public void setCurrentLocationView(LocationView currentLocation) {
     this.currentLocationView = currentLocation;
+    this.getCurrentLocationView().setGameView(this);
   }
 
   public void updateCurrentLocation() {
@@ -98,10 +100,18 @@ public class GameView extends BorderWithButtons {
       .get(0);
   }
 
-  public ContainerView getContainersContent() {
-    return (ContainerView) ((HBox) ((VBox) this.getCenter()).getChildren()
+  public VBox getContainerBox() {
+    return (VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
         .get(0)).getChildren()
       .get(1);
+  }
+
+  public Label getContainerLabel() {
+    return (Label) this.getContainerBox().getChildren().get(0);
+  }
+
+  public ContainerView getContainerView() {
+    return (ContainerView) this.getContainerBox().getChildren().get(1);
   }
 
   public Button getHelpButton() {
@@ -141,9 +151,8 @@ public class GameView extends BorderWithButtons {
    */
   public void addHandlers(MainScene scene) {
     this.setCommandsView(
-        new CommandsView(currentLocationView, getContainersContent())
+        new CommandsView(currentLocationView, getContainerBox())
       );
-    System.out.println("ds addHandlers");
     this.getCommandsView().addHandlers(scene);
   }
 
@@ -177,9 +186,15 @@ public class GameView extends BorderWithButtons {
     HBox gridPanesBox = new HBox(20);
 
     HBox levelBox = new HBox();
+
+    VBox containerBox = new VBox(10);
+
+    Label containerLabel = new Label();
     ContainerView containersContent = initContainer();
 
-    gridPanesBox.getChildren().addAll(levelBox, containersContent);
+    containerBox.getChildren().addAll(containerLabel, containersContent);
+
+    gridPanesBox.getChildren().addAll(levelBox, containerBox);
 
     gridPanesBox.setAlignment(Pos.CENTER);
     gridPanesBox.setPadding(new Insets(10));

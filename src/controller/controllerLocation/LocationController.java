@@ -5,7 +5,6 @@ import java.util.HashMap;
 import model.modelLocation.LocationModel;
 import model.modelLocation.StepModel;
 import view.Cell;
-import view.viewCharacter.HeroView;
 import view.viewLocation.LocationView;
 
 public class LocationController {
@@ -59,9 +58,5 @@ public class LocationController {
 
   public void loadLocation() {
     this.getLocationView().addElements();
-  }
-
-  public void addHero(HeroView heroView) {
-    this.getLocationView().initHero(heroView);
   }
 }

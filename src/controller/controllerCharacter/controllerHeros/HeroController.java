@@ -1,6 +1,8 @@
 package controller.controllerCharacter.controllerHeros;
 
+import java.util.ArrayList;
 import model.modelCharacter.modelHeros.HeroModel;
+import model.modelItem.ItemModel;
 import view.viewCharacter.HeroView;
 
 public class HeroController {
@@ -23,5 +25,9 @@ public class HeroController {
 
   public String getName() {
     return this.getHeroModel().getName();
+  }
+
+  public ArrayList<ItemModel> getBackpackContent() {
+    return HeroModel.gBackpack().getItemList();
   }
 }

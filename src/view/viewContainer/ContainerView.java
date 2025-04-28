@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import model.modelItem.ItemModel;
 import view.viewGame.GameView;
 
 public class ContainerView extends VBox {
@@ -19,22 +18,13 @@ public class ContainerView extends VBox {
   public ContainerView(GameView gameView) {
     super(20);
     this.containerController = new ContainerController(this, gameView);
-    initComp();
   }
 
-  private void initComp() {
-    Label uTitle = new Label("ContainerModel : ");
-    uTitle.getStyleClass().add("under-title");
-    this.setAlignment(Pos.TOP_CENTER);
-    this.getChildren().add(uTitle);
-  }
-
-  public void addItemList(ArrayList<ItemModel> itemList) {
+  public void addItemList(ArrayList<String> itemList) {
     int index = 0;
-    for (ItemModel item : itemList) {
+    for (String item : itemList) {
       HBox li = new HBox(20);
-      Label label = new Label(item.toString());
-
+      Label label = new Label(item);
       label.setId("" + index);
       label.getStyleClass().add("modelItem-label");
       label.setStyle("-fx-text-fill: #000000;");

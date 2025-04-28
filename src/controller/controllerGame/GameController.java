@@ -59,11 +59,6 @@ public class GameController {
     this.getGameView()
       .getCurrentLocationView()
       .setCommandsView(this.getGameView().getCommandsView());
-
-    this.getGameModel()
-      .getCurLocation()
-      .getLocationController()
-      .addHero(this.getGameModel().getHero().getHeroController().getHeroView());
   }
 
   public void end() {
