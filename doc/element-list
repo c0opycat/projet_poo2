@@ -1,7 +1,11 @@
 view
+view.viewCharacter
 view.viewConfig
+view.viewContainer
 view.viewEditor
+view.viewEditor.viewHistory
 view.viewGame
+view.viewGame.viewCommand.viewItemCommand
 view.viewGame.viewCommand.viewMenuCommand
 view.viewGameOver
 view.viewHallOfFame

@@ -319,7 +319,7 @@ function doSearch(request, response) {
 $.widget("custom.catcomplete", $.ui.autocomplete, {
     _create: function() {
         this._super();
-        this.widget().menu("option", "items", "> .result-modelItem");
+        this.widget().menu("option", "items", "> .result-item");
         // workaround for search result scrolling
         this.menu._scrollIntoView = function _scrollIntoView( item ) {
             var borderTop, paddingTop, offset, scroll, elementHeight, itemHeight;
@@ -354,7 +354,7 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
             } else {
                 li.attr("aria-label", item.l);
             }
-            li.attr("class", "result-modelItem");
+            li.attr("class", "result-item");
         });
         ul.append("<li class='ui-static-link'><a href='" + pathtoroot + "search.html?q="
             + encodeURI(widget.term) + "'>Go to search page</a></li>");

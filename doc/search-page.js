@@ -62,7 +62,7 @@ $(window).on("load", function() {
     var reset = $("#page-search-reset");
     var notify = $("#page-search-notify");
     var resultSection = $("div#result-section");
-    var resultContainer = $("div#result-modelContainer");
+    var resultContainer = $("div#result-container");
     var searchTerm = "";
     var activeTab = "";
     var fixedTab = false;

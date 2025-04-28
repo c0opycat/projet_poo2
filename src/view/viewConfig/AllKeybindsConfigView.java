@@ -11,18 +11,21 @@ import view.Keybinds;
 import view.MyAlert;
 
 /**
- * Classe représentant la vue de configuration des touches (keybinds).
- * Elle permet à l'utilisateur de configurer les touches pour les actions du jeu.
+ * AllKeybindsConfigView is a class that represents the view for configuring all keybinds in the game.
+ * It extends VBox and contains methods to manage the display of keybinds.
+ * It is responsible for displaying the keybinds and allowing the user to change them.
+ * It also manages the saving of keybinds.
+ * @author L. Cooper
  * @author A. Bertrand-Bernard
  */
 
 public class AllKeybindsConfigView extends VBox {
 
+  /** Keybinds object */
   private final Keybinds keybinds;
 
   /**
-   * Constructeur de la classe KeybindConfigView.
-   * Il initialise la vue avec les composants nécessaires pour configurer les keybinds.
+   * Constructor
    */
   public AllKeybindsConfigView() {
     super(20);
@@ -30,12 +33,19 @@ public class AllKeybindsConfigView extends VBox {
     this.addComp();
   }
 
+  /**
+   * getKeybinds is a method that returns the Keybinds object.
+   * @return Keybinds object
+   */
   public Keybinds getKeybinds() {
     return this.keybinds;
   }
 
   /**
-   * Méthode pour ajouter les composants de la vue.
+   * Method to add components to the view
+   * It creates a title and a list of keybinds with buttons to change them.
+   * It also creates a save button to save the changes made to the keybinds.
+   * @return void
    */
   private void addComp() {
     Label title = new Label("Keybind :");
@@ -114,10 +124,14 @@ public class AllKeybindsConfigView extends VBox {
   }
 
   /**
-   * Méthode pour sauvegarder les touches
+   * Method to save the keybinds
+   * It retrieves the keybinds from the view and saves them using the Keybinds object.
+   * It checks if the keybinds are already used and displays an alert if they are.
+   * It also updates the keybinds in the Keybinds object.
+   * @return void
    */
   public void saveKeys() {
-    // Récupérer les touches
+    // Get the keybinds from the view
     String forward =
       ((KeybindConfigView) this.getChildren().get(1)).getkeybindButton()
         .getText();
@@ -146,7 +160,7 @@ public class AllKeybindsConfigView extends VBox {
       ((KeybindConfigView) this.getChildren().get(9)).getkeybindButton()
         .getText();
 
-    // Check si les touches sont déjà utilisées
+    // Check if the keys are already used
     Set<String> keys = new HashSet<>();
     if (
       !keys.add(forward) ||
