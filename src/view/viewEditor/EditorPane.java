@@ -205,7 +205,7 @@ public class EditorPane extends HBox {
     //zone de texte nom, description en français et anglais
     //Textfield a parametrer
     //(style de police, nombre de caractère autorisée, nombre de ligne, espace pris dans la fenêtre)
-    TextField name = new TextField("Nom / Name");
+    TitleView name = new TitleView("Nom / Name", history);
 
     TextView descriptionFr = new TextView("Description du quartier", history);
     TextView descriptionEn = new TextView(
