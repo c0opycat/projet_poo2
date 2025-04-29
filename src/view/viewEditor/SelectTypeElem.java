@@ -69,12 +69,6 @@ public class SelectTypeElem extends TabPane {
     }
   }
 
-  private Region spring() {
-    Region spring = new Region();
-    VBox.setVgrow(spring, Priority.ALWAYS);
-    return spring;
-  }
-
   //Attention seulement les labels ils faut faire une fonction pour empêcher de mettre plus d'un monstre
   //Sinon gestion initial des monstres via random et ne pas permettre à l'utilisateur de mettre des monstres
   private void otherInfoMonster(VBox infoBox) {
@@ -86,7 +80,7 @@ public class SelectTypeElem extends TabPane {
     );
     infoBox
       .getChildren()
-      .addAll(spring(), attention, spring(), warning, spring());
+      .addAll(attention, warning);
   }
 
   private void otherInfoDoor(VBox infoBox, ArrayList<String> listImgDoors) {
@@ -241,7 +235,7 @@ public class SelectTypeElem extends TabPane {
         }
   
         SelectElemItem listItem = new SelectElemItem(imgItems,8, msgFList, msgEList, msgFLabel, msgELabel );
-        infoBox.getChildren().addAll(listItem, spring(), msgFLabel, spring(), msgELabel);
+        infoBox.getChildren().addAll(listItem, msgFLabel, msgELabel);
     }
   
 }
