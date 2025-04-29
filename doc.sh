@@ -11,7 +11,7 @@ LIB_DIR="./lib"
 CLASSPATH=$(find "$LIB_DIR" -name "*.jar" | tr '\n' ':')
 
 # Générer la Javadoc
-~/Documents/zulu21.38.21-ca-fx-jdk21.0.5-linux_x64/bin/javadoc -d "$OUTPUT_DIR" -sourcepath "$SOURCE_PATH" -subpackages view -classpath "$CLASSPATH"
+~/Documents/zulu21.38.21-ca-fx-jdk21.0.5-linux_x64/bin/javadoc -d "$OUTPUT_DIR" -sourcepath "$SOURCE_PATH" -subpackages view:model:controller -classpath "$CLASSPATH"
 #a modifié celon votre path
 
 # Message de confirmation
