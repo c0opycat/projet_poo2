@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -205,7 +204,7 @@ public class EditorPane extends HBox {
     //zone de texte nom, description en français et anglais
     //Textfield a parametrer
     //(style de police, nombre de caractère autorisée, nombre de ligne, espace pris dans la fenêtre)
-    TextField name = new TextField("Nom / Name");
+    TitleView name = new TitleView("Nom / Name", history);
 
     TextView descriptionFr = new TextView("Description du quartier", history);
     TextView descriptionEn = new TextView(
@@ -218,13 +217,13 @@ public class EditorPane extends HBox {
       .addAll(
         previewLabelfr,
         previewLabelen,
-        springS(),
+        springV(),
         preview,
-        springS(),
+        springV(),
         name,
-        springS(),
+        springV(),
         descriptionFr,
-        springS(),
+        springV(),
         descriptionEn
       );
 
@@ -238,19 +237,9 @@ public class EditorPane extends HBox {
    * Spring to put between the zones in VBox set on sometimes
    * @return region -> spring
    */
-  private Region springS() {
+  private Region springV() {
     Region spring = new Region();
     VBox.setVgrow(spring, Priority.SOMETIMES);
-    return spring;
-  }
-
-  /**
-   * Spring to put between the zones in VBox set on always
-   * @return region -> spring
-   */
-  private Region springA() {
-    Region spring = new Region();
-    VBox.setVgrow(spring, Priority.ALWAYS);
     return spring;
   }
 
@@ -390,7 +379,7 @@ public class EditorPane extends HBox {
     HBox wayBox = new HBox();
     VBox.setVgrow(wayBox, Priority.ALWAYS);
 
-    wayBox.getChildren().addAll(springH(), labelBox, choiceLevel);
+    wayBox.getChildren().addAll(labelBox, choiceLevel);
     wayBox.setAlignment(Pos.CENTER);
 
     //Ajout dans la box principal
@@ -428,7 +417,15 @@ public class EditorPane extends HBox {
 
     //Ajout des onglets d'ajout
     SelectTypeElem selectTypeElem = new SelectTypeElem(strTab2, itemTab2);
-    VBox.setVgrow(selectTypeElem, Priority.ALWAYS);
+    selectTypeElem.setMinWidth(600);
+    selectTypeElem.setMaxWidth(600);
+    selectTypeElem.setPrefWidth(600);
+
+    selectTypeElem.setMaxHeight(300);
+    selectTypeElem.setMinHeight(300);
+    selectTypeElem.setPrefHeight(300);
+
+
 
     //Ajout des commandes
     HBox widthField = this.size();
@@ -441,13 +438,13 @@ public class EditorPane extends HBox {
       .getChildren()
       .addAll(
         selectTypeElem,
-        springA(),
+        springV(),
         widthField,
-        springA(),
+        springV(),
         buttonRetour,
-        springA(),
+        springV(),
         saveLevel,
-        springA()
+        springV()
       );
 
     return rightPane;
@@ -476,7 +473,7 @@ public class EditorPane extends HBox {
    * @return button undo
    */
   private Button getUndo() {
-    return (Button) ((HBox) ((VBox) this.getChildren().getLast()).getChildren()
+    return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(4)).getChildren()
       .get(1);
   }
@@ -486,7 +483,7 @@ public class EditorPane extends HBox {
    * @return button redo
    */
   private Button getRedo() {
-    return (Button) ((HBox) ((VBox) this.getChildren().getLast()).getChildren()
+    return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(4)).getChildren()
       .get(3);
   }
@@ -496,7 +493,7 @@ public class EditorPane extends HBox {
    * @return button Reinit
    */
   private Button getReinit() {
-    return (Button) ((HBox) ((VBox) this.getChildren().getLast()).getChildren()
+    return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(4)).getChildren()
       .get(5);
   }
@@ -506,8 +503,8 @@ public class EditorPane extends HBox {
    * @return button save
    */
   private Button getSave() {
-    return (Button) ((HBox) ((VBox) this.getChildren().getLast()).getChildren()
+    return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(6)).getChildren()
-      .get(4);
+      .get(3);
   }
 }
