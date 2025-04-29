@@ -7,17 +7,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import view.Lang;
 import view.viewGame.GameView;
 
 public class ContainerView extends VBox {
 
   private final ContainerController containerController;
+  private Lang lang;
   private int x;
   private int y;
 
   public ContainerView(GameView gameView) {
     super(20);
     this.containerController = new ContainerController(this, gameView);
+    this.lang = new Lang();
   }
 
   public void addItemList(ArrayList<String> itemList) {
@@ -36,13 +39,16 @@ public class ContainerView extends VBox {
   }
 
   private Button add_Buse() {
-    Button use = new Button("Use");
+    Button use = new Button();
+    lang.setButtonLang(use, "Utiliser", "Use");
+
     use.getStyleClass().add("button-Commande");
     return use;
   }
 
   private Button add_Bequip() {
-    Button equip = new Button("Equip");
+    Button equip = new Button();
+    lang.setButtonLang(equip, "Equiper", "Equip");
     equip.getStyleClass().add("button-Commande");
     return equip;
   }

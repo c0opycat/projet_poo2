@@ -6,17 +6,21 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.ButtonQuit;
+import view.Lang;
 import view.MainScene;
 import view.viewConfig.ConfigView;
 import view.viewEditor.EditorView;
 import view.viewGame.CharacterChoiceView;
-import view.viewGame.GameView;
 import view.viewHallOfFame.HOFView;
 
 public class Menu extends BorderWithButtons {
 
+  private Lang lang;
+
   public Menu() {
     super();
+    this.lang = new Lang();
+
     this.addTitle("Menu");
     this.setButtons();
     this.addcomp();
@@ -35,10 +39,14 @@ public class Menu extends BorderWithButtons {
   private void addcomp() {
     VBox vb = new VBox(20);
 
-    Button jouer = new Button("Play");
-    Button cfg = new Button("Config");
-    Button edit = new Button("Editor");
-    Button hof = new Button("Hall of Fame");
+    Button jouer = new Button();
+    lang.setButtonLang(jouer, "Jouer", "Play");
+    Button cfg = new Button();
+    lang.setButtonLang(cfg, "Configuration", "Config");
+    Button edit = new Button();
+    lang.setButtonLang(edit, "Editeur", "Editor");
+    Button hof = new Button();
+    lang.setButtonLang(hof, "HOF", "HOF");
 
     //style du menu
 

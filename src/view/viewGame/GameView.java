@@ -1,7 +1,6 @@
 package view.viewGame;
 
 import controller.controllerGame.GameController;
-import java.io.FileReader;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,10 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import view.BorderWithButtons;
 import view.Keybinds;
+import view.Lang;
 import view.MainScene;
 import view.viewCharacter.HeroView;
 import view.viewContainer.ContainerView;
@@ -31,6 +29,7 @@ public class GameView extends BorderWithButtons {
   private final GameController gameController;
   private LocationView currentLocationView;
   private CommandsView commandsView;
+  private Lang lang = new Lang();
 
   public GameView(String name, String jobChoice) {
     super();
@@ -43,7 +42,11 @@ public class GameView extends BorderWithButtons {
 
     this.heroView = new HeroView(this.getGameController().getHeroController());
 
-    this.addTitle("Game");
+    if (lang.getCurr_lang().equals("EN")) {
+      this.addTitle("Game");
+    } else {
+      this.addTitle("Jeu");
+    }
 
     this.getGameController().start();
 
@@ -207,7 +210,8 @@ public class GameView extends BorderWithButtons {
     HBox gameButtonsBox = new HBox(20);
 
     HelpView helpButton = new HelpView(this);
-    Button undoButton = new Button("Undo");
+    Button undoButton = new Button();
+    lang.setButtonLang(undoButton, "Retour", "Undo");
     Button pause = new Button("Pause");
 
     Region spring = new Region();
@@ -240,17 +244,5 @@ public class GameView extends BorderWithButtons {
     textInfosBox.setPadding(new Insets(10));
 
     return textInfosBox;
-  }
-
-  public static String loadLanguage() {
-    String language = null;
-    try {
-      FileReader reader = new FileReader("./save/language.json");
-      JSONObject jsonObject = new JSONObject(new JSONTokener(reader));
-      language = (String) jsonObject.get("language");
-    } catch (Exception e) {
-      System.err.println("File 'language.json' not found.");
-    }
-    return language;
   }
 }

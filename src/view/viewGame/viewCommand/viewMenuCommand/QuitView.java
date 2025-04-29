@@ -6,15 +6,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import view.Lang;
 import view.viewGame.GameView;
 import view.viewGameOver.GameOverView;
 
 public class QuitView extends Button {
 
   private final QuitController quitController;
+  private Lang lang = new Lang();
 
   public QuitView(GameView gameView) {
-    super("Quit");
+    super();
+    lang.setButtonLang(this, "Quitter", "Quit");
     this.quitController = new QuitController(this, gameView);
 
     this.setOnAction(e -> {

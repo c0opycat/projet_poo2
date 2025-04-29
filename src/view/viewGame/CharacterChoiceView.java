@@ -12,8 +12,11 @@ import javafx.scene.layout.VBox;
 import view.BorderWithButtons;
 import view.ButtonMenu;
 import view.ButtonQuit;
+import view.Lang;
 
 public class CharacterChoiceView extends BorderWithButtons {
+
+  private Lang lang = new Lang();
 
   public CharacterChoiceView() {
     super();
@@ -38,8 +41,6 @@ public class CharacterChoiceView extends BorderWithButtons {
     VBox box = new VBox(20);
     box.setId("character-choice");
 
-    String lang = GameView.loadLanguage();
-
     HBox nameBox = new HBox(5);
     HBox jobBox = new HBox(5);
     Label nameLabel = new Label();
@@ -47,15 +48,9 @@ public class CharacterChoiceView extends BorderWithButtons {
     Label jobLabel = new Label();
     Button start = new Button();
 
-    if (lang.toUpperCase() == "EN") {
-      nameLabel.setText("Enter your name:");
-      jobLabel.setText("Choose your class:");
-      start.setText("Start");
-    } else {
-      nameLabel.setText("Entre ton nom :");
-      jobLabel.setText("Choisis ta classe :");
-      start.setText("Commencer");
-    }
+    lang.setLabelLang(nameLabel, "Entre ton nom :", "Enter your name:");
+    lang.setLabelLang(jobLabel, "Choisis ta classe :", "Choose your class:");
+    lang.setButtonLang(start, "Commencer", "Start");
 
     TextField nameTF = new TextField();
     nameTF.setMaxWidth(300);
