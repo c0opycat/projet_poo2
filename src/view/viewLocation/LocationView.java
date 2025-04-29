@@ -29,11 +29,13 @@ public class LocationView extends GridPane {
   private final LocationController locationController;
   private GameView gameView;
   private CommandsView commandsView;
+  private Boolean isContainerOpen;
 
   public LocationView(LocationController locationController) {
     this.locationController = locationController;
     this.gameView = null;
     this.commandsView = null;
+    this.isContainerOpen = false;
   }
 
   /**
@@ -144,15 +146,6 @@ public class LocationView extends GridPane {
         cell.setMinWidth(25);
         cell.setMinHeight(25);
         this.add(cell, i, j);
-
-        if (
-          cell.getElement() != null &&
-          (cell.getElement().equalsIgnoreCase("chest") ||
-            cell.getElement().equalsIgnoreCase("crate") ||
-            cell.getElement().equalsIgnoreCase("backpack"))
-        ) {
-          this.addContainerHandler(cell, i, j);
-        }
       }
     }
 
@@ -160,24 +153,40 @@ public class LocationView extends GridPane {
       Cell cell = this.getCell((int) point.getX(), (int) point.getY());
       cell.setElement(elements.get(point).getElement());
       cell.addImage();
+      int i = (int) (point.getX());
+      int j = (int) (point.getY());
+      if (
+        cell.getElement() != null &&
+        (cell.getElement().equalsIgnoreCase("chest") ||
+          cell.getElement().equalsIgnoreCase("crate") ||
+          cell.getElement().equalsIgnoreCase("backpack"))
+      ) {
+        this.addContainerHandler(cell, i, j);
+      }
     }
   }
 
   private void addContainerHandler(Cell cell, int i, int j) {
     cell.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
-      System.out.println("ds l'event handler");
       VBox containerBox = this.getGameView().getContainerBox();
-
       Label containerLabel = (Label) containerBox.getChildren().get(0);
       ContainerView containerView = (ContainerView) containerBox
         .getChildren()
         .get(1);
+      if (!isContainerOpen) {
+        containerLabel.setText(cell.getElement());
 
-      containerLabel.setText(cell.getElement());
+        containerView.addItemList(
+          containerView.getContainerController().getItems(new Point(i, j))
+        );
+        isContainerOpen = true;
+      } else {
+        isContainerOpen = false;
+        containerView.getChildren().clear();
+        containerLabel.setText(null);
+      }
 
-      containerView.addItemList(
-        containerView.getContainerController().getItems(new Point(i, j))
-      );
+      e.consume();
     });
   }
 

@@ -44,10 +44,12 @@ public class LocationController {
 
       if (step.getItem() != null) {
         String elemName = step.getItem().getClass().getSimpleName();
-        cell = new Cell(elemName.substring(0, elemName.length() - 5));
+        String elemNameSub = elemName.substring(0, elemName.length() - 5);
+        cell = new Cell(elemNameSub);
       } else {
         String elemName = step.getExit().getClass().getSimpleName();
-        cell = new Cell(elemName.substring(0, elemName.length() - 5));
+        String elemNameSub = elemName.substring(0, elemName.length() - 5);
+        cell = new Cell(elemNameSub);
       }
 
       elements.put(point, cell);
