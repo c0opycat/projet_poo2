@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import model.modelCharacter.modelMonster.MonsterModel;
 import model.modelGame.GameMapModel;
+import model.modelGame.GameModel;
 import model.modelGame.MessageEnModel;
 import model.modelItem.*;
 
@@ -130,8 +131,9 @@ public class LocationModel {
   /**
    * Removes the monster if it has been knocked out.
    */
-  public void removeMonsterIfKO() {
+  public void removeMonsterIfKO(GameModel game) {
     if (this.monster != null && this.monster.isKO()) {
+      game.addKilledMonster(this.monster);
       this.monster = null;
     }
   }

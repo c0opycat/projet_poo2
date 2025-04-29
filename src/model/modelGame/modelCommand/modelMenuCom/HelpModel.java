@@ -1,8 +1,8 @@
-package model.modelGame.commandM.modelMenuCom;
+package model.modelGame.modelCommand.modelMenuCom;
 
 import model.modelGame.GameModel;
 import model.modelGame.MessageEnModel;
-import model.modelGame.commandM.CommandModel;
+import model.modelGame.modelCommand.CommandModel;
 
 public class HelpModel extends CommandModel {
 

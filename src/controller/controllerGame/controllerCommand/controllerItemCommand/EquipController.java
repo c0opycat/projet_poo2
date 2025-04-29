@@ -1,6 +1,6 @@
 package controller.controllerGame.controllerCommand.controllerItemCommand;
 
-import model.modelGame.commandM.modelItemCom.EquipModel;
+import model.modelGame.modelCommand.modelItemCom.EquipModel;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewItemCommand.EquipView;
 

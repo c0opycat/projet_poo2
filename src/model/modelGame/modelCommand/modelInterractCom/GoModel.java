@@ -1,7 +1,7 @@
-package model.modelGame.commandM.modelInterractCom;
+package model.modelGame.modelCommand.modelInterractCom;
 
 import model.modelGame.GameModel;
-import model.modelGame.commandM.CommandModel;
+import model.modelGame.modelCommand.CommandModel;
 import model.modelLocation.ExitModel;
 
 import java.util.ArrayList;

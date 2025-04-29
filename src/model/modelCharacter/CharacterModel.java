@@ -24,7 +24,7 @@ public abstract class CharacterModel {
         this.shield = null;
         this.weapon = null;
     }
-    //GET and SET position of charcter ont the
+    //GET and SET position of charcter on the grid
     public int getPosx() {
         return posx;
     }

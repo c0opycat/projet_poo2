@@ -1,6 +1,6 @@
 package controller.controllerGame.controllerCommand.controllerMenuCommand;
 
-import model.modelGame.commandM.modelMenuCom.QuitModel;
+import model.modelGame.modelCommand.modelMenuCom.QuitModel;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
 

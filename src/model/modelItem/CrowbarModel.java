@@ -3,7 +3,7 @@ package model.modelItem;
 import java.util.Scanner;
 import model.modelGame.MessageEnModel;
 import model.modelItem.modelContainer.BackpackModel;
-import model.modelGame.commandM.CommandModel;
+import model.modelGame.modelCommand.CommandModel;
 
 public class CrowbarModel extends ItemModel
 {

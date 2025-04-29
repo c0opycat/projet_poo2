@@ -1,10 +1,10 @@
-package model.modelGame.commandM.modelInterractCom;
+package model.modelGame.modelCommand.modelInterractCom;
 
 import java.awt.Point;
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelGame.GameModel;
 import model.modelGame.MessageEnModel;
-import model.modelGame.commandM.CommandModel;
+import model.modelGame.modelCommand.CommandModel;
 import model.modelItem.ItemModel;
 import model.modelItem.modelContainer.BackpackModel;
 import model.modelLocation.LocationModel;

@@ -1,6 +1,6 @@
 package controller.controllerGame.controllerCommand.controllerMenuCommand;
 
-import model.modelGame.commandM.modelMenuCom.HelpModel;
+import model.modelGame.modelCommand.modelMenuCom.HelpModel;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewMenuCommand.HelpView;
 

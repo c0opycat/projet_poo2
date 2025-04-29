@@ -1,8 +1,8 @@
-package model.modelGame.commandM.modelInterractCom;
+package model.modelGame.modelCommand.modelInterractCom;
 
 import model.modelGame.GameModel;
 import model.modelGame.MessageEnModel;
-import model.modelGame.commandM.CommandModel;
+import model.modelGame.modelCommand.CommandModel;
 
 /**
  * Represents the "attack" command in the modelGame.

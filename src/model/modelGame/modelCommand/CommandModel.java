@@ -1,13 +1,13 @@
-package model.modelGame.commandM;
+package model.modelGame.modelCommand;
 
 import java.util.Scanner;
 
 import model.modelGame.*;
-import model.modelGame.commandM.modelInterractCom.*;
-import model.modelGame.commandM.modelItemCom.EquipModel;
-import model.modelGame.commandM.modelItemCom.UseModel;
-import model.modelGame.commandM.modelMenuCom.HelpModel;
-import model.modelGame.commandM.modelMenuCom.QuitModel;
+import model.modelGame.modelCommand.modelInterractCom.*;
+import model.modelGame.modelCommand.modelItemCom.EquipModel;
+import model.modelGame.modelCommand.modelItemCom.UseModel;
+import model.modelGame.modelCommand.modelMenuCom.HelpModel;
+import model.modelGame.modelCommand.modelMenuCom.QuitModel;
 
 public class CommandModel {
     protected String[] commands;

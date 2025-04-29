@@ -3,12 +3,12 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import model.modelGame.*;
-import model.modelGame.commandM.*;
+import model.modelGame.modelCommand.*;
 import model.modelCharacter.modelMonster.*;
 
 
 //A changer en tant que partie
-public class Main {
+public class MainModel {
     public static void main(String[] args) {
 
         GameModel gameM = new GameModel();
@@ -38,7 +38,7 @@ public class Main {
             }
             else
             {
-                gameM.getCurLocation().removeMonsterIfKO();
+                gameM.getCurLocation().removeMonsterIfKO(gameM);
                 curMonster = gameM.getCurLocation().getMonster();
 
                 if(curMonster != null)

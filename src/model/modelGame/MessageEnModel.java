@@ -3,7 +3,7 @@ package model.modelGame;
 import java.util.Random;
 import model.modelCharacter.CharacterModel;
 import model.modelCharacter.modelHeros.HeroModel;
-import model.modelGame.commandM.CommandModel;
+import model.modelGame.modelCommand.CommandModel;
 import model.modelItem.CrowbarModel;
 import model.modelItem.ItemModel;
 import model.modelItem.modelConsumable.ConsumableModel;

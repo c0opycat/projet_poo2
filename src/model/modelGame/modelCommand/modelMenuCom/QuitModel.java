@@ -1,7 +1,7 @@
-package model.modelGame.commandM.modelMenuCom;
+package model.modelGame.modelCommand.modelMenuCom;
 
 import model.modelGame.GameModel;
-import model.modelGame.commandM.CommandModel;
+import model.modelGame.modelCommand.CommandModel;
 
 public class QuitModel extends CommandModel {
     public QuitModel(String[] cmd, GameModel gameM) {

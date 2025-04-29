@@ -11,11 +11,11 @@ model.modelCharacter.modelHeros
 model.modelCharacter.modelMonster
 model.modelEditor
 model.modelGame
-model.modelGame.commandM
-model.modelGame.commandM.modelInterractCom
-model.modelGame.commandM.modelItemCom
-model.modelGame.commandM.modelMenuCom
-model.modelGame.commandM.modelMove
+model.modelGame.modelCommand
+model.modelGame.modelCommand.modelInterractCom
+model.modelGame.modelCommand.modelItemCom
+model.modelGame.modelCommand.modelMenuCom
+model.modelGame.modelCommand.modelMove
 model.modelItem
 model.modelItem.modelConsumable
 model.modelItem.modelConsumable.modelFood
