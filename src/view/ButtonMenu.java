@@ -5,7 +5,7 @@ import view.viewMenu.Menu;
 
 /**
  * Button that redirects to the Menu after confirmation.
- *
+ * @author L. Cooper
  */
 public class ButtonMenu extends Button {
 

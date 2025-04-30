@@ -11,8 +11,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import view.Keybinds;
 
+/**
+ * A view component for configuring keybinds in the application.
+ * Displays a label and a button for each keybind, allowing the user to rebind keys.
+ * @author L. Cooper
+ */
 public class KeybindConfigView extends GridPane {
 
+  /**
+   * Constructs a KeybindConfigView with a label, a default key, and a Keybinds object.
+   *
+   * @param labelText The text to display as the label for the keybind.
+   * @param defaultKey The default key to display on the button.
+   * @param keybinds The Keybinds object that manages the application's keybinds.
+   */
   public KeybindConfigView(
     String labelText,
     String defaultKey,
@@ -22,9 +34,9 @@ public class KeybindConfigView extends GridPane {
     this.setAlignment(Pos.CENTER);
 
     ColumnConstraints labelColumn = new ColumnConstraints();
-    labelColumn.setMinWidth(100); // Largeur minimale pour les labels
-    labelColumn.setPrefWidth(100); // Largeur préférée pour les labels
-    labelColumn.setHgrow(Priority.NEVER); // Pas d'agrandissement horizontal
+    labelColumn.setMinWidth(100);
+    labelColumn.setPrefWidth(100);
+    labelColumn.setHgrow(Priority.NEVER);
 
     this.getColumnConstraints().addAll(labelColumn);
 
@@ -63,6 +75,11 @@ public class KeybindConfigView extends GridPane {
     this.add(keybindButton, 1, 0);
   }
 
+  /**
+   * Retrieves the button associated with the keybind.
+   *
+   * @return The Button used to configure the keybind.
+   */
   public Button getkeybindButton() {
     return (Button) this.getChildren().get(1);
   }

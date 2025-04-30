@@ -1,6 +1,7 @@
 controller.controllerCharacter.controllerHeros
 controller.controllerEditor
 controller.controllerGame
+controller.controllerGame.controllerCommand.controllerInterractCommand
 controller.controllerGame.controllerCommand.controllerItemCommand
 controller.controllerGame.controllerCommand.controllerMenuCommand
 controller.controllerItem
@@ -30,6 +31,7 @@ view.viewEditor
 view.viewEditor.viewHistory
 view.viewGame
 view.viewGame.viewCommand
+view.viewGame.viewCommand.viewInteractCommand
 view.viewGame.viewCommand.viewItemCommand
 view.viewGame.viewCommand.viewMenuCommand
 view.viewGameOver

@@ -8,6 +8,8 @@ import view.viewGame.viewCommand.viewItemCommand.UseView;
 /**
  * Controller class for managing the "Use" command.
  * It acts as an intermediary between the UseModel, UseView, and GameView.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class UseController {
 

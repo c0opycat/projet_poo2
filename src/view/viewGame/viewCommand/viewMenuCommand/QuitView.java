@@ -13,6 +13,7 @@ import view.viewGameOver.GameOverView;
 /**
  * View class for the "Quit" button.
  * This class handles the graphical representation and logic for quitting the game.
+ * @author L. Cooper
  */
 public class QuitView extends Button {
 

@@ -13,6 +13,8 @@ import view.viewLocation.LocationView;
 /**
  * View class for the "Use" command button.
  * This class handles the graphical representation and interaction logic for using items.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class UseView extends Button {
 

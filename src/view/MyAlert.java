@@ -9,6 +9,8 @@ import javafx.scene.control.ButtonType;
 /**
  * Utility class for displaying various types of alerts in the application.
  * Provides methods for showing information, confirmation, and choice alerts.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class MyAlert {
 
@@ -90,7 +92,9 @@ public class MyAlert {
    * @param buttonTextList a list of strings representing button labels
    * @return a list of ButtonType objects
    */
-  public ArrayList<ButtonType> createButtonTypes(ArrayList<String> buttonTextList) {
+  public ArrayList<ButtonType> createButtonTypes(
+    ArrayList<String> buttonTextList
+  ) {
     ArrayList<ButtonType> buttonTypes = new ArrayList<>();
 
     for (String buttonText : buttonTextList) {
