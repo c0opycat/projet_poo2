@@ -54,7 +54,6 @@ public class HeroModel extends CharacterModel {
   public HeroModel(String name, JobModel jobM) {
     super(100, 100, null, 5, 10);
     HeroModel.backpack = new BackpackModel();
-    HeroModel.backpack.addItem(new CrowbarModel());
     this.name = name;
     this.jobM = jobM;
     this.heroController = new HeroController(this);

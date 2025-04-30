@@ -1,13 +1,21 @@
 package view.viewGame.viewCommand;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import view.Keybinds;
+import view.Lang;
 import view.MainScene;
+import view.MyAlert;
+import view.viewCharacter.HeroView;
 import view.viewContainer.ContainerView;
+import view.viewGame.GameView;
+import view.viewGame.viewCommand.viewInteractCommand.TakeView;
+import view.viewGame.viewCommand.viewItemCommand.EquipView;
 import view.viewLocation.LocationView;
 
 /**
@@ -23,9 +31,13 @@ public class CommandsView {
   private final KeyCode keybindForward;
   private final KeyCode keybindBackward;
   private final KeyCode keybindBackpack;
+  private final KeyCode keybindTake;
+  private final KeyCode keybindEquip;
   private LocationView locationView;
-  private final EventHandler<KeyEvent> moveHandler;
+  private GameView gameView;
+  private final EventHandler<KeyEvent> actionsHandler;
   private boolean isBackpackOpen;
+  private String curLang;
 
   /**
    * Constructs a CommandsView instance and initializes the handlers for the hero's movements.
@@ -34,20 +46,30 @@ public class CommandsView {
    * @param locationView the LocationView instance associated with this CommandsView
    * @param containerBox the VBox containing the container label and container view
    */
-  public CommandsView(LocationView locationView, VBox containerBox) {
+  public CommandsView(
+    GameView gameView,
+    LocationView locationView,
+    VBox containerBox
+  ) {
     Keybinds keybinds = new Keybinds();
     this.keybindLeft = keybinds.getSpecKeyCode("left");
     this.keybindRight = keybinds.getSpecKeyCode("right");
     this.keybindForward = keybinds.getSpecKeyCode("forward");
     this.keybindBackward = keybinds.getSpecKeyCode("backward");
     this.keybindBackpack = keybinds.getSpecKeyCode("backpack");
+    this.keybindTake = keybinds.getSpecKeyCode("take");
+    this.keybindEquip = keybinds.getSpecKeyCode("equip");
     this.isBackpackOpen = false;
 
     this.locationView = locationView;
+    this.gameView = gameView;
 
     this.getLocationView().setCommandsView(this);
 
-    this.moveHandler = e -> {
+    Lang lang = new Lang();
+    this.curLang = lang.getCurr_lang();
+
+    this.actionsHandler = e -> {
       Label containerLabel = (Label) containerBox.getChildren().get(0);
       ContainerView containerView = (ContainerView) containerBox
         .getChildren()
@@ -64,25 +86,13 @@ public class CommandsView {
       } else if (kc == this.getKeybindBackward()) {
         locationView.moveHero("South");
       } else if (kc == this.getKeybindBackpack()) {
-        if (!this.getIsBackpackOpen()) {
-          if (!this.getLocationView().getIsContainerOpen()) {
-            containerView.getContainerController().setContainerModel(null);
-            this.setIsBackpackOpen(true);
-            this.getLocationView().setIsContainerOpen(true);
-            containerView.getChildren().clear();
-            containerView.addItemList(
-              true,
-              containerView.getContainerController().getBackPackContent()
-            );
-            containerLabel.setText("Your backpack");
-          }
-        } else {
-          containerView.getContainerController().setContainerModel(null);
-          this.setIsBackpackOpen(false);
-          this.getLocationView().setIsContainerOpen(false);
-          containerView.getChildren().clear();
-          containerLabel.setText(null);
-        }
+        this.toggleViewBackack(containerLabel, containerView);
+      } else if (kc == this.getKeybindTake()) {
+        this.takeAction();
+      } else if (kc == this.getKeybindEquip()) {
+        this.equipAction();
+      } else {
+        return;
       }
 
       e.consume();
@@ -93,8 +103,8 @@ public class CommandsView {
    * getMoveHandler is a method that returns the moveHandler object.
    * @return EventHandler<KeyEvent> object
    */
-  public EventHandler<KeyEvent> getMoveHandler() {
-    return this.moveHandler;
+  public EventHandler<KeyEvent> getActionsHandler() {
+    return this.actionsHandler;
   }
 
   /**
@@ -103,6 +113,14 @@ public class CommandsView {
    */
   public LocationView getLocationView() {
     return this.locationView;
+  }
+
+  public GameView getGameView() {
+    return this.gameView;
+  }
+
+  public String getLang() {
+    return this.curLang;
   }
 
   /**
@@ -135,6 +153,14 @@ public class CommandsView {
    */
   public KeyCode getKeybindBackward() {
     return this.keybindBackward;
+  }
+
+  public KeyCode getKeybindTake() {
+    return this.keybindTake;
+  }
+
+  public KeyCode getKeybindEquip() {
+    return this.keybindEquip;
   }
 
   /**
@@ -177,7 +203,7 @@ public class CommandsView {
    * @return void
    */
   public void addHandlers(MainScene scene) {
-    scene.addEventHandler(KeyEvent.KEY_PRESSED, this.getMoveHandler());
+    scene.addEventHandler(KeyEvent.KEY_PRESSED, this.getActionsHandler());
   }
 
   /**
@@ -187,6 +213,145 @@ public class CommandsView {
    * @return void
    */
   public void removeHandlers(MainScene scene) {
-    scene.removeEventHandler(KeyEvent.KEY_PRESSED, this.getMoveHandler());
+    scene.removeEventHandler(KeyEvent.KEY_PRESSED, this.getActionsHandler());
+  }
+
+  public void toggleViewBackack(
+    Label containerLabel,
+    ContainerView containerView
+  ) {
+    if (!this.getIsBackpackOpen()) {
+      if (!this.getLocationView().getIsContainerOpen()) {
+        containerView.getContainerController().setContainerModel(null);
+        this.setIsBackpackOpen(true);
+        this.getLocationView().setIsContainerOpen(true);
+        containerView.getChildren().clear();
+        containerView.addItemList(
+          true,
+          containerView.getContainerController().getBackPackContent()
+        );
+        containerLabel.setText(
+          this.getLang().equals("EN") ? "Your backpack" : "Votre sac à dos"
+        );
+      }
+    } else {
+      containerView.getContainerController().setContainerModel(null);
+      this.setIsBackpackOpen(false);
+      this.getLocationView().setIsContainerOpen(false);
+      containerView.getChildren().clear();
+      containerLabel.setText(null);
+    }
+  }
+
+  public void takeAction() {
+    HeroView heroView = this.getGameView().getHeroView();
+    int heroX = (int) heroView.getActualCoord().getX();
+    int heroY = (int) heroView.getActualCoord().getY();
+
+    ArrayList<String> items = locationView.getItemsBesidesHero(heroX, heroY);
+
+    if (items.size() != 0) {
+      ArrayList<String> buttonTypesText = new ArrayList<>();
+
+      for (String item : items) {
+        buttonTypesText.add(item);
+      }
+
+      String title = curLang.equals("EN")
+        ? "Choose the item to take"
+        : "Choisissez l'object à prendre";
+      String content = curLang.equals("EN") ? "The item:" : "L'objet :";
+      MyAlert choiceAlert = new MyAlert(title, null, content);
+
+      String choice = choiceAlert.showChoiceAlert(
+        choiceAlert.createButtonTypes(buttonTypesText)
+      );
+
+      int x = heroX;
+      int y = heroY;
+
+      if (choice.equals("left") || choice.equals("gauche")) {
+        x--;
+      } else if (choice.equals("above") || choice.equals("au-dessus")) {
+        y--;
+      } else if (choice.equals("right") || choice.equals("droite")) {
+        x++;
+      } else {
+        y++;
+      }
+
+      Point toTake = new Point(x, y);
+
+      TakeView takeView = new TakeView(gameView);
+      takeView.getTakeController().setTakeModel();
+      if (takeView.getTakeController().execute(toTake)) {
+        getLocationView().removeItem(toTake);
+      }
+    } else {
+      String title = curLang.equals("EN") ? "Error" : "Erreur";
+      String content = curLang.equals("EN")
+        ? "There is no item to take besides you."
+        : "Il n'y a aucun item à prendre à côté de vous.";
+      MyAlert errorAlert = new MyAlert(title, null, content);
+      errorAlert.showInformation();
+    }
+  }
+
+  public void equipAction() {
+    HeroView heroView = this.getGameView().getHeroView();
+    int heroX = (int) heroView.getActualCoord().getX();
+    int heroY = (int) heroView.getActualCoord().getY();
+
+    ArrayList<String> items = locationView.getItemsBesidesHero(heroX, heroY);
+
+    if (items.size() != 0) {
+      ArrayList<String> buttonTypesText = new ArrayList<>();
+
+      for (String item : items) {
+        buttonTypesText.add(item);
+      }
+
+      String title = curLang.equals("EN")
+        ? "Choose the item to equip"
+        : "Choisissez l'object à équiper";
+      String content = curLang.equals("EN") ? "The item:" : "L'objet :";
+      MyAlert choiceAlert = new MyAlert(title, null, content);
+
+      String choice = choiceAlert.showChoiceAlert(
+        choiceAlert.createButtonTypes(buttonTypesText)
+      );
+
+      int x = heroX;
+      int y = heroY;
+
+      if (choice.equals("left") || choice.equals("gauche")) {
+        x--;
+      } else if (choice.equals("above") || choice.equals("au-dessus")) {
+        y--;
+      } else if (choice.equals("right") || choice.equals("droite")) {
+        x++;
+      } else {
+        y++;
+      }
+
+      Point toEquip = new Point(x, y);
+
+      EquipView equipView = new EquipView(gameView);
+      equipView.getEquipController().setEquipModel(2, "7");
+      if (equipView.getEquipController().execute(toEquip)) {
+        getLocationView().removeItem(toEquip);
+        this.getGameView()
+          .getHeroView()
+          .getHeroController()
+          .updateDescription();
+      }
+    } else {
+      String title = curLang.equals("EN") ? "Error" : "Erreur";
+      String content = curLang.equals("EN")
+        ? "There is no item to equip besides you."
+        : "Il n'y a aucun item à équiper à côté de vous.";
+      MyAlert errorAlert = new MyAlert(title, null, content);
+      errorAlert.showInformation();
+    }
   }
 }

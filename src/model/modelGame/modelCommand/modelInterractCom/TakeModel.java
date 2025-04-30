@@ -25,8 +25,11 @@ public class TakeModel extends CommandModel {
     boolean res = false;
 
     ItemModel toTake;
-    int ind = Integer.parseInt(commands[1]);
-    int locNbItems = this.gameM.getCurLocation().itemList.size();
+
+    int ind = 0;
+    try {
+      ind = Integer.parseInt(commands[1]);
+    } catch (Exception e) {}
 
     StepModel step = this.gameM.getCurLocation().getLocMap().get(p);
     if (step == null) {
@@ -41,21 +44,17 @@ public class TakeModel extends CommandModel {
     }
 
     if (nb_arg == 1) {
-      if (ind < 0 || ind > locNbItems) {
-        System.out.println(MessageEnModel.InvalidNumber(ind));
+      if (
+        (item instanceof ContainerModel) || (item instanceof ProtectionModel)
+      ) {
+        System.out.println(item.toString());
+        System.out.println(MessageEnModel.wrongItem("take"));
       } else {
-        if (
-          (item instanceof ContainerModel) || (item instanceof ProtectionModel)
-        ) {
-          System.out.println(item.toString());
-          System.out.println(MessageEnModel.wrongItem("take"));
-        } else {
-          boolean taken = HeroModel.gBackpack().addItem(item);
+        boolean taken = HeroModel.gBackpack().addItem(item);
 
-          if (taken) {
-            this.gameM.getCurLocation().removeItem(p);
-            res = true;
-          }
+        if (taken) {
+          this.gameM.getCurLocation().removeItem(p);
+          res = true;
         }
       }
     } else {

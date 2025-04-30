@@ -68,7 +68,7 @@ public class UseView extends Button {
 
             String title = curLang.equals("EN")
               ? "Choose the item to perform this action on"
-              : "Choisissez l'item sur lequel faire cette action";
+              : "Choisissez l'objet sur lequel faire cette action";
             String content = curLang.equals("EN") ? "The item:" : "L'objet :";
             MyAlert choiceAlert = new MyAlert(title, null, content);
 

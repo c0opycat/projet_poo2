@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -53,7 +54,6 @@ public class GameView extends BorderWithButtons {
 
     this.heroView = new HeroView(this.getGameController().getHeroController());
     this.heroView.getHeroController().setGameView(this);
-    //this.heroView.getHeroController().updateDescription();
 
     if (lang.getCurr_lang().equals("EN")) {
       this.addTitle("Game");
@@ -64,6 +64,8 @@ public class GameView extends BorderWithButtons {
     this.getGameController().start();
 
     this.commandsView = null;
+
+    this.heroView.getHeroController().updateDescription();
   }
 
   /**
@@ -261,7 +263,7 @@ public class GameView extends BorderWithButtons {
    */
   public void addHandlers(MainScene scene) {
     this.setCommandsView(
-        new CommandsView(currentLocationView, getContainerBox())
+        new CommandsView(this, currentLocationView, getContainerBox())
       );
     this.getCommandsView().addHandlers(scene);
   }
@@ -368,6 +370,10 @@ public class GameView extends BorderWithButtons {
 
     textInfosBox.setAlignment(Pos.CENTER);
     textInfosBox.setPadding(new Insets(10));
+
+    textInfosBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+      e.consume();
+    });
 
     return textInfosBox;
   }

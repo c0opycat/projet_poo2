@@ -35,6 +35,13 @@ public class TakeController {
     );
   }
 
+  public void setTakeModel() {
+    this.takeModel = new TakeModel(
+      new String[] { "TAKE" },
+      this.getGameView().getGameController().getGameModel()
+    );
+  }
+
   public boolean execute(Point p) {
     return this.getTakeModel() == null ? false : this.getTakeModel().execute(p);
   }

@@ -8,7 +8,7 @@ import view.viewGame.GameView;
 
 public class TakeView {
 
-  private Lang lang = new Lang();
+  private final Lang lang = new Lang();
   private final TakeController takeController;
   private final GameView gameView;
 
@@ -17,9 +17,21 @@ public class TakeView {
     this.gameView = gameView;
   }
 
+  public TakeController getTakeController() {
+    return this.takeController;
+  }
+
+  public GameView getGameView() {
+    return this.gameView;
+  }
+
+  public Lang getLang() {
+    return this.lang;
+  }
+
   public Button takeViewButton(String elem, int ind) {
     Button takeButton = new Button();
-    this.lang.setButtonLang(takeButton, "Prendre", "Take");
+    this.getLang().setButtonLang(takeButton, "Prendre", "Take");
     takeButton.getStyleClass().add("button-Commande");
 
     int containerX = this.getGameView().getContainerView().getX();
@@ -27,7 +39,6 @@ public class TakeView {
     Point containerPoint = new Point(containerX, containerY);
 
     takeButton.setOnAction(e -> {
-      System.out.println(containerPoint);
       this.getTakeController().setTakeModel(String.valueOf(ind));
       if (this.getTakeController().execute(containerPoint)) {
         this.getGameView().getContainerView().updateContainerView(false);
@@ -35,13 +46,5 @@ public class TakeView {
     });
 
     return takeButton;
-  }
-
-  public TakeController getTakeController() {
-    return this.takeController;
-  }
-
-  public GameView getGameView() {
-    return this.gameView;
   }
 }

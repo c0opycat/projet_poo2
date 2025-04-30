@@ -150,6 +150,22 @@ public class LocationView extends GridPane {
     }
   }
 
+  public void setCell(Cell cell, int x, int y) {
+    int width = this.getLocationController().getWidth();
+    int height = this.getLocationController().getHeight();
+    int index = x * width + y;
+
+    if (x < 0 || x >= width || y < 0 || y >= height) {
+      return;
+    }
+
+    if (index >= getChildren().size()) {
+      return;
+    }
+
+    this.getChildren().set(index, cell);
+  }
+
   /**
    * addElements is a method that adds the elements (exits and items) to the level.
    * It creates the cells and adds them to the GridPane.
@@ -192,7 +208,7 @@ public class LocationView extends GridPane {
    * @param j the y-coordinate of the cell
    */
   private void addContainerHandler(Cell cell, int i, int j) {
-    cell.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+    cell.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       HeroView heroView = this.getHeroView();
       Point heroCoord = heroView.getActualCoord();
       int heroX = (int) heroCoord.getX();
@@ -410,6 +426,15 @@ public class LocationView extends GridPane {
           (int) this.getHeroView().getActualCoord().getY()
         );
     cell.deleteImage(this.getHeroView());
+    cell.removeElement();
+  }
+
+  public void removeItem(Point point) {
+    int x = (int) point.getX();
+    int y = (int) point.getY();
+
+    Cell cell = getCell(x, y);
+    cell.getChildren().remove(cell.getChildren().size() - 1);
     cell.removeElement();
   }
 

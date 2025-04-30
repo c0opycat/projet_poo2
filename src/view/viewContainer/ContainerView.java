@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import view.Lang;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewInteractCommand.TakeView;
+import view.viewGame.viewCommand.viewItemCommand.EquipView;
 import view.viewGame.viewCommand.viewItemCommand.UseView;
 
 /**
@@ -64,7 +65,11 @@ public class ContainerView extends VBox {
           .addAll(
             label,
             new UseView(this.getGameView(), itemName, index),
-            add_Bequip()
+            new EquipView(this.getGameView()).equipButton(
+              isHerosBackpack,
+              itemName,
+              index
+            )
           );
       } else {
         TakeView takeView = new TakeView(this.getGameView());
@@ -72,7 +77,11 @@ public class ContainerView extends VBox {
           .getChildren()
           .addAll(
             label,
-            add_Bequip(),
+            new EquipView(this.getGameView()).equipButton(
+              isHerosBackpack,
+              itemName,
+              index
+            ),
             takeView.takeViewButton(itemName, index)
           );
       }

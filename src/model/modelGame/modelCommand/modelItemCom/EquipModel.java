@@ -22,6 +22,7 @@ public class EquipModel extends CommandModel {
     this.commands = cmd;
     this.fstArg = Integer.parseInt(commands[1]);
     this.scdArg = Integer.parseInt(commands[2]);
+    System.out.println(scdArg);
   }
 
   @Override
