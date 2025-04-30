@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.Lang;
 import view.viewGame.GameView;
+import view.viewGame.viewCommand.viewInteractCommand.TakeButtonView;
 import view.viewGame.viewCommand.viewItemCommand.UseView;
 
 /**
@@ -63,7 +64,13 @@ public class ContainerView extends VBox {
             add_Bequip()
           );
       } else {
-        li.getChildren().addAll(label, add_Bequip());
+        li
+          .getChildren()
+          .addAll(
+            label,
+            add_Bequip(),
+            new TakeButtonView(this.getGameView(), itemName, index)
+          );
       }
 
       this.getChildren().add(li);

@@ -53,7 +53,7 @@ public class GameView extends BorderWithButtons {
 
     this.heroView = new HeroView(this.getGameController().getHeroController());
     this.heroView.getHeroController().setGameView(this);
-    this.heroView.getHeroController().updateDescription();
+    //this.heroView.getHeroController().updateDescription();
 
     if (lang.getCurr_lang().equals("EN")) {
       this.addTitle("Game");

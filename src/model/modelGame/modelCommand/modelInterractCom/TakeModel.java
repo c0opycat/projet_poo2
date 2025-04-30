@@ -40,13 +40,14 @@ public class TakeModel extends CommandModel {
       System.out.println(MessageEnModel.InvalidItem());
     }
 
-    if (nb_arg == 2) {
+    if (nb_arg == 1) {
       if (ind < 0 || ind >= locNbItems) {
         System.out.println(MessageEnModel.InvalidNumber(ind));
       } else {
         if (
           (item instanceof ContainerModel) || (item instanceof ProtectionModel)
         ) {
+          System.out.println(item.toString());
           System.out.println(MessageEnModel.wrongItem("take"));
         } else {
           boolean taken = HeroModel.gBackpack().addItem(item);

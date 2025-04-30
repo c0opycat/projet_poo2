@@ -209,6 +209,8 @@ public class LocationView extends GridPane {
         containerLabel.setText(cell.getElement());
         this.setIsContainerOpen(true);
         this.getCommandsView().setIsBackpackOpen(false);
+        containerView.setX(i);
+        containerView.setY(j);
         containerView.getChildren().clear();
         containerView.addItemList(
           false,

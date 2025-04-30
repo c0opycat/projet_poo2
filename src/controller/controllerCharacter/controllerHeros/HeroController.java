@@ -146,7 +146,9 @@ public class HeroController {
    * Clears the current hero information and sets the updated description.
    */
   public void updateDescription() {
-    this.getGameView().getHeroInfos().clear();
-    this.getGameView().getHeroInfos().setText(getDescription());
+    if (this.getGameView() != null) {
+      this.getGameView().getHeroInfos().clear();
+      this.getGameView().getHeroInfos().setText(getDescription());
+    }
   }
 }
