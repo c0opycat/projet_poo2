@@ -14,15 +14,25 @@ import view.ButtonMenu;
 import view.ButtonQuit;
 import view.Lang;
 
+/**
+ * View class for the character selection screen.
+ * Allows the user to input a name and select a job before starting the game.
+ */
 public class CharacterChoiceView extends BorderWithButtons {
 
   private Lang lang = new Lang();
 
+  /**
+   * Constructs a CharacterChoiceView and initializes its content.
+   */
   public CharacterChoiceView() {
     super();
     this.addContent();
   }
 
+  /**
+   * Sets up the buttons for the character selection screen, including menu and quit buttons.
+   */
   public void setButtons() {
     ArrayList<Button> buttons = new ArrayList<>();
 
@@ -37,6 +47,10 @@ public class CharacterChoiceView extends BorderWithButtons {
     this.addButtons(buttons);
   }
 
+  /**
+   * Adds the content for the character selection screen, including input fields for name and job.
+   * Also sets up the "Start" button to initialize the game.
+   */
   private void addContent() {
     VBox box = new VBox(20);
     box.setId("character-choice");
@@ -61,6 +75,7 @@ public class CharacterChoiceView extends BorderWithButtons {
     for (String job : GameController.getJobs()) {
       jobList.getItems().add(job);
     }
+    jobList.getSelectionModel().selectFirst();
 
     nameBox.getChildren().addAll(nameLabel, nameTF);
     jobBox.getChildren().addAll(jobLabel, jobList);
@@ -73,14 +88,46 @@ public class CharacterChoiceView extends BorderWithButtons {
     this.setContent(box);
 
     start.setOnAction(e -> {
-      GameView gameView = new GameView("Hihi", "MEDIC");
+      GameView gameView = new GameView(this.getUsername(), this.getJob());
       this.getMainScene().setContent(gameView);
       gameView.updateCurrentLocation();
       gameView.setButtons();
-      // gameView
-      //   .getCurrentLocationView()
-      //   .setCommandsView(gameView.getCommandsView());
       gameView.addHandlers(gameView.getMainScene());
     });
+  }
+
+  /**
+   * Gets the username entered by the user.
+   * If the input is blank, defaults to "anonymous".
+   *
+   * @return the username entered by the user
+   */
+  private String getUsername() {
+    TextField nameTF =
+      (TextField) ((HBox) ((VBox) this.getCenter()).getChildren()
+          .get(0)).getChildren()
+        .get(1);
+
+    return nameTF.getText().isBlank() ? "anonymous" : nameTF.getText().trim();
+  }
+
+  /**
+   * Gets the job selected by the user.
+   * If no job is selected, defaults to the first job in the list.
+   *
+   * @return the selected job
+   */
+  private String getJob() {
+    @SuppressWarnings("unchecked")
+    ComboBox<String> jobList = (ComboBox<
+        String
+      >) ((HBox) ((VBox) this.getCenter()).getChildren().get(1)).getChildren()
+      .get(1);
+
+    if (jobList.getSelectionModel().getSelectedItem() == null) {
+      jobList.getSelectionModel().selectFirst();
+    }
+
+    return jobList.getSelectionModel().getSelectedItem();
   }
 }
