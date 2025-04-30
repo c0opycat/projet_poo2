@@ -7,6 +7,7 @@ import model.modelGame.modelCommand.modelInterractCom.*;
 import model.modelGame.modelCommand.modelItemCom.EquipModel;
 import model.modelGame.modelCommand.modelItemCom.UseModel;
 import model.modelGame.modelCommand.modelMenuCom.HelpModel;
+import model.modelGame.modelCommand.modelMenuCom.PauseModel;
 import model.modelGame.modelCommand.modelMenuCom.QuitModel;
 
 public class CommandModel {
@@ -112,6 +113,12 @@ public class CommandModel {
                     return false;
                 }
                 return new EquipModel(commands, gameM).execute();
+            case "pause":
+                if (commands.length != 1) {
+                    System.out.println(MessageEnModel.invalidCommand());
+                    return false;
+                }
+                return new PauseModel(commands, gameM).execute();
             default:
                 System.out.println(MessageEnModel.invalidCommand());
                 return false;

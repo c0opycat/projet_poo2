@@ -9,8 +9,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class GameModel {
+  public int timePaused;
   private long startTime;
   private int[] killedMonster;
+  public boolean isRunning;
   public int Score;
   private final HeroModel HEROM;
   public GameMapModel map;
@@ -19,6 +21,8 @@ public class GameModel {
   private boolean isWon;
 
   public GameModel() {
+    this.isRunning = true;
+    this.timePaused = 0;
     this.startTime = System.currentTimeMillis();
     this.Score = 0;
     this.HEROM = new HeroModel();
@@ -30,6 +34,8 @@ public class GameModel {
   }
 
   public GameModel(String name, String jobChoice) {
+    this.isRunning = true;
+    this.timePaused = 0;
     this.startTime = System.currentTimeMillis();
     this.HEROM = new HeroModel(name, JobModel.valueOf(jobChoice));
     this.killedMonster = new int[3];
@@ -78,7 +84,7 @@ public class GameModel {
   }
 
   private int timeBonus(){
-    int timeBonus = 1000-(int)(System.currentTimeMillis()-startTime)/100;
+    int timeBonus = this.timeBonus()-(int)(System.currentTimeMillis()-startTime)/100 + (int)this.timePaused;
     if (timeBonus > 0){
       return timeBonus;
     }
