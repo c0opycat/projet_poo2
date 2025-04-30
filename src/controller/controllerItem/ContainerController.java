@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import model.modelItem.ItemModel;
 import model.modelItem.modelContainer.ContainerModel;
+import model.modelLocation.StepModel;
 import view.viewContainer.ContainerView;
 import view.viewGame.GameView;
 
@@ -61,8 +62,17 @@ public class ContainerController {
    *
    * @param container the ContainerModel instance to be managed by this controller
    */
-  public void setContainerModel(ContainerModel container) {
-    this.containerModel = container;
+  public void setContainerModel(Point point) {
+    if (point == null) {
+      this.containerModel = null;
+    } else {
+      this.containerModel = (ContainerModel) ((StepModel) this.getGameView()
+          .getGameController()
+          .getGameModel()
+          .getCurLocation()
+          .getLocMap()
+          .get(point)).getItem();
+    }
   }
 
   /**
@@ -86,8 +96,10 @@ public class ContainerController {
   public ArrayList<String> getItemStringList(ArrayList<ItemModel> itemList) {
     ArrayList<String> itemStringList = new ArrayList<>();
 
-    for (ItemModel item : itemList) {
-      itemStringList.add(item.toString());
+    if (itemList != null && !itemList.isEmpty()) {
+      for (ItemModel item : itemList) {
+        itemStringList.add(item.toString());
+      }
     }
 
     return itemStringList;
@@ -100,15 +112,7 @@ public class ContainerController {
    * @return a list of strings representing the items
    */
   public ArrayList<String> getItems(Point point) {
-    this.setContainerModel(
-        (ContainerModel) this.getGameView()
-          .getGameController()
-          .getGameModel()
-          .getCurLocation()
-          .getLocMap()
-          .get(point)
-          .getItem()
-      );
+    this.setContainerModel(point);
     return this.getItemStringList(this.getContainerModel().getItemList());
   }
 
@@ -117,7 +121,17 @@ public class ContainerController {
    *
    * @param ind the index of the item to be removed
    */
-  public void removeItemContainerView(int ind) {
-    this.getContainerView().getChildren().remove(ind);
+  public void updateContainerView(boolean isBackpack) {
+    this.getContainerView().getChildren().clear();
+
+    if (isBackpack) {
+      this.getContainerView().addItemList(true, this.getBackPackContent());
+    } else {
+      this.getContainerView()
+        .addItemList(
+          false,
+          this.getItemStringList(this.getContainerModel().getItemList())
+        );
+    }
   }
 }

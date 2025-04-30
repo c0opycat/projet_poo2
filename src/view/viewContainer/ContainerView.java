@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.Lang;
 import view.viewGame.GameView;
-import view.viewGame.viewCommand.viewInteractCommand.TakeButtonView;
+import view.viewGame.viewCommand.viewInteractCommand.TakeView;
 import view.viewGame.viewCommand.viewItemCommand.UseView;
 
 /**
@@ -44,6 +44,9 @@ public class ContainerView extends VBox {
    * @param itemList the list of item names to display
    */
   public void addItemList(boolean isHerosBackpack, ArrayList<String> itemList) {
+    if (itemList == null || itemList.isEmpty()) {
+      return;
+    }
     int index = 0;
     for (String item : itemList) {
       HBox li = new HBox(20);
@@ -64,12 +67,13 @@ public class ContainerView extends VBox {
             add_Bequip()
           );
       } else {
+        TakeView takeView = new TakeView(this.getGameView());
         li
           .getChildren()
           .addAll(
             label,
             add_Bequip(),
-            new TakeButtonView(this.getGameView(), itemName, index)
+            takeView.takeViewButton(itemName, index)
           );
       }
 
@@ -77,6 +81,10 @@ public class ContainerView extends VBox {
 
       index++;
     }
+  }
+
+  public void updateContainerView(boolean isBackpack) {
+    this.getContainerController().updateContainerView(isBackpack);
   }
 
   /**

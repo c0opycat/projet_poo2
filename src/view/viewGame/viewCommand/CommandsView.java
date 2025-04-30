@@ -65,15 +65,19 @@ public class CommandsView {
         locationView.moveHero("South");
       } else if (kc == this.getKeybindBackpack()) {
         if (!this.getIsBackpackOpen()) {
-          this.setIsBackpackOpen(true);
-          this.getLocationView().setIsContainerOpen(true);
-          containerView.getChildren().clear();
-          containerView.addItemList(
-            true,
-            containerView.getContainerController().getBackPackContent()
-          );
-          containerLabel.setText("Your backpack");
-        } else if (this.getIsBackpackOpen()) {
+          if (!this.getLocationView().getIsContainerOpen()) {
+            containerView.getContainerController().setContainerModel(null);
+            this.setIsBackpackOpen(true);
+            this.getLocationView().setIsContainerOpen(true);
+            containerView.getChildren().clear();
+            containerView.addItemList(
+              true,
+              containerView.getContainerController().getBackPackContent()
+            );
+            containerLabel.setText("Your backpack");
+          }
+        } else {
+          containerView.getContainerController().setContainerModel(null);
           this.setIsBackpackOpen(false);
           this.getLocationView().setIsContainerOpen(false);
           containerView.getChildren().clear();

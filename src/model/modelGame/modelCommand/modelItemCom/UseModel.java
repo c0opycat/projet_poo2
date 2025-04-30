@@ -27,7 +27,6 @@ public class UseModel extends CommandModel {
     boolean res = false;
     int bpSize = HeroModel.gBackpack().getNbItems();
     int ind = Integer.parseInt(commands[1]);
-    System.out.println(ind);
 
     if (ind < 0 || ind >= bpSize) {
       System.out.println(MessageEnModel.InvalidNumber(ind));

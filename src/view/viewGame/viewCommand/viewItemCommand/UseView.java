@@ -42,7 +42,7 @@ public class UseView extends Button {
       this.setOnAction(e -> {
           this.getUseController().setUseModel(String.valueOf(ind));
           if (this.getUseController().execute(null)) {
-            this.getUseController().removeItemBackpackView(ind);
+            gameView.getContainerView().updateContainerView(true);
           }
         });
     } else {
@@ -80,20 +80,20 @@ public class UseView extends Button {
             int y = heroY;
 
             if (choice.equals("left") || choice.equals("gauche")) {
-              y--;
-            } else if (choice.equals("above") || choice.equals("au-dessus")) {
               x--;
+            } else if (choice.equals("above") || choice.equals("au-dessus")) {
+              y--;
             } else if (choice.equals("right") || choice.equals("droite")) {
-              y++;
-            } else {
               x++;
+            } else {
+              y++;
             }
 
             Point toOpen = new Point(x, y);
 
             this.getUseController().setUseModel(String.valueOf(ind));
             if (this.getUseController().execute(toOpen)) {
-              this.getUseController().removeItemBackpackView(ind);
+              gameView.getContainerView().updateContainerView(true);
             }
           } else {
             String title = curLang.equals("EN") ? "Error" : "Erreur";

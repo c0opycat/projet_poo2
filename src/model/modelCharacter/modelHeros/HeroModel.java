@@ -15,6 +15,7 @@ import controller.controllerCharacter.controllerHeros.HeroController;
 import java.awt.Point;
 import model.modelCharacter.CharacterModel;
 import model.modelGame.MessageEnModel;
+import model.modelItem.CrowbarModel;
 import model.modelItem.modelConsumable.MedicineModel;
 import model.modelItem.modelContainer.BackpackModel;
 import model.modelItem.modelWeapon.*;
@@ -53,6 +54,7 @@ public class HeroModel extends CharacterModel {
   public HeroModel(String name, JobModel jobM) {
     super(100, 100, null, 5, 10);
     HeroModel.backpack = new BackpackModel();
+    HeroModel.backpack.addItem(new CrowbarModel());
     this.name = name;
     this.jobM = jobM;
     this.heroController = new HeroController(this);

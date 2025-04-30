@@ -3,15 +3,15 @@ package controller.controllerGame.controllerCommand.controllerInterractCommand;
 import java.awt.Point;
 import model.modelGame.modelCommand.modelInterractCom.TakeModel;
 import view.viewGame.GameView;
-import view.viewGame.viewCommand.viewInteractCommand.TakeButtonView;
+import view.viewGame.viewCommand.viewInteractCommand.TakeView;
 
-public class TakeButtonController {
+public class TakeController {
 
   private TakeModel takeModel;
-  private final TakeButtonView takeView;
+  private final TakeView takeView;
   private final GameView gameView;
 
-  public TakeButtonController(GameView gameView, TakeButtonView takeView) {
+  public TakeController(GameView gameView, TakeView takeView) {
     this.takeView = takeView;
     this.gameView = gameView;
   }
@@ -20,7 +20,7 @@ public class TakeButtonController {
     return this.takeModel;
   }
 
-  public TakeButtonView getTakeView() {
+  public TakeView getTakeView() {
     return this.takeView;
   }
 
@@ -37,12 +37,5 @@ public class TakeButtonController {
 
   public boolean execute(Point p) {
     return this.getTakeModel() == null ? false : this.getTakeModel().execute(p);
-  }
-
-  public void removeItemContainerView(int ind) {
-    this.getGameView()
-      .getContainerView()
-      .getContainerController()
-      .removeItemContainerView(ind);
   }
 }

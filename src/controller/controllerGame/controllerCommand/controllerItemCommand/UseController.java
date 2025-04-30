@@ -74,16 +74,4 @@ public class UseController {
   public boolean execute(Point p) {
     return this.getUseModel() == null ? false : this.getUseModel().execute(p);
   }
-
-  /**
-   * Removes an item from the backpack view based on the specified index.
-   *
-   * @param ind the index of the item to be removed
-   */
-  public void removeItemBackpackView(int ind) {
-    this.getGameView()
-      .getContainerView()
-      .getContainerController()
-      .removeItemContainerView(ind);
-  }
 }

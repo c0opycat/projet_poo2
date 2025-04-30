@@ -81,7 +81,7 @@ public class LocationView extends GridPane {
       return null;
     }
 
-    int index = y * width + x;
+    int index = x * width + y;
 
     if (index >= getChildren().size()) {
       return null;
@@ -206,23 +206,32 @@ public class LocationView extends GridPane {
       if (
         !this.getIsContainerOpen() && isHeroBesidesContainer(heroX, heroY, i, j)
       ) {
-        containerLabel.setText(cell.getElement());
-        this.setIsContainerOpen(true);
-        this.getCommandsView().setIsBackpackOpen(false);
-        containerView.setX(i);
-        containerView.setY(j);
-        containerView.getChildren().clear();
-        containerView.addItemList(
-          false,
-          containerView.getContainerController().getItems(new Point(i, j))
-        );
+        if (!this.getCommandsView().getIsBackpackOpen()) {
+          containerView
+            .getContainerController()
+            .setContainerModel(new Point(i, j));
+
+          containerLabel.setText(cell.getElement());
+          this.setIsContainerOpen(true);
+          containerView.setX(i);
+          containerView.setY(j);
+          containerView.getChildren().clear();
+          containerView.addItemList(
+            false,
+            containerView.getContainerController().getItems(new Point(i, j))
+          );
+        }
       } else if (
         this.getIsContainerOpen() && isHeroBesidesContainer(heroX, heroY, i, j)
       ) {
-        this.getCommandsView().setIsBackpackOpen(false);
-        this.setIsContainerOpen(false);
-        containerView.getChildren().clear();
-        containerLabel.setText(null);
+        if (!this.getCommandsView().getIsBackpackOpen()) {
+          containerView.getContainerController().setContainerModel(null);
+
+          this.getCommandsView().setIsBackpackOpen(false);
+          this.setIsContainerOpen(false);
+          containerView.getChildren().clear();
+          containerLabel.setText(null);
+        }
       }
 
       e.consume();
@@ -274,7 +283,7 @@ public class LocationView extends GridPane {
         !elem.equals("Chest") &&
         !elem.equals("Backpack")
       ) {
-        cellList.add(lang.equals("EN") ? "above" : "au-dessus");
+        cellList.add(lang.equals("EN") ? "left" : "gauche");
       }
     }
     if (
@@ -287,7 +296,7 @@ public class LocationView extends GridPane {
         !elem.equals("Chest") &&
         !elem.equals("Backpack")
       ) {
-        cellList.add(lang.equals("EN") ? "left" : "gauche");
+        cellList.add(lang.equals("EN") ? "above" : "au dessus");
       }
     }
     if (
@@ -300,7 +309,7 @@ public class LocationView extends GridPane {
         !elem.equals("Chest") &&
         !elem.equals("Backpack")
       ) {
-        cellList.add(lang.equals("EN") ? "below" : "en dessous");
+        cellList.add(lang.equals("EN") ? "right" : "droit");
       }
     }
     if (
@@ -313,7 +322,7 @@ public class LocationView extends GridPane {
         !elem.equals("Chest") &&
         !elem.equals("Backpack")
       ) {
-        cellList.add(lang.equals("EN") ? "right" : "droit");
+        cellList.add(lang.equals("EN") ? "below" : "en dessous");
       }
     }
 
@@ -417,17 +426,17 @@ public class LocationView extends GridPane {
     Point newCoord = null;
 
     if (direction == "North") {
-      newCell = this.getCell(heroCoordX - 1, heroCoordY);
-      newCoord = new Point(heroCoordX - 1, heroCoordY);
-    } else if (direction == "South") {
-      newCell = this.getCell(heroCoordX + 1, heroCoordY);
-      newCoord = new Point(heroCoordX + 1, heroCoordY);
-    } else if (direction == "East") {
-      newCell = this.getCell(heroCoordX, heroCoordY + 1);
-      newCoord = new Point(heroCoordX, heroCoordY + 1);
-    } else if (direction == "West") {
       newCell = this.getCell(heroCoordX, heroCoordY - 1);
       newCoord = new Point(heroCoordX, heroCoordY - 1);
+    } else if (direction == "South") {
+      newCell = this.getCell(heroCoordX, heroCoordY + 1);
+      newCoord = new Point(heroCoordX, heroCoordY + 1);
+    } else if (direction == "East") {
+      newCell = this.getCell(heroCoordX + 1, heroCoordY);
+      newCoord = new Point(heroCoordX + 1, heroCoordY);
+    } else if (direction == "West") {
+      newCell = this.getCell(heroCoordX - 1, heroCoordY);
+      newCoord = new Point(heroCoordX - 1, heroCoordY);
     } else {
       System.out.println("Invalid direction");
       return;

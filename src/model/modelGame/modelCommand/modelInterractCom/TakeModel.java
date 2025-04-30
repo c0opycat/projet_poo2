@@ -41,7 +41,7 @@ public class TakeModel extends CommandModel {
     }
 
     if (nb_arg == 1) {
-      if (ind < 0 || ind >= locNbItems) {
+      if (ind < 0 || ind > locNbItems) {
         System.out.println(MessageEnModel.InvalidNumber(ind));
       } else {
         if (

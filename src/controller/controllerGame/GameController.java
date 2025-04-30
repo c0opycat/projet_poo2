@@ -124,10 +124,4 @@ public class GameController {
   public HeroController getHeroController() {
     return this.getGameModel().getHero().getHeroController();
   }
-
-  /**
-   * Updates the hero information in the game view.
-   * (Currently not implemented.)
-   */
-  public void updateHeroInfos() {}
 }

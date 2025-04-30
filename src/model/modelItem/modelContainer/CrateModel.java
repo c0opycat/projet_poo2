@@ -1,5 +1,6 @@
 package model.modelItem.modelContainer;
 
+import java.util.ArrayList;
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelGame.*;
 import model.modelItem.CrowbarModel;
@@ -47,14 +48,20 @@ public class CrateModel extends ContainerModel {
     return res;
   }
 
+  @Override
+  public ArrayList<ItemModel> getItemList() {
+    if (this.getOpen()) {
+      return this.itemList;
+    }
+    return null;
+  }
+
   //Tries to add the modelItem only if the crate is open
   @Override
   public boolean addItem(ItemModel item) {
     boolean is_added = false;
 
-    if (this.getOpen()) {
-      is_added = super.addItem(item);
-    }
+    is_added = super.addItem(item);
 
     return is_added;
   }
