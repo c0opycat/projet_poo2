@@ -25,12 +25,14 @@ public class CommandsView {
   private final KeyCode keybindBackpack;
   private LocationView locationView;
   private final EventHandler<KeyEvent> moveHandler;
-  private boolean isContainerOpen;
+  private boolean isBackpackOpen;
 
   /**
-   * Constructor
-   * initializes the handlers for the movements of the hero
-   * @param locationView the LocationView object
+   * Constructs a CommandsView instance and initializes the handlers for the hero's movements.
+   * Sets up key bindings for movement and backpack interaction.
+   *
+   * @param locationView the LocationView instance associated with this CommandsView
+   * @param containerBox the VBox containing the container label and container view
    */
   public CommandsView(LocationView locationView, VBox containerBox) {
     Keybinds keybinds = new Keybinds();
@@ -39,9 +41,11 @@ public class CommandsView {
     this.keybindForward = keybinds.getSpecKeyCode("forward");
     this.keybindBackward = keybinds.getSpecKeyCode("backward");
     this.keybindBackpack = keybinds.getSpecKeyCode("backpack");
-    this.isContainerOpen = false;
+    this.isBackpackOpen = false;
 
     this.locationView = locationView;
+
+    this.getLocationView().setCommandsView(this);
 
     this.moveHandler = e -> {
       Label containerLabel = (Label) containerBox.getChildren().get(0);
@@ -60,14 +64,18 @@ public class CommandsView {
       } else if (kc == this.getKeybindBackward()) {
         locationView.moveHero("South");
       } else if (kc == this.getKeybindBackpack()) {
-        if (!this.getIsContainerOpen()) {
-          this.setIsContainerOpen(true);
+        if (!this.getIsBackpackOpen()) {
+          this.setIsBackpackOpen(true);
+          this.getLocationView().setIsContainerOpen(true);
+          containerView.getChildren().clear();
           containerView.addItemList(
+            true,
             containerView.getContainerController().getBackPackContent()
           );
           containerLabel.setText("Your backpack");
-        } else {
-          this.setIsContainerOpen(false);
+        } else if (this.getIsBackpackOpen()) {
+          this.setIsBackpackOpen(false);
+          this.getLocationView().setIsContainerOpen(false);
           containerView.getChildren().clear();
           containerLabel.setText(null);
         }
@@ -137,16 +145,16 @@ public class CommandsView {
    * getIsContainerOpen is a method that returns true if the content of a container is being displayed, false otherwise
    * @return boolean the value of isContainerOpen
    */
-  public boolean getIsContainerOpen() {
-    return this.isContainerOpen;
+  public boolean getIsBackpackOpen() {
+    return this.isBackpackOpen;
   }
 
   /**
    * setIsContainerView is a method that set the isContainerView variable.
    * @param boolean the value of isContainerView
    */
-  public void setIsContainerOpen(boolean b) {
-    this.isContainerOpen = b;
+  public void setIsBackpackOpen(boolean b) {
+    this.isBackpackOpen = b;
   }
 
   /**
@@ -155,7 +163,7 @@ public class CommandsView {
    */
   public void setLocationView(LocationView locationView) {
     this.locationView = locationView;
-    this.setIsContainerOpen(false);
+    this.setIsBackpackOpen(false);
   }
 
   /**

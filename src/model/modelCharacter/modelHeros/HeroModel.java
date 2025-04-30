@@ -55,8 +55,8 @@ public class HeroModel extends CharacterModel {
     HeroModel.backpack = new BackpackModel();
     this.name = name;
     this.jobM = jobM;
-    this.jobEffect();
     this.heroController = new HeroController(this);
+    this.jobEffect();
   }
 
   /**
@@ -92,6 +92,27 @@ public class HeroModel extends CharacterModel {
    */
   public HeroController getHeroController() {
     return this.heroController;
+  }
+
+  @Override
+  /**
+   * Sets the health of the Hero.
+   * Ensures the health value is within the valid range (0 to MAXHEALTH).
+   * Updates the Hero's description in the associated controller.
+   *
+   * @param h the new health value to set
+   */
+  public void setHealth(int h) {
+    int newHP = h;
+    if (h < 0) {
+      newHP = 0;
+    } else if (h > this.MAXHEALTH) {
+      newHP = this.MAXHEALTH;
+    }
+
+    this.health = newHP;
+
+    this.getHeroController().updateDescription();
   }
 
   /**
@@ -150,6 +171,7 @@ public class HeroModel extends CharacterModel {
   public void equipWeapon(WeaponModel weapon) {
     if (this.getWeapon() == null) {
       this.setWeapon(weapon);
+      this.getHeroController().updateDescription();
     } else {
       System.out.println(MessageEnModel.handFull(this.getWeapon()));
     }
@@ -166,6 +188,7 @@ public class HeroModel extends CharacterModel {
         l.addItem(this.weapon, l.getRandomFreeStepCoord());
       }
       this.setWeapon(null);
+      this.getHeroController().updateDescription();
     }
   }
 
@@ -180,6 +203,7 @@ public class HeroModel extends CharacterModel {
         l.addItem(this.getShield(), l.getRandomFreeStepCoord());
       }
       this.setShield(null);
+      this.getHeroController().updateDescription();
     }
   }
 

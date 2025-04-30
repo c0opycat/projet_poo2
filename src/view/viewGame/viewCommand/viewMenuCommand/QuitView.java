@@ -10,11 +10,21 @@ import view.Lang;
 import view.viewGame.GameView;
 import view.viewGameOver.GameOverView;
 
+/**
+ * View class for the "Quit" button.
+ * This class handles the graphical representation and logic for quitting the game.
+ */
 public class QuitView extends Button {
 
   private final QuitController quitController;
   private Lang lang = new Lang();
 
+  /**
+   * Constructs a QuitView button with the specified GameView.
+   * Sets up the button's appearance and action logic for quitting the game.
+   *
+   * @param gameView the GameView instance associated with this button
+   */
   public QuitView(GameView gameView) {
     super();
     lang.setButtonLang(this, "Quitter", "Quit");
@@ -23,12 +33,20 @@ public class QuitView extends Button {
     this.setOnAction(e -> {
         //Creation of a dialog to confirm the exit of the application.
         Alert quitAlert = new Alert(AlertType.CONFIRMATION);
-        quitAlert.setTitle("Exit game");
-        quitAlert.setContentText("You are about to forfeit the game.");
 
+        quitAlert.setHeaderText(
+          lang.getCurr_lang().equals("EN") ? "Exit game" : "Quitter la partie"
+        );
+        quitAlert.setContentText(
+          lang.getCurr_lang().equals("EN")
+            ? "You are about to forfeit the game."
+            : "Vous allez déclarer forfait."
+        );
         //Creation of the options (because the cancel one was in French).
         ButtonType bt1 = new ButtonType("OK");
-        ButtonType bt2 = new ButtonType("Cancel");
+        ButtonType bt2 = new ButtonType(
+          lang.getCurr_lang().equals("EN") ? "Cancel" : "Annuler"
+        );
 
         quitAlert.getButtonTypes().setAll(bt1, bt2);
 
@@ -47,6 +65,11 @@ public class QuitView extends Button {
       });
   }
 
+  /**
+   * Gets the QuitController instance associated with this button.
+   *
+   * @return the QuitController instance
+   */
   public QuitController getQuitController() {
     return this.quitController;
   }

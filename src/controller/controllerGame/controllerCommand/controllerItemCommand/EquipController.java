@@ -13,4 +13,12 @@ public class EquipController {
     this.equipView = equipView;
     this.equipModel = null;
   }
+
+  public EquipView getEquipView() {
+    return this.equipView;
+  }
+
+  public EquipModel getEquipModel() {
+    return this.equipModel;
+  }
 }

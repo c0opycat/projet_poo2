@@ -11,10 +11,9 @@ import model.modelLocation.LocationModel;
 
 public class MessageEnModel {
 
-  private static String lang = GameModel.loadLanguage();
-
   //Returns the start of modelGame message
   public static String startGame(LocationModel start, LocationModel end) {
+    String lang = GameModel.loadLanguage();
     if (lang == "EN") {
       return (
         "You're waking up in a devastated land. Another monday.\n" +

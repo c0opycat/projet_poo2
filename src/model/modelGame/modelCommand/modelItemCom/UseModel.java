@@ -27,6 +27,7 @@ public class UseModel extends CommandModel {
     boolean res = false;
     int bpSize = HeroModel.gBackpack().getNbItems();
     int ind = Integer.parseInt(commands[1]);
+    System.out.println(ind);
 
     if (ind < 0 || ind >= bpSize) {
       System.out.println(MessageEnModel.InvalidNumber(ind));
@@ -37,33 +38,26 @@ public class UseModel extends CommandModel {
         System.out.println(MessageEnModel.cantUseItem(toUse));
       } else {
         if (toUse instanceof CrowbarModel) {
-          if (nb_arg == 2) {
-            System.out.println();
+          StepModel step = this.gameM.getCurLocation().getLocMap().get(p);
+          if (p == null) {
+            System.out.println(MessageEnModel.cantUseItem(toUse));
+            return res;
+          }
+
+          ItemModel arg2 = step.getItem();
+          if (arg2 == null) {
+            System.out.println(MessageEnModel.InvalidItem());
+            return res;
+          }
+
+          if (!(arg2 instanceof CrateModel)) {
+            System.out.println(MessageEnModel.cantUseItem(toUse));
           } else {
-            StepModel step = this.gameM.getCurLocation().getLocMap().get(p);
-            if (p == null) {
-              System.out.println(MessageEnModel.cantUseItem(toUse));
-              return res;
-            }
+            CrateModel crate = (CrateModel) arg2;
+            CrowbarModel c = (CrowbarModel) toUse;
 
-            ItemModel arg2 = step.getItem();
-            if (arg2 == null) {
-              System.out.println(MessageEnModel.InvalidItem());
-              return res;
-            }
-
-            if (!(arg2 instanceof CrateModel)) {
-              System.out.println(MessageEnModel.cantUseItem(toUse));
-            } else {
-              CrateModel crate = (CrateModel) arg2;
-              CrowbarModel c = (CrowbarModel) toUse;
-
-              if (crate.open(c)) {
-                res = true;
-                System.out.println(
-                  MessageEnModel.commandOnItem("used ", toUse)
-                );
-              }
+            if (crate.open(c)) {
+              res = true;
             }
           }
         } else {

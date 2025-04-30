@@ -2,6 +2,7 @@ package view.viewLocation;
 
 import controller.controllerLocation.LocationController;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -101,6 +102,19 @@ public class LocationView extends GridPane {
     return this.getLocationController().getLocElements();
   }
 
+  public Boolean getIsContainerOpen() {
+    return this.isContainerOpen;
+  }
+
+  /**
+   * Sets the CommandsView instance for this location view.
+   *
+   * @param commandsView the CommandsView instance to set
+   */
+  public void setCommandsView(CommandsView commandsView) {
+    this.commandsView = commandsView;
+  }
+
   /**
    * setGameView is a method that sets the GameView object.
    * @param heroView the GamView object
@@ -110,8 +124,13 @@ public class LocationView extends GridPane {
     this.initHero(this.getGameView().getHeroView());
   }
 
-  public void setCommandsView(CommandsView commandsView) {
-    this.commandsView = commandsView;
+  /**
+   * Sets whether the container is open or not.
+   *
+   * @param b true if the container is open, false otherwise
+   */
+  public void setIsContainerOpen(boolean b) {
+    this.isContainerOpen = b;
   }
 
   /**
@@ -166,28 +185,175 @@ public class LocationView extends GridPane {
     }
   }
 
+  /**
+   * addContainerHandler is a method that adds a mouse click handler to a cell for interacting with containers.
+   * @param cell the cell to add the handler to
+   * @param i the x-coordinate of the cell
+   * @param j the y-coordinate of the cell
+   */
   private void addContainerHandler(Cell cell, int i, int j) {
     cell.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+      HeroView heroView = this.getHeroView();
+      Point heroCoord = heroView.getActualCoord();
+      int heroX = (int) heroCoord.getX();
+      int heroY = (int) heroCoord.getY();
+
       VBox containerBox = this.getGameView().getContainerBox();
       Label containerLabel = (Label) containerBox.getChildren().get(0);
       ContainerView containerView = (ContainerView) containerBox
         .getChildren()
         .get(1);
-      if (!isContainerOpen) {
+      if (
+        !this.getIsContainerOpen() && isHeroBesidesContainer(heroX, heroY, i, j)
+      ) {
         containerLabel.setText(cell.getElement());
-
+        this.setIsContainerOpen(true);
+        this.getCommandsView().setIsBackpackOpen(false);
+        containerView.getChildren().clear();
         containerView.addItemList(
+          false,
           containerView.getContainerController().getItems(new Point(i, j))
         );
-        isContainerOpen = true;
-      } else {
-        isContainerOpen = false;
+      } else if (
+        this.getIsContainerOpen() && isHeroBesidesContainer(heroX, heroY, i, j)
+      ) {
+        this.getCommandsView().setIsBackpackOpen(false);
+        this.setIsContainerOpen(false);
         containerView.getChildren().clear();
         containerLabel.setText(null);
       }
 
       e.consume();
     });
+  }
+
+  /**
+   * Checks if the hero is adjacent to a container.
+   *
+   * @param heroX the x-coordinate of the hero
+   * @param heroY the y-coordinate of the hero
+   * @param contX the x-coordinate of the container
+   * @param contY the y-coordinate of the container
+   * @return true if the hero is adjacent to the container, false otherwise
+   */
+  public boolean isHeroBesidesContainer(
+    int heroX,
+    int heroY,
+    int contX,
+    int contY
+  ) {
+    return (
+      (contX - 1 == heroX && contY == heroY) ||
+      (contX == heroX && contY - 1 == heroY) ||
+      (contX + 1 == heroX && contY == heroY) ||
+      (contX == heroX && contY + 1 == heroY)
+    );
+  }
+
+  /**
+   * Gets the items adjacent to the hero.
+   *
+   * @param heroX the x-coordinate of the hero
+   * @param heroY the y-coordinate of the hero
+   * @return a list of directions where items are located
+   */
+  public ArrayList<String> getItemsBesidesHero(int heroX, int heroY) {
+    ArrayList<String> cellList = new ArrayList<>();
+
+    String lang = this.getGameView().getLang().getCurr_lang();
+
+    if (
+      getCell(heroX - 1, heroY) != null &&
+      !getCell(heroX - 1, heroY).getChildren().isEmpty()
+    ) {
+      String elem = getCell(heroX - 1, heroY).getElement();
+      if (
+        !elem.equals("Exit") &&
+        !elem.equals("Chest") &&
+        !elem.equals("Backpack")
+      ) {
+        cellList.add(lang.equals("EN") ? "above" : "au-dessus");
+      }
+    }
+    if (
+      getCell(heroX, heroY - 1) != null &&
+      !getCell(heroX, heroY - 1).getChildren().isEmpty()
+    ) {
+      String elem = getCell(heroX, heroY - 1).getElement();
+      if (
+        !elem.equals("Exit") &&
+        !elem.equals("Chest") &&
+        !elem.equals("Backpack")
+      ) {
+        cellList.add(lang.equals("EN") ? "left" : "gauche");
+      }
+    }
+    if (
+      getCell(heroX + 1, heroY) != null &&
+      !getCell(heroX + 1, heroY).getChildren().isEmpty()
+    ) {
+      String elem = getCell(heroX + 1, heroY).getElement();
+      if (
+        !elem.equals("Exit") &&
+        !elem.equals("Chest") &&
+        !elem.equals("Backpack")
+      ) {
+        cellList.add(lang.equals("EN") ? "below" : "en dessous");
+      }
+    }
+    if (
+      getCell(heroX, heroY + 1) != null &&
+      !getCell(heroX, heroY + 1).getChildren().isEmpty()
+    ) {
+      String elem = getCell(heroX, heroY + 1).getElement();
+      if (
+        !elem.equals("Exit") &&
+        !elem.equals("Chest") &&
+        !elem.equals("Backpack")
+      ) {
+        cellList.add(lang.equals("EN") ? "right" : "droit");
+      }
+    }
+
+    return cellList;
+  }
+
+  /**
+   * Gets the exits adjacent to the hero.
+   *
+   * @param heroX the x-coordinate of the hero
+   * @param heroY the y-coordinate of the hero
+   * @return a list of cells representing the exits
+   */
+  public ArrayList<Cell> getExitsBesidesHero(int heroX, int heroY) {
+    ArrayList<Cell> cellList = new ArrayList<>();
+
+    if (!getCell(heroX - 1, heroY).getChildren().isEmpty()) {
+      String elem = getCell(heroX - 1, heroY).getElement();
+      if (elem.equals("Exit")) {
+        cellList.add(getCell(heroX - 1, heroY));
+      }
+    }
+    if (!getCell(heroX, heroY - 1).getChildren().isEmpty()) {
+      String elem = getCell(heroX, heroY - 1).getElement();
+      if (elem.equals("Exit")) {
+        cellList.add(getCell(heroX, heroY - 1));
+      }
+    }
+    if (!getCell(heroX + 1, heroY).getChildren().isEmpty()) {
+      String elem = getCell(heroX + 1, heroY).getElement();
+      if (elem.equals("Exit")) {
+        cellList.add(getCell(heroX + 1, heroY));
+      }
+    }
+    if (!getCell(heroX, heroY + 1).getChildren().isEmpty()) {
+      String elem = getCell(heroX, heroY + 1).getElement();
+      if (elem.equals("Exit")) {
+        cellList.add(getCell(heroX, heroY + 1));
+      }
+    }
+
+    return cellList;
   }
 
   /**
