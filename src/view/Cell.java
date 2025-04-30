@@ -272,8 +272,9 @@ public class Cell extends StackPane {
    */
   private void updateTooltip() {
     if (elem == null) {
-      tooltip.setText("");
+      Tooltip.uninstall(this, tooltip);
     } else {
+      Tooltip.install(this, tooltip);
       tooltip.setText(this.elem);
     }
   }
