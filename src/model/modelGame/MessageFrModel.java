@@ -14,11 +14,10 @@ public class MessageFrModel {
     //Returns the start of modelGame message
     public static String startGame(LocationModel start, LocationModel end)
     {
-        return
-        "You're waking up in a devastated land. Another monday.\n"+
-        "Today is not gonna be easy as you need to escape the city that have been infested.\n"+
-        "You're actually at " + start +
-        "and you need to go to " + end;
+        return  "Vous vous réveillez dans une terre dévastée. Une mâtinée banale.\n" +
+                "Cette nouvelle journée ne sera pas facile, vous devez fuir la ville infestée.\n" +
+                "Vous êtes actuellement à " + start +
+                " et vous devez rejoindre " + end + ".";
     }
 
     //Returns the loss message
@@ -43,27 +42,27 @@ public class MessageFrModel {
     //Returns a message to tell that the number isn't associated with any modelItem
     public static String InvalidNumber(int i)
     {
-        return "The number " + i + " isn't associated with any modelItem.";
+        return "Le numero " + i + " n’est associé à aucun objet.";
     }
 
     //Returns the modelContainer full message
     public static String contFull(ItemModel c){
-        return c +" can't contain that many items.";
+        return c +" ne peut pas contenir autant d’objets.";
     }
 
     //Returns a message to tell that you can't use/take an modelItem
     public static String wrongItem(String verb)
     {
-        return "You can't " + verb + " this ";
+        return "Vous ne pouvez pas " + verb + " ceci ";
     }
 
     //Returns the no space in the modelContainer message
     public static String noSpace(ItemModel c, ItemModel i){
-        return warning()+i.toString()+"is too heavy and can't be stored in "+c.toString()+".";
+        return warning()+i.toString()+" est trop lourd et ne peut pas être stocké dans "+c.toString()+".";
     }
     
     public static String handFull(ItemModel i){
-        return "You need to drop your "+i.toString()+" first.";
+        return "Vous devez d’abord déposer votre "+i.toString();
     }
 
     //Return the Location description
@@ -75,52 +74,52 @@ public class MessageFrModel {
     //Secondary function of the getDescription function
     private static String getDAux(String name){
         return switch (name) {
-            case "BEAULIEU" -> "On the ruins of the mall stands the burned remains of an aircraft.\n"+
-                            "Maybe there's modelFood left somewhere around.\n"+
-                            "You can spot a few movements in the distance.\n"+
-                            "Whatever you plan to do, better be quick.";
-            case "MILETRIE" -> "There seems to be a lot of activity there.\n"+
-                            "The hospital is still menacingly standing.\n"+
-                            "Exploring it would be a high stake but dangerous choice.\n"+
-                            "Finding meds would help but you heard rumors about the abominations roaming there.\n";
-            case "CITY_CENTER" -> "You remember that survivors used Notre Dame as a base for some time.\n"+
-                            "It seems that they've abandoned it already but maybe they left useful things behind.\n"+
-                            "A smell of burned flesh comes to your nose. What happened here?\n";
-            case "COURONNERIES" -> "The main part of the buildings are in bad shape.\n"+
-                            "A few towers are still standing, maybe there's still people there.\n"+
-                            "You can hear distant sounds of water flowing.\n";
-            case "GIBAUDERIE" -> "There is a lot of abandoned business and care building.\n"+
-                            "Everything is quiet and you can ear your own steps on the dirty road.\n"+
-                            "There might be some useful stuff hidden there.\n";
-            case "WEST_POITIERS" -> "Everything is now covered by a dense forrest.\n"+
-                            "Life... eh... Finds a way.\n"+
+            case "BEAULIEU" -> "Sur les ruines du centre commercial repose l'épave calcinée d'un avion.\n" +
+                            "Il reste peut-être de la nourriture quelque part.\n" +
+                            "Vous apercevez quelques mouvements au loin.\n" +
+                            "Quoi que vous comptiez faire, mieux vaut faire vite.";
+            case "MILETRIE" -> "On dirait que c'est plutôt animé par ici.\n" +
+                            "L'hôpital se tient encore sinistrement au coeur des ruines.\n" +
+                            "L'explorer serait risqué mais pourrait rapporter gros.\n" +
+                            "Des rumeurs terrifiantes circulent sur les abominations y rôderaint.\n";
+            case "CITY_CENTER" -> "Vous vous souvenez que des survivants avaient utilisé Notre-Dame comme base pendant un temps.\n" +
+                            "Il semble qu'ils l’aient abandonnée, mais peut-être ont-ils laissé des objets utiles.\n" +
+                            "Une odeur de chair brûlée vous monte au nez. Qu'a-t-il bien pu se passer ?\n";
+            case "COURONNERIES" -> "La majeur partie des bâtiments sont en mauvais état.\n"+
+                            "Quelques tours tiennent bon et abritent peut-être des survivants.\n"+
+                            "Vous pouvez entendre le son de l'eau qui coule plus loin.\n";
+            case "GIBAUDERIE" -> "Il y a de nombreux commerces et bâtiments de la clinique.\n"+
+                            "Tout est calme et vous pouvez entendre vos propre pas.\n"+
+                            "Il y a probablement des choses intéressantes cachées dans le coin.\n";
+            case "WEST_POITIERS" -> "Tout est désormais recouvert d’une forêt dense.\n"+
+                            "La vie... trouve toujours un chemin.\n"+
                             "\n";
-            case "SOUTH_POITIERS" -> "It looks like it's been devastated by explosives.\n"+
-                            "The strong density of ashes and chemicals are hurting your lungs.\n"+
-                            "Better get out of here.\n";
-            case "PONT_NEUF" -> "It stinks. Coming from the highs a mud slide dragged a tide of rotting corpse down to the river.\n"+
-                            "Construction machines are scattered all around.\n"+
-                            "With a smile you think that nobody will ever witness the work done.\n";
-            case "SAINT_ELOI" -> "This is so quiet and probably the area that suffered the least damages.\n"+
-                            "The neat aspect of the recent buildings makes you feel eerily isolated.\n"+
+            case "SOUTH_POITIERS" -> "On dirait que tout a été dévasté par des explosifs.\n"+
+                            "La forte concentration de cendres et de produits chimiques vous brûle les poumons.\n"+
+                            "Il vaudrait mieux quitter cet endroit.\n";
+            case "PONT_NEUF" -> "L'odeur est attroce. Depuis les hauteurs, un glissement de boue a entraîné une marée de cadavres en décomposition jusqu’à la rivière.\n"+
+                            "Des engins de chantier sont éparpillés un peu partout.\n"+
+                            "Vous souriez en pensant que personne ne verra jamais l'aboutissement de ces incessants travaux.\n";
+            case "SAINT_ELOI" -> "Tout est si calme ici, c'est probablement le quartier le moins endommagé de la ville.\n"+
+                            "L’aspect soigné des bâtiments récents vous donne une étrange sensation d’isolement.\n"+
                             "\n";
-            case "TROIS_CITES" -> "The small mall has been fortified and you know there is a community leaving there.\n"+
-                            "They are known to be helpful to wandering strangers but you don't trust people.\n"+
+            case "TROIS_CITES" -> "Le petit centre commercial a été fortifié et vous savez qu’une communauté y vit.\n"+
+                            "Ils sont réputés pour aider les voyageurs de passage, mais vous ne faites plus confiance à personne.\n"+
                             "\n";
-            case "NORTH_POITIERS" -> "On the heights of the Clain valley, you can see the panorama.\n"+
-                            "The quiet Statue faces you on the other side.\n"+
-                            "Her left side has been darkened by fire and her right arm is missing.\n";
-            case "MONTBERNAGE" -> "The tall bridge supporting the urban motorways still spans the Clain.\n"+
-                            "Its tall silhouette is a remain of the world you used to know.\n"+
+            case "NORTH_POITIERS" -> "Depuis les hauteurs de la vallée du Clain, vous pouvez contempler le panorama.\n"+
+                            "La statue silencieuse vous fait face depuis l’autre rive.\n"+
+                            "Son côté gauche est noirci par les flammes, son bras droit est manquant.\n";
+            case "MONTBERNAGE" -> "Le grand pont de la voie pénétrante enjambe toujours le Clain.\n"+
+                            "Sa haute silhouette est un vestige du monde que vous avez connu.\n"+
                             "\n";
-            case "FINAL_EXIT" -> "The long road seems desert.\n"+
-                            "You're finally out.\n" + "\n";
+            case "FINAL_EXIT" -> "La longue route semble déserte.\n"+
+                            "Vous êtes enfin sorti de la ville.\n" + "\n";
             default -> "";
         };
     }
     //returns the description of the modelLocation in parameter by calling the switch case on top
     public static String locationDescription(LocationModel location){
-        String intro = "You're at ";
+        String intro = "Vous êtes à ";
         String lName = location.getName();
         String desc = getDescription(location);
         return intro+lName+":\n"+desc+"\n";
@@ -128,96 +127,96 @@ public class MessageFrModel {
 
     //Message used when failing to open a modelContainer
     public static String failOpening(){
-        return "You failed to open ";
+        return "Vous n'arrivez pas à ouvrir ";
     }
 
     //Message used when you try to open a modelContainer (crate) that requires a tool(crowbar) you don't have
     public static String toolRequired(){
-        return "The crate is closed. Maybe you need a tool to open that.";
+        return "La caisse est fermée, peut-être que vous pouvez l'ouvrir avec un outil";
     }
 
     //Message displayed to ask for validation to use an modelItem
     public static String useItem(ItemModel item){
-        return "Do you want to use this "+item+"?\n Y or N\n";
+        return "Voulez vous utiliser ceci : "+item+"?\n Y or N\n";
     }
 
     public static String itemUsed (ItemModel item){
-        return "You used your "+item+"to "+ MessageFrModel.itemEffect(item);
+        return "Vous avez utilisé votre "+item+"pour "+ MessageFrModel.itemEffect(item);
     }
     public static String itemEffect (ItemModel item){
         if (item instanceof CrowbarModel)
         {
-            return "to open ";
+            return "ouvrir ";
         }
         else if (item instanceof ConsumableModel)
         {
-            return "to restore ";
+            return "récupérer ";
         }
-        else return "for an unknown reason";
+        else return "faire un truc incompréhensible";
     }
     public static String herosHP(CharacterModel c)
     {
-        return "You now have " + c.getHealth() + " HP left.";
+        return "Vous avez maintenant " + c.getHealth() + " PV.";
     }
 
     public static String monsterHP(CharacterModel c)
     {
-        return "The " + c +  "now have " + c.getHealth() + " HP left.";
+        return "Le " + c +  "a maintenant " + c.getHealth() + " PV.";
     }
 
     public static String monsterAttack(CharacterModel attacker)
     {
-        return "A " + attacker + " has attacked you !\n";
+        return "Un " + attacker + " vous attaque!\n";
     }
 
     public static String NoWeapon()
     {
-        return "Do you really think you can harm this monster with you bare hands ?";
+        return "Vous pensez vraiment pouvoir blesser ce monstre à mains nues ?";
     }
 
     public static String InvalidItem(){
-        return "There is no modelItem like this here.";
+        return "Il n'y a aucun objet de ce type ici.";
     }
     
     public static String invalidCommand()
     {
-        return "The command is incorrect. Please write HELP to see the commands.";
+        return "Commande incorrecte. Tapez HELP pour voir les commandes disponibles.";
     }
 
     public static String monsterApparition(CharacterModel c)
     {
-        return "A " + c + " has appeared !";
+        return "Un " + c + " est apparu !";
     }
 
     public static String displayExitsInLoc(){
-        return "Exits you can see :";
+        return "Sorties visibles :";
     }
 
     public static String displayItemsInLoc(){
-        return "Items you can see :";
+        return "Objets visibles :";
     }
 
     public static String cantUseItem(ItemModel item1){
-        return wrongItem("use ")+item1+"on this!";
+        return wrongItem("utiliser ")+item1+"sur ceci!";
     }
 
     public static String cantDo(CommandModel command){
-        return "You can't "+command+"right now.";
+        return "Vous ne pouvez pas "+command+"maintenant.";
     }
 
     public static String commandOnItem(String verb, ItemModel item){
-        return "You "+verb+"this "+item;
+        return "Vous avez "+verb+"cet objet : "+item;
     }
 
     public static String heroDescription(HeroModel heroM){
-        String wp = "Your hero :\n" + herosHP(heroM) + "\n";
+        String wp = "Votre personnage :\n" + herosHP(heroM) + "\n";
         if(heroM.getWeapon() != null)
         {
-            wp += "Your equipped modelWeapon is a " + heroM.getWeapon()+ "\n";
+            wp += "Votre arme est celle-ci : " + heroM.getWeapon()+ "\n";
         }
         if(heroM.getShield() != null)
         {
-            wp += "Your protection is " + heroM.getShield() + "\n";
+            wp += "Votre protection est celle-ci : " + heroM.getShield() + "\n";
         }
         return wp;
     }
@@ -228,7 +227,7 @@ public class MessageFrModel {
         switch(i)
         {
             case 0: {
-                name = "Diamond"; break;
+                name = "Diamant"; break;
             }
             case 1: {
                 name = "Brutus"; break;
@@ -237,7 +236,7 @@ public class MessageFrModel {
                 name = "Nyamba"; break;
             }
             default: {
-                name = "Teapot"; break;
+                name = "Théière"; break;
             }
         }
         return name;
