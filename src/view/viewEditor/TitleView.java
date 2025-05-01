@@ -33,5 +33,9 @@ public class TitleView extends TextField {
             oldText[0] = this.getText();
         }
     }
+
+    public String getTitle(){
+        return this.getText();
+    }
     
 }

@@ -3,6 +3,8 @@ package view.viewEditor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import controller.controllerEditor.ControllerSave;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -32,6 +34,14 @@ public class EditorPane extends HBox {
   private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
   /**Spinner to choose the number of rows */
   private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
+  /**Frame with the level to edit */
+  private FrameGame frame;
+  /**Name of the level*/
+  private String name;
+  /**French description of the level */
+  private String descFr;
+  /**English description of the level */
+  private String descEn;
   /**Array of Name of the different object tabs*/
   private String[] nomsType = {
     "Décors / Sets",
@@ -164,7 +174,10 @@ public class EditorPane extends HBox {
         initFrameGame(getRow(), getCol());
       });
 
-    getSave().setOnAction(e -> {});
+    getSave().setOnAction(e -> {
+      ControllerSave contSave = new ControllerSave();
+      contSave.saveLevel(this);
+    });
   }
 
   /// Private ///
@@ -263,8 +276,8 @@ public class EditorPane extends HBox {
     FrameGame preview = new FrameGame(newCol, newRow);
     preview.setCellsDraggableInFrame();
     if (!this.getChildren().isEmpty()) {
-      VBox leftBox = ((VBox) this.getChildren().getFirst());
-      FrameGame oldFrame = ((FrameGame) leftBox.getChildren().get(3));
+      VBox leftBox = getLeftPane();
+      FrameGame oldFrame = getFrame();
       leftBox.getChildren().remove(oldFrame);
       leftBox.getChildren().add(3, preview);
     }
@@ -455,7 +468,7 @@ public class EditorPane extends HBox {
    * get number of column
    * @return int number of columns
    */
-  private int getCol() {
+  public int getCol() {
     return getNbColSpinner().getValue();
   }
 
@@ -463,7 +476,7 @@ public class EditorPane extends HBox {
    * get number of row
    * @return int number of row
    */
-  private int getRow() {
+  public int getRow() {
     return getNbRowSpinner().getValue();
   }
 
@@ -506,5 +519,56 @@ public class EditorPane extends HBox {
     return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(6)).getChildren()
       .get(3);
+  }
+
+  /**
+   * get frameGame
+   * @return frameGame
+   */
+  public FrameGame getFrame(){
+    return (FrameGame)this.getLeftPane().getChildren().get(3);
+  }
+
+  /**
+   * get the name of the level
+   * @return String name level
+   */
+  public String getName(){
+    TitleView name = (TitleView)getLeftPane().getChildren().get(5);
+    return name.getTitle();
+  }
+
+  /**
+   * get the french description
+   * @return String french description
+   */
+  public String getDescFr(){
+    return getDesc(7);
+  }
+
+    /**
+   * get the french description
+   * @return String french description
+   */
+  public String getDescEn(){
+    return getDesc(9);
+  }
+
+  /**
+   * get the text from a textField with is position in the pane
+   * @param i index of the position in the pane
+   * @return String text
+   */
+  private String getDesc(int i){
+    TextView desc = (TextView)getLeftPane().getChildren().get(i);
+    return desc.getDesc();
+  }
+
+  /**
+   * get Left Pane
+   * @return VBox Left Pane
+   */
+  private VBox getLeftPane(){
+    return (VBox)this.getChildren().getFirst();
   }
 }

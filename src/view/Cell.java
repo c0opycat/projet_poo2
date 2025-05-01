@@ -295,6 +295,10 @@ public class Cell extends StackPane {
     return elem;
   }
 
+  public String getElementSave(){
+    return elem;
+  }
+
   public void removeElement() {
     this.elem = null;
     this.updateTooltip();
@@ -307,5 +311,9 @@ public class Cell extends StackPane {
 
   public String getImage() {
     return this.img;
+  }
+
+  public String getTooltip(){
+    return this.tooltip.getText();
   }
 }

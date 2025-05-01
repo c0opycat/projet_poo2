@@ -42,4 +42,7 @@ public class TextView extends TextArea{
         }
     }
     
+    public String getDesc(){
+        return this.getText();
+    }
 }

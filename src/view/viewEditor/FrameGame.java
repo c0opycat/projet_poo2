@@ -22,6 +22,10 @@ public class FrameGame extends GridPane {
   private double prefHeight = 60;
   /**preferred width - fixed width of a grid square */
   private double prefWidth = 60;
+  /**number of column in the gridPane */
+  private int col;
+  /**number of row in the gridPane */
+  private int row;
 
   //// Public ////
 
@@ -83,4 +87,5 @@ public class FrameGame extends GridPane {
       }
     }
   }
+
 }
