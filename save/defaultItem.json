@@ -1,0 +1,116 @@
+{
+    "types" : [
+        "Decors / Sets",
+        "Portes / Doors",
+        "Objets / Items",
+        "Personnages / Characters"
+    ],
+    "Decors" : [
+        "cathedrale",
+        "immeuble",
+        "immeubles",
+        "maison abandonnée",
+        "palais"
+    ],
+    "Portes" : [
+        "noDoor",
+        "door0",
+        "door1",
+        "door2",
+        "door3"
+    ],
+    "Items" : [
+        {
+            "item" : "sac à dos/backpack",
+            "capacite / capacity" : 5,
+            "etat / state" : "ouvert/open",
+            "type" : "backpack"
+        },
+        {
+            "item" : "coffre/chest",
+            "capacite / capacity" : 5,
+            "etat / state" : "ouvert/open",
+            "type" : "chest"
+        },
+        {
+            "item" : "caisse1/crate1",
+            "capacite / capacity" : 5,
+            "etat / state" : "fermé/close",
+            "type" : "container"
+        },
+        {
+            "item" : "caisse2/crate2",
+            "capacite / capacity" : 5,
+            "etat / state" : "fermé/close",
+            "type" : "container"
+        },
+        {
+            "item" : "pied de biche/crowbar",
+            "type" : "crowbar"
+        },
+        {
+            "item" : "pistolet/gun",
+            "type" : "gun"
+        },
+        {
+            "item" : "fusil/shotgun",
+            "type" : "gun"
+        },
+        {
+            "item" : "épée/sword",
+            "type" : "sword"
+        },
+        {
+            "item" : "batte/baseball Bat",
+            "type" : "baseballBat"
+        },
+        {
+            "item" : "petit chien/small dog",
+            "nom / name" : "Nono",
+            "type" : "doggo"
+        },
+        {
+            "item" : "grand chien/big dog",
+            "nom / name" : "Bobby",
+            "type" : "doggo"
+        },
+        {
+            "item" : "armure/armor",
+            "poids / weight" : 3,
+            "reduction degats / damage reduction" : 2,
+            "type degat / damage type" : "tranchant/keen"
+        },
+        {
+            "item" : "bananes/bananas",
+            "type" : "fruit"
+        },
+        {
+            "item" : "baies/",
+            "type" : "fruit"
+        },
+        {
+            "item" : "pommes/apples",
+            "type : type" : "fruit"
+        },
+        {
+            "item" : "biscuits/",
+            "type" : "cake"
+        },
+        {
+            "item" : "chorizo/",
+            "type : type" : "meat"
+        },
+        {
+            "item" : "steak/",
+            "type" : "meat"
+        },
+        {
+            "item" : "gateau/",
+            "type" : "meat"
+        },
+        {
+            "item" : "flacon de gellules/",
+            "type" : "medicine"
+        }
+    ]
+}
