@@ -1,5 +1,5 @@
 package controller.controllerEditor;
 
-public class controllerElem {
+public class ControllerElem {
     
 }
