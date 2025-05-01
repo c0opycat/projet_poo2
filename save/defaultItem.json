@@ -9,7 +9,7 @@
         "cathedrale",
         "immeuble",
         "immeubles",
-        "maison abandonnée",
+        "maison abandonnee",
         "palais"
     ],
     "Portes" : [
@@ -31,7 +31,7 @@
     ],
     "Items" : [
         {
-            "item" : "sac à dos/backpack",
+            "item" : "sac a dos/backpack",
             "capacite / capacity" : 5,
             "etat / state" : "ouvert/open",
             "type" : "backpack"
@@ -45,13 +45,13 @@
         {
             "item" : "caisse1/crate1",
             "capacite / capacity" : 5,
-            "etat / state" : "fermé/close",
+            "etat / state" : "ferme/close",
             "type" : "container"
         },
         {
             "item" : "caisse2/crate2",
             "capacite / capacity" : 5,
-            "etat / state" : "fermé/close",
+            "etat / state" : "ferme/close",
             "type" : "container"
         },
         {
@@ -67,7 +67,7 @@
             "type" : "gun"
         },
         {
-            "item" : "épée/sword",
+            "item" : "epee/sword",
             "type" : "sword"
         },
         {

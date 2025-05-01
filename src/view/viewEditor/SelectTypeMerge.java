@@ -1,3 +1,4 @@
+
 package view.viewEditor;
 
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ import javafx.scene.layout.VBox;
 //ENREGISTRÉ DANS LE MODEL VIA LE CONTROLLER
 //A GERER LORS DE L'ENREGISTREMENT DE LA LISTE CORRESPONDANTE
 //DANS listElem
-public class SelectTypeElem extends TabPane {
+public class SelectTypeMerge extends TabPane {
 
-  public SelectTypeElem(String types[], ArrayList<ArrayList<String>> listElem) {
+  public SelectTypeMerge(String types[], ArrayList<ArrayList<String>> listElem) {
     super();
     int nbTypes = types.length;
     int i;
@@ -224,12 +225,12 @@ public class SelectTypeElem extends TabPane {
                   msgE += lang[1] + ":";
                 }
 
-                msgF += value[0] + "\n";
+                msgF += value[0] + "/n";
                 if (value.length == 1){
-                  msgE += value[0] + "\n";
+                  msgE += value[0] + "/n";
                 }
                 else {
-                  msgE += value[1] + "\n";
+                  msgE += value[1] + "/n";
                 }
             }
             } else {
@@ -245,3 +246,35 @@ public class SelectTypeElem extends TabPane {
     }
   
 }
+
+//
+// if (itemsObject.has("Types")){
+//     // Pour "types"
+//     JSONArray typeArray = itemsObject.getJSONArray("Types");
+//     type = new String[typeArray.length()];
+//     ArrayList<String> typeList = new ArrayList<>();
+//     for (int i = 0; i < typeArray.length(); i++) {
+//         type[i] = typeArray.getString(i);
+//         typeList.add(type[i]);
+//     }
+// }
+
+// if (itemsObject.has("Decors")){
+//     // Pour "Decors"
+//     JSONArray dArray = itemsObject.getJSONArray("Decors");
+//     ArrayList<String> dList = new ArrayList<>();
+//     for (int i = 0; i < dArray.length(); i++) {
+//         dList.add(dArray.getString(i));
+//     }
+//     nomsItems.add(dList);
+// }
+
+// if (itemsObject.has("Portes")){
+//     // Pour "Portes"
+//     convertItemsWithAttribut(itemsObject, "image","Portes");
+// }
+
+// if (itemsObject.has("Items")){
+//     // Pour "Items"
+//     convertItemsWithAttribut(itemsObject, "item", "Items");
+// }

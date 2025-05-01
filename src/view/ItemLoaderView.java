@@ -1,9 +1,7 @@
 package view;
 
-
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,29 +9,30 @@ import org.json.JSONTokener;
 
 public class ItemLoaderView {
     /**
-   * The HashMap that stores items.
-   * Maps item names to their respective values.
-   */
-  private String[] type;
-  private ArrayList<ArrayList<String>> nomsItems = new ArrayList<>();
+     * The HashMap that stores items.
+     * Maps item names to their respective values.
+     */
+    private String[] type;
+    private ArrayList<ArrayList<String>> nomsItems = new ArrayList<>();
 
-  /**
-   * Constructs a new Keybinds instance and loads keybindings from a file.
-   */
-    public ItemLoaderView(String name){
+    /**
+     * Constructs a new Keybinds instance and loads keybindings from a file.
+     */
+    public ItemLoaderView(String name) {
         this.loadItems(name);
     }
+
     /**
-    * Loads elements from a JSON file.
-    *
-    * @return a HashMap containing the loaded items.
-    */
+     * Loads elements from a JSON file.
+     *
+     * @return a HashMap containing the loaded items.
+     */
     public void loadItems(String name) {
         try {
-            FileReader reader = new FileReader("./save/"+ name +".json");
+            FileReader reader = new FileReader("./save/" + name + ".json");
             JSONObject itemsObject = new JSONObject(new JSONTokener(reader));
 
-            if (itemsObject.has("Types")){
+            if (itemsObject.has("Types")) {
                 // Pour "types"
                 JSONArray typeArray = itemsObject.getJSONArray("Types");
                 type = new String[typeArray.length()];
@@ -43,8 +42,8 @@ public class ItemLoaderView {
                     typeList.add(type[i]);
                 }
             }
-    
-            if (itemsObject.has("Decor")){
+
+            if (itemsObject.has("Decors")) {
                 // Pour "Decors"
                 JSONArray dArray = itemsObject.getJSONArray("Decors");
                 ArrayList<String> dList = new ArrayList<>();
@@ -54,24 +53,25 @@ public class ItemLoaderView {
                 nomsItems.add(dList);
             }
 
-            if (itemsObject.has("Portes")){
+            if (itemsObject.has("Portes")) {
                 // Pour "Portes"
-                convertItemsWithAttribut(itemsObject, "image","Portes");
+                convertItemsWithAttribut(itemsObject, "image", "Portes");
             }
 
-            if (itemsObject.has("Items")){
+            if (itemsObject.has("Items")) {
                 // Pour "Items"
                 convertItemsWithAttribut(itemsObject, "item", "Items");
             }
+
         } catch (Exception e) {
             System.err.println("Erreur lors du chargement de" + name + ".json : " + e.getMessage());
         }
     }
-    
-    private void convertItemsWithAttribut(JSONObject itemsObject, String defaultVal, String name){
+
+    private void convertItemsWithAttribut(JSONObject itemsObject, String defaultVal, String name) {
         JSONArray iArray = itemsObject.getJSONArray(name);
         ArrayList<String> iList = new ArrayList<>();
-        
+
         for (int i = 0; i < iArray.length(); i++) {
             JSONObject obj = iArray.getJSONObject(i);
             StringBuilder sb = new StringBuilder();
@@ -87,6 +87,7 @@ public class ItemLoaderView {
         nomsItems.add(iList);
 
     }
+
     // Accesseurs utiles
     public String[] getType() {
         return type;
