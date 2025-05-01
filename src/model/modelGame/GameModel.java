@@ -92,14 +92,20 @@ public class GameModel {
   }
 
   private int timeBonus(){
-    int timeBonus = 1000-(int)(System.currentTimeMillis()-startTime)/100 + this.timePaused;
+    int timeBonus = 1000 -
+            (int)(System.currentTimeMillis()-startTime)/100 +
+            this.timePaused;
     if (timeBonus > 0){
       return timeBonus;
     } else return 0;
   }
 
   public void updateScore() {
-    this.score.setScore(this.timeBonus() + this.killedMonster[0]*10 + this.killedMonster[1]*20 + this.killedMonster[2]*50);
+    this.score.setScore(this.timeBonus() +
+                    this.killedMonster[0]*10 +
+                    this.killedMonster[1]*20 +
+                    this.killedMonster[2]*50
+    );
   }
 
   //Returns the current Location
