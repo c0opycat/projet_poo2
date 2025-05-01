@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class GameModel {
+
   public int timePaused;
   private long startTime;
   private int[] killedMonster;
@@ -75,24 +76,35 @@ public class GameModel {
   }
 
   public void addKilledMonster(MonsterModel monster) {
-    switch (monster.toString())
-    {
-      case "dried": this.killedMonster[0]++; break;
-      case "angry": this.killedMonster[1]++; break;
-      case "colossus": this.killedMonster[2]++; break;
+    switch (monster.toString()) {
+      case "dried":
+        this.killedMonster[0]++;
+        break;
+      case "angry":
+        this.killedMonster[1]++;
+        break;
+      case "colossus":
+        this.killedMonster[2]++;
+        break;
     }
   }
 
-  private int timeBonus(){
-    int timeBonus = this.timeBonus()-(int)(System.currentTimeMillis()-startTime)/100 + (int)this.timePaused;
-    if (timeBonus > 0){
+  private int timeBonus() {
+    int timeBonus =
+      this.timeBonus() -
+      (int) (System.currentTimeMillis() - startTime) / 100 +
+      (int) this.timePaused;
+    if (timeBonus > 0) {
       return timeBonus;
-    }
-    else return 0;
+    } else return 0;
   }
 
   public void updateScore() {
-    this.Score = this.timeBonus() + this.killedMonster[0]*10 + this.killedMonster[1]*20 + this.killedMonster[2]*50;
+    this.Score =
+      this.timeBonus() +
+      this.killedMonster[0] * 10 +
+      this.killedMonster[1] * 20 +
+      this.killedMonster[2] * 50;
   }
 
   //Returns the current Location
