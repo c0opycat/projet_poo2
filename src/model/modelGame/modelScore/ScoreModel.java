@@ -9,43 +9,43 @@ package model.modelGame.modelScore;
  */
 public class ScoreModel {
 
-    /** The name of the player. */
-    public String name;
+  /** The name of the player. */
+  public String name;
 
-    /** The score of the player. */
-    public int score;
+  /** The score of the player. */
+  public long score;
 
-    /**
-     * Constructs a new ScoreModel with the given player name and score.
-     * @param name  the name of the player
-     * @param score the player's score
-     */
-    public ScoreModel(String name, int score) {
-        this.name = name;
-        this.score = score;
-    }
+  /**
+   * Constructs a new ScoreModel with the given player name and score.
+   * @param name  the name of the player
+   * @param score the player's score
+   */
+  public ScoreModel(String name, long score) {
+    this.name = name;
+    this.score = score;
+  }
 
-    /**
-     * Sets the score for this player.
-     * @param score the new score to assign
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
+  /**
+   * Sets the score for this player.
+   * @param score the new score to assign
+   */
+  public void setScore(long score) {
+    this.score = score;
+  }
 
-    /**
-     * Get the score of the player.
-     * @return the player's score
-     */
-    public int getScore() {
-        return score;
-    }
+  /**
+   * Get the score of the player.
+   * @return the player's score
+   */
+  public long getScore() {
+    return score;
+  }
 
-    /**
-     * Get the name of the player.
-     * @return the player's name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * Get the name of the player.
+   * @return the player's name
+   */
+  public String getName() {
+    return name;
+  }
 }

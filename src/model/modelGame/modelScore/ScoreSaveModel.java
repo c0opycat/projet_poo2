@@ -55,9 +55,9 @@ public class ScoreSaveModel {
     }
   }
 
-  public void addScore(String name, int score) {
+  public void addScore(String name, long score) {
     scores.add(new ScoreModel(name, score));
-    scores.sort((a, b) -> Integer.compare(b.score, a.score));
+    scores.sort((a, b) -> Long.compare(b.score, a.score));
     if (scores.size() > MAX_SCORES) {
       scores = scores.subList(0, MAX_SCORES);
     }

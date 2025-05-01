@@ -100,7 +100,7 @@ public class GameController {
     return this.getGameModel().getGameLostMessage();
   }
 
-  public int getScore() {
+  public long getScore() {
     return this.getGameModel().score.getScore();
   }
 

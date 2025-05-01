@@ -94,9 +94,9 @@ public class GameModel {
     }
   }
 
-  private int timeBonus() {
-    int timeBonus =
-      (int) (System.currentTimeMillis() - startTime) / 10 + this.timePaused;
+  private long timeBonus() {
+    long timeBonus =
+      (System.currentTimeMillis() - startTime) / 100 - this.timePaused;
     if (timeBonus > 0) {
       return timeBonus;
     } else return 0;

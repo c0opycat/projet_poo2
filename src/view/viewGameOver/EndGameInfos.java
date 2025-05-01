@@ -58,7 +58,7 @@ public class EndGameInfos extends VBox {
     Region spring = new Region();
 
     //Get the score
-    int score = this.getGameView().getGameController().getScore();
+    long score = this.getGameView().getGameController().getScore();
     Label scoreLabel = new Label(
       lang.getCurr_lang().equals("EN")
         ? "Your Score : " + score
