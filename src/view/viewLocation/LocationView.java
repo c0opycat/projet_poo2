@@ -197,7 +197,6 @@ public class LocationView extends GridPane {
 
       if (element.equals("Exit")) {
         ExitView exitView = (ExitView) elements.get(point).getImageView();
-        System.out.println("location view " + exitView);
         cell.addImage(exitView);
       } else {
         cell.addImage();

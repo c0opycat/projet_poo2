@@ -44,7 +44,6 @@ public class LocationController {
 
     for (Point point : locMap.keySet()) {
       StepModel step = locMap.get(point);
-      System.out.println("exit : " + step.getExit());
       Cell cell;
 
       if (step.getItem() != null) {
@@ -52,7 +51,6 @@ public class LocationController {
         String elemNameSub = elemName.substring(0, elemName.length() - 5);
         cell = new Cell(elemNameSub);
       } else {
-        System.out.println("exit ds location controller getlocelements");
         String elemName = step.getExit().getClass().getSimpleName();
         String elemNameSub = elemName.substring(0, elemName.length() - 5);
         cell = new Cell(elemNameSub);

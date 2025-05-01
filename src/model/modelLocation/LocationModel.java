@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import model.modelCharacter.modelMonster.MonsterModel;
 import model.modelGame.GameMapModel;
 import model.modelGame.GameModel;
@@ -42,9 +43,9 @@ public class LocationModel {
     this.locMap = new HashMap<>();
     this.itemList = new ArrayList<>();
     this.locationController = new LocationController(this);
-    // this.monster = new Random().nextInt(2) == 0
-    //   ? null
-    //   : MonsterModel.randMonster();
+    this.monster = new Random().nextInt(2) == 0
+      ? null
+      : MonsterModel.randMonster();
   }
 
   /**
