@@ -493,4 +493,9 @@ public class LocationModel {
     location.setExits(exits);
     location.initItems();
   }
+
+  public void setSize(int width, int height) {
+    this.width = width;
+    this.height = height;
+  }
 }
