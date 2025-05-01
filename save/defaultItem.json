@@ -1,5 +1,5 @@
 {
-    "types" : [
+    "Types" : [
         "Decors / Sets",
         "Portes / Doors",
         "Objets / Items",
@@ -13,11 +13,21 @@
         "palais"
     ],
     "Portes" : [
-        "noDoor",
-        "door0",
-        "door1",
-        "door2",
-        "door3"
+        {
+            "image" : "noDoor"
+        },
+        {
+            "image" : "door0"
+        },
+        {
+            "image" : "door1"
+        },
+        {
+            "image" : "door2"
+        },
+        {
+            "image" : "door3"
+        }
     ],
     "Items" : [
         {

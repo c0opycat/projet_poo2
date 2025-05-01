@@ -182,8 +182,8 @@ public class SelectTypeElem extends TabPane {
         //dans l'ordre de la classe la plus haute dont il hérite jusqu'à lui
         Label msgFLabel = new Label("Information personnage : ");
         Label msgELabel = new Label("Charater's information: ");
-        String presFr = "Cet objet est un/une ";
-        String presEn = "This object is a/an ";
+        String presFr = "Ce personnage est un/une ";
+        String presEn = "This character is a/an ";
     
         otherInfoData(infoBox, listInfoItem, msgFLabel, msgELabel, presFr, presEn);
     
@@ -212,16 +212,12 @@ public class SelectTypeElem extends TabPane {
   
             int len = parts.length;
             if (len > 1) {
-                msgF += "Autres informations :";
-                msgE += "Others datas:";
-            for (int i = 1; i < len; i++) {
+              for (int i = 1; i < len; i++) {
                 lang = parts[i].split("/");
                 if (lang.length >= 2) {
-                    msgF += lang[0];
-                    msgE += lang[1];
-                } else {
-                    msgF += "Pas d'autres informations";
-                    msgE += "No other data";
+                  String value = lang[1].split(":")[1];
+                  msgF += lang[0] + ":" + value + "\n";
+                  msgE += lang[1] + "\n";
                 }
             }
             } else {
