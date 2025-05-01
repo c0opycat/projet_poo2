@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import view.ItemLoaderView;
 import view.viewEditor.viewHistory.HistoryManager;
 
 //REMARQUE AJOUT DES COMMANDES A FAIRE SUR TOUTES L'INTERFACE RIEN N'EST FONCTIONNEL C'EST UNIQUEMENT LA VUE SANS INTERACTION POSSIBLE
@@ -54,6 +55,9 @@ public class EditorPane extends HBox {
    */
   public EditorPane() {
     super();
+    ItemLoaderView itemLoaderView = new ItemLoaderView("defaultItem");
+    this.nomsType = itemLoaderView.getType();
+    this.nomsItems = itemLoaderView.getNomsItems();
     //Ajout des onglets à droite
     //Attention bien créer rightNodes avant LeftNodes car on créé dedans les spinners avec leurs valeurs par défauts
     VBox rightNodes = this.rightNodes();
@@ -388,9 +392,9 @@ public class EditorPane extends HBox {
     selectTypeElem.setMaxWidth(600);
     selectTypeElem.setPrefWidth(600);
 
-    selectTypeElem.setMaxHeight(300);
-    selectTypeElem.setMinHeight(300);
-    selectTypeElem.setPrefHeight(300);
+    selectTypeElem.setMaxHeight(600);
+    selectTypeElem.setMinHeight(600);
+    selectTypeElem.setPrefHeight(600);
 
 
 
