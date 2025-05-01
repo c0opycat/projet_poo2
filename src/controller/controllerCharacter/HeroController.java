@@ -1,4 +1,4 @@
-package controller.controllerCharacter.controllerHeros;
+package controller.controllerCharacter;
 
 import java.util.ArrayList;
 import model.modelCharacter.modelHeros.HeroModel;

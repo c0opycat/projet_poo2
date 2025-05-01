@@ -57,6 +57,12 @@
     -fx-font-weight: bold;
 }
 
+.label{
+    -fx-font-weight: bold;
+    -fx-padding: 10px, 15px;
+    -fx-font-size: 13px;
+}
+
 
 .button-Commande {
     -fx-background-color: #fecaca;

@@ -1,12 +1,13 @@
 package controller.controllerGame;
 
-import controller.controllerCharacter.controllerHeros.HeroController;
+import controller.controllerCharacter.HeroController;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import model.modelCharacter.modelHeros.JobModel;
 import model.modelGame.GameModel;
 import view.viewGame.GameInfosStream;
 import view.viewGame.GameView;
+import view.viewLocation.LocationView;
 
 /**
  * Controller class for managing the game logic.
@@ -75,19 +76,30 @@ public class GameController {
    * Loads the location and updates the corresponding view.
    */
   public void updateCurrentLocation() {
+    this.getGameView().getLevelBox().getChildren().clear();
+
+    if (this.getGameView().getCommandsView() != null) {
+      this.getGameView()
+        .getCommandsView()
+        .removeHandlers(this.getGameView().getMainScene());
+    }
+
     this.getGameModel().getCurLocation().getLocationController().loadLocation();
 
-    this.getGameView()
-      .setCurrentLocationView(
-        this.getGameModel()
-          .getCurLocation()
-          .getLocationController()
-          .getLocationView()
-      );
+    LocationView newLocation =
+      this.getGameModel()
+        .getCurLocation()
+        .getLocationController()
+        .getLocationView();
+
+    this.getGameView().setCurrentLocationView(newLocation);
 
     this.getGameView()
-      .getCurrentLocationView()
-      .setCommandsView(this.getGameView().getCommandsView());
+      .getLevelLabel()
+      .setText(newLocation.getLocationController().getName());
+    this.getGameView().getLevelBox().getChildren().add(newLocation);
+
+    this.getGameView().addHandlers(this.getGameView().getMainScene());
   }
 
   /**

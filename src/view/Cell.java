@@ -22,6 +22,8 @@ public class Cell extends StackPane {
   private String img;
   /**Information show about the element */
   private Tooltip tooltip;
+  /** ImageView associated with the elem */
+  private ImageView imageView;
 
   //// Public ////
 
@@ -63,11 +65,13 @@ public class Cell extends StackPane {
 
   public void deleteImage(ImageView image) {
     this.getChildren().remove(image);
+    this.setImageView(null);
   }
 
   public void addImage(ImageView image) {
     fitSize(image);
     this.getChildren().add(image);
+    this.setImageView(image);
   }
 
   public void addImage() {
@@ -82,6 +86,7 @@ public class Cell extends StackPane {
     fitSize(imageView);
 
     this.getChildren().add(imageView);
+    this.setImageView(imageView);
   }
 
   public static String getImageName(String nameItem) {
@@ -127,9 +132,6 @@ public class Cell extends StackPane {
         break;
       case "Cake":
         imageElement = "gateau";
-        break;
-      case "Exit":
-        imageElement = "door1";
         break;
     }
 
@@ -183,8 +185,8 @@ public class Cell extends StackPane {
             setElement(parts);
 
             String[] oldElement = { oldImg, oldElem };
-            System.out.println("oldElem : " +  oldElement);
-            
+            System.out.println("oldElem : " + oldElement);
+
             String[] newElement = parts;
             System.out.println("newElem : " + newElement);
 
@@ -296,7 +298,7 @@ public class Cell extends StackPane {
     return elem;
   }
 
-  public String getElementSave(){
+  public String getElementSave() {
     return elem;
   }
 
@@ -321,7 +323,15 @@ public class Cell extends StackPane {
     return this.img;
   }
 
-  public String getTooltip(){
+  public String getTooltip() {
     return this.tooltip.getText();
+  }
+
+  public ImageView getImageView() {
+    return this.imageView;
+  }
+
+  public void setImageView(ImageView imageView) {
+    this.imageView = imageView;
   }
 }

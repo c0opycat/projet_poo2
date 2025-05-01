@@ -11,11 +11,10 @@ package model.modelCharacter.modelHeros;
 import static model.modelCharacter.modelHeros.JobModel.MEDIC;
 import static model.modelCharacter.modelHeros.JobModel.STARTUP;
 
-import controller.controllerCharacter.controllerHeros.HeroController;
+import controller.controllerCharacter.HeroController;
 import java.awt.Point;
 import model.modelCharacter.CharacterModel;
 import model.modelGame.MessageEnModel;
-import model.modelItem.CrowbarModel;
 import model.modelItem.modelConsumable.MedicineModel;
 import model.modelItem.modelContainer.BackpackModel;
 import model.modelItem.modelWeapon.*;

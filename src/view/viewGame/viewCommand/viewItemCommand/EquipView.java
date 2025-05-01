@@ -97,7 +97,6 @@ public class EquipView {
       } else {
         this.getEquipController().setEquipModel(3, String.valueOf(ind));
         if (this.getEquipController().execute(containerPoint)) {
-          System.out.println("execute retourne true");
           this.getGameView().getContainerView().updateContainerView(false);
           this.getGameView()
             .getHeroView()

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import model.modelCharacter.modelMonster.MonsterModel;
 import model.modelGame.GameMapModel;
 import model.modelGame.GameModel;
@@ -43,25 +42,9 @@ public class LocationModel {
     this.locMap = new HashMap<>();
     this.itemList = new ArrayList<>();
     this.locationController = new LocationController(this);
-
-    boolean hasContainer = false;
-
-    for (int i = 0; i < 3; i++) {
-      ItemModel item = hasContainer
-        ? ItemModel.NonContainerRI()
-        : ItemModel.randomItem();
-      if (!hasContainer && ItemModel.isContainer(item)) {
-        hasContainer = true;
-      }
-      Point p = this.getRandomFreeStepCoord();
-      if (p != null) {
-        this.addItem(item, p);
-      }
-    }
-
-    this.monster = new Random().nextInt(2) == 0
-      ? null
-      : MonsterModel.randMonster();
+    // this.monster = new Random().nextInt(2) == 0
+    //   ? null
+    //   : MonsterModel.randMonster();
   }
 
   /**
@@ -92,9 +75,12 @@ public class LocationModel {
    * @param e the exit to add
    * @param key the unique key for this exit
    */
-  public void addExit(ExitModel e, Integer key) {
+  public void addExit(ExitModel e, Integer key, int x, int y) {
     if (e.start == this && !this.exits.containsKey(key)) {
       this.exits.put(key, e);
+      this.setNewStep(x, y, e);
+      e.setStartX(x);
+      e.setStartY(y);
     }
   }
 
@@ -104,7 +90,37 @@ public class LocationModel {
    */
   public void setExits(ExitModel[] exits) {
     for (int i = 0; i < exits.length; i++) {
-      this.addExit(exits[i], i);
+      Point p = this.getRandomEdgeFreeStepCoord();
+      if (p != null) {
+        int x = (int) p.getX();
+        int y = (int) p.getY();
+        this.addExit(exits[i], i, x, y);
+      }
+    }
+  }
+
+  /**
+   * Initializes the location with three random items.
+   * This method ensures that at least one container (like a chest or crate)
+   * is placed in the location if possible. After a container is found,
+   * only non-container items will be generated for the remaining slots.
+   * Each item is placed at a random unoccupied position within the location.
+   * If no free positions are available, some items might not be placed.
+   */
+  public void initItems() {
+    boolean hasContainer = false;
+
+    for (int i = 0; i < 3; i++) {
+      ItemModel item = hasContainer
+        ? ItemModel.NonContainerRI()
+        : ItemModel.randomItem();
+      if (!hasContainer && ItemModel.isContainer(item)) {
+        hasContainer = true;
+      }
+      Point p = this.getRandomFreeStepCoord();
+      if (p != null) {
+        this.addItem(item, p);
+      }
     }
   }
 
@@ -172,7 +188,8 @@ public class LocationModel {
       }
     }
 
-    this.locMap.put(p, new StepModel(item));
+    // this.locMap.put(p, new StepModel(item));
+    this.setNewStep((int) p.getX(), (int) p.getY(), item);
   }
 
   public ArrayList<Point> getAllFreePoints() {
@@ -191,6 +208,45 @@ public class LocationModel {
     return allPoints;
   }
 
+  public ArrayList<Point> getAllFreeExitsPoints() {
+    ArrayList<Point> allPoints = new ArrayList<>();
+
+    for (int i = 0; i < this.getWidth(); i++) {
+      allPoints.add(new Point(i, 0));
+    }
+
+    for (int i = 0; i < this.getWidth(); i++) {
+      allPoints.add(new Point(i, this.getHeight() - 1));
+    }
+
+    for (int j = 1; j < this.getHeight() - 1; j++) {
+      allPoints.add(new Point(0, j));
+    }
+
+    for (int j = 1; j < this.getHeight() - 1; j++) {
+      allPoints.add(new Point(this.getWidth() - 1, j));
+    }
+
+    Collections.shuffle(allPoints);
+
+    return allPoints;
+  }
+
+  public Point getRandomEdgeFreeStepCoord() {
+    ArrayList<Point> allPoints = this.getAllFreeExitsPoints();
+
+    Point p = null;
+
+    for (int i = 0; i < allPoints.size(); i++) {
+      p = allPoints.get(i);
+      if (isPointFree(p)) {
+        break;
+      }
+    }
+
+    return p;
+  }
+
   public Point getRandomFreeStepCoord() {
     ArrayList<Point> allPoints = this.getAllFreePoints();
 
@@ -207,7 +263,7 @@ public class LocationModel {
   }
 
   public boolean isPointFree(Point coord) {
-    return this.getLocMap().containsKey(coord);
+    return !this.getLocMap().containsKey(coord);
   }
 
   /**
@@ -275,15 +331,16 @@ public class LocationModel {
 
   // Location initialization methods for each named modelLocation
   /**
-   * Sets exits for North Poitiers.
+   * Sets exits and items for North Poitiers.
    */
   public static void northPoitiers(LocationModel location) {
     ExitModel e1 = new ExitModel(location, GameMapModel.locations.get(5));
     location.setExits(new ExitModel[] { e1 });
+    location.initItems();
   }
 
   /**
-   * Sets exits for Beaulieu.
+   * Sets exits and items for Beaulieu.
    */
   public static void beaulieu(LocationModel location) {
     ExitModel[] exits = {
@@ -293,10 +350,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(11)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for City Center.
+   * Sets exits and items for City Center.
    */
   public static void cityCenter(LocationModel location) {
     ExitModel[] exits = {
@@ -305,10 +363,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(7)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Couronneries.
+   * Sets exits and items for Couronneries.
    */
   public static void couronneries(LocationModel location) {
     ExitModel[] exits = {
@@ -317,10 +376,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(8)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Gibauderie.
+   * Sets exits and items for Gibauderie.
    */
   public static void gibauderie(LocationModel location) {
     ExitModel[] exits = {
@@ -329,10 +389,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(7)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for West Poitiers.
+   * Sets exits and items or West Poitiers.
    */
   public static void westPoitiers(LocationModel location) {
     ExitModel[] exits = {
@@ -341,10 +402,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(6)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for South Poitiers.
+   * Sets exits and items for South Poitiers.
    */
   public static void southPoitiers(LocationModel location) {
     ExitModel[] exits = {
@@ -352,10 +414,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(9)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Pont Neuf.
+   * Sets exits and items for Pont Neuf.
    */
   public static void pontNeuf(LocationModel location) {
     ExitModel[] exits = {
@@ -364,10 +427,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(10)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Saint Éloi.
+   * Sets exits and items for Saint Éloi.
    */
   public static void saintEloi(LocationModel location) {
     ExitModel[] exits = {
@@ -376,10 +440,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(1)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Trois Cités.
+   * Sets exits and items or Trois Cités.
    */
   public static void troisCites(LocationModel location) {
     ExitModel[] exits = {
@@ -387,10 +452,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(4)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Montbernage.
+   * Sets exits and items for Montbernage.
    */
   public static void montbernage(LocationModel location) {
     ExitModel[] exits = {
@@ -400,10 +466,11 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(8)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Milétrie.
+   * Sets exits and items for Milétrie.
    */
   public static void miletrie(LocationModel location) {
     ExitModel[] exits = {
@@ -412,15 +479,17 @@ public class LocationModel {
       new ExitModel(location, GameMapModel.locations.get(12)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 
   /**
-   * Sets exits for Final ExitModel.
+   * Sets exits and items for Final ExitModel.
    */
   public static void finalExit(LocationModel location) {
     ExitModel[] exits = {
       new ExitModel(location, GameMapModel.locations.get(11)),
     };
     location.setExits(exits);
+    location.initItems();
   }
 }

@@ -75,7 +75,6 @@ public class EquipController {
    * @param ind the index of the item to equip.
    */
   public void setEquipModel(int zoneInd, String ind) {
-    System.out.println(zoneInd);
     this.equipModel = new EquipModel(
       new String[] { "EQUIP", ind, String.valueOf(zoneInd) },
       this.getGameView().getGameController().getGameModel()

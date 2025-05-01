@@ -2,6 +2,7 @@ package view.viewGame.viewCommand;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -16,6 +17,7 @@ import view.viewContainer.ContainerView;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewInteractCommand.TakeView;
 import view.viewGame.viewCommand.viewItemCommand.EquipView;
+import view.viewLocation.ExitView;
 import view.viewLocation.LocationView;
 
 /**
@@ -33,6 +35,7 @@ public class CommandsView {
   private final KeyCode keybindBackpack;
   private final KeyCode keybindTake;
   private final KeyCode keybindEquip;
+  private final KeyCode keybindGo;
   private LocationView locationView;
   private GameView gameView;
   private final EventHandler<KeyEvent> actionsHandler;
@@ -59,6 +62,7 @@ public class CommandsView {
     this.keybindBackpack = keybinds.getSpecKeyCode("backpack");
     this.keybindTake = keybinds.getSpecKeyCode("take");
     this.keybindEquip = keybinds.getSpecKeyCode("equip");
+    this.keybindGo = keybinds.getSpecKeyCode("go");
     this.isBackpackOpen = false;
 
     this.locationView = locationView;
@@ -91,6 +95,8 @@ public class CommandsView {
         this.takeAction();
       } else if (kc == this.getKeybindEquip()) {
         this.equipAction();
+      } else if (kc == this.getKeybindGo()) {
+        this.goAction();
       } else {
         return;
       }
@@ -161,6 +167,10 @@ public class CommandsView {
 
   public KeyCode getKeybindEquip() {
     return this.keybindEquip;
+  }
+
+  public KeyCode getKeybindGo() {
+    return this.keybindGo;
   }
 
   /**
@@ -248,7 +258,8 @@ public class CommandsView {
     int heroX = (int) heroView.getActualCoord().getX();
     int heroY = (int) heroView.getActualCoord().getY();
 
-    ArrayList<String> items = locationView.getItemsBesidesHero(heroX, heroY);
+    ArrayList<String> items =
+      this.getLocationView().getItemsBesidesHero(heroX, heroY);
 
     if (items.size() != 0) {
       ArrayList<String> buttonTypesText = new ArrayList<>();
@@ -270,22 +281,24 @@ public class CommandsView {
       int x = heroX;
       int y = heroY;
 
-      if (choice.equals("left") || choice.equals("gauche")) {
-        x--;
-      } else if (choice.equals("above") || choice.equals("au-dessus")) {
-        y--;
-      } else if (choice.equals("right") || choice.equals("droite")) {
-        x++;
-      } else {
-        y++;
-      }
+      if (choice != null) {
+        if (choice.equals("left") || choice.equals("gauche")) {
+          x--;
+        } else if (choice.equals("above") || choice.equals("au-dessus")) {
+          y--;
+        } else if (choice.equals("right") || choice.equals("droit")) {
+          x++;
+        } else if (choice.equals("below") || choice.equals("en dessous")) {
+          y++;
+        }
 
-      Point toTake = new Point(x, y);
+        Point toTake = new Point(x, y);
 
-      TakeView takeView = new TakeView(gameView);
-      takeView.getTakeController().setTakeModel();
-      if (takeView.getTakeController().execute(toTake)) {
-        getLocationView().removeItem(toTake);
+        TakeView takeView = new TakeView(gameView);
+        takeView.getTakeController().setTakeModel();
+        if (takeView.getTakeController().execute(toTake)) {
+          getLocationView().removeItem(toTake);
+        }
       }
     } else {
       String title = curLang.equals("EN") ? "Error" : "Erreur";
@@ -302,7 +315,8 @@ public class CommandsView {
     int heroX = (int) heroView.getActualCoord().getX();
     int heroY = (int) heroView.getActualCoord().getY();
 
-    ArrayList<String> items = locationView.getItemsBesidesHero(heroX, heroY);
+    ArrayList<String> items =
+      this.getLocationView().getItemsBesidesHero(heroX, heroY);
 
     if (items.size() != 0) {
       ArrayList<String> buttonTypesText = new ArrayList<>();
@@ -324,32 +338,100 @@ public class CommandsView {
       int x = heroX;
       int y = heroY;
 
-      if (choice.equals("left") || choice.equals("gauche")) {
-        x--;
-      } else if (choice.equals("above") || choice.equals("au-dessus")) {
-        y--;
-      } else if (choice.equals("right") || choice.equals("droite")) {
-        x++;
-      } else {
-        y++;
-      }
+      if (choice != null) {
+        if (choice.equals("left") || choice.equals("gauche")) {
+          x--;
+        } else if (choice.equals("above") || choice.equals("au-dessus")) {
+          y--;
+        } else if (choice.equals("right") || choice.equals("droit")) {
+          x++;
+        } else {
+          y++;
+        }
 
-      Point toEquip = new Point(x, y);
+        Point toEquip = new Point(x, y);
 
-      EquipView equipView = new EquipView(gameView);
-      equipView.getEquipController().setEquipModel(2, "7");
-      if (equipView.getEquipController().execute(toEquip)) {
-        getLocationView().removeItem(toEquip);
-        this.getGameView()
-          .getHeroView()
-          .getHeroController()
-          .updateDescription();
+        EquipView equipView = new EquipView(gameView);
+        equipView.getEquipController().setEquipModel(2, "7");
+        if (equipView.getEquipController().execute(toEquip)) {
+          getLocationView().removeItem(toEquip);
+          this.getGameView()
+            .getHeroView()
+            .getHeroController()
+            .updateDescription();
+        }
       }
     } else {
       String title = curLang.equals("EN") ? "Error" : "Erreur";
       String content = curLang.equals("EN")
         ? "There is no item to equip besides you."
         : "Il n'y a aucun item à équiper à côté de vous.";
+      MyAlert errorAlert = new MyAlert(title, null, content);
+      errorAlert.showInformation();
+    }
+  }
+
+  public void goAction() {
+    String newLine = System.getProperty("line.separator");
+
+    HeroView heroView = this.getGameView().getHeroView();
+    int heroX = (int) heroView.getActualCoord().getX();
+    int heroY = (int) heroView.getActualCoord().getY();
+
+    LocationView locationView = this.getLocationView();
+    HashMap<String, String> exits = locationView.getExitsBesidesHero(
+      heroX,
+      heroY
+    );
+
+    if (exits.size() != 0) {
+      ArrayList<String> buttonTypesText = new ArrayList<>();
+
+      String content = "";
+
+      for (String exit : exits.keySet()) {
+        content += exits.get(exit) + " : " + exit + newLine;
+        buttonTypesText.add(exits.get(exit));
+      }
+
+      String title = curLang.equals("EN")
+        ? "Choose the exit to take"
+        : "Choisissez la sortie à prendre";
+      String header = curLang.equals("EN") ? "The exit:" : "La sortie :";
+
+      MyAlert choiceAlert = new MyAlert(title, header, content);
+
+      String choice = choiceAlert.showChoiceAlert(
+        choiceAlert.createButtonTypes(buttonTypesText)
+      );
+
+      int x = heroX;
+      int y = heroY;
+
+      if (choice != null) {
+        if (choice.equals("left") || choice.equals("gauche")) {
+          x--;
+        } else if (choice.equals("above") || choice.equals("au-dessus")) {
+          y--;
+        } else if (choice.equals("right") || choice.equals("droite")) {
+          x++;
+        } else {
+          y++;
+        }
+
+        ExitView exitView = (ExitView) locationView
+          .getCell(x, y)
+          .getImageView();
+        exitView.setGameView(this.getGameView());
+        if (exitView.getExitController().go()) {
+          this.getGameView().updateCurrentLocation();
+        }
+      }
+    } else {
+      String title = curLang.equals("EN") ? "Error" : "Erreur";
+      String content = curLang.equals("EN")
+        ? "There is no exit to take besides you."
+        : "Il n'y a aucune sortie à prendre à côté de vous.";
       MyAlert errorAlert = new MyAlert(title, null, content);
       errorAlert.showInformation();
     }

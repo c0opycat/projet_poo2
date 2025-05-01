@@ -33,6 +33,10 @@ public class LocationController {
     return this.getLocationModel().getHeight();
   }
 
+  public String getName() {
+    return this.getLocationModel().toString();
+  }
+
   public HashMap<Point, Cell> getLocElements() {
     HashMap<Point, StepModel> locMap = this.getLocationModel().getLocMap();
 
@@ -40,6 +44,7 @@ public class LocationController {
 
     for (Point point : locMap.keySet()) {
       StepModel step = locMap.get(point);
+      System.out.println("exit : " + step.getExit());
       Cell cell;
 
       if (step.getItem() != null) {
@@ -47,9 +52,11 @@ public class LocationController {
         String elemNameSub = elemName.substring(0, elemName.length() - 5);
         cell = new Cell(elemNameSub);
       } else {
+        System.out.println("exit ds location controller getlocelements");
         String elemName = step.getExit().getClass().getSimpleName();
         String elemNameSub = elemName.substring(0, elemName.length() - 5);
         cell = new Cell(elemNameSub);
+        cell.addImage(step.getExit().getExitController().getExitView());
       }
 
       elements.put(point, cell);
@@ -59,6 +66,15 @@ public class LocationController {
   }
 
   public void loadLocation() {
-    this.getLocationView().addElements();
+    if (
+      this.getLocationView().getColumnCount() == 0 &&
+      this.getLocationView().getRowCount() == 0
+    ) {
+      this.getLocationView().addElements();
+    }
+  }
+
+  public boolean hasMonster() {
+    return this.getLocationModel().getMonster() != null;
   }
 }

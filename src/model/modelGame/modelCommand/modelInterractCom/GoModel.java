@@ -1,10 +1,11 @@
 package model.modelGame.modelCommand.modelInterractCom;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import model.modelGame.GameModel;
+import model.modelGame.MessageEnModel;
 import model.modelGame.modelCommand.CommandModel;
 import model.modelLocation.ExitModel;
-
-import java.util.ArrayList;
 
 /**
  * Represents the "go" command in the modelGame.
@@ -14,87 +15,67 @@ import java.util.ArrayList;
  * Movement is blocked if a monster is still alive in the current modelLocation.
  */
 public class GoModel extends CommandModel {
-    private ArrayList<ExitModel> exits;
-    private int nbExits;
-    private int arg;
 
-    /**
-     * Constructs a Go command with arguments and the current modelGame state.
-     * @param cmd   the command array (ex:{"go", "1"})
-     * @param gameM the current modelGame instance
-     */
-    public GoModel(String[] cmd, GameModel gameM) {
-        this.commands = cmd;
-        this.gameM = gameM;
+  private ArrayList<ExitModel> exits;
+  private int nbExits;
 
-        if (cmd.length > 1){
-            this.arg = Integer.parseInt(cmd[1]);
-        }
-        
-        this.exits = gameM.getCurLocation().getExits();
-        this.nbExits = exits.size();
+  /**
+   * Constructs a Go command with arguments and the current modelGame state.
+   * @param cmd   the command array (ex:{"go", "1"})
+   * @param gameM the current modelGame instance
+   */
+  public GoModel(String[] cmd, GameModel gameM) {
+    this.commands = cmd;
+    this.gameM = gameM;
+  }
+
+  /**
+   * Executes the "go" command.
+   * <p>
+   * Moves the Hero to another modelLocation based on the selected exit.
+   * The command checks if the chosen index is within bounds,
+   * and whether a monster is still alive in the current modelLocation.
+   * It also checks whether the chosen exit is a one-way path
+   * and simulates confirmation logic (currently always true)
+   * @return true if the Hero successfully moves to another modelLocation, false otherwise
+   */
+  public boolean execute(Point p) {
+    //check for monsters others than a Colossus before allowing exit
+    if (
+      gameM.getCurLocation().getMonster() == null ||
+      gameM
+        .getCurLocation()
+        .getMonster()
+        .getClass()
+        .getSimpleName()
+        .equals("ColossusModel")
+    ) {
+      ExitModel exit = this.gameM.getCurLocation().getLocMap().get(p).getExit();
+
+      if (exit != null) {
+        this.gameM.setCurLocation(exit.destination);
+        this.gameM.getCurLocation().displayLocation();
+        return true;
+      } else {
+        System.out.println(MessageEnModel.notAnExit());
+        return false;
+      }
+      // }
+    } else {
+      System.out.println(MessageEnModel.cantExit());
+      return false;
     }
+  }
 
-    /**
-     * Executes the "go" command.
-     * <p>
-     * Moves the Hero to another modelLocation based on the selected exit.
-     * The command checks if the chosen index is within bounds,
-     * and whether a monster is still alive in the current modelLocation.
-     * It also checks whether the chosen exit is a one-way path
-     * and simulates confirmation logic (currently always true)
-     * @return true if the Hero successfully moves to another modelLocation, false otherwise
-     * @throws RuntimeException if the argument index is out of bounds
-     */
-    public boolean execute() {
-        if (arg < 0 || arg >= nbExits){
-            throw new RuntimeException("argument out of range");
-        }
-
-        ArrayList<ExitModel> nextExits = this.exits.get(arg).destination.getExits();
-        //check for monsters before allowing exit
-        if (gameM.getCurLocation().getMonster() == null){
-            //removed "use one-way exit" confirmation
-            boolean isOneWay = true;
-            for(ExitModel e : nextExits) {
-                if(e.destination == gameM.getCurLocation()) {
-                    isOneWay = false;
-                    break;
-                }
-            }
-            if (isOneWay){
-                boolean yn = true;
-                if (yn){
-                    // Move to new modelLocation
-                    this.gameM.setCurLocation(exits.get(arg).destination);
-                    this.gameM.getCurLocation().displayLocation();
-                    return new LookModel(null, gameM).execute(true);
-                }
-                else {
-                    return false;
-                }
-            } 
-            else{
-                // Move to new modelLocation
-                this.gameM.setCurLocation(exits.get(arg).destination);
-                this.gameM.getCurLocation().displayLocation();
-                return new LookModel(null, gameM).execute(true);
-            }
-        }
-        else 
-        {
-            System.out.println("You have to kill all the monsters in the room before you can go to another room\n");
-            return false;
-        }
+  /**
+   * Displays help text showing available exits and their corresponding indices.
+   */
+  public void help() {
+    this.exits = gameM.getCurLocation().getExits();
+    this.nbExits = exits.size();
+    System.out.println("You can go to :");
+    for (int i = 0; i < nbExits; i++) {
+      System.out.println("    " + i + ": " + exits.get(i).destination);
     }
-
-    /**
-     * Displays help text showing available exits and their corresponding indices.
-     */
-    public void help(){
-        System.out.println("You can go to :");
-        for (int i = 0 ; i < nbExits ; i++) {
-            System.out.println("    " + i + ": " + exits.get(i).destination);
-        }
-    }
+  }
 }

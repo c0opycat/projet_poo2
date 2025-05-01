@@ -70,6 +70,10 @@ public class MessageEnModel {
     return "warning! ";
   }
 
+  public static String cantExit() {
+    return "You have to kill all the monsters in the room before you can go to another room";
+  }
+
   //Returns a message to tell that the number isn't associated with any modelItem
   public static String InvalidNumber(int i) {
     return "The number " + i + " isn't associated with any modelItem.";
@@ -98,6 +102,10 @@ public class MessageEnModel {
       c.toString() +
       "."
     );
+  }
+
+  public static String notAnExit() {
+    return "You can't get out other than through a door";
   }
 
   public static String handFull(ItemModel i) {

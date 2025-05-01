@@ -4,6 +4,7 @@ import controller.controllerLocation.LocationController;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
@@ -12,6 +13,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import view.Cell;
 import view.viewCharacter.HeroView;
+import view.viewCharacter.MonsterView;
 import view.viewContainer.ContainerView;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.CommandsView;
@@ -30,6 +32,7 @@ public class LocationView extends GridPane {
   private final LocationController locationController;
   private GameView gameView;
   private CommandsView commandsView;
+  private MonsterView monsterView;
   private Boolean isContainerOpen;
 
   public LocationView(LocationController locationController) {
@@ -37,6 +40,7 @@ public class LocationView extends GridPane {
     this.gameView = null;
     this.commandsView = null;
     this.isContainerOpen = false;
+    this.monsterView = null;
   }
 
   /**
@@ -57,6 +61,10 @@ public class LocationView extends GridPane {
    */
   public HeroView getHeroView() {
     return this.getGameView().getHeroView();
+  }
+
+  public MonsterView getMonsterView() {
+    return this.monsterView;
   }
 
   /**
@@ -116,12 +124,25 @@ public class LocationView extends GridPane {
   }
 
   /**
+   * Sets the MonsterView instance for this location view.
+   *
+   * @param monsterView the MonsterView instance to set
+   */
+  public void setMonsterView(MonsterView monsterView) {
+    this.monsterView = monsterView;
+  }
+
+  /**
    * setGameView is a method that sets the GameView object.
    * @param heroView the GamView object
    */
   public void setGameView(GameView gameView) {
     this.gameView = gameView;
     this.initHero(this.getGameView().getHeroView());
+
+    if (this.getLocationController().hasMonster()) {
+      this.getGameView().getCurrentLocationView().placeMonster();
+    }
   }
 
   /**
@@ -150,22 +171,6 @@ public class LocationView extends GridPane {
     }
   }
 
-  public void setCell(Cell cell, int x, int y) {
-    int width = this.getLocationController().getWidth();
-    int height = this.getLocationController().getHeight();
-    int index = x * width + y;
-
-    if (x < 0 || x >= width || y < 0 || y >= height) {
-      return;
-    }
-
-    if (index >= getChildren().size()) {
-      return;
-    }
-
-    this.getChildren().set(index, cell);
-  }
-
   /**
    * addElements is a method that adds the elements (exits and items) to the level.
    * It creates the cells and adds them to the GridPane.
@@ -186,8 +191,17 @@ public class LocationView extends GridPane {
 
     for (Point point : elements.keySet()) {
       Cell cell = this.getCell((int) point.getX(), (int) point.getY());
-      cell.setElement(elements.get(point).getElement());
-      cell.addImage();
+
+      String element = elements.get(point).getElement();
+      cell.setElement(element);
+
+      if (element.equals("Exit")) {
+        ExitView exitView = (ExitView) elements.get(point).getImageView();
+        System.out.println("location view " + exitView);
+        cell.addImage(exitView);
+      } else {
+        cell.addImage();
+      }
       int i = (int) (point.getX());
       int j = (int) (point.getY());
       if (
@@ -312,7 +326,7 @@ public class LocationView extends GridPane {
         !elem.equals("Chest") &&
         !elem.equals("Backpack")
       ) {
-        cellList.add(lang.equals("EN") ? "above" : "au dessus");
+        cellList.add(lang.equals("EN") ? "above" : "au-dessus");
       }
     }
     if (
@@ -350,33 +364,69 @@ public class LocationView extends GridPane {
    *
    * @param heroX the x-coordinate of the hero
    * @param heroY the y-coordinate of the hero
-   * @return a list of cells representing the exits
+   * @return a list of directions where exits are located
    */
-  public ArrayList<Cell> getExitsBesidesHero(int heroX, int heroY) {
-    ArrayList<Cell> cellList = new ArrayList<>();
+  public HashMap<String, String> getExitsBesidesHero(int heroX, int heroY) {
+    HashMap<String, String> cellList = new HashMap<>();
 
-    if (!getCell(heroX - 1, heroY).getChildren().isEmpty()) {
+    String lang = this.getGameView().getLang().getCurr_lang();
+
+    if (
+      getCell(heroX - 1, heroY) != null &&
+      !getCell(heroX - 1, heroY).getChildren().isEmpty()
+    ) {
       String elem = getCell(heroX - 1, heroY).getElement();
       if (elem.equals("Exit")) {
-        cellList.add(getCell(heroX - 1, heroY));
+        ExitView exitView =
+          ((ExitView) getCell(heroX - 1, heroY).getImageView());
+        cellList.put(
+          exitView.getDestinationName(),
+          lang.equals("EN") ? "left" : "gauche"
+        );
       }
     }
-    if (!getCell(heroX, heroY - 1).getChildren().isEmpty()) {
+    if (
+      getCell(heroX, heroY - 1) != null &&
+      !getCell(heroX, heroY - 1).getChildren().isEmpty()
+    ) {
       String elem = getCell(heroX, heroY - 1).getElement();
       if (elem.equals("Exit")) {
-        cellList.add(getCell(heroX, heroY - 1));
+        ExitView exitView =
+          ((ExitView) getCell(heroX, heroY - 1).getImageView());
+        cellList.put(
+          exitView.getDestinationName(),
+          lang.equals("EN") ? "above" : "au-dessus"
+        );
       }
     }
-    if (!getCell(heroX + 1, heroY).getChildren().isEmpty()) {
+    if (
+      getCell(heroX + 1, heroY) != null &&
+      !getCell(heroX + 1, heroY).getChildren().isEmpty()
+    ) {
       String elem = getCell(heroX + 1, heroY).getElement();
+
       if (elem.equals("Exit")) {
-        cellList.add(getCell(heroX + 1, heroY));
+        ExitView exitView =
+          ((ExitView) getCell(heroX + 1, heroY).getImageView());
+        cellList.put(
+          exitView.getDestinationName(),
+          lang.equals("EN") ? "right" : "droite"
+        );
       }
     }
-    if (!getCell(heroX, heroY + 1).getChildren().isEmpty()) {
+    if (
+      getCell(heroX, heroY + 1) != null &&
+      !getCell(heroX, heroY + 1).getChildren().isEmpty()
+    ) {
       String elem = getCell(heroX, heroY + 1).getElement();
+
       if (elem.equals("Exit")) {
-        cellList.add(getCell(heroX, heroY + 1));
+        ExitView exitView =
+          ((ExitView) getCell(heroX, heroY + 1).getImageView());
+        cellList.put(
+          exitView.getDestinationName(),
+          lang.equals("EN") ? "below" : "en dessous"
+        );
       }
     }
 
@@ -393,6 +443,7 @@ public class LocationView extends GridPane {
     int width = this.getLocationController().getWidth();
     int height = this.getLocationController().getHeight();
     Point def_coord = heroView.getDefaultCoord();
+    heroView.setActualCoord(def_coord);
 
     Cell cell = this.getCell((int) def_coord.getX(), (int) def_coord.getY());
     if (cell.getChildren().isEmpty()) {
@@ -429,6 +480,40 @@ public class LocationView extends GridPane {
     cell.removeElement();
   }
 
+  public Point placeMonster() {
+    MonsterView monsterView = new MonsterView(this);
+    this.setMonsterView(monsterView);
+    monsterView.getMonsterController().setGameView(this.getGameView());
+
+    Random random = new Random();
+
+    int x = (int) this.getColumnCount() / 2;
+    int y = (int) this.getRowCount() / 2;
+
+    Cell cell = this.getCell(x, y);
+
+    int i = 0;
+    int max = this.getColumnCount() * this.getRowCount();
+
+    while (i <= max && cell.getElement() != null) {
+      cell = this.getCell(x, y);
+
+      x = random.nextInt(this.getColumnCount());
+      y = random.nextInt(this.getRowCount());
+
+      i++;
+    }
+
+    if (cell != null) {
+      cell.setElement(monsterView.getType());
+      cell.addImage(monsterView);
+      monsterView.setCoord(new Point(x, y));
+      monsterView.getMonsterController().updateMonsterDescription();
+    }
+
+    return null;
+  }
+
   public void removeItem(Point point) {
     int x = (int) point.getX();
     int y = (int) point.getY();
@@ -446,7 +531,6 @@ public class LocationView extends GridPane {
   public void moveHero(String direction) {
     int heroCoordX = (int) this.getHeroView().getActualCoord().getX();
     int heroCoordY = (int) this.getHeroView().getActualCoord().getY();
-
     Cell newCell = null;
     Point newCoord = null;
 

@@ -3,11 +3,9 @@ package view.viewContainer;
 import controller.controllerItem.ContainerController;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import view.Lang;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewInteractCommand.TakeView;
 import view.viewGame.viewCommand.viewItemCommand.EquipView;
@@ -20,7 +18,6 @@ import view.viewGame.viewCommand.viewItemCommand.UseView;
 public class ContainerView extends VBox {
 
   private final ContainerController containerController;
-  private Lang lang;
   private int x;
   private int y;
   private final GameView gameView;
@@ -34,7 +31,6 @@ public class ContainerView extends VBox {
     super(20);
     this.containerController = new ContainerController(this, gameView);
     this.gameView = gameView;
-    this.lang = new Lang();
   }
 
   /**
@@ -94,18 +90,6 @@ public class ContainerView extends VBox {
 
   public void updateContainerView(boolean isBackpack) {
     this.getContainerController().updateContainerView(isBackpack);
-  }
-
-  /**
-   * Creates and returns a button for equipping items.
-   *
-   * @return a Button instance for equipping items
-   */
-  private Button add_Bequip() {
-    Button equip = new Button();
-    lang.setButtonLang(equip, "Equiper", "Equip");
-    equip.getStyleClass().add("button-Commande");
-    return equip;
   }
 
   /**

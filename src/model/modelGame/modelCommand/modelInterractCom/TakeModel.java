@@ -47,7 +47,6 @@ public class TakeModel extends CommandModel {
       if (
         (item instanceof ContainerModel) || (item instanceof ProtectionModel)
       ) {
-        System.out.println(item.toString());
         System.out.println(MessageEnModel.wrongItem("take"));
       } else {
         boolean taken = HeroModel.gBackpack().addItem(item);

@@ -83,7 +83,7 @@ public class MyAlert {
 
     Optional<ButtonType> choices = alert.showAndWait();
 
-    return choices.get().getText();
+    return choices.isPresent() ? choices.get().getText() : null;
   }
 
   /**

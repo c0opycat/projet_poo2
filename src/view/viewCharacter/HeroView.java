@@ -1,6 +1,6 @@
 package view.viewCharacter;
 
-import controller.controllerCharacter.controllerHeros.HeroController;
+import controller.controllerCharacter.HeroController;
 import java.awt.Point;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

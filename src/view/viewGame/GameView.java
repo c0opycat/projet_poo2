@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -162,14 +161,32 @@ public class GameView extends BorderWithButtons {
   }
 
   /**
+   * Gets the VBox containing the level name and layout.
+   *
+   * @return the VBox for the level name and layout
+   */
+  public VBox getLevelElementsBox() {
+    return (VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
+        .get(0)).getChildren()
+      .get(0);
+  }
+
+  /**
+   * Gets the Label containing the level name.
+   *
+   * @return the Label for the level name
+   */
+  public Label getLevelLabel() {
+    return (Label) getLevelElementsBox().getChildren().get(0);
+  }
+
+  /**
    * Gets the HBox containing the level layout.
    *
    * @return the HBox for the level layout
    */
   public HBox getLevelBox() {
-    return (HBox) ((HBox) ((VBox) this.getCenter()).getChildren()
-        .get(0)).getChildren()
-      .get(0);
+    return (HBox) getLevelElementsBox().getChildren().get(1);
   }
 
   /**
@@ -251,8 +268,21 @@ public class GameView extends BorderWithButtons {
    * @return the TextArea for hero information
    */
   public TextArea getHeroInfos() {
-    return (TextArea) ((HBox) ((VBox) this.getCenter()).getChildren()
-        .get(2)).getChildren()
+    return (TextArea) ((VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
+          .get(2)).getChildren()
+        .get(1)).getChildren()
+      .get(0);
+  }
+
+  /**
+   * Gets the TextArea for displaying monster information.
+   *
+   * @return the TextArea for monster information
+   */
+  public TextArea getMonsterInfos() {
+    return (TextArea) ((VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
+          .get(2)).getChildren()
+        .get(1)).getChildren()
       .get(1);
   }
 
@@ -308,7 +338,13 @@ public class GameView extends BorderWithButtons {
   private HBox initMainFrame() {
     HBox gridPanesBox = new HBox(20);
 
+    VBox levelElementsBox = new VBox();
+
+    Label levelLabel = new Label();
+    levelLabel.setAlignment(Pos.CENTER);
     HBox levelBox = new HBox();
+
+    levelElementsBox.getChildren().addAll(levelLabel, levelBox);
 
     VBox containerBox = new VBox(10);
 
@@ -317,7 +353,7 @@ public class GameView extends BorderWithButtons {
 
     containerBox.getChildren().addAll(containerLabel, containersContent);
 
-    gridPanesBox.getChildren().addAll(levelBox, containerBox);
+    gridPanesBox.getChildren().addAll(levelElementsBox, containerBox);
 
     gridPanesBox.setAlignment(Pos.CENTER);
     gridPanesBox.setPadding(new Insets(10));
@@ -362,18 +398,25 @@ public class GameView extends BorderWithButtons {
     gameInfos.setMinWidth(768);
     gameInfos.setWrapText(true);
 
+    VBox charactersInfos = new VBox(5);
+
     TextArea heroInfos = new TextArea();
+    heroInfos.setMaxHeight(125);
     heroInfos.setEditable(false);
     heroInfos.setWrapText(true);
 
-    textInfosBox.getChildren().addAll(gameInfos, heroInfos);
+    TextArea monsterInfos = new TextArea();
+    monsterInfos.setMaxHeight(125);
+    monsterInfos.setEditable(false);
+    monsterInfos.setWrapText(true);
+
+    charactersInfos.getChildren().addAll(heroInfos, monsterInfos);
+    charactersInfos.setAlignment(Pos.CENTER);
+
+    textInfosBox.getChildren().addAll(gameInfos, charactersInfos);
 
     textInfosBox.setAlignment(Pos.CENTER);
     textInfosBox.setPadding(new Insets(10));
-
-    textInfosBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-      e.consume();
-    });
 
     return textInfosBox;
   }
