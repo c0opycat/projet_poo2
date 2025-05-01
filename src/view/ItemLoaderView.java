@@ -33,29 +33,36 @@ public class ItemLoaderView {
             FileReader reader = new FileReader("./save/"+ name +".json");
             JSONObject itemsObject = new JSONObject(new JSONTokener(reader));
 
-            // Pour "types"
-            JSONArray typeArray = itemsObject.getJSONArray("Types");
-            type = new String[typeArray.length()];
-            ArrayList<String> typeList = new ArrayList<>();
-            for (int i = 0; i < typeArray.length(); i++) {
-                type[i] = typeArray.getString(i);
-                typeList.add(type[i]);
+            if (itemsObject.has("Types")){
+                // Pour "types"
+                JSONArray typeArray = itemsObject.getJSONArray("Types");
+                type = new String[typeArray.length()];
+                ArrayList<String> typeList = new ArrayList<>();
+                for (int i = 0; i < typeArray.length(); i++) {
+                    type[i] = typeArray.getString(i);
+                    typeList.add(type[i]);
+                }
+            }
+    
+            if (itemsObject.has("Decor")){
+                // Pour "Decors"
+                JSONArray dArray = itemsObject.getJSONArray("Decors");
+                ArrayList<String> dList = new ArrayList<>();
+                for (int i = 0; i < dArray.length(); i++) {
+                    dList.add(dArray.getString(i));
+                }
+                nomsItems.add(dList);
             }
 
-            // Pour "Decors"
-            JSONArray dArray = itemsObject.getJSONArray("Decors");
-            ArrayList<String> dList = new ArrayList<>();
-            for (int i = 0; i < dArray.length(); i++) {
-                dList.add(dArray.getString(i));
+            if (itemsObject.has("Portes")){
+                // Pour "Portes"
+                convertItemsWithAttribut(itemsObject, "image","Portes");
             }
-            nomsItems.add(dList);
-            
-            // Pour "Portes"
-            convertItemsWithAttribut(itemsObject, "image","Portes");
 
-            // Pour "Items"
-            convertItemsWithAttribut(itemsObject, "item", "Items");
-
+            if (itemsObject.has("Items")){
+                // Pour "Items"
+                convertItemsWithAttribut(itemsObject, "item", "Items");
+            }
         } catch (Exception e) {
             System.err.println("Erreur lors du chargement de" + name + ".json : " + e.getMessage());
         }
