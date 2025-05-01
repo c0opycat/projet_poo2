@@ -72,6 +72,24 @@ public class LocationController {
     }
   }
 
+  public void updateItems() {
+    HashMap<Point, StepModel> locMap = this.getLocationModel().getLocMap();
+
+    for (Point point : locMap.keySet()) {
+      int x = (int) point.getX();
+      int y = (int) point.getY();
+      StepModel step = locMap.get(point);
+
+      if (step.getItem() != null) {
+        if (this.getLocationView().getCell(x, y).getImageView() == null) {
+          String elemName = step.getItem().getClass().getSimpleName();
+          String elemNameSub = elemName.substring(0, elemName.length() - 5);
+          this.getLocationView().addItem(elemNameSub, point);
+        }
+      }
+    }
+  }
+
   public boolean hasMonster() {
     return this.getLocationModel().getMonster() != null;
   }

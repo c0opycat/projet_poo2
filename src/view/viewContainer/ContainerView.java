@@ -3,10 +3,12 @@ package view.viewContainer;
 import controller.controllerItem.ContainerController;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.viewGame.GameView;
+import view.viewGame.viewCommand.viewInteractCommand.DropView;
 import view.viewGame.viewCommand.viewInteractCommand.TakeView;
 import view.viewGame.viewCommand.viewItemCommand.EquipView;
 import view.viewGame.viewCommand.viewItemCommand.UseView;
@@ -28,7 +30,7 @@ public class ContainerView extends VBox {
    * @param gameView the GameView instance associated with this container view
    */
   public ContainerView(GameView gameView) {
-    super(20);
+    super(5);
     this.containerController = new ContainerController(this, gameView);
     this.gameView = gameView;
   }
@@ -46,7 +48,7 @@ public class ContainerView extends VBox {
     }
     int index = 0;
     for (String item : itemList) {
-      HBox li = new HBox(20);
+      HBox li = new HBox(10);
       Label label = new Label(item);
       label.setId("" + index);
       label.getStyleClass().add("modelItem-label");
@@ -55,31 +57,22 @@ public class ContainerView extends VBox {
 
       String itemName = item.split(" ")[0];
 
+      GameView gameView = this.getGameView();
+      Button equipButton = new EquipView(gameView).equipButton(
+        isHerosBackpack,
+        itemName,
+        index
+      );
+
       if (isHerosBackpack) {
-        li
-          .getChildren()
-          .addAll(
-            label,
-            new UseView(this.getGameView(), itemName, index),
-            new EquipView(this.getGameView()).equipButton(
-              isHerosBackpack,
-              itemName,
-              index
-            )
-          );
+        UseView useView = new UseView(gameView, itemName, index);
+        DropView dropView = new DropView(gameView, index);
+
+        li.getChildren().addAll(label, useView, equipButton, dropView);
       } else {
-        TakeView takeView = new TakeView(this.getGameView());
-        li
-          .getChildren()
-          .addAll(
-            label,
-            new EquipView(this.getGameView()).equipButton(
-              isHerosBackpack,
-              itemName,
-              index
-            ),
-            takeView.takeViewButton(itemName, index)
-          );
+        Button takeButton = new TakeView(gameView).takeViewButton(index);
+
+        li.getChildren().addAll(label, equipButton, takeButton);
       }
 
       this.getChildren().add(li);

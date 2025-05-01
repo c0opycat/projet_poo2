@@ -54,17 +54,16 @@ public class GameView extends BorderWithButtons {
     this.heroView = new HeroView(this.getGameController().getHeroController());
     this.heroView.getHeroController().setGameView(this);
 
-    if (lang.getCurr_lang().equals("EN")) {
-      this.addTitle("Game");
-    } else {
-      this.addTitle("Jeu");
-    }
-
     this.getGameController().start();
 
     this.commandsView = null;
 
     this.heroView.getHeroController().updateDescription();
+  }
+
+  public void endGame() {
+    // ecouteur d'evenements sur le boolean isEnd
+
   }
 
   /**
@@ -165,10 +164,8 @@ public class GameView extends BorderWithButtons {
    *
    * @return the VBox for the level name and layout
    */
-  public VBox getLevelElementsBox() {
-    return (VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
-        .get(0)).getChildren()
-      .get(0);
+  public VBox getMainFrameBox() {
+    return (VBox) (((VBox) this.getCenter()).getChildren().get(0));
   }
 
   /**
@@ -177,7 +174,7 @@ public class GameView extends BorderWithButtons {
    * @return the Label for the level name
    */
   public Label getLevelLabel() {
-    return (Label) getLevelElementsBox().getChildren().get(0);
+    return (Label) getMainFrameBox().getChildren().get(0);
   }
 
   /**
@@ -186,7 +183,8 @@ public class GameView extends BorderWithButtons {
    * @return the HBox for the level layout
    */
   public HBox getLevelBox() {
-    return (HBox) getLevelElementsBox().getChildren().get(1);
+    return (HBox) ((HBox) getMainFrameBox().getChildren().get(1)).getChildren()
+      .get(0);
   }
 
   /**
@@ -195,8 +193,7 @@ public class GameView extends BorderWithButtons {
    * @return the VBox for the container layout
    */
   public VBox getContainerBox() {
-    return (VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
-        .get(0)).getChildren()
+    return (VBox) ((HBox) getMainFrameBox().getChildren().get(1)).getChildren()
       .get(1);
   }
 
@@ -270,7 +267,7 @@ public class GameView extends BorderWithButtons {
   public TextArea getHeroInfos() {
     return (TextArea) ((VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
           .get(2)).getChildren()
-        .get(1)).getChildren()
+        .get(2)).getChildren()
       .get(0);
   }
 
@@ -282,7 +279,7 @@ public class GameView extends BorderWithButtons {
   public TextArea getMonsterInfos() {
     return (TextArea) ((VBox) ((HBox) ((VBox) this.getCenter()).getChildren()
           .get(2)).getChildren()
-        .get(1)).getChildren()
+        .get(2)).getChildren()
       .get(1);
   }
 
@@ -315,7 +312,7 @@ public class GameView extends BorderWithButtons {
     contentBox
       .getChildren()
       .addAll(initMainFrame(), initGameButtons(), initTextInfos());
-    contentBox.setAlignment(Pos.CENTER);
+    contentBox.setAlignment(Pos.TOP_CENTER);
 
     this.setContent(contentBox);
   }
@@ -333,18 +330,17 @@ public class GameView extends BorderWithButtons {
   /**
    * Initializes the main frame layout, including the level and container sections.
    *
-   * @return the initialized HBox for the main frame
+   * @return the initialized VBox for the main frame
    */
-  private HBox initMainFrame() {
-    HBox gridPanesBox = new HBox(20);
-
-    VBox levelElementsBox = new VBox();
+  private VBox initMainFrame() {
+    VBox mainFrameBox = new VBox(10);
 
     Label levelLabel = new Label();
-    levelLabel.setAlignment(Pos.CENTER);
-    HBox levelBox = new HBox();
+    levelLabel.getStyleClass().add("level-label");
 
-    levelElementsBox.getChildren().addAll(levelLabel, levelBox);
+    HBox gridPanesBox = new HBox(20);
+
+    HBox levelBox = new HBox();
 
     VBox containerBox = new VBox(10);
 
@@ -353,12 +349,15 @@ public class GameView extends BorderWithButtons {
 
     containerBox.getChildren().addAll(containerLabel, containersContent);
 
-    gridPanesBox.getChildren().addAll(levelElementsBox, containerBox);
-
+    gridPanesBox.getChildren().addAll(levelBox, containerBox);
     gridPanesBox.setAlignment(Pos.CENTER);
     gridPanesBox.setPadding(new Insets(10));
 
-    return gridPanesBox;
+    mainFrameBox.getChildren().addAll(levelLabel, gridPanesBox);
+    mainFrameBox.setAlignment(Pos.TOP_CENTER);
+    mainFrameBox.setPadding(new Insets(0, 0, 20, 0));
+
+    return mainFrameBox;
   }
 
   /**
@@ -370,13 +369,11 @@ public class GameView extends BorderWithButtons {
     HBox gameButtonsBox = new HBox(20);
 
     HelpView helpButton = new HelpView(this);
-    Button undoButton = new Button();
-    lang.setButtonLang(undoButton, "Retour", "Undo");
     Button pause = new Button("Pause");
 
     Region spring = new Region();
 
-    gameButtonsBox.getChildren().addAll(helpButton, undoButton, spring, pause);
+    gameButtonsBox.getChildren().addAll(helpButton, spring, pause);
 
     HBox.setHgrow(spring, Priority.ALWAYS);
     gameButtonsBox.setAlignment(Pos.CENTER);
@@ -405,17 +402,18 @@ public class GameView extends BorderWithButtons {
     heroInfos.setEditable(false);
     heroInfos.setWrapText(true);
 
+    Region spring = new Region();
+
     TextArea monsterInfos = new TextArea();
     monsterInfos.setMaxHeight(125);
     monsterInfos.setEditable(false);
     monsterInfos.setWrapText(true);
 
     charactersInfos.getChildren().addAll(heroInfos, monsterInfos);
-    charactersInfos.setAlignment(Pos.CENTER);
 
-    textInfosBox.getChildren().addAll(gameInfos, charactersInfos);
-
-    textInfosBox.setAlignment(Pos.CENTER);
+    textInfosBox.getChildren().addAll(gameInfos, spring, charactersInfos);
+    HBox.setHgrow(spring, Priority.ALWAYS);
+    textInfosBox.setAlignment(Pos.BOTTOM_CENTER);
     textInfosBox.setPadding(new Insets(10));
 
     return textInfosBox;

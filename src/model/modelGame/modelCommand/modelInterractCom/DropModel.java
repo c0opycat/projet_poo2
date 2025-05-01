@@ -50,7 +50,6 @@ public class DropModel extends CommandModel {
    */
   public boolean execute() {
     BackpackModel bp = HeroModel.gBackpack();
-    //If no modelItem index -> print the backpack contents
     if (commands.length == 1) {
       System.out.println(bp);
     } else {

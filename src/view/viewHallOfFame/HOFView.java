@@ -1,7 +1,6 @@
 package view.viewHallOfFame;
 
 import java.util.ArrayList;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,34 +9,31 @@ import view.BorderWithButtons;
 import view.ButtonMenu;
 import view.ButtonQuit;
 
-public class HOFView extends BorderWithButtons{
+public class HOFView extends BorderWithButtons {
 
-    public HOFView()
-    {
-        super();
-        
-        this.addTitle("Hall of Fame");
+  public HOFView() {
+    super();
+    this.addTitle("Hall of Fame", false);
 
-        //Adding the scores in the center of the pane.
-        ScoresView scores = new ScoresView();
-        this.setCenter(scores);
-        
-        scores.setAlignment(Pos.CENTER);
+    //Adding the scores in the center of the pane.
+    ScoresView scores = new ScoresView();
+    this.setCenter(scores);
 
-        BorderPane.setMargin(scores, new Insets(2));
-    }
+    scores.setAlignment(Pos.CENTER);
 
-    //Set the bottom of the pane with buttons
-    public void setButtons()
-    {
-        ArrayList<Button> buttons = new ArrayList<>();
+    BorderPane.setMargin(scores, new Insets(2));
+  }
 
-        ButtonMenu menu = new ButtonMenu(this.getMainScene());
-        ButtonQuit quit = new ButtonQuit();
+  //Set the bottom of the pane with buttons
+  public void setButtons() {
+    ArrayList<Button> buttons = new ArrayList<>();
 
-        buttons.add(menu);
-        buttons.add(quit);
+    ButtonMenu menu = new ButtonMenu(this.getMainScene());
+    ButtonQuit quit = new ButtonQuit();
 
-        this.addButtons(buttons);
-    }
+    buttons.add(menu);
+    buttons.add(quit);
+
+    this.addButtons(buttons);
+  }
 }

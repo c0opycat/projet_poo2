@@ -29,7 +29,7 @@ public class Menu extends BorderWithButtons {
     super();
     this.lang = new Lang();
 
-    this.addTitle("Menu");
+    this.addTitle("Menu", false);
     this.setButtons();
     this.addcomp();
   }

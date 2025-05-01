@@ -89,13 +89,13 @@ public class BorderWithButtons extends BorderPane {
    *
    * @param title the title text to be displayed.
    */
-  public void addTitle(String title) {
+  public void addTitle(String title, boolean isGame) {
     Label titleLabel = new Label(title);
 
     titleLabel.getStyleClass().add("title");
 
     BorderPane.setAlignment(titleLabel, Pos.CENTER);
-    BorderPane.setMargin(titleLabel, new Insets(75, 0, 0, 0));
+    BorderPane.setMargin(titleLabel, new Insets(isGame ? 10 : 75, 0, 0, 0));
 
     this.setTop(titleLabel);
   }

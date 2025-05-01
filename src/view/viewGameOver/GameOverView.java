@@ -19,9 +19,9 @@ public class GameOverView extends BorderWithButtons {
   public GameOverView(GameView gameView) {
     super();
     if (lang.getCurr_lang().equals("EN")) {
-      this.addTitle("Game Over");
+      this.addTitle("Game Over", false);
     } else {
-      this.addTitle("Jeu terminé");
+      this.addTitle("Fin de partie", false);
     }
 
     EndGameInfos infos = new EndGameInfos(gameView);

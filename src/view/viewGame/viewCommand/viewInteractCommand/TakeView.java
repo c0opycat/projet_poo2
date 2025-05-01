@@ -58,11 +58,10 @@ public class TakeView {
   /**
    * Creates a take button for taking items.
    *
-   * @param elem the element to take.
    * @param ind the index of the item to take.
    * @return the created Button instance.
    */
-  public Button takeViewButton(String elem, int ind) {
+  public Button takeViewButton(int ind) {
     Button takeButton = new Button();
     this.getLang().setButtonLang(takeButton, "Prendre", "Take");
     takeButton.getStyleClass().add("button-Commande");

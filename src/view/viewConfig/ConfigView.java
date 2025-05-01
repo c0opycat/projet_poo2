@@ -23,7 +23,7 @@ public class ConfigView extends BorderWithButtons {
   }
 
   private void addComp() {
-    this.addTitle("Configuration");
+    this.addTitle("Configuration", false);
 
     // Créer un VBox pour contenir les composants
     HBox Hb = new HBox(60);

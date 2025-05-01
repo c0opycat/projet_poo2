@@ -162,11 +162,11 @@ public class LocationView extends GridPane {
    */
   private void setGridConstraints(int width, int height) {
     for (int i = 0; i < width; i++) {
-      ColumnConstraints colConst = new ColumnConstraints(25); // largeur fixe
+      ColumnConstraints colConst = new ColumnConstraints(width > 10 ? 25 : 30); // largeur fixe
       this.getColumnConstraints().add(colConst);
     }
     for (int i = 0; i < height; i++) {
-      RowConstraints rowConst = new RowConstraints(25); // hauteur fixe
+      RowConstraints rowConst = new RowConstraints(height > 10 ? 25 : 30); // hauteur fixe
       this.getRowConstraints().add(rowConst);
     }
   }
@@ -183,8 +183,8 @@ public class LocationView extends GridPane {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         Cell cell = new Cell();
-        cell.setMinWidth(25);
-        cell.setMinHeight(25);
+        cell.setMinWidth(width > 10 ? 25 : 30);
+        cell.setMinHeight(height > 10 ? 25 : 30);
         this.add(cell, i, j);
       }
     }
@@ -513,6 +513,16 @@ public class LocationView extends GridPane {
     return null;
   }
 
+  public void addItem(String elem, Point point) {
+    int x = (int) point.getX();
+    int y = (int) point.getY();
+
+    Cell cell = getCell(x, y);
+
+    cell.setElement(elem);
+    cell.addImage();
+  }
+
   public void removeItem(Point point) {
     int x = (int) point.getX();
     int y = (int) point.getY();
@@ -520,6 +530,10 @@ public class LocationView extends GridPane {
     Cell cell = getCell(x, y);
     cell.getChildren().remove(cell.getChildren().size() - 1);
     cell.removeElement();
+  }
+
+  public void updateItems() {
+    this.getLocationController().updateItems();
   }
 
   /**
