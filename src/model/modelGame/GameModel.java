@@ -1,20 +1,22 @@
 package model.modelGame;
 
 import java.io.FileReader;
+
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelCharacter.modelHeros.JobModel;
 import model.modelCharacter.modelMonster.MonsterModel;
+import model.modelGame.modelScore.ScoreModel;
+import model.modelGame.modelScore.ScoreSaveModel;
 import model.modelLocation.*;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class GameModel {
-
   public int timePaused;
-  private long startTime;
+  private final long startTime;
   private int[] killedMonster;
   public boolean isRunning;
-  public int Score;
+  public ScoreModel score;
   private final HeroModel HEROM;
   public GameMapModel map;
   private LocationModel currentLocation;
@@ -25,13 +27,13 @@ public class GameModel {
     this.isRunning = true;
     this.timePaused = 0;
     this.startTime = System.currentTimeMillis();
-    this.Score = 0;
     this.HEROM = new HeroModel();
     this.killedMonster = new int[3];
     this.map = new GameMapModel();
     this.currentLocation = map.getStartLoc();
     this.isEnd = false;
     this.isWon = false;
+    this.score = new ScoreModel(HEROM.getName(),0);
   }
 
   public GameModel(String name, String jobChoice) {
@@ -89,22 +91,15 @@ public class GameModel {
     }
   }
 
-  private int timeBonus() {
-    int timeBonus =
-      this.timeBonus() -
-      (int) (System.currentTimeMillis() - startTime) / 100 +
-      (int) this.timePaused;
-    if (timeBonus > 0) {
+  private int timeBonus(){
+    int timeBonus = 1000-(int)(System.currentTimeMillis()-startTime)/100 + this.timePaused;
+    if (timeBonus > 0){
       return timeBonus;
     } else return 0;
   }
 
   public void updateScore() {
-    this.Score =
-      this.timeBonus() +
-      this.killedMonster[0] * 10 +
-      this.killedMonster[1] * 20 +
-      this.killedMonster[2] * 50;
+    this.score.setScore(this.timeBonus() + this.killedMonster[0]*10 + this.killedMonster[1]*20 + this.killedMonster[2]*50);
   }
 
   //Returns the current Location
@@ -137,6 +132,8 @@ public class GameModel {
   //Displays the end of modelGame
   public void displayEnd() {
     if (this.isWon()) {
+      ScoreSaveModel saveScore = new ScoreSaveModel();
+      saveScore.addScore(this.score.getName(),this.score.getScore());
       System.out.println(MessageEnModel.gameWon());
     } else {
       System.out.println(MessageEnModel.gameLost());
