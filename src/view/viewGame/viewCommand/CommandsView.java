@@ -1,5 +1,6 @@
 package view.viewGame.viewCommand;
 
+import controller.controllerGame.controllerCommand.controllerInterractCommand.AttackController;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import view.Lang;
 import view.MainScene;
 import view.MyAlert;
 import view.viewCharacter.HeroView;
+import view.viewCharacter.MonsterView;
 import view.viewContainer.ContainerView;
 import view.viewGame.GameView;
 import view.viewGame.viewCommand.viewInteractCommand.TakeView;
@@ -36,7 +38,9 @@ public class CommandsView {
   private final KeyCode keybindTake;
   private final KeyCode keybindEquip;
   private final KeyCode keybindGo;
+  private final KeyCode keybindAttack;
   private LocationView locationView;
+  private AttackController attackController;
   private GameView gameView;
   private final EventHandler<KeyEvent> actionsHandler;
   private boolean isBackpackOpen;
@@ -63,10 +67,12 @@ public class CommandsView {
     this.keybindTake = keybinds.getSpecKeyCode("take");
     this.keybindEquip = keybinds.getSpecKeyCode("equip");
     this.keybindGo = keybinds.getSpecKeyCode("go");
+    this.keybindAttack = keybinds.getSpecKeyCode("attack");
     this.isBackpackOpen = false;
 
     this.locationView = locationView;
     this.gameView = gameView;
+    this.attackController = new AttackController(this.getGameView());
 
     this.getLocationView().setCommandsView(this);
 
@@ -82,13 +88,13 @@ public class CommandsView {
       KeyCode kc = e.getCode();
 
       if (kc == this.getKeybindLeft()) {
-        locationView.moveHero("East");
+        this.getLocationView().moveHero("East");
       } else if (kc == this.getKeybindRight()) {
-        locationView.moveHero("West");
+        this.getLocationView().moveHero("West");
       } else if (kc == this.getKeybindForward()) {
-        locationView.moveHero("North");
+        this.getLocationView().moveHero("North");
       } else if (kc == this.getKeybindBackward()) {
-        locationView.moveHero("South");
+        this.getLocationView().moveHero("South");
       } else if (kc == this.getKeybindBackpack()) {
         this.toggleViewBackack(containerLabel, containerView);
       } else if (kc == this.getKeybindTake()) {
@@ -97,6 +103,8 @@ public class CommandsView {
         this.equipAction();
       } else if (kc == this.getKeybindGo()) {
         this.goAction();
+      } else if (kc == this.getKeybindAttack()) {
+        this.attackAction();
       } else {
         return;
       }
@@ -123,6 +131,10 @@ public class CommandsView {
 
   public GameView getGameView() {
     return this.gameView;
+  }
+
+  public AttackController getAttackController() {
+    return this.attackController;
   }
 
   public String getLang() {
@@ -161,20 +173,40 @@ public class CommandsView {
     return this.keybindBackward;
   }
 
+  /**
+   * getKeybindtakes is a method that returns the keybind for the take action.
+   * @return KeyCode object
+   */
   public KeyCode getKeybindTake() {
     return this.keybindTake;
   }
 
+  /**
+   * getKeybindEquip is a method that returns the keybind for the equip action.
+   * @return KeyCode object
+   */
   public KeyCode getKeybindEquip() {
     return this.keybindEquip;
   }
 
+  /**
+   * getKeybindGo is a method that returns the keybind for the go action.
+   * @return KeyCode object
+   */
   public KeyCode getKeybindGo() {
     return this.keybindGo;
   }
 
   /**
-   * getKeybindBackpack is a method that returns the keybind for backward movement.
+   * getKeybindAttack is a method that returns the keybind for the attack action.
+   * @return KeyCode object
+   */
+  public KeyCode getKeybindAttack() {
+    return this.keybindAttack;
+  }
+
+  /**
+   * getKeybindBackpack is a method that returns the keybind to open the hero's backpack.
    * @return KeyCode object
    */
   public KeyCode getKeybindBackpack() {
@@ -298,6 +330,13 @@ public class CommandsView {
         takeView.getTakeController().setTakeModel();
         if (takeView.getTakeController().execute(toTake)) {
           getLocationView().removeItem(toTake);
+
+          if (
+            this.getLocationView().getMonsterView() != null &&
+            this.getLocationView().getMonsterView().isInAttackRange()
+          ) {
+            this.getLocationView().getMonsterView().attack();
+          }
         }
       }
     } else {
@@ -359,6 +398,14 @@ public class CommandsView {
             .getHeroView()
             .getHeroController()
             .updateDescription();
+          this.getLocationView().updateItems();
+
+          if (
+            this.getLocationView().getMonsterView() != null &&
+            this.getLocationView().getMonsterView().isInAttackRange()
+          ) {
+            this.getLocationView().getMonsterView().attack();
+          }
         }
       }
     } else {
@@ -434,6 +481,33 @@ public class CommandsView {
         : "Il n'y a aucune sortie à prendre à côté de vous.";
       MyAlert errorAlert = new MyAlert(title, null, content);
       errorAlert.showInformation();
+    }
+  }
+
+  public void attackAction() {
+    HeroView heroView = this.getGameView().getHeroView();
+
+    MonsterView monsterView =
+      this.getGameView().getCurrentLocationView().getMonsterView();
+
+    if (monsterView != null) {
+      if (heroView.isInAttackRange(monsterView)) {
+        if (this.getAttackController().execute()) {
+          if (monsterView.getMonsterController().isKo()) {
+            this.getGameView().getMonsterInfos().clear();
+            this.getLocationView().removeMonster();
+          } else {
+            monsterView.getMonsterController().updateMonsterDescription();
+          }
+
+          if (
+            this.getLocationView().getMonsterView() != null &&
+            this.getLocationView().getMonsterView().isInAttackRange()
+          ) {
+            this.getLocationView().getMonsterView().attack();
+          }
+        }
+      }
     }
   }
 }

@@ -72,6 +72,39 @@ public class GameController {
   }
 
   /**
+   * Ends the game by resetting the standard output and removing command handlers.
+   */
+  public void end() {
+    System.setOut(System.out);
+
+    this.getGameView()
+      .getCommandsView()
+      .removeHandlers(this.getGameView().getMainScene());
+
+    this.getGameModel().displayEnd();
+  }
+
+  public boolean isEnd() {
+    return this.getGameModel().isEnd();
+  }
+
+  public boolean isWon() {
+    return this.getGameModel().isWon();
+  }
+
+  public String getGameWonMessage() {
+    return this.getGameModel().getGameWonMessage();
+  }
+
+  public String getGameLostMessage() {
+    return this.getGameModel().getGameLostMessage();
+  }
+
+  public int getScore() {
+    return this.getGameModel().score.getScore();
+  }
+
+  /**
    * Updates the current location in the game.
    * Loads the location and updates the corresponding view.
    */
@@ -100,17 +133,6 @@ public class GameController {
     this.getGameView().getLevelBox().getChildren().add(newLocation);
 
     this.getGameView().addHandlers(this.getGameView().getMainScene());
-  }
-
-  /**
-   * Ends the game by resetting the standard output and removing command handlers.
-   */
-  public void end() {
-    System.setOut(System.out);
-
-    this.getGameView()
-      .getCommandsView()
-      .removeHandlers(this.getGameView().getMainScene());
   }
 
   /**

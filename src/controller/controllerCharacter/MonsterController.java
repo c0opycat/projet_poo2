@@ -1,6 +1,7 @@
 package controller.controllerCharacter;
 
 import model.modelCharacter.modelMonster.MonsterModel;
+import view.viewCharacter.HeroView;
 import view.viewCharacter.MonsterView;
 import view.viewGame.GameView;
 import view.viewLocation.LocationView;
@@ -9,15 +10,19 @@ public class MonsterController {
 
   private final MonsterView monsterView;
   private final MonsterModel monsterModel;
-  private GameView gameView;
+  private final GameView gameView;
 
-  public MonsterController(MonsterView monsterView, LocationView locationView) {
+  public MonsterController(
+    GameView gameView,
+    MonsterView monsterView,
+    LocationView locationView
+  ) {
     this.monsterView = monsterView;
     this.monsterModel = locationView
       .getLocationController()
       .getLocationModel()
       .getMonster();
-    this.gameView = null;
+    this.gameView = gameView;
   }
 
   public MonsterView getMonsterView() {
@@ -32,12 +37,12 @@ public class MonsterController {
     return this.gameView;
   }
 
-  public void setGameView(GameView gameView) {
-    this.gameView = gameView;
-  }
-
   public boolean hasMonsterModel() {
     return this.monsterView != null;
+  }
+
+  public boolean isKo() {
+    return this.getMonsterModel().isKO();
   }
 
   public String getType() {
@@ -82,6 +87,15 @@ public class MonsterController {
     if (this.getGameView() != null) {
       this.getGameView().getMonsterInfos().clear();
       this.getGameView().getMonsterInfos().setText(getDescription());
+    }
+  }
+
+  public void attack() {
+    HeroView heroView = this.getGameView().getHeroView();
+    this.getMonsterModel().attack(heroView.getHeroController().getHeroModel());
+
+    if (this.getGameView().getGameController().isEnd()) {
+      this.getGameView().endGame();
     }
   }
 }

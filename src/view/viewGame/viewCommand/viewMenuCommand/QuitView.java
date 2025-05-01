@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import view.Lang;
 import view.viewGame.GameView;
-import view.viewGameOver.GameOverView;
 
 /**
  * View class for the "Quit" button.
@@ -55,10 +54,7 @@ public class QuitView extends Button {
         if (choice.get() == bt1) {
           //ExitModel the application if the user choose OK.
           this.getQuitController().forfeit();
-          gameView.getGameController().end();
-          GameOverView goView = new GameOverView(gameView);
-          gameView.getMainScene().setContent(goView);
-          goView.setButtons();
+          gameView.endGame();
         } else {
           //Close the dialog otherwise.
           quitAlert.close();

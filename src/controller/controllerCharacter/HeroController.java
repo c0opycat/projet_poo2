@@ -113,6 +113,10 @@ public class HeroController {
     return this.getHeroModel().getJob().name();
   }
 
+  public boolean isKO() {
+    return this.getHeroModel().isKO();
+  }
+
   /**
    * Gets the content of the hero's backpack.
    *

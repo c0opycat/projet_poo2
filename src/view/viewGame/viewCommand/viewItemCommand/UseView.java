@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import view.Lang;
 import view.MyAlert;
 import view.viewCharacter.HeroView;
+import view.viewCharacter.MonsterView;
 import view.viewGame.GameView;
 import view.viewLocation.LocationView;
 
@@ -96,6 +97,13 @@ public class UseView extends Button {
             this.getUseController().setUseModel(String.valueOf(ind));
             if (this.getUseController().execute(toOpen)) {
               gameView.getContainerView().updateContainerView(true);
+
+              MonsterView monsterView = gameView
+                .getCurrentLocationView()
+                .getMonsterView();
+              if (monsterView != null && monsterView.isInAttackRange()) {
+                monsterView.attack();
+              }
             }
           } else {
             String title = curLang.equals("EN") ? "Error" : "Erreur";

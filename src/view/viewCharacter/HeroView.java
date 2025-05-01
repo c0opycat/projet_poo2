@@ -69,4 +69,18 @@ public class HeroView extends ImageView {
   public String getName() {
     return this.getHeroController().getName();
   }
+
+  public boolean isInAttackRange(MonsterView monsterView) {
+    int heroX = (int) this.getActualCoord().getX();
+    int heroY = (int) this.getActualCoord().getY();
+    int monsterX = (int) monsterView.getCoord().getX();
+    int monsterY = (int) monsterView.getCoord().getY();
+
+    return (
+      heroX >= monsterX - 2 &&
+      heroX <= monsterX + 2 &&
+      heroY >= monsterY - 2 &&
+      heroY <= monsterY + 2
+    );
+  }
 }

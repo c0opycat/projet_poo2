@@ -1,7 +1,6 @@
 package model.modelGame;
 
 import java.io.FileReader;
-
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelCharacter.modelHeros.JobModel;
 import model.modelCharacter.modelMonster.MonsterModel;
@@ -12,8 +11,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class GameModel {
+
   public int timePaused;
-  private final long startTime;
+  private long startTime;
   private int[] killedMonster;
   public boolean isRunning;
   public ScoreModel score;
@@ -26,26 +26,25 @@ public class GameModel {
   public GameModel() {
     this.isRunning = true;
     this.timePaused = 0;
-    this.startTime = System.currentTimeMillis();
     this.HEROM = new HeroModel();
     this.killedMonster = new int[3];
     this.map = new GameMapModel();
     this.currentLocation = map.getStartLoc();
     this.isEnd = false;
     this.isWon = false;
-    this.score = new ScoreModel(HEROM.getName(),0);
+    this.score = new ScoreModel(HEROM.getName(), 0);
   }
 
   public GameModel(String name, String jobChoice) {
     this.isRunning = true;
     this.timePaused = 0;
-    this.startTime = System.currentTimeMillis();
     this.HEROM = new HeroModel(name, JobModel.valueOf(jobChoice));
     this.killedMonster = new int[3];
     this.map = new GameMapModel();
     this.currentLocation = map.getStartLoc();
     this.isEnd = false;
     this.isWon = false;
+    this.score = new ScoreModel(HEROM.getName(), 0);
   }
 
   public static String loadLanguage() {
@@ -71,6 +70,7 @@ public class GameModel {
 
   //Displays the start of modelGame
   public void start() {
+    this.startTime = System.currentTimeMillis();
     System.out.println(
       MessageEnModel.startGame(map.getStartLoc(), map.getEndLoc())
     );
@@ -78,34 +78,37 @@ public class GameModel {
   }
 
   public void addKilledMonster(MonsterModel monster) {
-    switch (monster.toString()) {
-      case "dried":
+    String name = monster.getClass().getSimpleName();
+    switch (name.substring(0, name.length() - 5)) {
+      case "Dried":
         this.killedMonster[0]++;
         break;
-      case "angry":
+      case "Angry":
         this.killedMonster[1]++;
         break;
-      case "colossus":
+      case "Colossus":
         this.killedMonster[2]++;
         break;
     }
   }
 
-  private int timeBonus(){
-    int timeBonus = 1000 -
-            (int)(System.currentTimeMillis()-startTime)/100 +
-            this.timePaused;
-    if (timeBonus > 0){
+  private int timeBonus() {
+    int timeBonus =
+      1000 -
+      (int) (System.currentTimeMillis() - startTime) / 100 +
+      this.timePaused;
+    if (timeBonus > 0) {
       return timeBonus;
     } else return 0;
   }
 
   public void updateScore() {
-    this.score.setScore(this.timeBonus() +
-                    this.killedMonster[0]*10 +
-                    this.killedMonster[1]*20 +
-                    this.killedMonster[2]*50
-    );
+    this.score.setScore(
+        this.timeBonus() +
+        this.killedMonster[0] * 10 +
+        this.killedMonster[1] * 20 +
+        this.killedMonster[2] * 50
+      );
   }
 
   //Returns the current Location
@@ -126,7 +129,8 @@ public class GameModel {
   //Checks is the modelGame is ended and returns if it is
   public boolean isEnd() {
     if (this.getHero().isKO()) {
-      return true;
+      this.isWon = false;
+      this.isEnd = true;
     } else if (this.getCurLocation() == map.getEndLoc()) {
       this.isWon = true;
       this.isEnd = true;
@@ -137,16 +141,22 @@ public class GameModel {
 
   //Displays the end of modelGame
   public void displayEnd() {
+    updateScore();
+    ScoreSaveModel saveScore = new ScoreSaveModel();
+    saveScore.addScore(this.score.getName(), this.score.getScore());
+
     if (this.isWon()) {
-      updateScore();
-      ScoreSaveModel saveScore = new ScoreSaveModel();
-      saveScore.addScore(this.score.getName(),this.score.getScore());
       System.out.println(MessageEnModel.gameWon());
     } else {
-      updateScore();
-      ScoreSaveModel saveScore = new ScoreSaveModel();
-      saveScore.addScore(this.score.getName(),this.score.getScore());
       System.out.println(MessageEnModel.gameLost());
     }
+  }
+
+  public String getGameWonMessage() {
+    return MessageEnModel.gameWon();
+  }
+
+  public String getGameLostMessage() {
+    return MessageEnModel.gameLost();
   }
 }
