@@ -1,5 +1,6 @@
 package model.modelGame;
 
+import java.util.Objects;
 import java.util.Random;
 import model.modelCharacter.CharacterModel;
 import model.modelCharacter.modelHeros.HeroModel;
@@ -9,12 +10,12 @@ import model.modelItem.ItemModel;
 import model.modelItem.modelConsumable.ConsumableModel;
 import model.modelLocation.LocationModel;
 
-public class MessageEnModel {
+public class MessageEnModel{
 
   //Returns the start of modelGame message
   public static String startGame(LocationModel start, LocationModel end) {
     String lang = GameModel.loadLanguage();
-    if (lang == "EN") {
+    if (Objects.equals(lang, "EN")) {
       return (
         "You're waking up in a devastated land. Another monday.\n" +
         "Today is not gonna be easy as you need to escape the city that have been infested.\n" +
@@ -25,11 +26,11 @@ public class MessageEnModel {
       );
     } else {
       return (
-        "Vous vous réveillez dans une terre dévastée. Un autre lundi.\n" +
-        "Aujourd'hui ne va pas être facile car vous devez échapper à la ville qui a été infestée.\n" +
-        "Vous êtes en fait à " +
+        "Vous vous reveillez dans une terre devastee. Un autre lundi.\n" +
+        "Aujourd'hui ne va pas être facile car vous devez echapper a la ville qui a ete infestee.\n" +
+        "Vous etes en fait a " +
         start +
-        "et vous devez aller à " +
+        "et vous devez aller a " +
         end
       );
     }
@@ -37,37 +38,74 @@ public class MessageEnModel {
 
   //Returns the loss message
   public static String gameLost() {
-    return (
-      "Sadly you died trying to escape.\n" +
-      "Your body will follow the city in its downfall.\n"
-    );
+    String lang = GameModel.loadLanguage();
+    if (Objects.equals(lang, "EN")) {
+    return """
+            Sadly you died trying to escape.
+            Your body will follow the city in its downfall.
+            """;
+    } else {
+      return """
+              Vous êtes malheureusement mort en tentant de vous échapper.
+              Votre corps accompagnera la ville dans sa chute.
+              """;
+    }
   }
 
   //Returns the victory message
   public static String gameWon() {
-    return (
-      "You did it! You escaped!\n" +
-      "Now you can contemplate the ruins of the city from far away.\n" +
-      "Finally you can rest while the horde invades the buildings.\n"
-    );
+    String lang = GameModel.loadLanguage();
+    if (Objects.equals(lang, "EN")) {
+      return """
+              You did it! You escaped!
+              Now you can contemplate the ruins of the city from far away.
+              Finally you can rest while the horde invades the buildings.
+              """;
+    }
+    else {
+      return """
+              Vous avez reussi! Vous vous êtes échappé
+              Vous pouvez maintenant contempler les ruines de la ville dans le lointain.
+              Vous pouvez enfin vous reposer alors que la horde se repend dans les batiments
+              """;
+    }
   }
 
   public static String helpCommands() {
-    return (
-      "Help :\n" +
-      "   ATTACK: to attack the monster\n" +
-      "   BACKPACK: to see what is in your backpack\n" +
-      "   click on a chest/create/backpack: to see what is in the container\n" +
-      "   DROP: to drop an item from your inventory\n" +
-      "   GO: to go to an other place, you can use it to run away from big and slow dangers\n" +
-      "   USE:t o use an item from your backpack\n" +
-      "   TAKE: to take an item\n" +
-      "   EQUIP: to equip an item"
-    );
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return """
+              Help :
+                 ATTACK: to attack the monster
+                 BACKPACK: to see what is in your backpack
+                 click on a chest/crate/backpack: to see what is in the container
+                 DROP: to drop an item from your inventory
+                 GO: to go to an other place, you can use it to run away from big and slow dangers
+                 USE:t o use an item from your backpack
+                 TAKE: to take an item
+                 EQUIP: to equip an item""";
+    }
+    else {
+      return """
+              Aide(HELP) :
+                 ATTACK: permet d'attaquer l'enemi
+                 BACKPACK: permet de voir le contenu de votre sac a dos
+                 cliquez sur un(e) chest(coffre)/crate(caisse)/backpack(sac a dos) pour regarder ce qu'il contient
+                 DROP: pour déposer un objet de votre inventaire
+                 GO: pour aller a un autre endroit, vous pouvez l'utiliser pour fuir un danger imposant et lent
+                 USE:pour utiliser un item(objet) de votre sac a dos
+                 TAKE: pour prendre un item(objet)
+                 EQUIP: pour equiper un item(objet)""";
+    }
   }
 
   public static String warning() {
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")){
     return "warning! ";
+    } else {
+      return "Attention!";
+    }
   }
 
   public static String cantExit() {
@@ -76,32 +114,59 @@ public class MessageEnModel {
 
   //Returns a message to tell that the number isn't associated with any modelItem
   public static String InvalidNumber(int i) {
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
     return "The number " + i + " isn't associated with any modelItem.";
+    } else {
+      return "Le numero " + i + " n’est associé à aucun objet.";
+    }
   }
 
   //Returns the modelContainer full message
   public static String contFull(ItemModel c) {
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
     return c + " can't contain that many items.";
+    } else {
+      return c +" ne peut pas contenir autant d’objets.";
+    }
   }
 
   public static String locFull() {
-    return "The current level is full.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "The current level is full.";
+    } else {
+      return "Le niveau est plein!";
+    }
   }
 
   //Returns a message to tell that you can't use/take an modelItem
   public static String wrongItem(String verb) {
-    return "You can't " + verb + " this ";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "You can't " + verb + " this ";
+    } else {
+      return "Vous ne pouvez pas " + verb + " ceci ";
+    }
   }
 
   //Returns the no space in the modelContainer message
   public static String noSpace(ItemModel c, ItemModel i) {
-    return (
-      warning() +
-      i.toString() +
-      "is too heavy and can't be stored in " +
-      c.toString() +
-      "."
-    );
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return warning() +
+              i.toString() +
+              "is too heavy and can't be stored in " +
+              c.toString() +
+              ".";
+    } else {
+      return warning() +
+              i.toString()+
+              " est trop lourd et ne peut pas être stocké dans "+
+              c.toString()+
+              ".";
+    }
   }
 
   public static String notAnExit() {
@@ -109,13 +174,23 @@ public class MessageEnModel {
   }
 
   public static String handFull(ItemModel i) {
-    return "You need to drop your " + i.toString() + " first.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "You need to drop your " + i.toString() + " first.";
+    } else {
+      return "Vous devez d’abord déposer votre "+i.toString();
+    }
   }
 
   //Return the Location description
   public static String getDescription(LocationModel location) {
     String name = location.getName();
-    return getDAux(name);
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return getDAux(name);
+    } else {
+      return getDAuxFr(name);
+    }
   }
 
   //Secondary function of the getDescription function
@@ -166,31 +241,101 @@ public class MessageEnModel {
     };
   }
 
+  private static String getDAuxFr(String name){
+    return switch (name) {
+      case "BEAULIEU" -> "Sur les ruines du centre commercial repose l'epave calcinee d'un avion.\n" +
+              "Il reste peut-etre de la nourriture quelque part.\n" +
+              "Vous apercevez quelques mouvements au loin.\n" +
+              "Quoi que vous comptiez faire, mieux vaut faire vite.";
+      case "MILETRIE" -> "On dirait que c'est plutôt animé par ici.\n" +
+              "L'hopital se tient encore sinistrement au coeur des ruines.\n" +
+              "L'explorer serait risque mais pourrait rapporter gros.\n" +
+              "Des rumeurs terrifiantes circulent sur les abominations y roderaint.\n";
+      case "CITY_CENTER" -> "Vous vous souvenez que des survivants avaient utilise Notre-Dame comme base pendant un temps.\n" +
+              "Il semble qu'ils l’aient abandonnee, mais peut-etre ont-ils laissé des objets utiles.\n" +
+              "Une odeur de chair brulee vous monte au nez. Qu'a-t-il bien pu se passer ?\n";
+      case "COURONNERIES" -> "La majeur partie des batiments sont en mauvais etat.\n"+
+              "Quelques tours tiennent bon et abritent peut-etre des survivants.\n"+
+              "Vous pouvez entendre le son de l'eau qui coule plus loin.\n";
+      case "GIBAUDERIE" -> "Il y a de nombreux commerces et des batiments de la clinique.\n"+
+              "Tout est calme et vous pouvez entendre vos propre pas sur la route poussiereuse.\n"+
+              "Il y a probablement des choses interessantes cachees dans le coin.\n";
+      case "WEST_POITIERS" -> "Tout est desormais recouvert d’une foret dense.\n"+
+              "La vie... trouve toujours un chemin.\n"+
+              "\n";
+      case "SOUTH_POITIERS" -> "On dirait que tout a ete disperse par une grosse explosion.\n"+
+              "La forte concentration de cendres et de produits chimiques vous brule les poumons.\n"+
+              "Il vaudrait mieux quitter cet endroit.\n";
+      case "PONT_NEUF" -> "L'odeur est attroce. Depuis les hauteurs, un glissement de boue a entraîne une maree de cadavres en decomposition jusqu’a la riviere.\n"+
+              "Des engins de chantier sont eparpilles un peu partout.\n"+
+              "Vous souriez en pensant que personne ne verra jamais l'aboutissement de ces incessants travaux.\n";
+      case "SAINT_ELOI" -> "Tout est si calme ici, c'est probablement le quartier le moins endommage de la ville.\n"+
+              "L’aspect soigne des batiments recents vous donne une etrange sensation d’isolement.\n"+
+              "\n";
+      case "TROIS_CITES" -> "Le petit centre commercial a ete fortifie et vous savez qu’une communaute y vit.\n"+
+              "Ils sont reputes pour aider les voyageurs de passage, mais vous ne faites plus confiance a personne.\n"+
+              "\n";
+      case "NORTH_POITIERS" -> "Depuis les hauteurs de la vallee du Clain, vous pouvez contempler le panorama.\n"+
+              "La statue silencieuse vous fait face depuis l’autre rive.\n"+
+              "Son côté gauche est noirci par les flammes, son bras droit est manquant.\n";
+      case "MONTBERNAGE" -> "Le grand pont de la voie penetrante enjambe toujours le Clain.\n"+
+              "Sa haute silhouette est un vestige du monde que vous avez connu.\n"+
+              "\n";
+      case "FINAL_EXIT" -> "La longue route semble deserte.\n"+
+              "Vous etes enfin sorti de la ville.\n" + "\n";
+      default -> "";
+    };
+  }
+
   //returns the description of the modelLocation in parameter by calling the switch case on top
   public static String locationDescription(LocationModel location) {
-    String intro = "You're at ";
+    String lang = GameModel.loadLanguage();
     String lName = location.getName();
     String desc = getDescription(location);
-    return intro + lName + ":\n" + desc + "\n";
+    if (lang.equals("EN")) {
+      return "You're at "+ lName + ":\n" + desc + "\n";
+    } else {
+      return "Vous etes a"+ lName + ":\n" + desc + "\n";
+    }
   }
 
   //Message used when failing to open a modelContainer
   public static String failOpening() {
-    return "You failed to open ";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "You failed to open ";
+    } else {
+      return "Vous n'arrivez pas a ouvrir ";
+    }
   }
 
   //Message used when you try to open a modelContainer (crate) that requires a tool(crowbar) you don't have
   public static String toolRequired() {
-    return "The crate is closed. Maybe you need a tool to open that.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "The crate remains closed. Maybe you'd have more success with a tool.";
+    } else {
+      return "La caisse reste fermée. Vous pourriez peut-être l'ouvrir avec un outil.";
+    }
   }
 
   //Message displayed to ask for validation to use an modelItem
   public static String useItem(ItemModel item) {
-    return "Do you want to use this " + item + "?\n Y or N\n";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "Do you want to use this " + item + "?\n Y or N\n";
+    } else {
+      return "Voulez vous utiliser ceci: " + item + "?\n Y(oui) ou N(non)\n";
+    }
   }
 
   public static String itemUsed(ItemModel item) {
-    return "You used your " + item + "to " + MessageEnModel.itemEffect(item);
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "You used your " + item + "to " + MessageEnModel.itemEffect(item);
+    } else {
+      return "Vous avez utilisé votre "+item+"pour "+ MessageEnModel.itemEffectfr(item);
+    }
   }
 
   public static String itemEffect(ItemModel item) {
@@ -201,87 +346,165 @@ public class MessageEnModel {
     } else return "for an unknown reason";
   }
 
+  public static String itemEffectfr (ItemModel item){
+    if (item instanceof CrowbarModel) {
+      return "ouvrir ceci : ";
+    } else if (item instanceof ConsumableModel) {
+      return "récupérer ceci : ";
+    } else return "faire.. quelque chose avec ceci :";
+  }
+
   public static String herosHP(CharacterModel c) {
-    return "You now have " + c.getHealth() + " HP left.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "You now have " + c.getHealth() + " HP left.";
+    } else {
+      return "Vous avez maintenant " + c.getHealth() + " PV.";
+    }
   }
 
   public static String monsterHP(CharacterModel c) {
-    return "The " + c + "now have " + c.getHealth() + " HP left.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "The " + c + "now have " + c.getHealth() + " HP left.";
+    } else {
+      return "Le " + c +  "a maintenant " + c.getHealth() + " PV.";
+    }
   }
 
   public static String monsterAttack(CharacterModel attacker) {
-    return "A " + attacker + " has attacked you !\n";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "A " + attacker + " has attacked you !\n";
+    } else {
+      return "Un " + attacker + " vous attaque!\n";
+    }
   }
 
   public static String NoWeapon() {
-    return "Do you really think you can harm this monster with you bare hands ?";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "Do you really think you can harm this monster with you bare hands ?";
+    } else {
+      return "Vous pensez vraiment pouvoir blesser ce monstre à mains nues ?";
+    }
   }
 
   public static String InvalidItem() {
-    return "There is no modelItem like this here.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+    return "There is no modelItem like this here.";}
+    else return MessageFrModel.InvalidItem();
   }
 
   public static String invalidCommand() {
-    return "The command is incorrect. Please write HELP to see the commands.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "The command is incorrect. Please write HELP to see the commands.";
+    } else {
+      return MessageFrModel.invalidCommand();
+    }
   }
 
   public static String monsterApparition(CharacterModel c) {
-    return "A " + c + " has appeared !";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "A " + c + " has appeared !";
+    } else {
+      return MessageFrModel.monsterApparition(c);
+    }
   }
 
   public static String displayExitsInLoc() {
-    return "Exits you can see :";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "Exits you can see :";
+    }
+    else {
+      return MessageFrModel.displayExitsInLoc();
+    }
   }
 
   public static String displayItemsInLoc() {
-    return "Items you can see :";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "Items you can see :";
+    }
+    else return MessageFrModel.displayItemsInLoc();
   }
 
   public static String cantUseItem(ItemModel item1) {
-    return wrongItem("use ") + item1 + "on this!";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return wrongItem("use ") + item1 + "on this!";
+    } else {
+      return MessageFrModel.cantUseItem(item1);
+    }
   }
 
   public static String cantDo(CommandModel command) {
-    return "You can't " + command + "right now.";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "You can't " + command + "right now.";
+    } else {
+      return MessageFrModel.cantDo(command);
+    }
   }
 
   public static String commandOnItem(String verb, ItemModel item) {
-    return "You " + verb + "this " + item;
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      return "You " + verb + "this " + item;
+    } else {
+      return MessageFrModel.commandOnItem(verb, item);
+    }
   }
 
   public static String heroDescription(HeroModel heroM) {
-    String wp = "Your hero :\n" + herosHP(heroM) + "\n";
-    if (heroM.getWeapon() != null) {
-      wp += "Your equipped modelWeapon is a " + heroM.getWeapon() + "\n";
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      String wp = "Your hero :\n" + herosHP(heroM) + "\n";
+      if (heroM.getWeapon() != null) {
+        wp += "Your equipped modelWeapon is a " + heroM.getWeapon() + "\n";
+      }
+      if (heroM.getShield() != null) {
+        wp += "Your protection is " + heroM.getShield() + "\n";
+      }
+      return wp;
     }
-    if (heroM.getShield() != null) {
-      wp += "Your protection is " + heroM.getShield() + "\n";
+    else {
+      return MessageFrModel.heroDescription(heroM);
     }
-    return wp;
   }
 
   public static String randName() {
-    String name = "doggo";
-    Random rand = new Random();
-    int i = rand.nextInt(3);
-    switch (i) {
-      case 0: {
-        name = "Diamond";
-        break;
+    String lang = GameModel.loadLanguage();
+    if (lang.equals("EN")) {
+      String name;
+      Random rand = new Random();
+      int i = rand.nextInt(3);
+      switch (i) {
+        case 0: {
+          name = "Diamond";
+          break;
+        }
+        case 1: {
+          name = "Brutus";
+          break;
+        }
+        case 2: {
+          name = "Nyamba";
+          break;
+        }
+        default: {
+          name = "Teapot";
+          break;
+        }
       }
-      case 1: {
-        name = "Brutus";
-        break;
-      }
-      case 2: {
-        name = "Nyamba";
-        break;
-      }
-      default: {
-        name = "Teapot";
-        break;
-      }
+      return name;
     }
-    return name;
+    else {
+      return MessageFrModel.randName();
+    }
   }
 }
