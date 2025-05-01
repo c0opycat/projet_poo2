@@ -183,7 +183,10 @@ public class Cell extends StackPane {
             setElement(parts);
 
             String[] oldElement = { oldImg, oldElem };
+            System.out.println("oldElem : " +  oldElement);
+            
             String[] newElement = parts;
+            System.out.println("newElem : " + newElement);
 
             view.viewEditor.viewHistory.HistoryManager.getInstance()
               .recordAction(
@@ -259,9 +262,7 @@ public class Cell extends StackPane {
       content.putString(imageName + ";" + elemName);
       db.setContent(content);
 
-      this.getChildren().remove(image);
-      this.elem = null;
-      this.img = null;
+      this.removeElement(image);
 
       event.consume();
     });
@@ -300,6 +301,13 @@ public class Cell extends StackPane {
   }
 
   public void removeElement() {
+    this.elem = null;
+    this.updateTooltip();
+  }
+
+  public void removeElement(ImageView image) {
+    this.deleteImage(image);
+    this.img = null;
     this.elem = null;
     this.updateTooltip();
   }
