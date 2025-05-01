@@ -138,10 +138,14 @@ public class GameModel {
   //Displays the end of modelGame
   public void displayEnd() {
     if (this.isWon()) {
+      updateScore();
       ScoreSaveModel saveScore = new ScoreSaveModel();
       saveScore.addScore(this.score.getName(),this.score.getScore());
       System.out.println(MessageEnModel.gameWon());
     } else {
+      updateScore();
+      ScoreSaveModel saveScore = new ScoreSaveModel();
+      saveScore.addScore(this.score.getName(),this.score.getScore());
       System.out.println(MessageEnModel.gameLost());
     }
   }
