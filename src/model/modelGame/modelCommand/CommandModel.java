@@ -53,6 +53,7 @@ public class CommandModel {
     if (commands.length == 0) {
       return false;
     }
+    if (gameM.isRunning){
     switch (commands[0]) {
       case "go":
         if (commands.length == 1) {
@@ -71,8 +72,8 @@ public class CommandModel {
         return new HelpModel(gameM).execute();
       case "look":
         if (
-          (commands.length > 2) ||
-          ((commands.length == 2) && (!isInteger(commands[1])))
+                (commands.length > 2) ||
+                        ((commands.length == 2) && (!isInteger(commands[1])))
         ) {
           System.out.println(MessageEnModel.invalidCommand());
           return false;
@@ -86,10 +87,10 @@ public class CommandModel {
         return new AttackModel(commands, gameM).execute();
       case "take":
         if (
-          (commands.length < 2) ||
-          (commands.length > 3) ||
-          (!isInteger(commands[1])) ||
-          ((commands.length == 3) && (!isInteger(commands[2])))
+                (commands.length < 2) ||
+                        (commands.length > 3) ||
+                        (!isInteger(commands[1])) ||
+                        ((commands.length == 3) && (!isInteger(commands[2])))
         ) {
           System.out.println(MessageEnModel.invalidCommand());
           return false;
@@ -97,10 +98,10 @@ public class CommandModel {
         return new TakeModel(commands, gameM).execute();
       case "use":
         if (
-          (commands.length < 2) ||
-          (commands.length > 3) ||
-          (!isInteger(commands[1])) ||
-          ((commands.length == 3) && (!isInteger(commands[2])))
+                (commands.length < 2) ||
+                        (commands.length > 3) ||
+                        (!isInteger(commands[1])) ||
+                        ((commands.length == 3) && (!isInteger(commands[2])))
         ) {
           System.out.println(MessageEnModel.invalidCommand());
           return false;
@@ -120,9 +121,9 @@ public class CommandModel {
         return new DropModel(commands, gameM).execute();
       case "equip":
         if (
-          (commands.length != 3) ||
-          (!isInteger(commands[1])) ||
-          (!isInteger(commands[2]))
+                (commands.length != 3) ||
+                        (!isInteger(commands[1])) ||
+                        (!isInteger(commands[2]))
         ) {
           System.out.println(MessageEnModel.invalidCommand());
           return false;
@@ -137,6 +138,16 @@ public class CommandModel {
       default:
         System.out.println(MessageEnModel.invalidCommand());
         return false;
+    }
+    } else if (commands[0].equals("pause")) {
+      if (commands.length != 1) {
+        System.out.println(MessageEnModel.invalidCommand());
+        return false;
+      }
+      return new PauseModel(commands, gameM).execute();
+    } else{
+      System.out.println("PAUSE");
+      return false;
     }
   }
 }

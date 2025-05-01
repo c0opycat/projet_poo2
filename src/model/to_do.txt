@@ -1,15 +1,5 @@
-ROOM
-room to matrix
-NOT enum type
-
-SCORE
-decide how scoring works
-being able to register scores
-(table)
-
 GAME
 being able to save gameM
-rename main to runingGame
 
 IMPLEMENTS
 undo
