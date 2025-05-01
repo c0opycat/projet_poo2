@@ -417,7 +417,7 @@ public class LocationView extends GridPane {
           ((ExitView) getCell(heroX + 1, heroY).getImageView());
         cellList.put(
           exitView.getDestinationName(),
-          lang.equals("EN") ? "right" : "droite"
+          lang.equals("EN") ? "right" : "droit"
         );
       }
     }

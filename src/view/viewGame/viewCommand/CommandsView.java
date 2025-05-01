@@ -460,7 +460,7 @@ public class CommandsView {
           x--;
         } else if (choice.equals("above") || choice.equals("au-dessus")) {
           y--;
-        } else if (choice.equals("right") || choice.equals("droite")) {
+        } else if (choice.equals("right") || choice.equals("droit")) {
           x++;
         } else {
           y++;

@@ -33,6 +33,7 @@ public class GameModel {
     this.isEnd = false;
     this.isWon = false;
     this.score = new ScoreModel(HEROM.getName(), 0);
+    this.startTime = 0;
   }
 
   public GameModel(String name, String jobChoice) {
@@ -45,6 +46,7 @@ public class GameModel {
     this.isEnd = false;
     this.isWon = false;
     this.score = new ScoreModel(HEROM.getName(), 0);
+    this.startTime = 0;
   }
 
   public static String loadLanguage() {
@@ -94,9 +96,7 @@ public class GameModel {
 
   private int timeBonus() {
     int timeBonus =
-      1000 -
-      (int) (System.currentTimeMillis() - startTime) / 100 +
-      this.timePaused;
+      (int) (System.currentTimeMillis() - startTime) / 10 + this.timePaused;
     if (timeBonus > 0) {
       return timeBonus;
     } else return 0;

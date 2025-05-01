@@ -82,14 +82,16 @@ public class UseView extends Button {
             int x = heroX;
             int y = heroY;
 
-            if (choice.equals("left") || choice.equals("gauche")) {
-              x--;
-            } else if (choice.equals("above") || choice.equals("au-dessus")) {
-              y--;
-            } else if (choice.equals("right") || choice.equals("droite")) {
-              x++;
-            } else {
-              y++;
+            if (choice != null) {
+              if (choice.equals("left") || choice.equals("gauche")) {
+                x--;
+              } else if (choice.equals("above") || choice.equals("au-dessus")) {
+                y--;
+              } else if (choice.equals("right") || choice.equals("droit")) {
+                x++;
+              } else {
+                y++;
+              }
             }
 
             Point toOpen = new Point(x, y);
