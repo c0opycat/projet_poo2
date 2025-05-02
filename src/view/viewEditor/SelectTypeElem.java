@@ -9,11 +9,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-//OTHERINFODOOR A BESOIN DE RECUPERER LA LISTE DES LIEUX
-//ENREGISTRÉ DANS LE MODEL VIA LE CONTROLLER
-//A GERER LORS DE L'ENREGISTREMENT DE LA LISTE CORRESPONDANTE
-//DANS listElem
-
 /**
  * Custom TabPane to select different categories of elements
  * (Doors, Items, Characters).

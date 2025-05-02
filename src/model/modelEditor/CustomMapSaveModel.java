@@ -33,19 +33,19 @@ import java.util.*;
  */
 public class CustomMapSaveModel {
     public static ArrayList<LocationModel> locations = new ArrayList<>();
+    public final static String filepath = "./save/custommaps.json";
 
     public CustomMapSaveModel() {
-        String filepath = "./save/custommaps.json";
         java.io.File file = new java.io.File(filepath);
 
         if (file.exists())
         {
-            this.locations = loadFromJson(filepath);
+            locations = loadFromJson();
         }
-        else {this.locations = new ArrayList<>();}
+        else {locations = new ArrayList<>();}
     }
-    public static void saveToJson() {
-        String filepath = "./save/custommaps.json";
+
+    public void saveToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (LocationModel loc : locations) {
@@ -110,7 +110,7 @@ public class CustomMapSaveModel {
     }
 
     // Load
-    private ArrayList<LocationModel> loadFromJson(String filepath) {
+    public ArrayList<LocationModel> loadFromJson() {
         ArrayList<LocationModel> loadedLocations = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             StringBuilder jsonText = new StringBuilder();

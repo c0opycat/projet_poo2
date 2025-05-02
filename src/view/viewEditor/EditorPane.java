@@ -133,7 +133,7 @@ public class EditorPane extends HBox {
         });
 
     getSave().setOnAction(e -> {
-      ControllerSave contSave = new ControllerSave();
+      ControllerSave contSave = new ControllerSave(this);
       contSave.saveLevel(this);
     });
   }
