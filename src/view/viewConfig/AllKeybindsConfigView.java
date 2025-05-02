@@ -58,47 +58,47 @@ public class AllKeybindsConfigView extends VBox {
     Keybinds keybinds = this.getKeybinds();
 
     KeybindConfigView forward = new KeybindConfigView(
-      "Forward",
+      this.lang.getCurr_lang().equals("EN") ? "Forward" : "Avancer",
       keybinds.getSpecKeybind("forward"),
       keybinds
     );
     KeybindConfigView backward = new KeybindConfigView(
-      "Backward",
+      this.lang.getCurr_lang().equals("EN") ? "Backward" : "Reculer",
       keybinds.getSpecKeybind("backward"),
       keybinds
     );
     KeybindConfigView right = new KeybindConfigView(
-      "Right",
+      this.lang.getCurr_lang().equals("EN") ? "Right" : "Droite",
       keybinds.getSpecKeybind("right"),
       keybinds
     );
     KeybindConfigView left = new KeybindConfigView(
-      "Left",
+      this.lang.getCurr_lang().equals("EN") ? "Left" : "Gauche",
       keybinds.getSpecKeybind("left"),
       keybinds
     );
     KeybindConfigView go = new KeybindConfigView(
-      "Go",
+      this.lang.getCurr_lang().equals("EN") ? "Go" : "Aller",
       keybinds.getSpecKeybind("go"),
       keybinds
     );
     KeybindConfigView attack = new KeybindConfigView(
-      "Attack",
+      this.lang.getCurr_lang().equals("EN") ? "Attack" : "Attaquer",
       keybinds.getSpecKeybind("attack"),
       keybinds
     );
     KeybindConfigView equip = new KeybindConfigView(
-      "Equip",
+      this.lang.getCurr_lang().equals("EN") ? "Equip" : "Equiper",
       keybinds.getSpecKeybind("equip"),
       keybinds
     );
     KeybindConfigView take = new KeybindConfigView(
-      "Take",
+      this.lang.getCurr_lang().equals("EN") ? "Take" : "Prendre",
       keybinds.getSpecKeybind("take"),
       keybinds
     );
     KeybindConfigView backpack = new KeybindConfigView(
-      "Backpack",
+      this.lang.getCurr_lang().equals("EN") ? "Backpack" : "Sac à dos",
       keybinds.getSpecKeybind("backpack"),
       keybinds
     );

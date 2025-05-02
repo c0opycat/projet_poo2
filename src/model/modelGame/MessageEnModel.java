@@ -10,7 +10,7 @@ import model.modelItem.ItemModel;
 import model.modelItem.modelConsumable.ConsumableModel;
 import model.modelLocation.LocationModel;
 
-public class MessageEnModel{
+public class MessageEnModel {
 
   //Returns the start of modelGame message
   public static String startGame(LocationModel start, LocationModel end) {
@@ -40,15 +40,15 @@ public class MessageEnModel{
   public static String gameLost() {
     String lang = GameModel.loadLanguage();
     if (Objects.equals(lang, "EN")) {
-    return """
-            Sadly you died trying to escape.
-            Your body will follow the city in its downfall.
-            """;
+      return """
+      Sadly you died trying to escape.
+      Your body will follow the city in its downfall.
+      """;
     } else {
       return """
-              Vous etes malheureusement mort en tentant de vous echapper.
-              Votre corps accompagnera la ville dans sa chute.
-              """;
+      Vous etes malheureusement mort en tentant de vous echapper.
+      Votre corps accompagnera la ville dans sa chute.
+      """;
     }
   }
 
@@ -57,17 +57,16 @@ public class MessageEnModel{
     String lang = GameModel.loadLanguage();
     if (Objects.equals(lang, "EN")) {
       return """
-              You did it! You escaped!
-              Now you can contemplate the ruins of the city from far away.
-              Finally you can rest while the horde invades the buildings.
-              """;
-    }
-    else {
+      You did it! You escaped!
+      Now you can contemplate the ruins of the city from far away.
+      Finally you can rest while the horde invades the buildings.
+      """;
+    } else {
       return """
-              Vous avez reussi! Vous vous etes echappe
-              Vous pouvez maintenant contempler les ruines de la ville dans le lointain.
-              Vous pouvez enfin vous reposer alors que la horde se repend dans les batiments
-              """;
+      Vous avez reussi! Vous vous etes echappe
+      Vous pouvez maintenant contempler les ruines de la ville dans le lointain.
+      Vous pouvez enfin vous reposer alors que la horde se repend dans les batiments
+      """;
     }
   }
 
@@ -75,34 +74,33 @@ public class MessageEnModel{
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
       return """
-              Help :
-                 ATTACK: to attack the monster
-                 BACKPACK: to see what is in your backpack
-                 click on a chest/crate/backpack: to see what is in the container
-                 DROP: to drop an item from your inventory
-                 GO: to go to an other place, you can use it to run away from big and slow dangers
-                 USE:t o use an item from your backpack
-                 TAKE: to take an item
-                 EQUIP: to equip an item""";
-    }
-    else {
+      Help :
+         ATTACK: to attack the monster
+         BACKPACK: to see what is in your backpack
+         click on a chest/crate/backpack: to see what is in the container
+         DROP: to drop an item from your inventory
+         GO: to go to an other place, you can use it to run away from big and slow dangers
+         USE:t o use an item from your backpack
+         TAKE: to take an item
+         EQUIP: to equip an item""";
+    } else {
       return """
-              Aide(HELP) :
-                 ATTACK: permet d'attaquer l'enemi
-                 BACKPACK: permet de voir le contenu de votre sac a dos
-                 cliquez sur un(e) chest(coffre)/crate(caisse)/backpack(sac a dos) pour regarder ce qu'il contient
-                 DROP: pour deposer un objet de votre inventaire
-                 GO: pour aller a un autre endroit, vous pouvez l'utiliser pour fuir un danger imposant et lent
-                 USE:pour utiliser un item(objet) de votre sac a dos
-                 TAKE: pour prendre un item(objet)
-                 EQUIP: pour equiper un item(objet)""";
+      Aide(HELP) :
+         ATTAQUER: permet d'attaquer l'enemi
+         SAC A DOS: permet de voir le contenu de votre sac a dos
+         cliquez sur un(e) chest(coffre)/crate(caisse)/backpack(sac a dos) pour regarder ce qu'il contient
+         LACHER: pour deposer un objet de votre inventaire
+         ALLER: pour aller a un autre endroit, vous pouvez l'utiliser pour fuir un danger imposant et lent
+         UTILISER: pour utiliser un item(objet) de votre sac a dos
+         PRENDRE: pour prendre un item(objet)
+         EQUIPER: pour equiper un item(objet)""";
     }
   }
 
   public static String warning() {
     String lang = GameModel.loadLanguage();
-    if (lang.equals("EN")){
-    return "warning! ";
+    if (lang.equals("EN")) {
+      return "warning! ";
     } else {
       return "Attention!";
     }
@@ -116,7 +114,7 @@ public class MessageEnModel{
   public static String InvalidNumber(int i) {
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
-    return "The number " + i + " isn't associated with any modelItem.";
+      return "The number " + i + " isn't associated with any modelItem.";
     } else {
       return "Le numero " + i + " n’est associe a aucun objet.";
     }
@@ -126,9 +124,9 @@ public class MessageEnModel{
   public static String contFull(ItemModel c) {
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
-    return c + " can't contain that many items.";
+      return c + " can't contain that many items.";
     } else {
-      return c +" ne peut pas contenir autant d’objets.";
+      return c + " ne peut pas contenir autant d’objets.";
     }
   }
 
@@ -155,17 +153,21 @@ public class MessageEnModel{
   public static String noSpace(ItemModel c, ItemModel i) {
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
-      return warning() +
-              i.toString() +
-              "is too heavy and can't be stored in " +
-              c.toString() +
-              ".";
+      return (
+        warning() +
+        i.toString() +
+        "is too heavy and can't be stored in " +
+        c.toString() +
+        "."
+      );
     } else {
-      return warning() +
-              i.toString()+
-              " est trop lourd et ne peut pas etre stocke dans "+
-              c.toString()+
-              ".";
+      return (
+        warning() +
+        i.toString() +
+        " est trop lourd et ne peut pas etre stocke dans " +
+        c.toString() +
+        "."
+      );
     }
   }
 
@@ -178,7 +180,7 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
       return "You need to drop your " + i.toString() + " first.";
     } else {
-      return "Vous devez d’abord deposer votre "+i.toString();
+      return "Vous devez d’abord deposer votre " + i.toString();
     }
   }
 
@@ -241,48 +243,49 @@ public class MessageEnModel{
     };
   }
 
-  private static String getDAuxFr(String name, LocationModel location){
+  private static String getDAuxFr(String name, LocationModel location) {
     return switch (name) {
       case "BEAULIEU" -> "Sur les ruines du centre commercial repose l'epave calcinee d'un avion.\n" +
-              "Il reste peut-etre de la nourriture quelque part.\n" +
-              "Vous apercevez quelques mouvements au loin.\n" +
-              "Quoi que vous comptiez faire, mieux vaut faire vite.";
+      "Il reste peut-etre de la nourriture quelque part.\n" +
+      "Vous apercevez quelques mouvements au loin.\n" +
+      "Quoi que vous comptiez faire, mieux vaut faire vite.";
       case "MILETRIE" -> "On dirait que c'est plutot anime par ici.\n" +
-              "L'hopital se tient encore sinistrement au coeur des ruines.\n" +
-              "L'explorer serait risque mais pourrait rapporter gros.\n" +
-              "Des rumeurs terrifiantes circulent sur les abominations y roderaint.\n";
+      "L'hopital se tient encore sinistrement au coeur des ruines.\n" +
+      "L'explorer serait risque mais pourrait rapporter gros.\n" +
+      "Des rumeurs terrifiantes circulent sur les abominations y roderaint.\n";
       case "CITY_CENTER" -> "Vous vous souvenez que des survivants avaient utilise Notre-Dame comme base pendant un temps.\n" +
-              "Il semble qu'ils l’aient abandonnee, mais peut-etre ont-ils laisse des objets utiles.\n" +
-              "Une odeur de chair brulee vous monte au nez. Qu'a-t-il bien pu se passer ?\n";
-      case "COURONNERIES" -> "La majeur partie des batiments sont en mauvais etat.\n"+
-              "Quelques tours tiennent bon et abritent peut-etre des survivants.\n"+
-              "Vous pouvez entendre le son de l'eau qui coule plus loin.\n";
-      case "GIBAUDERIE" -> "Il y a de nombreux commerces et des batiments de la clinique.\n"+
-              "Tout est calme et vous pouvez entendre vos propre pas sur la route poussiereuse.\n"+
-              "Il y a probablement des choses interessantes cachees dans le coin.\n";
-      case "WEST_POITIERS" -> "Tout est desormais recouvert d’une foret dense.\n"+
-              "La vie... trouve toujours un chemin.\n"+
-              "\n";
-      case "SOUTH_POITIERS" -> "On dirait que tout a ete disperse par une grosse explosion.\n"+
-              "La forte concentration de cendres et de produits chimiques vous brule les poumons.\n"+
-              "Il vaudrait mieux quitter cet endroit.\n";
-      case "PONT_NEUF" -> "L'odeur est attroce. Depuis les hauteurs, un glissement de boue a entraine une maree de cadavres en decomposition jusqu’a la riviere.\n"+
-              "Des engins de chantier sont eparpilles un peu partout.\n"+
-              "Vous souriez en pensant que personne ne verra jamais l'aboutissement de ces incessants travaux.\n";
-      case "SAINT_ELOI" -> "Tout est si calme ici, c'est probablement le quartier le moins endommage de la ville.\n"+
-              "L’aspect soigne des batiments recents vous donne une etrange sensation d’isolement.\n"+
-              "\n";
-      case "TROIS_CITES" -> "Le petit centre commercial a ete fortifie et vous savez qu’une communaute y vit.\n"+
-              "Ils sont reputes pour aider les voyageurs de passage, mais vous ne faites plus confiance a personne.\n"+
-              "\n";
-      case "NORTH_POITIERS" -> "Depuis les hauteurs de la vallee du Clain, vous pouvez contempler le panorama.\n"+
-              "La statue silencieuse vous fait face depuis l’autre rive.\n"+
-              "Son cote gauche est noirci par les flammes, son bras droit est manquant.\n";
-      case "MONTBERNAGE" -> "Le grand pont de la voie penetrante enjambe toujours le Clain.\n"+
-              "Sa haute silhouette est un vestige du monde que vous avez connu.\n"+
-              "\n";
-      case "FINAL_EXIT" -> "La longue route semble deserte.\n"+
-              "Vous etes enfin sorti de la ville.\n" + "\n";
+      "Il semble qu'ils l’aient abandonnee, mais peut-etre ont-ils laisse des objets utiles.\n" +
+      "Une odeur de chair brulee vous monte au nez. Qu'a-t-il bien pu se passer ?\n";
+      case "COURONNERIES" -> "La majeur partie des batiments sont en mauvais etat.\n" +
+      "Quelques tours tiennent bon et abritent peut-etre des survivants.\n" +
+      "Vous pouvez entendre le son de l'eau qui coule plus loin.\n";
+      case "GIBAUDERIE" -> "Il y a de nombreux commerces et des batiments de la clinique.\n" +
+      "Tout est calme et vous pouvez entendre vos propre pas sur la route poussiereuse.\n" +
+      "Il y a probablement des choses interessantes cachees dans le coin.\n";
+      case "WEST_POITIERS" -> "Tout est desormais recouvert d’une foret dense.\n" +
+      "La vie... trouve toujours un chemin.\n" +
+      "\n";
+      case "SOUTH_POITIERS" -> "On dirait que tout a ete disperse par une grosse explosion.\n" +
+      "La forte concentration de cendres et de produits chimiques vous brule les poumons.\n" +
+      "Il vaudrait mieux quitter cet endroit.\n";
+      case "PONT_NEUF" -> "L'odeur est attroce. Depuis les hauteurs, un glissement de boue a entraine une maree de cadavres en decomposition jusqu’a la riviere.\n" +
+      "Des engins de chantier sont eparpilles un peu partout.\n" +
+      "Vous souriez en pensant que personne ne verra jamais l'aboutissement de ces incessants travaux.\n";
+      case "SAINT_ELOI" -> "Tout est si calme ici, c'est probablement le quartier le moins endommage de la ville.\n" +
+      "L’aspect soigne des batiments recents vous donne une etrange sensation d’isolement.\n" +
+      "\n";
+      case "TROIS_CITES" -> "Le petit centre commercial a ete fortifie et vous savez qu’une communaute y vit.\n" +
+      "Ils sont reputes pour aider les voyageurs de passage, mais vous ne faites plus confiance a personne.\n" +
+      "\n";
+      case "NORTH_POITIERS" -> "Depuis les hauteurs de la vallee du Clain, vous pouvez contempler le panorama.\n" +
+      "La statue silencieuse vous fait face depuis l’autre rive.\n" +
+      "Son cote gauche est noirci par les flammes, son bras droit est manquant.\n";
+      case "MONTBERNAGE" -> "Le grand pont de la voie penetrante enjambe toujours le Clain.\n" +
+      "Sa haute silhouette est un vestige du monde que vous avez connu.\n" +
+      "\n";
+      case "FINAL_EXIT" -> "La longue route semble deserte.\n" +
+      "Vous etes enfin sorti de la ville.\n" +
+      "\n";
       default -> location.getDescription().split("/")[0];
     };
   }
@@ -293,9 +296,9 @@ public class MessageEnModel{
     String lName = location.getName();
     String desc = getDescription(location);
     if (lang.equals("EN")) {
-      return "You're at "+ lName + ":\n" + desc + "\n";
+      return "You're at " + lName + ":\n" + desc + "\n";
     } else {
-      return "Vous etes a"+ lName + ":\n" + desc + "\n";
+      return "Vous etes a" + lName + ":\n" + desc + "\n";
     }
   }
 
@@ -334,7 +337,12 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
       return "You used your " + item + "to " + MessageEnModel.itemEffect(item);
     } else {
-      return "Vous avez utilise votre "+item+"pour "+ MessageEnModel.itemEffectfr(item);
+      return (
+        "Vous avez utilise votre " +
+        item +
+        "pour " +
+        MessageEnModel.itemEffectfr(item)
+      );
     }
   }
 
@@ -346,7 +354,7 @@ public class MessageEnModel{
     } else return "for an unknown reason";
   }
 
-  public static String itemEffectfr (ItemModel item){
+  public static String itemEffectfr(ItemModel item) {
     if (item instanceof CrowbarModel) {
       return "ouvrir ceci : ";
     } else if (item instanceof ConsumableModel) {
@@ -368,7 +376,7 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
       return "The " + c + "now have " + c.getHealth() + " HP left.";
     } else {
-      return "Le " + c +  "a maintenant " + c.getHealth() + " PV.";
+      return "Le " + c + "a maintenant " + c.getHealth() + " PV.";
     }
   }
 
@@ -393,8 +401,8 @@ public class MessageEnModel{
   public static String InvalidItem() {
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
-    return "There is no modelItem like this here.";}
-    else return MessageFrModel.InvalidItem();
+      return "There is no modelItem like this here.";
+    } else return MessageFrModel.InvalidItem();
   }
 
   public static String invalidCommand() {
@@ -419,8 +427,7 @@ public class MessageEnModel{
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
       return "Exits you can see :";
-    }
-    else {
+    } else {
       return MessageFrModel.displayExitsInLoc();
     }
   }
@@ -429,8 +436,7 @@ public class MessageEnModel{
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
       return "Items you can see :";
-    }
-    else return MessageFrModel.displayItemsInLoc();
+    } else return MessageFrModel.displayItemsInLoc();
   }
 
   public static String cantUseItem(ItemModel item1) {
@@ -471,8 +477,7 @@ public class MessageEnModel{
         wp += "Your protection is " + heroM.getShield() + "\n";
       }
       return wp;
-    }
-    else {
+    } else {
       return MessageFrModel.heroDescription(heroM);
     }
   }
@@ -502,8 +507,7 @@ public class MessageEnModel{
         }
       }
       return name;
-    }
-    else {
+    } else {
       return MessageFrModel.randName();
     }
   }
