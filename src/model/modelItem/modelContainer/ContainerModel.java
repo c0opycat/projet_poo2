@@ -4,14 +4,40 @@ import java.util.ArrayList;
 import model.modelGame.MessageEnModel;
 import model.modelItem.ItemModel;
 
+/**
+ * Represents a generic container capable of storing multiple {@link ItemModel} objects.
+ * <p>
+ * A {@code ContainerModel} defines limits for:
+ * <ul>
+ *     <li>The number of items it can hold.</li>
+ *     <li>The total capacity (i.e., weight) it can support.</li>
+ * </ul>
+ * This abstract class is intended to be extended by specific container types like backpacks and chests.
+ * </p>
+ */
 public abstract class ContainerModel extends ItemModel {
 
+  /** Maximum number of items allowed in the container. */
   public final int MAX_NB_ITEMS;
+
+  /** Maximum capacity (total weight limit) of the container. */
   public final int MAX_CAPACITY;
+
+  /** Current number of items in the container. */
   private int nb_items;
+
+  /** Current total weight of the items in the container. */
   private int capacity;
+
+  /** List of items stored inside the container. */
   public ArrayList<ItemModel> itemList;
 
+  /**
+   * Constructs a new {@code ContainerModel} with the specified limits and weight.
+   * @param nb_items maximum number of items the container can hold
+   * @param cap maximum weight capacity of the container
+   * @param weight weight of the container itself
+   */
   protected ContainerModel(int nb_items, int cap, int weight) {
     super(weight);
     this.MAX_NB_ITEMS = nb_items;
@@ -21,7 +47,10 @@ public abstract class ContainerModel extends ItemModel {
     this.itemList = new ArrayList<>(nb_items);
   }
 
-  //Fills a modelContainer with a chosen max amount of items as the parameter
+  /**
+   * Fills the container with a specified number of random items.
+   * @param nb number of random items to add
+   */
   public void fillContainer(int nb) {
     if (nb + this.nb_items > this.MAX_NB_ITEMS) {
       System.out.println(MessageEnModel.contFull(this));
@@ -36,36 +65,53 @@ public abstract class ContainerModel extends ItemModel {
     }
   }
 
-  //Returns the modelContainer's capacity
+  /**
+   * Gets the current total weight the container can contain.
+   * @return the current capacity (weight)
+   */
   public int getCapacity() {
     return this.capacity;
   }
 
-  //Returns the modelContainer's number of items
+  /**
+   * Gets the current number of items in the container.
+   * @return the number of items
+   */
   public int getNbItems() {
     return this.nb_items;
   }
 
-  //Set the capacity
+  /**
+   * Sets the weight capacity of the container.
+   * @param cap the new capacity value
+   */
   public void setCapacity(int cap) {
     if (cap <= this.MAX_CAPACITY) {
       this.capacity = cap;
     }
   }
 
-  //Set the number of items
+  /**
+   * Sets the current number of items.
+   * @param nb_items the new number of items
+   */
   public void setNbItems(int nb_items) {
     if (nb_items <= this.MAX_NB_ITEMS) {
       this.nb_items = nb_items;
     }
   }
 
-  //Returns true if the number of items in the backpack is the max
+  /**
+   * Checks if the container is full.
+   * @return {@code true} if full, otherwise {@code false}
+   */
   public boolean isFull() {
     return (this.getNbItems() == this.MAX_NB_ITEMS);
   }
 
-  //Displays each modelItem contained in the modelContainer
+  /**
+   * Displays the contents of the container in a formatted manner.
+   */
   public void displayContent() {
     System.out.print(this);
     System.out.println(" : ");
@@ -77,18 +123,29 @@ public abstract class ContainerModel extends ItemModel {
     }
   }
 
-  //Returns the modelItem in the i position of the list
+  /**
+   * Gets the item at the specified index.
+   * @param i the index
+   * @return the item at the specified index or {@code null} if empty
+   */
   public ItemModel getNthItem(int i) {
     if (this.itemList.size() == 0) {
       return null;
     } else return this.itemList.get(i);
   }
 
+  /**
+   * Gets the list of items in the container.
+   * @return the list of items
+   */
   public ArrayList<ItemModel> getItemList() {
     return this.itemList;
   }
 
-  //Remove the modelItem from the modelContainer
+  /**
+   * Removes a specific item from the container.
+   * @param item the item to remove
+   */
   public void removeItem(ItemModel item) {
     if (this.itemList.contains(item)) {
       this.itemList.remove(item);
@@ -97,13 +154,20 @@ public abstract class ContainerModel extends ItemModel {
     }
   }
 
-  //Returns true if the modelItem is too heavy to be put in the modelContainer
+  /**
+   * Checks if an item is too heavy to be added to the container.
+   * @param i the item to check
+   * @return {@code true} if the item is too heavy, otherwise {@code false}
+   */
   public boolean tooHeavy(ItemModel i) {
     return ((this.getCapacity()) + (i.WEIGHT) > this.MAX_CAPACITY);
   }
 
-  //Add the modelItem only if there is space for it
-  //Returns true if the modelItem has been added
+  /**
+   * Adds an item to the container if there is enough space.
+   * @param item the item to add
+   * @return {@code true} if the item was added, {@code false} otherwise
+   */
   public boolean addItem(ItemModel item) {
     boolean is_added = false;
 
@@ -124,6 +188,10 @@ public abstract class ContainerModel extends ItemModel {
     return is_added;
   }
 
+  /**
+   * Returns the name of the container type as a string.
+   * @return the class name
+   */
   @Override
   public String toString() {
     return this.getClass().getSimpleName();
