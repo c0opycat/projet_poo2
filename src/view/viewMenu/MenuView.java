@@ -17,7 +17,7 @@ import view.viewHallOfFame.HOFView;
  * The main menu of the application.
  * Extends BorderWithButtons and provides buttons for navigation to different views.
  */
-public class Menu extends BorderWithButtons {
+public class MenuView extends BorderWithButtons {
 
   private Lang lang;
 
@@ -25,11 +25,11 @@ public class Menu extends BorderWithButtons {
    * Constructs a new Menu instance.
    * Initializes the menu with a title, buttons, and components.
    */
-  public Menu() {
+  public MenuView() {
     super();
     this.lang = new Lang();
 
-    this.addTitle("Menu", false);
+    this.addTitle("Ashes of Humanity", false);
     this.setButtons();
     this.addcomp();
   }
@@ -61,7 +61,8 @@ public class Menu extends BorderWithButtons {
     lang.setButtonLang(edit, "Editeur", "Editor");
     Button hof = new Button();
     lang.setButtonLang(hof, "HOF", "HOF");
-
+    Button credits = new Button();
+    lang.setButtonLang(credits, "Credits", "Crédits");
     //style du menu
 
     this.addBackground("background.png");
@@ -73,11 +74,12 @@ public class Menu extends BorderWithButtons {
     cfg.setPrefSize(buttonWidth, buttonHeight);
     edit.setPrefSize(buttonWidth, buttonHeight);
     hof.setPrefSize(buttonWidth, buttonHeight);
+    credits.setPrefSize(buttonWidth, buttonHeight);
 
     vb.setMaxHeight(350);
     vb.setMaxWidth(450);
 
-    vb.getChildren().addAll(jouer, cfg, edit, hof);
+    vb.getChildren().addAll(jouer, cfg, edit, hof, credits);
 
     vb.setAlignment(Pos.CENTER);
 
@@ -121,6 +123,15 @@ public class Menu extends BorderWithButtons {
   }
 
   /**
+   * Retrieves the "Credits" button from the menu.
+   *
+   * @return the "Credits" button.
+   */
+  private Button getCredits() {
+    return (Button) ((VBox) this.getCenter()).getChildren().get(4);
+  }
+
+  /**
    * Adds event handlers to the menu buttons for navigation to different views.
    */
   public void addHandlers() {
@@ -152,6 +163,13 @@ public class Menu extends BorderWithButtons {
         HOFView hofView = new HOFView();
         scene.setContent(hofView);
         hofView.setButtons();
+      });
+
+    getCredits()
+      .setOnAction(e -> {
+        CreditsView creditsView = new CreditsView();
+        scene.setContent(creditsView);
+        creditsView.setButtons();
       });
   }
 }

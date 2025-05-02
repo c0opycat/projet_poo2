@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import view.Keybinds;
+import view.Lang;
 import view.MyAlert;
 
 /**
@@ -23,6 +24,8 @@ public class AllKeybindsConfigView extends VBox {
 
   /** Keybinds object */
   private final Keybinds keybinds;
+  /** Lang object */
+  private Lang lang = new Lang();
 
   /**
    * Constructor
@@ -48,7 +51,8 @@ public class AllKeybindsConfigView extends VBox {
    * @return void
    */
   private void addComp() {
-    Label title = new Label("Keybind :");
+    Label title = new Label();
+    lang.setLabelLang(title, "Touches", "Keybinds");
     title.getStyleClass().add("under-title"); // Ajouter une classe CSS
 
     Keybinds keybinds = this.getKeybinds();
@@ -99,7 +103,8 @@ public class AllKeybindsConfigView extends VBox {
       keybinds
     );
 
-    Button save = new Button("Save");
+    Button save = new Button();
+    lang.setButtonLang(save, "Sauvegarder", "Save");
     save.getStyleClass().add("button");
 
     save.setOnAction(e -> {

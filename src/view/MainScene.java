@@ -2,7 +2,7 @@ package view;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import view.viewMenu.Menu;
+import view.viewMenu.MenuView;
 
 /**
  * The main scene of the application.
@@ -16,8 +16,8 @@ public class MainScene extends Scene {
    */
   public MainScene() {
     // Taille d'origine 1024 * 768
-    super(new Menu(), 1331, 998);
-    ((Menu) this.getRoot()).addHandlers();
+    super(new MenuView(), 1331, 998);
+    ((MenuView) this.getRoot()).addHandlers();
   }
 
   /**

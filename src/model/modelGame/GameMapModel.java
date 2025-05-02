@@ -1,17 +1,21 @@
 package model.modelGame;
 
 import java.util.ArrayList;
+
+import model.modelEditor.CustomMapSaveModel;
 import model.modelLocation.*;
 
 public class GameMapModel {
     public static ArrayList<LocationModel> locations;
-    
 
     public GameMapModel()
     {
         GameMapModel.locations = new ArrayList<>();
         buildMap();
+        CustomMapSaveModel customMap = new CustomMapSaveModel();
+        GameMapModel.locations.addAll(customMap.locations);
     }
+
     public static void buildMap(){
         LocationModel northPoitiers = new LocationModel("NORTH_POITIERS");
         GameMapModel.locations.add(northPoitiers);
@@ -61,5 +65,9 @@ public class GameMapModel {
     
     public LocationModel getEndLoc(){
         return locations.get(locations.size() - 1);
+    }
+
+    public ArrayList<LocationModel> getLocations(){
+        return locations;
     }
 }

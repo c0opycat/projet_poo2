@@ -256,7 +256,7 @@ public class LocationModel {
     for (int i = 0; i < allPoints.size(); i++) {
       p = allPoints.get(i);
       if (isPointFree(p)) {
-        break;
+        return p;
       }
     }
 
@@ -492,5 +492,10 @@ public class LocationModel {
     };
     location.setExits(exits);
     location.initItems();
+  }
+
+  public void setSize(int width, int height) {
+    this.width = width;
+    this.height = height;
   }
 }

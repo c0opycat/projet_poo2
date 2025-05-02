@@ -2,7 +2,6 @@ package view.viewHallOfFame;
 
 import java.util.ArrayList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import view.BorderWithButtons;
@@ -15,16 +14,13 @@ public class HOFView extends BorderWithButtons {
     super();
     this.addTitle("Hall of Fame", false);
 
-    //Adding the scores in the center of the pane.
-    ScoresView scores = new ScoresView();
+    ScoreSaveView scores = new ScoreSaveView();
     this.setCenter(scores);
-
-    scores.setAlignment(Pos.CENTER);
+    this.addBackground("background.png");
 
     BorderPane.setMargin(scores, new Insets(2));
   }
 
-  //Set the bottom of the pane with buttons
   public void setButtons() {
     ArrayList<Button> buttons = new ArrayList<>();
 

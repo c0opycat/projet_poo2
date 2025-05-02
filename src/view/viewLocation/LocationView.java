@@ -51,6 +51,10 @@ public class LocationView extends GridPane {
     return this.commandsView;
   }
 
+  /**
+   * getHeroView is a method that returns the GameView object.
+   * @return GameView object
+   */
   public GameView getGameView() {
     return this.gameView;
   }
@@ -63,6 +67,10 @@ public class LocationView extends GridPane {
     return this.getGameView().getHeroView();
   }
 
+  /**
+   * getHeroView is a method that returns the MonsterView object.
+   * @return MonsterView object
+   */
   public MonsterView getMonsterView() {
     return this.monsterView;
   }
@@ -409,7 +417,7 @@ public class LocationView extends GridPane {
           ((ExitView) getCell(heroX + 1, heroY).getImageView());
         cellList.put(
           exitView.getDestinationName(),
-          lang.equals("EN") ? "right" : "droite"
+          lang.equals("EN") ? "right" : "droit"
         );
       }
     }
@@ -480,9 +488,8 @@ public class LocationView extends GridPane {
   }
 
   public Point placeMonster() {
-    MonsterView monsterView = new MonsterView(this);
+    MonsterView monsterView = new MonsterView(this.getGameView(), this);
     this.setMonsterView(monsterView);
-    monsterView.getMonsterController().setGameView(this.getGameView());
 
     Random random = new Random();
 
@@ -511,6 +518,21 @@ public class LocationView extends GridPane {
     }
 
     return null;
+  }
+
+  public void removeMonster() {
+    MonsterView monsterView = this.getMonsterView();
+
+    int x = (int) monsterView.getCoord().getX();
+    int y = (int) monsterView.getCoord().getY();
+
+    Cell monsterCell = this.getCell(x, y);
+
+    monsterCell.removeElement();
+    monsterCell.deleteImage(monsterView);
+
+    this.setMonsterView(null);
+    this.getLocationController().removeMonster();
   }
 
   public void addItem(String elem, Point point) {
@@ -569,6 +591,12 @@ public class LocationView extends GridPane {
       newCell.addImage(this.getHeroView());
       newCell.setElement(this.getHeroView().getName());
       this.getHeroView().setActualCoord(newCoord);
+
+      if (
+        this.getMonsterView() != null && this.getMonsterView().isInAttackRange()
+      ) {
+        this.getMonsterView().attack();
+      }
     }
   }
 }

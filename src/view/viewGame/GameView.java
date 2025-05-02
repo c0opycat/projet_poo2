@@ -19,7 +19,9 @@ import view.viewCharacter.HeroView;
 import view.viewContainer.ContainerView;
 import view.viewGame.viewCommand.CommandsView;
 import view.viewGame.viewCommand.viewMenuCommand.HelpView;
+import view.viewGame.viewCommand.viewMenuCommand.PauseView;
 import view.viewGame.viewCommand.viewMenuCommand.QuitView;
+import view.viewGameOver.GameOverView;
 import view.viewLocation.LocationView;
 
 /**
@@ -62,8 +64,11 @@ public class GameView extends BorderWithButtons {
   }
 
   public void endGame() {
-    // ecouteur d'evenements sur le boolean isEnd
+    this.getGameController().end();
 
+    GameOverView goView = new GameOverView(this);
+    this.getMainScene().setContent(goView);
+    goView.setButtons();
   }
 
   /**
@@ -157,6 +162,10 @@ public class GameView extends BorderWithButtons {
    */
   public void updateCurrentLocation() {
     this.getGameController().updateCurrentLocation();
+
+    if (this.getGameController().isEnd()) {
+      this.endGame();
+    }
   }
 
   /**
@@ -369,7 +378,7 @@ public class GameView extends BorderWithButtons {
     HBox gameButtonsBox = new HBox(20);
 
     HelpView helpButton = new HelpView(this);
-    Button pause = new Button("Pause");
+    PauseView pause = new PauseView(this);
 
     Region spring = new Region();
 

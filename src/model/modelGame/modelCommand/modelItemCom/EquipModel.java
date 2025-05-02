@@ -56,12 +56,9 @@ public class EquipModel extends CommandModel {
             WeaponModel herosWeapon = this.gameM.getHero().getWeapon();
 
             if (herosWeapon != null) {
-              boolean switched = bp.addItem(herosWeapon);
-              if (!switched) {
-                Point pt = loc.getRandomFreeStepCoord();
-                if (pt != null) {
-                  loc.addItem(herosWeapon, pt);
-                }
+              Point pt = loc.getRandomFreeStepCoord();
+              if (pt != null) {
+                loc.addItem(herosWeapon, pt);
               }
             }
 
@@ -172,12 +169,9 @@ public class EquipModel extends CommandModel {
                 WeaponModel herosWeapon = this.gameM.getHero().getWeapon();
 
                 if (herosWeapon != null) {
-                  boolean switched = cont.addItem(herosWeapon);
-                  if (!switched) {
-                    Point pt = loc.getRandomFreeStepCoord();
-                    if (pt != null) {
-                      loc.addItem(herosWeapon, pt);
-                    }
+                  Point pt = loc.getRandomFreeStepCoord();
+                  if (pt != null) {
+                    loc.addItem(herosWeapon, pt);
                   }
                 }
 
@@ -189,12 +183,9 @@ public class EquipModel extends CommandModel {
                   this.gameM.getHero().getShield();
 
                 if (herosProtection != null) {
-                  boolean switched = cont.addItem(herosProtection);
-                  if (!switched) {
-                    Point point = loc.getRandomFreeStepCoord();
-                    if (point != null) {
-                      loc.addItem(herosProtection, point);
-                    }
+                  Point point = loc.getRandomFreeStepCoord();
+                  if (point != null) {
+                    loc.addItem(herosProtection, point);
                   }
                 }
 

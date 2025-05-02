@@ -93,4 +93,8 @@ public class LocationController {
   public boolean hasMonster() {
     return this.getLocationModel().getMonster() != null;
   }
+
+  public void removeMonster() {
+    this.getLocationModel().setMonster(null);
+  }
 }

@@ -1,3 +1,39 @@
+/* Credits view styling */
+.credits-box {
+    -fx-background-color: rgba(46, 46, 46, 0.85);
+    -fx-background-radius: 5px;
+    -fx-border-color: #5a5a5a;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+}
+
+/* Header label (Developers:) */
+.credits-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff6600;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 0 0 10 0;
+}
+
+/* Developer names */
+.credits-name {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* Footer text */
+.credits-footer {
+    -fx-font-size: 12px;
+    -fx-text-fill: #cccccc;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
 /* Style général des boutons */
 .button {
     -fx-background-color: #2e2e2e;
@@ -210,4 +246,35 @@
 /* Effet de calque */
 .transparent-layer {
     -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+.row-score-view{
+    -fx-background-color: #474747;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px, 10px;
+}
+
+.row-score-view-1{
+    -fx-background-color: #c29f54;
+    -fx-border-color: #000000;
+}
+
+.row-score-view-2{
+    -fx-background-color: #979797;
+    -fx-border-color: #000000;
+}
+
+.row-score-view-3{
+    -fx-background-color: #703f1e;
+    -fx-border-color: #000000;
+}
+
+.row-score-view > .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-weight: bold;
 }

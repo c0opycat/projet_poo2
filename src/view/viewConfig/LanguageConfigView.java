@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.json.JSONObject;
+import view.Lang;
 import view.MyAlert;
 
 /**
@@ -15,6 +16,8 @@ import view.MyAlert;
  * @author A. Bertrand-Bernard
  */
 public class LanguageConfigView extends VBox {
+
+  private Lang lang = new Lang();
 
   /**
    * Constructeur de la classe LanguageConfigView.
@@ -30,19 +33,22 @@ public class LanguageConfigView extends VBox {
    */
   private void addComp() {
     // Créer une instance de Label pour le titre
-    Label title = new Label("Language :");
+    Label title = new Label();
+    lang.setLabelLang(title, "Langue", "Language");
     title.getStyleClass().add("under-title"); // Ajouter une classe CSS
 
     double buttonWidth = 150;
     double buttonHeight = 35;
 
     // Créer des boutons pour chaque langue
-    Button englishButton = new Button("English");
+    Button englishButton = new Button();
+    lang.setButtonLang(englishButton, "Anglais", "English");
     englishButton.setOnAction(e -> {
       saveLanguage("EN");
     });
 
-    Button frenchButton = new Button("Français");
+    Button frenchButton = new Button();
+    lang.setButtonLang(frenchButton, "Français", "French");
     frenchButton.setOnAction(e -> {
       saveLanguage("FR");
     });
