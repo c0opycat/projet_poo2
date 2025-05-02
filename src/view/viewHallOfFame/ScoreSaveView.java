@@ -15,7 +15,7 @@ public class ScoreSaveView extends VBox {
   private final Lang lang = new Lang();
 
   public ScoreSaveView() {
-    super(10);
+    super(20);
     this.scoreSaveController = new ScoreSaveController(this);
 
     this.addScores();
@@ -35,24 +35,41 @@ public class ScoreSaveView extends VBox {
     List<Pair<String, Long>> topScores =
       this.getScoreSaveController().getScores();
 
-    int rank = 0;
+    int rank = 1;
 
     for (Pair<String, Long> score : topScores) {
       Label rankLabel = new Label("#" + rank + " ");
       Label nameLabel = new Label(score.getKey());
-      Label scoreLabel = new Label(" : " + score.getValue());
+      Label scoreLabel = new Label(" :   " + score.getValue());
 
-      HBox rowBox = new HBox(5);
+      HBox rowBox = new HBox(10);
       rowBox.getChildren().addAll(rankLabel, nameLabel, scoreLabel);
       rowBox.setAlignment(Pos.CENTER);
+
+      double setMaxWidth = 400;
+      rowBox.setMaxWidth(setMaxWidth);
+
       rowBox.getStyleClass().add("row-score-view");
+
+      switch (rank) {
+        case 1:
+          rowBox.getStyleClass().add("row-score-view-1");
+          break;
+        case 2:
+          rowBox.getStyleClass().add("row-score-view-2");
+          break;
+        case 3:
+          rowBox.getStyleClass().add("row-score-view-3");
+          break;
+        default:
+          break;
+      }
 
       this.getChildren().add(rowBox);
 
       rank++;
     }
 
-    // Add empty rows if less than 10 scores
     while (rank <= 10) {
       Label rankLabel = new Label("#" + rank);
       Label nameLabel = new Label("---");

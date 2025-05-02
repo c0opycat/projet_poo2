@@ -16,6 +16,7 @@ public class HOFView extends BorderWithButtons {
 
     ScoreSaveView scores = new ScoreSaveView();
     this.setCenter(scores);
+    this.addBackground("background.png");
 
     BorderPane.setMargin(scores, new Insets(2));
   }
