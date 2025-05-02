@@ -7,7 +7,7 @@ public enum JobModel {
     /**Starts with meds and the ability so restore small amount of health after a fight*/
     MEDIC,
 
-    /**Can use special shortcuts in the city*/
+    /**Can use special shortcuts in the city - coming soon*/
     //DELIVERY,
 
     /**Has an animal which can attack too*/
@@ -16,6 +16,6 @@ public enum JobModel {
     /**Starts with a modelWeapon*/
     SECURITY,
 
-    /**Can run away from any monster*/
+    /**Can run away from any monster - coming soon*/
     //TEACHER
 }

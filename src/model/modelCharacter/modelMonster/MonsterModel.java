@@ -6,17 +6,30 @@ import model.modelGame.MessageEnModel;
 import model.modelItem.ProtectionModel;
 import model.modelItem.modelWeapon.*;
 
+/**
+ * Abstract class that represents the group monster in the game.
+ * <p>
+ * A monster is a type of character that may attack using either its innate monster damage
+ * or a randomly assigned weapon. Monsters can also be equipped with a shield.
+ * </p>
+ */
 public abstract class MonsterModel extends CharacterModel {
 
-  // Monsters either do damages with his hands (for instance)
-  // or with a modelWeapon.
-  // If he has a modelWeapon, he does damages with it,
-  // if he has not, he does with this int.
+  /** The base damage dealt by the monster when no weapon is equipped. */
   protected int monsterDamage;
 
+  /**
+   * Constructor used by the child classes of MonsterModel with given attributes.
+   * A random weapon and shield may also be assigned during initialization.
+   * @param monsterDamage the damage inflicted when no weapon is equipped
+   * @param health the initial health of the monster
+   * @param maxHealth the maximum health of the monster
+   */
   public MonsterModel(int monsterDamage, int health, int maxHealth) {
     super(health, maxHealth, null, 5, 10);
     this.monsterDamage = monsterDamage;
+
+    // Assign random weapon
     int weapon = (int) (Math.random() * 4);
     switch (weapon) {
       case 0:
@@ -32,6 +45,8 @@ public abstract class MonsterModel extends CharacterModel {
         this.weapon = null;
         break;
     }
+
+    //Assign random shield
     int shield = (int) (Math.random() * 2);
     if (shield == 0) {
       this.shield = new ProtectionModel();
@@ -40,10 +55,19 @@ public abstract class MonsterModel extends CharacterModel {
     }
   }
 
-  public int getMonsterDamage() {
+  /**
+   * Returns the monster's innate damage (when no weapon is equipped).
+   * @return the base monster damage
+   */
+  private int getMonsterDamage() {
     return monsterDamage;
   }
 
+  /**
+   * Returns the damage dealt by the monster.
+   * This may come from its weapon or from its base monster damage.
+   * @return the amount of damage dealt
+   */
   public int getDamage() {
     if (this.weapon == null) {
       return this.getMonsterDamage();
@@ -52,6 +76,10 @@ public abstract class MonsterModel extends CharacterModel {
     }
   }
 
+  /**
+   * Attacks the given character and applies damage considering possible protection.
+   * @param c the character to attack
+   */
   public void attack(CharacterModel c) {
     if (weapon == null) {
       if (c.getShield() == null) {
@@ -75,6 +103,10 @@ public abstract class MonsterModel extends CharacterModel {
     System.out.println(MessageEnModel.monsterAttack(this));
   }
 
+  /**
+   * Generates and returns a random instance of a child class of monster
+   * @return a random {@code MonsterModel} instance (AngryModel, ColossusModel, or DriedModel)
+   */
   public static MonsterModel randMonster() {
     MonsterModel res;
 
@@ -100,6 +132,10 @@ public abstract class MonsterModel extends CharacterModel {
     return res;
   }
 
+  /**
+   * Returns a string representation of the monster showing its class name and current HP.
+   * @return a string representing the monster
+   */
   @Override
   public String toString() {
     return this.getClass().getSimpleName() + " (" + this.getHealth() + " HP)";

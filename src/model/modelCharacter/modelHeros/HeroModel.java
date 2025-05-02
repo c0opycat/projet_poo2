@@ -208,8 +208,8 @@ public class HeroModel extends CharacterModel {
   }
 
   /**
-   * Switches the current backpack with one in the modelLocation.
-   * @param BP the new backpack to take
+   * Switches the current backpackModel with one in the modelLocation.
+   * @param p  the position of the player on the grid
    * @param l  the modelLocation from which to take and leave backpacks
    */
   public void switchBackpack(Point p, LocationModel l) {
