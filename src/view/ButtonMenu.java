@@ -1,7 +1,7 @@
 package view;
 
 import javafx.scene.control.Button;
-import view.viewMenu.Menu;
+import view.viewMenu.MenuView;
 
 /**
  * Button that redirects to the Menu after confirmation.
@@ -18,7 +18,6 @@ public class ButtonMenu extends Button {
   public ButtonMenu(MainScene mainScene) {
     super("Menu");
     this.setOnAction(e -> {
-        //Creation of a dialog to confirm the exit of the application.
         MyAlert menuAlert = new MyAlert(
           "Go to the menu",
           null,
@@ -28,8 +27,7 @@ public class ButtonMenu extends Button {
         boolean isOk = menuAlert.showConfirmation();
 
         if (isOk) {
-          //ExitModel the application if the user choose OK.
-          Menu menu = new Menu();
+          MenuView menu = new MenuView();
           mainScene.setContent(menu);
           menu.addHandlers();
         }

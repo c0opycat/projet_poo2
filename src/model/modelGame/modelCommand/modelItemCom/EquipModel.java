@@ -58,7 +58,6 @@ public class EquipModel extends CommandModel {
             if (herosWeapon != null) {
               Point pt = loc.getRandomFreeStepCoord();
               if (pt != null) {
-                System.out.println("equip model " + pt);
                 loc.addItem(herosWeapon, pt);
               }
             }
@@ -94,8 +93,6 @@ public class EquipModel extends CommandModel {
               if (herosWeapon != null) {
                 Point pt = loc.getRandomFreeStepCoord();
                 if (pt != null) {
-                  System.out.println("equip model " + pt);
-                  System.out.println(pt);
                   loc.addItem(herosWeapon, pt);
                 }
               }
@@ -112,7 +109,6 @@ public class EquipModel extends CommandModel {
               if (herosProtection != null) {
                 Point point = loc.getRandomFreeStepCoord();
                 if (point != null) {
-                  System.out.println("equip model " + point);
                   loc.addItem(herosProtection, point);
                 }
               }
@@ -175,7 +171,6 @@ public class EquipModel extends CommandModel {
                 if (herosWeapon != null) {
                   Point pt = loc.getRandomFreeStepCoord();
                   if (pt != null) {
-                    System.out.println("equip model " + pt);
                     loc.addItem(herosWeapon, pt);
                   }
                 }
@@ -190,7 +185,6 @@ public class EquipModel extends CommandModel {
                 if (herosProtection != null) {
                   Point point = loc.getRandomFreeStepCoord();
                   if (point != null) {
-                    System.out.println("equip model " + point);
                     loc.addItem(herosProtection, point);
                   }
                 }

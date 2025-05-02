@@ -1,3 +1,39 @@
+/* Credits view styling */
+.credits-box {
+    -fx-background-color: rgba(46, 46, 46, 0.85);
+    -fx-background-radius: 5px;
+    -fx-border-color: #5a5a5a;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+}
+
+/* Header label (Developers:) */
+.credits-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff6600;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 0 0 10 0;
+}
+
+/* Developer names */
+.credits-name {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* Footer text */
+.credits-footer {
+    -fx-font-size: 12px;
+    -fx-text-fill: #cccccc;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
 /* Style général des boutons */
 .button {
     -fx-background-color: #2e2e2e;
@@ -242,4 +278,3 @@
     -fx-font-size: 16px;
     -fx-weight: bold;
 }
-
