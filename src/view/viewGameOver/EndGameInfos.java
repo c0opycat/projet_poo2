@@ -10,11 +10,27 @@ import javafx.scene.layout.VBox;
 import view.Lang;
 import view.viewGame.GameView;
 
+/**
+ * The EndGameInfos class represents the component that displays the final game results.
+ * This class extends VBox to provide a vertical layout for displaying end game information,
+ * including whether the player won or lost, their final score, and a detailed description of
+ * the game outcome. It's used within the GameOverView to present results to the player.
+ */
 public class EndGameInfos extends VBox {
 
+  /** Reference to the game view containing the final game state and results. */
   private final GameView gameView;
+
+  /** Language handler for internationalization support. */
   private Lang lang = new Lang();
 
+  /**
+   * Constructs a new EndGameInfos with the specified game view.
+   * Initializes the component with the game view and adds all the result elements
+   * to display the game outcome information.
+   *
+   * @param gameView the game view containing the final game state and results
+   */
   public EndGameInfos(GameView gameView) {
     super();
     this.gameView = gameView;
@@ -22,14 +38,31 @@ public class EndGameInfos extends VBox {
     this.addElements();
   }
 
+  /**
+   * Gets the game view associated with this end game information display.
+   *
+   * @return the GameView instance
+   */
   public GameView getGameView() {
     return this.gameView;
   }
 
+  /**
+   * Gets the language handler for this component.
+   *
+   * @return the Lang object used for text internationalization
+   */
   public Lang getLang() {
     return this.lang;
   }
 
+  /**
+   * Adds all the elements needed to display the game outcome information.
+   * Creates and configures labels for the win/loss message and score display,
+   * as well as a text area for the detailed outcome description. The content
+   * and styling varies depending on whether the player won or lost the game
+   * and the current language setting.
+   */
   private void addElements() {
     String endText = "";
 

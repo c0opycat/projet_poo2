@@ -14,10 +14,32 @@ import javafx.scene.image.ImageView;
  */
 public class HeroView extends ImageView {
 
+  /**
+   * The default starting coordinates for the hero.
+   * This position is used as the initial placement when a hero is created
+   * or when the hero's position needs to be reset.
+   */
   private final Point default_coord;
+
+  /**
+   * The hero's current position in the game world.
+   * These coordinates are updated whenever the hero moves to a new location.
+   */
   private Point actual_coord;
+
+  /**
+   * The controller that manages the hero's behavior and game logic.
+   * Handles operations related to the hero model like movement, combat, and status updates.
+   */
   private final HeroController heroController;
 
+  /**
+   * Constructs a new HeroView with the specified controller.
+   * Initializes the view with the hero's image and sets up the default position.
+   * The hero is initially placed at coordinates (0,0) until moved by game logic.
+   *
+   * @param heroController the controller that manages the hero model this view will display
+   */
   public HeroView(HeroController heroController) {
     super(new Image("file:./resources/image/hero.png", 25, 25, true, true));
     this.default_coord = new Point(0, 0);

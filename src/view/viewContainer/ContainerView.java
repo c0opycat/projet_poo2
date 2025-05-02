@@ -16,12 +16,21 @@ import view.viewGame.viewCommand.viewItemCommand.UseView;
 /**
  * View class for displaying and managing containers in the game.
  * It provides a graphical interface for interacting with items in containers or the hero's backpack.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class ContainerView extends VBox {
 
+  /** Controller that manages the container model and operations on container contents. */
   private final ContainerController containerController;
+
+  /** X-coordinate of the container in the game grid. */
   private int x;
+
+  /** Y-coordinate of the container in the game grid. */
   private int y;
+
+  /** Reference to the main game view for accessing game state and UI elements. */
   private final GameView gameView;
 
   /**
@@ -81,6 +90,13 @@ public class ContainerView extends VBox {
     }
   }
 
+  /**
+   * Updates the content of the container view.
+   * This method delegates to the container controller to refresh the display of items
+   * in the container. It clears existing items and repopulates the view with current data.
+   *
+   * @param isBackpack true if updating the hero's backpack view, false if updating an external container
+   */
   public void updateContainerView(boolean isBackpack) {
     this.getContainerController().updateContainerView(isBackpack);
   }

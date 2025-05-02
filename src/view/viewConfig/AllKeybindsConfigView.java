@@ -178,11 +178,16 @@ public class AllKeybindsConfigView extends VBox {
       !keys.add(take) ||
       !keys.add(backpack)
     ) {
-      MyAlert alert = new MyAlert(
-        "Keybinds configuration",
-        "Key already used",
-        "Please use different keys for each action"
-      );
+      String title = this.lang.getCurr_lang().equals("EN")
+        ? "Keybinds Configuration"
+        : "Configuration des touches";
+      String header = this.lang.getCurr_lang().equals("EN")
+        ? "Key already used"
+        : "Touche déjà utilisée";
+      String content = this.lang.getCurr_lang().equals("EN")
+        ? "Please use different keys for each action"
+        : "Veuillez utiliser des touches différentes pour chaque action";
+      MyAlert alert = new MyAlert(title, header, content);
       alert.showInformation();
       return;
     }

@@ -16,9 +16,12 @@ import view.viewHallOfFame.HOFView;
 /**
  * The main menu of the application.
  * Extends BorderWithButtons and provides buttons for navigation to different views.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class MenuView extends BorderWithButtons {
 
+  /** Language handler for internationalization. */
   private Lang lang;
 
   /**

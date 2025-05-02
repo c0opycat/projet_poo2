@@ -13,6 +13,13 @@ import javafx.stage.Stage;
  */
 public class ResolutionConfigView extends VBox {
 
+  /**
+   * Constructs a new ResolutionConfigView.
+   * Initializes the view with vertical spacing of 20 pixels between elements
+   * and adds the resolution configuration components to the view.
+   * These components include a title label and buttons for selecting
+   * different screen resolutions (1024x768, 1280x720, 1920x1080).
+   */
   public ResolutionConfigView() {
     super(20);
     this.addComp();

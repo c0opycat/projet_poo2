@@ -30,20 +30,49 @@ import view.viewLocation.LocationView;
  */
 public class CommandsView {
 
+  /** KeyCode for the left movement command, retrieved from user's keybind settings. */
   private final KeyCode keybindLeft;
+
+  /** KeyCode for the right movement command, retrieved from user's keybind settings. */
   private final KeyCode keybindRight;
+
+  /** KeyCode for the forward/up movement command, retrieved from user's keybind settings. */
   private final KeyCode keybindForward;
+
+  /** KeyCode for the backward/down movement command, retrieved from user's keybind settings. */
   private final KeyCode keybindBackward;
+
+  /** KeyCode for toggling the hero's backpack view, retrieved from user's keybind settings. */
   private final KeyCode keybindBackpack;
+
+  /** KeyCode for the take item action, retrieved from user's keybind settings. */
   private final KeyCode keybindTake;
+
+  /** KeyCode for the equip item action, retrieved from user's keybind settings. */
   private final KeyCode keybindEquip;
+
+  /** KeyCode for the use exit/go action, retrieved from user's keybind settings. */
   private final KeyCode keybindGo;
+
+  /** KeyCode for the attack action, retrieved from user's keybind settings. */
   private final KeyCode keybindAttack;
+
+  /** Reference to the current location view where commands are being executed. */
   private LocationView locationView;
+
+  /** Controller that manages attack actions and their effects on game entities. */
   private AttackController attackController;
+
+  /** Reference to the main game view for accessing global game state and UI. */
   private GameView gameView;
+
+  /** Event handler that processes all key inputs and routes them to appropriate command methods. */
   private final EventHandler<KeyEvent> actionsHandler;
+
+  /** Flag indicating whether the hero's backpack is currently being displayed. */
   private boolean isBackpackOpen;
+
+  /** Current language setting for UI text localization. */
   private String curLang;
 
   /**
@@ -258,6 +287,15 @@ public class CommandsView {
     scene.removeEventHandler(KeyEvent.KEY_PRESSED, this.getActionsHandler());
   }
 
+  /**
+   * Toggles the visibility of the hero's backpack.
+   * Opens the backpack if it's currently closed and no other container is open,
+   * displaying all items in the hero's inventory. Closes the backpack if it's
+   * currently open. Updates the container label and view accordingly.
+   *
+   * @param containerLabel the label that displays the container title
+   * @param containerView the view that displays the container's contents
+   */
   public void toggleViewBackack(
     Label containerLabel,
     ContainerView containerView
@@ -285,6 +323,13 @@ public class CommandsView {
     }
   }
 
+  /**
+   * Handles the action of taking an item from the game world.
+   * Identifies items adjacent to the hero, presents them to the player in a dialog,
+   * and allows the player to select which item to take. The selected item is removed
+   * from the game world and added to the hero's inventory. If a monster is in attack
+   * range after taking the item, the monster will attack the hero.
+   */
   public void takeAction() {
     HeroView heroView = this.getGameView().getHeroView();
     int heroX = (int) heroView.getActualCoord().getX();
@@ -349,6 +394,13 @@ public class CommandsView {
     }
   }
 
+  /**
+   * Handles the action of equipping an item from the game world.
+   * Identifies items adjacent to the hero, presents them to the player in a dialog,
+   * and allows the player to select which item to equip. The selected item is removed
+   * from the game world and equipped by the hero. Updates the hero's description
+   * and location items, and triggers a monster attack if one is in range.
+   */
   public void equipAction() {
     HeroView heroView = this.getGameView().getHeroView();
     int heroX = (int) heroView.getActualCoord().getX();
@@ -418,6 +470,12 @@ public class CommandsView {
     }
   }
 
+  /**
+   * Handles the action of moving through an exit to another location.
+   * Identifies exits adjacent to the hero, presents them to the player in a dialog,
+   * and allows the player to select which exit to take. When an exit is selected,
+   * the hero is moved to the destination location and the game view is updated.
+   */
   public void goAction() {
     String newLine = System.getProperty("line.separator");
 
@@ -484,6 +542,14 @@ public class CommandsView {
     }
   }
 
+  /**
+   * Handles the action of attacking a monster.
+   * Checks if there is a monster in the current location and if the hero is within
+   * attack range. If both conditions are met, executes an attack. If the monster is
+   * defeated, removes it from the location and clears its information display.
+   * If the monster survives, updates its description. After the hero's attack,
+   * if the monster is still in attack range, it will counter-attack.
+   */
   public void attackAction() {
     HeroView heroView = this.getGameView().getHeroView();
 

@@ -12,10 +12,15 @@ import view.viewLocation.LocationView;
 /**
  * Controller class for managing the game logic.
  * It acts as an intermediary between the GameModel and GameView.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class GameController {
 
+  /** The model containing all game logic, state, and data structures. */
   private GameModel gameModel;
+
+  /** The view responsible for displaying the game's visual interface and handling user interactions. */
   private final GameView gameView;
 
   /**
@@ -84,22 +89,57 @@ public class GameController {
     this.getGameModel().displayEnd();
   }
 
+  /**
+   * Checks if the game has ended.
+   * Delegates to the game model to determine if the game has reached
+   * an end state (either won or lost).
+   *
+   * @return true if the game has ended, false otherwise
+   */
   public boolean isEnd() {
     return this.getGameModel().isEnd();
   }
 
+  /**
+   * Checks if the game has been won by the player.
+   * Delegates to the game model to determine if the winning conditions
+   * have been satisfied.
+   *
+   * @return true if the player has won the game, false otherwise
+   */
   public boolean isWon() {
     return this.getGameModel().isWon();
   }
 
+  /**
+   * Gets the message to display when the player wins the game.
+   * Retrieves the winning message from the game model, typically
+   * congratulating the player on their victory.
+   *
+   * @return a string containing the game won message
+   */
   public String getGameWonMessage() {
     return this.getGameModel().getGameWonMessage();
   }
 
+  /**
+   * Gets the message to display when the player loses the game.
+   * Retrieves the losing message from the game model, typically
+   * explaining the cause of defeat.
+   *
+   * @return a string containing the game lost message
+   */
   public String getGameLostMessage() {
     return this.getGameModel().getGameLostMessage();
   }
 
+  /**
+   * Gets the player's final score.
+   * Retrieves the calculated score from the game model based on
+   * the player's performance throughout the game.
+   *
+   * @return the player's score as a long value
+   */
   public long getScore() {
     return this.getGameModel().score.getScore();
   }

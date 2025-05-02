@@ -15,7 +15,17 @@ import javafx.scene.control.TextArea;
  */
 public class GameInfosStream extends OutputStream {
 
+  /**
+   * The TextArea UI component where output will be displayed.
+   * This area is updated with text whenever new bytes are written to the stream.
+   */
   private final TextArea infosArea;
+
+  /**
+   * Buffer to accumulate bytes before converting them to text.
+   * Used to handle multi-byte character sequences correctly when
+   * writing to the text area.
+   */
   private final ByteArrayOutputStream byteBuffer;
 
   /**

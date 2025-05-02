@@ -17,9 +17,11 @@ import view.Lang;
 /**
  * View class for the character selection screen.
  * Allows the user to input a name and select a job before starting the game.
+ * @author L. Cooper
  */
 public class CharacterChoiceView extends BorderWithButtons {
 
+  /** Language handler for internationalization. */
   private Lang lang = new Lang();
 
   /**

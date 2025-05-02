@@ -9,11 +9,27 @@ import view.viewGame.GameView;
 /**
  * Controller class for managing the Hero character.
  * It acts as an intermediary between the HeroModel and HeroView.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class HeroController {
 
+  /**
+   * The model containing the hero's data and business logic.
+   * This model represents the hero's attributes, inventory, and game state.
+   */
   private final HeroModel heroModel;
+
+  /**
+   * The view that displays the hero character in the game interface.
+   * Handles all visual aspects of the hero including position and appearance.
+   */
   private final HeroView heroView;
+
+  /**
+   * Reference to the main game view.
+   * Provides access to the broader game interface for updating hero-related UI elements.
+   */
   private GameView gameView;
 
   /**
@@ -113,6 +129,13 @@ public class HeroController {
     return this.getHeroModel().getJob().name();
   }
 
+  /**
+   * Checks if the hero is knocked out (KO).
+   * This method delegates to the hero model to determine if the hero's health
+   * has reached zero or below, rendering them unable to continue fighting or taking actions.
+   *
+   * @return true if the hero is knocked out, false otherwise
+   */
   public boolean isKO() {
     return this.getHeroModel().isKO();
   }
@@ -126,6 +149,14 @@ public class HeroController {
     return HeroModel.gBackpack().getItemList();
   }
 
+  /**
+   * Gets a formatted description of the hero character.
+   * This method generates a multi-line string containing the hero's key information:
+   * name, job/class, current health points (HP), equipped weapon, and equipped protection.
+   * Each piece of information is separated by a new line for better readability in the UI.
+   *
+   * @return a formatted string containing the hero's description
+   */
   public String getDescription() {
     String newLine = System.getProperty("line.separator");
 

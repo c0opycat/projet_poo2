@@ -10,50 +10,63 @@ import view.ButtonMenu;
 import view.ButtonQuit;
 
 /**
- * Classe représentant la vue de configuration Générale.
- * Elle permet à l'utilisateur de configurer les paramètres du jeu.
+ * The ConfigView class provides a comprehensive configuration screen for the game.
+ * This view integrates all configuration components including keyboard bindings,
+ * screen resolution settings, and language options. It extends BorderWithButtons
+ * to maintain consistent layout and navigation functionality with other game screens.
  * @author A. Bertrand-Bernard
  */
-
 public class ConfigView extends BorderWithButtons {
 
+  /**
+   * Constructs a new ConfigView.
+   * Initializes the view with a title, creates the configuration components,
+   * and sets up the layout. The configuration screen includes keybind settings,
+   * resolution options, and language selection.
+   */
   public ConfigView() {
     super();
     this.addComp();
   }
 
+  /**
+   * Adds the configuration components to the view.
+   * Creates and arranges the three main configuration panels:
+   * Keyboard bindings (in a scrollable container),
+   * Screen resolution options,
+   * Language selection
+   * These panels are arranged horizontally and centered in the view.
+   */
   private void addComp() {
     this.addTitle("Configuration", false);
 
-    // Créer un VBox pour contenir les composants
     HBox Hb = new HBox(60);
     Hb.setAlignment(Pos.CENTER);
 
-    // Créer une instance de KeybindConfigView
     AllKeybindsConfigView kb = new AllKeybindsConfigView();
     ResolutionConfigView res = new ResolutionConfigView();
     LanguageConfigView lang = new LanguageConfigView();
 
-    // Ajouter KeybindConfigView dans un ScrollPane
     ScrollPane scrollPane = new ScrollPane(kb);
-    scrollPane.setFitToWidth(true); // Ajuste la largeur du contenu au ScrollPane
-    scrollPane.setFitToHeight(false); // Permet le défilement vertical uniquement
-    scrollPane.setPrefHeight(500); // Hauteur préférée du ScrollPane
+    scrollPane.setFitToWidth(true);
+    scrollPane.setFitToHeight(false);
+    scrollPane.setPrefHeight(500);
     scrollPane.setPrefWidth(300);
     scrollPane.setStyle(
       "-fx-background: transparent; -fx-background-color: transparent;"
     );
 
-    // Ajouter le ScrollPane au VBox
     Hb.getChildren().addAll(scrollPane, res, lang);
 
-    // Ajouter le VBox au contenu principal
     this.setContent(Hb);
     this.addBackground("background.png");
   }
 
   /**
-   * Méthode pour ajouter les différents boutons au conteneur principal.
+   * Sets up the navigation buttons for the configuration screen.
+   * Adds a menu button to return to the main menu and a quit button
+   * to exit the application. These buttons are added to the button bar
+   * at the bottom of the view.
    */
   public void setButtons() {
     ArrayList<Button> buttons = new ArrayList<>();

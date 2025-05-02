@@ -9,11 +9,27 @@ import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import view.Lang;
 
+/**
+ * The ScoreSaveView class displays a leaderboard of player high scores.
+ * This class creates a vertical layout that shows the top scores in the game,
+ * with special styling for the top three ranks. It also includes placeholder
+ * entries to always display exactly 10 rows in the score table.
+ * @author L. Cooper
+ */
 public class ScoreSaveView extends VBox {
 
+  /** Controller that manages score data retrieval and processing. */
   private final ScoreSaveController scoreSaveController;
+
+  /** Language handler for internationalization support. */
   private final Lang lang = new Lang();
 
+  /**
+   * Constructs a new ScoreSaveView.
+   * Initializes the view with vertical spacing of 20 pixels, creates its
+   * controller, populates the score list, centers all content, and applies
+   * the "score-view" style class for CSS styling.
+   */
   public ScoreSaveView() {
     super(20);
     this.scoreSaveController = new ScoreSaveController(this);
@@ -23,14 +39,31 @@ public class ScoreSaveView extends VBox {
     this.getStyleClass().add("score-view");
   }
 
+  /**
+   * Gets the score save controller associated with this view.
+   *
+   * @return the ScoreSaveController handling data operations
+   */
   public ScoreSaveController getScoreSaveController() {
     return this.scoreSaveController;
   }
 
+  /**
+   * Gets the language handler for this view.
+   *
+   * @return the Lang object used for text internationalization
+   */
   public Lang getLang() {
     return this.lang;
   }
 
+  /**
+   * Populates the view with score entries.
+   * Creates a row for each score in the top scores list retrieved from the controller.
+   * Each row contains the rank, player name, and score value. Special styling is applied
+   * to the top three ranks. If fewer than 10 scores exist, additional placeholder rows
+   * are added to maintain consistent layout.
+   */
   private void addScores() {
     List<Pair<String, Long>> topScores =
       this.getScoreSaveController().getScores();

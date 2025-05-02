@@ -29,12 +29,44 @@ import view.viewGame.viewCommand.CommandsView;
 
 public class LocationView extends GridPane {
 
+  /**
+   * The controller responsible for managing the location model and its interactions.
+   * This controller handles all operations related to the location being displayed.
+   */
   private final LocationController locationController;
+
+  /**
+   * Reference to the game view that contains this location view.
+   * Provides access to global game state and UI elements.
+   */
   private GameView gameView;
+
+  /**
+   * Commands view component that handles player input and action commands.
+   * Contains buttons and controls for player interactions.
+   */
   private CommandsView commandsView;
+
+  /**
+   * Reference to the current monster view in this location, if any.
+   * Null if no monster is present in the current location.
+   */
   private MonsterView monsterView;
+
+  /**
+   * Flag indicating whether a container (chest, crate, or backpack) is currently open.
+   * Used to prevent multiple containers from being opened simultaneously.
+   */
   private Boolean isContainerOpen;
 
+  /**
+   * Constructs a new LocationView with the specified controller.
+   * Initializes the view to display the location grid, tracking elements such as cells,
+   * exits, and movable characters. The constructor initializes essential properties
+   * to their default values.
+   *
+   * @param locationController the controller that manages the location model this view will display
+   */
   public LocationView(LocationController locationController) {
     this.locationController = locationController;
     this.gameView = null;
@@ -118,6 +150,11 @@ public class LocationView extends GridPane {
     return this.getLocationController().getLocElements();
   }
 
+  /**
+   * Checks if a container (chest, crate, or backpack) is currently open in the location.
+   *
+   * @return Boolean value indicating whether a container is open (true) or closed (false)
+   */
   public Boolean getIsContainerOpen() {
     return this.isContainerOpen;
   }
@@ -474,8 +511,8 @@ public class LocationView extends GridPane {
   }
 
   /**
-   * removeHero is a method that removes the hero from the level.
-   * It deletes the image of the hero and removes the element from the cell.
+   * Removes the hero from its current position in the location.
+   * Clears the hero's image and element from the cell it currently occupies.
    */
   public void removeHero() {
     Cell cell =
@@ -487,6 +524,13 @@ public class LocationView extends GridPane {
     cell.removeElement();
   }
 
+  /**
+   * Places a monster at a random empty position in the current location.
+   * Creates a new monster view, finds an available cell, and adds the monster there.
+   * Updates the monster's controller with the new position information.
+   *
+   * @return null after the monster has been placed (method should return the Point where monster was placed)
+   */
   public Point placeMonster() {
     MonsterView monsterView = new MonsterView(this.getGameView(), this);
     this.setMonsterView(monsterView);
@@ -520,6 +564,11 @@ public class LocationView extends GridPane {
     return null;
   }
 
+  /**
+   * Removes the monster from the current location.
+   * Clears the monster's cell in the grid, removes its image,
+   * resets the monster view reference, and updates the controller.
+   */
   public void removeMonster() {
     MonsterView monsterView = this.getMonsterView();
 
@@ -535,6 +584,13 @@ public class LocationView extends GridPane {
     this.getLocationController().removeMonster();
   }
 
+  /**
+   * Adds an item to the specified location on the grid.
+   * Updates the cell with the item's element type and adds its image.
+   *
+   * @param elem the element type of the item
+   * @param point the coordinates where the item should be placed
+   */
   public void addItem(String elem, Point point) {
     int x = (int) point.getX();
     int y = (int) point.getY();
@@ -545,6 +601,12 @@ public class LocationView extends GridPane {
     cell.addImage();
   }
 
+  /**
+   * Removes an item from the specified location on the grid.
+   * Clears the cell's image and element.
+   *
+   * @param point the coordinates of the item to remove
+   */
   public void removeItem(Point point) {
     int x = (int) point.getX();
     int y = (int) point.getY();
@@ -554,6 +616,10 @@ public class LocationView extends GridPane {
     cell.removeElement();
   }
 
+  /**
+   * Updates the items in the current location.
+   * Triggers a refresh of item data in the location controller.
+   */
   public void updateItems() {
     this.getLocationController().updateItems();
   }

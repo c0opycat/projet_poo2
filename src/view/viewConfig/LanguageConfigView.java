@@ -11,17 +11,21 @@ import view.Lang;
 import view.MyAlert;
 
 /**
- * Classe représentant la vue de configuration de la langue.
- * Elle permet à l'utilisateur de choisir la langue de l'interface.
+ * The LanguageConfigView class provides an interface for changing the game's language.
+ * This view displays language options (English and French) as buttons that the player
+ * can select to change the game's interface language. The selected language preference
+ * is saved to a configuration file for persistence between game sessions.
  * @author A. Bertrand-Bernard
  */
 public class LanguageConfigView extends VBox {
 
+  /** Language handler for internationalization support. */
   private Lang lang = new Lang();
 
   /**
-   * Constructeur de la classe LanguageConfigView.
-   * Il initialise la vue avec les composants nécessaires pour configurer la langue.
+   * Constructs a new LanguageConfigView.
+   * Initializes the view with vertical spacing of 20 pixels between elements
+   * and adds the language configuration components to the view.
    */
   public LanguageConfigView() {
     super(20);
@@ -29,18 +33,19 @@ public class LanguageConfigView extends VBox {
   }
 
   /**
-   * Méthode pour ajouter les composants de la vue.
+   * Adds the language configuration components to the view.
+   * Creates and configures a title label and buttons for each supported language
+   * (English and French). Sets up action handlers for the buttons to save the
+   * selected language when clicked.
    */
   private void addComp() {
-    // Créer une instance de Label pour le titre
     Label title = new Label();
     lang.setLabelLang(title, "Langue", "Language");
-    title.getStyleClass().add("under-title"); // Ajouter une classe CSS
+    title.getStyleClass().add("under-title");
 
     double buttonWidth = 150;
     double buttonHeight = 35;
 
-    // Créer des boutons pour chaque langue
     Button englishButton = new Button();
     lang.setButtonLang(englishButton, "Anglais", "English");
     englishButton.setOnAction(e -> {
@@ -53,25 +58,37 @@ public class LanguageConfigView extends VBox {
       saveLanguage("FR");
     });
 
-    // Définir la taille des boutons
     englishButton.setPrefSize(buttonWidth, buttonHeight);
     frenchButton.setPrefSize(buttonWidth, buttonHeight);
 
-    // Ajouter les boutons au conteneur principal
     this.getChildren().addAll(title, englishButton, frenchButton);
     this.setAlignment(Pos.TOP_CENTER);
   }
 
+  /**
+   * Saves the selected language preference to a configuration file.
+   * Creates a JSON object with the language code and writes it to the
+   * language configuration file. Displays a confirmation message if successful
+   * or an error message if the save operation fails.
+   *
+   * @param language the language code to save ("EN" for English, "FR" for French)
+   */
   public void saveLanguage(String language) {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("language", language);
     try (FileWriter fileWriter = new FileWriter("./save/language.json")) {
       fileWriter.write(jsonObject.toString());
-      MyAlert alert = new MyAlert(
-        "Language",
-        "Language changed to " + language,
-        "The language has been changed to " + language
-      );
+
+      String title = this.lang.getCurr_lang().equals("EN")
+        ? "Language"
+        : "Langue";
+      String header = this.lang.getCurr_lang().equals("EN")
+        ? "Language changed to "
+        : "Langue changée à ";
+      String content = this.lang.getCurr_lang().equals("EN")
+        ? "The language has been changed to "
+        : "La langue a été changée à ";
+      MyAlert alert = new MyAlert(title, header + language, content + language);
       alert.showInformation();
     } catch (IOException e) {
       MyAlert alert = new MyAlert(

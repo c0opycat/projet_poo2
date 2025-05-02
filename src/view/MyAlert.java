@@ -15,8 +15,11 @@ import javafx.stage.Stage;
  */
 public class MyAlert {
 
+  /** The title of the alert */
   private final String TITLE;
+  /** The header of the alert */
   private final String HEADER;
+  /** The content of the alert */
   private final String CONTENT;
 
   /**

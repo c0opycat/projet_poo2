@@ -9,6 +9,7 @@ import org.json.JSONTokener;
 /**
  * A class to manage language settings for the application.
  * Provides functionality to load the current language and set text for UI components.
+ * @author A. Bertrand-Bernard
  */
 public class Lang {
 

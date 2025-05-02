@@ -27,6 +27,8 @@ import view.viewLocation.LocationView;
 /**
  * View class for the main game screen.
  * Manages the layout and interactions for the game, including the hero, location, commands, and game information.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class GameView extends BorderWithButtons {
 
@@ -63,6 +65,13 @@ public class GameView extends BorderWithButtons {
     this.heroView.getHeroController().updateDescription();
   }
 
+  /**
+   * Ends the current game session and displays the game over screen.
+   * This method notifies the game controller to perform any necessary cleanup
+   * operations, creates a new GameOverView showing the final results, updates
+   * the main scene to display this view, and configures the navigation buttons
+   * for the game over screen.
+   */
   public void endGame() {
     this.getGameController().end();
 

@@ -14,8 +14,13 @@ import view.viewGame.GameView;
  */
 public class TakeView {
 
+  /** Language handler for internationalization support. */
   private final Lang lang = new Lang();
+
+  /** Controller that manages the business logic for taking items. */
   private final TakeController takeController;
+
+  /** Reference to the main game view for accessing game state and UI elements. */
   private final GameView gameView;
 
   /**

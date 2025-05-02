@@ -13,8 +13,13 @@ import view.viewGame.viewCommand.viewItemCommand.UseView;
  */
 public class UseController {
 
+  /** The model containing the use action's logic and execution code. */
   private UseModel useModel;
+
+  /** The view that displays the use button in the game interface. */
   private final UseView useView;
+
+  /** Reference to the main game view for accessing game state and UI elements. */
   private final GameView gameView;
 
   /**

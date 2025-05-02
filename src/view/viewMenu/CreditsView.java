@@ -13,10 +13,22 @@ import view.ButtonMenu;
 import view.ButtonQuit;
 import view.Lang;
 
+/**
+ * The CreditsView class displays the credits screen for the game.
+ * This view shows information about the developers and the project.
+ * It extends BorderWithButtons to provide a consistent layout with menu navigation.
+ * @author L. Cooper
+ */
 public class CreditsView extends BorderWithButtons {
 
+  /** Language handler for internationalization. */
   private Lang lang = new Lang();
 
+  /**
+   * Constructs a new CreditsView.
+   * Initializes the view with a title, content area displaying developers' names,
+   * navigation buttons, and a background image.
+   */
   public CreditsView() {
     super();
     this.addTitle(
@@ -28,10 +40,20 @@ public class CreditsView extends BorderWithButtons {
     this.addBackground("background.png");
   }
 
+  /**
+   * Gets the language handler for this view.
+   *
+   * @return The Lang object used for text internationalization
+   */
   public Lang getLang() {
     return this.lang;
   }
 
+  /**
+   * Sets up the navigation buttons for the credits screen.
+   * Adds a menu button to return to the main menu and a quit button
+   * to exit the application.
+   */
   public void setButtons() {
     ArrayList<Button> buttons = new ArrayList<>();
 
@@ -44,6 +66,11 @@ public class CreditsView extends BorderWithButtons {
     this.addButtons(buttons);
   }
 
+  /**
+   * Creates and adds the main content of the credits view.
+   * Displays the developers' names, project information, and university affiliation
+   * in a vertically arranged layout with proper spacing and styling.
+   */
   public void addContent() {
     VBox creditsBox = new VBox(20);
     creditsBox.getStyleClass().add("credits-box");
@@ -81,9 +108,6 @@ public class CreditsView extends BorderWithButtons {
         "Université de Poitiers",
         "University of Poitiers"
       );
-
-    // projectLabel.setStyle("-fx-font-size: 12px");
-    // univPoitersLabel.setStyle("-fx-font-size: 12px");
 
     projectLabel.getStyleClass().add("credits-footer");
     univPoitersLabel.getStyleClass().add("credits-footer");

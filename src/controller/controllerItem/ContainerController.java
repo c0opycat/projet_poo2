@@ -11,11 +11,18 @@ import view.viewGame.GameView;
 /**
  * Controller class for managing containers in the game.
  * It acts as an intermediary between the ContainerModel, ContainerView, and GameView.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class ContainerController {
 
+  /** Reference to the main game view for accessing game state and UI elements. */
   private final GameView gameView;
+
+  /** The view that displays the container contents in the game interface. */
   private final ContainerView containerView;
+
+  /** The model containing the container's data and content management logic. */
   private ContainerModel containerModel;
 
   /**

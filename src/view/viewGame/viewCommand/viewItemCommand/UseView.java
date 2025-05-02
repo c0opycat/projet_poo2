@@ -19,7 +19,14 @@ import view.viewLocation.LocationView;
  */
 public class UseView extends Button {
 
+  /**
+   * Language handler for internationalization support.
+   */
   private Lang lang = new Lang();
+
+  /**
+   * Controller that manages the business logic for using items.
+   */
   private final UseController useController;
 
   /**

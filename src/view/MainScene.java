@@ -7,6 +7,8 @@ import view.viewMenu.MenuView;
 /**
  * The main scene of the application.
  * Extends the JavaFX Scene class and provides functionality to set the root content.
+ * @author L. Cooper
+ * @author A. Bertrand-Bernard
  */
 public class MainScene extends Scene {
 

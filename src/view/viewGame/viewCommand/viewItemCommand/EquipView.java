@@ -19,11 +19,13 @@ public class EquipView {
    * Used to set the text of buttons based on the current language.
    */
   private final Lang lang = new Lang();
+
   /**
    * The controller for handling equip commands.
    * Manages the logic and interactions related to equipping items.
    */
   private final EquipController equipController;
+
   /**
    * The game view associated with this EquipView.
    * Provides access to the main game interface and other views.

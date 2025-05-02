@@ -10,6 +10,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import view.Keybinds;
+import view.Lang;
 
 /**
  * A view component for configuring keybinds in the application.
@@ -17,6 +18,9 @@ import view.Keybinds;
  * @author L. Cooper
  */
 public class KeybindConfigView extends GridPane {
+
+  /** Language handler for internationalization support. */
+  private Lang lang = new Lang();
 
   /**
    * Constructs a KeybindConfigView with a label, a default key, and a Keybinds object.
@@ -49,11 +53,18 @@ public class KeybindConfigView extends GridPane {
     keybindButton.setOnAction(e -> {
       String key = keybinds.getSpecKeybind(labelText.toLowerCase());
       Alert configAlert = new Alert(AlertType.CONFIRMATION);
-      configAlert.setTitle("Keybinds configuration");
-      configAlert.setHeaderText(
-        "Please press the key that you want to bind to " + labelText
-      );
-      configAlert.setContentText("The current key is " + key);
+      String title = this.lang.getCurr_lang().equals("EN")
+        ? "Keybinds configuration"
+        : "Configuration des touches";
+      String header = this.lang.getCurr_lang().equals("EN")
+        ? "Please press the key that you want to bind to "
+        : "Appuyez sur la touche que vous souhaitez associer à ";
+      String content = this.lang.getCurr_lang().equals("EN")
+        ? "The current key is "
+        : "La touche actuelle est ";
+      configAlert.setTitle(title);
+      configAlert.setHeaderText(header + labelText);
+      configAlert.setContentText(content + key);
 
       configAlert
         .getDialogPane()
@@ -61,7 +72,11 @@ public class KeybindConfigView extends GridPane {
           String newKey = ke.getCode().getName();
 
           keybindButton.setText(newKey);
-          configAlert.setContentText("The current key is " + newKey);
+          configAlert.setContentText(
+            this.lang.getCurr_lang().equals("EN")
+              ? "The current key is "
+              : "La touche actuelle est " + newKey
+          );
 
           ke.consume();
         });
