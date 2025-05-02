@@ -49,13 +49,11 @@ public class HistoryManager {
      */
     public void recordAction(EditorAction action) {
         if (action == null) {
-            System.out.println("Action is null!");
+            System.err.println("Action is null!");
         } else {
-            System.out.println("Action recorded: " + action.getClass().getSimpleName());
             undoStack.push(action);
             redoStack.clear();
         }
-        System.out.println("recordAction ok");
     }
 
     /**
@@ -66,9 +64,7 @@ public class HistoryManager {
             EditorAction action = undoStack.pop();
             action.undo();
             redoStack.push(action);
-            System.out.println("undoStack not empty");
         }
-        System.out.println("undo ok");
     }
 
     /**
@@ -80,9 +76,7 @@ public class HistoryManager {
             EditorAction action = redoStack.pop();
             action.apply();
             undoStack.push(action);
-            System.out.println("redoStack not empty");
         }
-        System.out.println("redo ok");
     }
 
 }

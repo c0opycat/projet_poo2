@@ -45,9 +45,10 @@ public class CustomMapSaveModel {
         else {locations = new ArrayList<>();}
     }
 
-    public void saveToJson() {
+    public void saveToJson(LocationModel newLoc) {
         JSONArray jsonArray = new JSONArray();
 
+        locations.add(newLoc);
         for (LocationModel loc : locations) {
             JSONObject obj = new JSONObject();
             obj.put("name", loc.name);

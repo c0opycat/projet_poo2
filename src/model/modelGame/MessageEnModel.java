@@ -187,14 +187,14 @@ public class MessageEnModel{
     String name = location.getName();
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
-      return getDAux(name);
+      return getDAux(name, location);
     } else {
-      return getDAuxFr(name);
+      return getDAuxFr(name, location);
     }
   }
 
   //Secondary function of the getDescription function
-  private static String getDAux(String name) {
+  private static String getDAux(String name, LocationModel location) {
     return switch (name) {
       case "BEAULIEU" -> "On the ruins of the mall stands the burned remains of an aircraft.\n" +
       "Maybe there's modelFood left somewhere around.\n" +
@@ -237,11 +237,11 @@ public class MessageEnModel{
       case "FINAL_EXIT" -> "The long road seems desert.\n" +
       "You're finally out.\n" +
       "\n";
-      default -> "";
+      default -> location.getDescription().split("/")[1];
     };
   }
 
-  private static String getDAuxFr(String name){
+  private static String getDAuxFr(String name, LocationModel location){
     return switch (name) {
       case "BEAULIEU" -> "Sur les ruines du centre commercial repose l'epave calcinee d'un avion.\n" +
               "Il reste peut-etre de la nourriture quelque part.\n" +
@@ -283,7 +283,7 @@ public class MessageEnModel{
               "\n";
       case "FINAL_EXIT" -> "La longue route semble deserte.\n"+
               "Vous etes enfin sorti de la ville.\n" + "\n";
-      default -> "";
+      default -> location.getDescription().split("/")[0];
     };
   }
 

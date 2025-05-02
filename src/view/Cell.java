@@ -216,10 +216,8 @@ public class Cell extends StackPane {
           setElement(parts);
 
           String[] oldElement = { oldImg, oldElem };
-          System.out.println("oldElem : " + oldElement);
 
           String[] newElement = parts;
-          System.out.println("newElem : " + newElement);
 
           view.viewEditor.viewHistory.HistoryManager.getInstance()
               .recordAction(

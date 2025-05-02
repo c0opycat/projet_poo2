@@ -1,6 +1,8 @@
 package view.viewEditor;
 
 import java.util.ArrayList;
+
+import controller.controllerEditor.ControllerElem;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -90,8 +92,8 @@ public class SelectTypeElem extends TabPane {
 
   /**
    * Adds a warning about placing only one monster per level.
+   * We choose another way to manage monster
    * 
-   * @deprecated We choose another way to manage monster
    * @param infoBox The container to fill.
    */
   private void otherInfoMonster(VBox infoBox) {
@@ -181,14 +183,8 @@ public class SelectTypeElem extends TabPane {
    * @return an array with the level names
    */
   private String[] getDoors() {
-    // recuperer le contenu via le controller
-    String[] doors = {
-        "noDoor",
-        "Place Lepetit",
-        "Beaulieu",
-        "Notre-Dame",
-        "Blossac",
-    };
+    ControllerElem controllerElem = new ControllerElem(this);
+    String[] doors = controllerElem.getLevelName();
     return doors;
   }
 

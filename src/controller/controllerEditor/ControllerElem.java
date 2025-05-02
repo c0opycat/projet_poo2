@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 import model.modelGame.GameMapModel;
 import model.modelLocation.LocationModel;
-import view.viewEditor.EditorPane;
+import view.viewEditor.SelectTypeElem;
 
 public class ControllerElem {
     // ArrayList<LocationModel>
     private final GameMapModel mapModel;
-    private final EditorPane editorPane;
+    private final SelectTypeElem selectTypeElem;
 
-    public ControllerElem(EditorPane editorPane) {
-        this.editorPane = editorPane;
+    public ControllerElem(SelectTypeElem selectTypeElem) {
+        this.selectTypeElem = selectTypeElem;
         this.mapModel = new GameMapModel();
     }
 
-    public String[] getLevel() {
+    public String[] getLevelName() {
         ArrayList<LocationModel> listLocation = this.mapModel.getLocations();
         String[] names = new String[listLocation.size()];
 
