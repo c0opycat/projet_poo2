@@ -3,7 +3,7 @@ package model.modelGame.modelCommand.modelItemCom;
 import java.awt.Point;
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelGame.modelCommand.CommandModel;
 import model.modelItem.ItemModel;
 import model.modelItem.ProtectionModel;
@@ -86,12 +86,12 @@ public class EquipModel extends CommandModel {
         nbItems = bp.getNbItems();
 
         if (fstArg < 0 || fstArg >= nbItems) {
-          System.out.println(MessageEnModel.InvalidNumber(fstArg));
+          System.out.println(MessageModel.InvalidNumber(fstArg));
         } else {
           toEquip = bp.getNthItem(fstArg);
 
           if (!(toEquip instanceof WeaponModel)) {
-            System.out.println(MessageEnModel.wrongItem("equip"));
+            System.out.println(MessageModel.wrongItem("equip"));
           } else {
             WeaponModel w = (WeaponModel) toEquip;
 
@@ -110,20 +110,19 @@ public class EquipModel extends CommandModel {
             res = true;
           }
         }
-
         // Equip from ground
       } else if (scdArg == 2) {
         nbItems = loc.itemList.size();
         StepModel step = loc.getLocMap().get(p);
 
         if (step == null) {
-          System.out.println(MessageEnModel.InvalidItem());
+          System.out.println(MessageModel.InvalidItem());
         }
 
         toEquip = step.getItem();
 
         if (toEquip == null) {
-          System.out.println(MessageEnModel.InvalidItem());
+          System.out.println(MessageModel.InvalidItem());
         } else {
           if (
             (toEquip instanceof WeaponModel) ||
@@ -167,26 +166,25 @@ public class EquipModel extends CommandModel {
               res = true;
             }
           } else {
-            System.out.println(MessageEnModel.wrongItem("equip"));
+            System.out.println(MessageModel.wrongItem("equip"));
           }
         }
-
         // Equip from Container
       } else {
         StepModel step = this.gameM.getCurLocation().getLocMap().get(p);
         if (step == null) {
-          System.out.println(MessageEnModel.InvalidItem());
+          System.out.println(MessageModel.InvalidItem());
           return res;
         }
 
         ItemModel tmp = step.getItem();
         if (tmp == null) {
-          System.out.println(MessageEnModel.InvalidItem());
+          System.out.println(MessageModel.InvalidItem());
           return res;
         }
 
         if (!(tmp instanceof ContainerModel)) {
-          System.out.println(MessageEnModel.commandOnItem("equip from", tmp));
+          System.out.println(MessageModel.commandOnItem("equip from", tmp));
           return res;
         }
 
@@ -195,14 +193,14 @@ public class EquipModel extends CommandModel {
         if (cont instanceof CrateModel) {
           CrateModel c = (CrateModel) cont;
           if (!c.open) {
-            System.out.println(MessageEnModel.toolRequired());
+            System.out.println(MessageModel.toolRequired());
             return res;
           }
         } else {
           nbItems = cont.getNbItems();
 
           if (fstArg < 0 || fstArg >= nbItems) {
-            System.out.println(MessageEnModel.InvalidNumber(fstArg));
+            System.out.println(MessageModel.InvalidNumber(fstArg));
           } else {
             toEquip = cont.getNthItem(fstArg);
 
@@ -240,7 +238,7 @@ public class EquipModel extends CommandModel {
               }
               res = true;
             } else {
-              System.out.println(MessageEnModel.wrongItem("equip"));
+              System.out.println(MessageModel.wrongItem("equip"));
             }
           }
         }

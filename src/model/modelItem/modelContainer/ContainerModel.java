@@ -1,7 +1,7 @@
 package model.modelItem.modelContainer;
 
 import java.util.ArrayList;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelItem.ItemModel;
 
 /**
@@ -53,7 +53,7 @@ public abstract class ContainerModel extends ItemModel {
    */
   public void fillContainer(int nb) {
     if (nb + this.nb_items > this.MAX_NB_ITEMS) {
-      System.out.println(MessageEnModel.contFull(this));
+      System.out.println(MessageModel.contFull(this));
     }
     ItemModel item;
     for (int i = 0; i < nb; i++) {
@@ -173,9 +173,9 @@ public abstract class ContainerModel extends ItemModel {
 
     if (item != null) {
       if (this.tooHeavy(item)) {
-        System.out.println(MessageEnModel.noSpace(this, item));
+        System.out.println(MessageModel.noSpace(this, item));
       } else if (this.isFull()) {
-        System.out.println(MessageEnModel.contFull(this));
+        System.out.println(MessageModel.contFull(this));
       } else {
         this.itemList.add(item);
         this.setCapacity(this.getCapacity() + item.WEIGHT);

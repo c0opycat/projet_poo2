@@ -69,10 +69,10 @@ public class CrateModel extends ContainerModel {
 
       if (use) {
         this.open = true;
-        System.out.println(MessageEnModel.itemUsed(c));
+        System.out.println(MessageModel.itemUsed(c));
         res = true;
       } else {
-        System.out.println(MessageEnModel.failOpening());
+        System.out.println(MessageModel.failOpening());
       }
     }
 

@@ -10,7 +10,7 @@ import model.modelItem.ItemModel;
 import model.modelItem.modelConsumable.ConsumableModel;
 import model.modelLocation.LocationModel;
 
-public class MessageEnModel {
+public class MessageModel {
 
   //Returns the start of modelGame message
   public static String startGame(LocationModel start, LocationModel end) {
@@ -335,13 +335,13 @@ public class MessageEnModel {
   public static String itemUsed(ItemModel item) {
     String lang = GameModel.loadLanguage();
     if (lang.equals("EN")) {
-      return "You used your " + item + "to " + MessageEnModel.itemEffect(item);
+      return "You used your " + item + "to " + MessageModel.itemEffect(item);
     } else {
       return (
         "Vous avez utilise votre " +
         item +
         "pour " +
-        MessageEnModel.itemEffectfr(item)
+        MessageModel.itemEffectfr(item)
       );
     }
   }

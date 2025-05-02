@@ -3,7 +3,7 @@ package model.modelGame.modelCommand.modelInterractCom;
 import java.awt.Point;
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelGame.modelCommand.CommandModel;
 import model.modelItem.ItemModel;
 import model.modelItem.modelContainer.BackpackModel;
@@ -62,7 +62,7 @@ public class DropModel extends CommandModel {
           l.addItem(toDrop, point);
         }
         bp.removeItem(toDrop);
-        System.out.println(MessageEnModel.commandOnItem("dropped ", toDrop));
+        System.out.println(MessageModel.commandOnItem("dropped ", toDrop));
         return true;
       } else if (arg == bp.getNbItems()) {
         gameM.getHero().dropProtection(this.gameM.getCurLocation());

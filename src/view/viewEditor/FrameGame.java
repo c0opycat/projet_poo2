@@ -22,16 +22,12 @@ public class FrameGame extends GridPane {
   private double prefHeight = 60;
   /** preferred width - fixed width of a grid square */
   private double prefWidth = 60;
-  /** number of column in the gridPane */
-  private int col;
-  /** number of row in the gridPane */
-  private int row;
 
   //// Public ////
 
   /**
    * Constructor
-   * 
+   *
    * @param col number of columns in the gridPane
    * @param row number of rows in the gridPane
    */
@@ -59,8 +55,7 @@ public class FrameGame extends GridPane {
     this.setAlignment(Pos.CENTER);
   }
 
-  public FrameGame() {
-  }
+  public FrameGame() {}
 
   /**
    * Added cells in which you can drag and drop and delete elements
@@ -76,7 +71,7 @@ public class FrameGame extends GridPane {
   /**
    * adds the default cells in the gridPane (frameGame) by setting the sizes of
    * the boxes.
-   * 
+   *
    * @param nbCol number of columns in the gridPane
    * @param nbRow number of rows in the gridPane
    */
@@ -91,5 +86,4 @@ public class FrameGame extends GridPane {
       }
     }
   }
-
 }

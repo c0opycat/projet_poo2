@@ -14,7 +14,7 @@ import static model.modelCharacter.modelHeros.JobModel.STARTUP;
 import controller.controllerCharacter.HeroController;
 import java.awt.Point;
 import model.modelCharacter.CharacterModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelItem.modelConsumable.MedicineModel;
 import model.modelItem.modelContainer.BackpackModel;
 import model.modelItem.modelWeapon.*;
@@ -125,9 +125,7 @@ public class HeroModel extends CharacterModel {
       case STARTUP -> setHealth(30);
       case MEDIC -> HeroModel.backpack.addItem(new MedicineModel());
       case SECURITY -> HeroModel.backpack.addItem(WeaponModel.randWeapon());
-      case VETERINARY -> this.weapon = new DoggoModel(
-        MessageEnModel.randName()
-      );
+      case VETERINARY -> this.weapon = new DoggoModel(MessageModel.randName());
       // Future jobs like TEACHER and DELIVERY can be added here
     }
   }
@@ -173,7 +171,7 @@ public class HeroModel extends CharacterModel {
       this.setWeapon(weapon);
       this.getHeroController().updateDescription();
     } else {
-      System.out.println(MessageEnModel.handFull(this.getWeapon()));
+      System.out.println(MessageModel.handFull(this.getWeapon()));
     }
   }
 

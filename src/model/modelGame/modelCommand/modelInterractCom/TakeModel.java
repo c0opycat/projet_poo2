@@ -3,7 +3,7 @@ package model.modelGame.modelCommand.modelInterractCom;
 import java.awt.Point;
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelGame.modelCommand.CommandModel;
 import model.modelItem.ItemModel;
 import model.modelItem.ProtectionModel;
@@ -60,21 +60,21 @@ public class TakeModel extends CommandModel {
 
     StepModel step = this.gameM.getCurLocation().getLocMap().get(p);
     if (step == null) {
-      System.out.println(MessageEnModel.InvalidItem());
+      System.out.println(MessageModel.InvalidItem());
       return res;
     }
 
     ItemModel item = step.getItem();
 
     if (item == null) {
-      System.out.println(MessageEnModel.InvalidItem());
+      System.out.println(MessageModel.InvalidItem());
     }
 
     if (nb_arg == 1) {
       if (
         (item instanceof ContainerModel) || (item instanceof ProtectionModel)
       ) {
-        System.out.println(MessageEnModel.wrongItem("take"));
+        System.out.println(MessageModel.wrongItem("take"));
       } else {
         boolean taken = HeroModel.gBackpack().addItem(item);
 
@@ -85,12 +85,12 @@ public class TakeModel extends CommandModel {
       }
     } else {
       if (!(item instanceof ContainerModel)) {
-        System.out.println(MessageEnModel.wrongItem("take something from"));
+        System.out.println(MessageModel.wrongItem("take something from"));
       } else {
         if (item instanceof CrateModel) {
           CrateModel crate = (CrateModel) item;
           if (!crate.open) {
-            System.out.println(MessageEnModel.toolRequired());
+            System.out.println(MessageModel.toolRequired());
             return res;
           }
         }
@@ -99,7 +99,7 @@ public class TakeModel extends CommandModel {
         int contNbItems = container.getNbItems();
 
         if (ind < 0 || ind >= contNbItems) {
-          System.out.println(MessageEnModel.InvalidNumber(ind));
+          System.out.println(MessageModel.InvalidNumber(ind));
         } else {
           toTake = container.getNthItem(ind);
 

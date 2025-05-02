@@ -10,7 +10,7 @@ import java.util.Random;
 import model.modelCharacter.modelMonster.MonsterModel;
 import model.modelGame.GameMapModel;
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelItem.*;
 
 /**
@@ -70,8 +70,8 @@ public class LocationModel {
     this.itemList = new ArrayList<>();
     this.locationController = new LocationController(this);
     this.monster = new Random().nextInt(2) == 0
-        ? null
-        : MonsterModel.randMonster();
+      ? null
+      : MonsterModel.randMonster();
   }
 
   /**
@@ -85,13 +85,14 @@ public class LocationModel {
    * @param monster monster present in the location (optional)
    */
   public LocationModel(
-      String name,
-      int width,
-      int height,
-      Map<Integer, ExitModel> exits,
-      HashMap<Point, StepModel> locMap,
-      ArrayList<ItemModel> itemList,
-      MonsterModel monster) {
+    String name,
+    int width,
+    int height,
+    Map<Integer, ExitModel> exits,
+    HashMap<Point, StepModel> locMap,
+    ArrayList<ItemModel> itemList,
+    MonsterModel monster
+  ) {
     this.width = width;
     this.height = height;
     this.name = name;
@@ -103,21 +104,22 @@ public class LocationModel {
   }
 
   public LocationModel(
-      int width,
-      int height,
-      String name,
-      HashMap<Point, StepModel> locMap,
-      Map<Integer, ExitModel> exits,
-      ArrayList<ItemModel> itemList,
-      String description) {
-        this.width = width;
-        this.height = height;
-        this.name = name;
-        this.description = description;
-        this.exits = exits;
-        this.locMap = locMap;
-        this.itemList = itemList;
-        this.locationController = new LocationController(this);
+    int width,
+    int height,
+    String name,
+    HashMap<Point, StepModel> locMap,
+    Map<Integer, ExitModel> exits,
+    ArrayList<ItemModel> itemList,
+    String description
+  ) {
+    this.width = width;
+    this.height = height;
+    this.name = name;
+    this.description = description;
+    this.exits = exits;
+    this.locMap = locMap;
+    this.itemList = itemList;
+    this.locationController = new LocationController(this);
   }
 
   /**
@@ -164,8 +166,8 @@ public class LocationModel {
 
     for (int i = 0; i < 3; i++) {
       ItemModel item = hasContainer
-          ? ItemModel.NonContainerRI()
-          : ItemModel.randomItem();
+        ? ItemModel.NonContainerRI()
+        : ItemModel.randomItem();
       if (!hasContainer && ItemModel.isContainer(item)) {
         hasContainer = true;
       }
@@ -209,7 +211,7 @@ public class LocationModel {
 
   /**
    * Sets a monster in this modelLocation.
-   * 
+   *
    * @param m the monster to set
    */
   public void setMonster(MonsterModel m) {
@@ -228,7 +230,7 @@ public class LocationModel {
 
   /**
    * Adds an item to the location.
-   * 
+   *
    * @param item  the item to add
    * @param coord the coordinates where the item should be placed
    */
@@ -239,7 +241,7 @@ public class LocationModel {
       p = this.getRandomFreeStepCoord();
 
       if (p == null) {
-        System.out.println(MessageEnModel.locFull());
+        System.out.println(MessageModel.locFull());
       }
     }
 
@@ -346,7 +348,7 @@ public class LocationModel {
    * Displays the description of the location
    */
   public void displayLocation() {
-    System.out.println(MessageEnModel.locationDescription(this));
+    System.out.println(MessageModel.locationDescription(this));
   }
 
   /**
@@ -357,10 +359,10 @@ public class LocationModel {
     return this.name;
   }
 
-  /**Gets the description of the modelLocation 
+  /**Gets the description of the modelLocation
    * @return the description
-  */
-  public String getDescription(){
+   */
+  public String getDescription() {
     return this.description;
   }
 
@@ -458,10 +460,10 @@ public class LocationModel {
    */
   public static void beaulieu(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(7)),
-        new ExitModel(location, GameMapModel.locations.get(8)),
-        new ExitModel(location, GameMapModel.locations.get(10)),
-        new ExitModel(location, GameMapModel.locations.get(11)),
+      new ExitModel(location, GameMapModel.locations.get(7)),
+      new ExitModel(location, GameMapModel.locations.get(8)),
+      new ExitModel(location, GameMapModel.locations.get(10)),
+      new ExitModel(location, GameMapModel.locations.get(11)),
     };
     location.setExits(exits);
     location.initItems();
@@ -472,9 +474,9 @@ public class LocationModel {
    */
   public static void cityCenter(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(5)),
-        new ExitModel(location, GameMapModel.locations.get(6)),
-        new ExitModel(location, GameMapModel.locations.get(7)),
+      new ExitModel(location, GameMapModel.locations.get(5)),
+      new ExitModel(location, GameMapModel.locations.get(6)),
+      new ExitModel(location, GameMapModel.locations.get(7)),
     };
     location.setExits(exits);
     location.initItems();
@@ -485,9 +487,9 @@ public class LocationModel {
    */
   public static void couronneries(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(10)),
-        new ExitModel(location, GameMapModel.locations.get(5)),
-        new ExitModel(location, GameMapModel.locations.get(8)),
+      new ExitModel(location, GameMapModel.locations.get(10)),
+      new ExitModel(location, GameMapModel.locations.get(5)),
+      new ExitModel(location, GameMapModel.locations.get(8)),
     };
     location.setExits(exits);
     location.initItems();
@@ -498,9 +500,9 @@ public class LocationModel {
    */
   public static void gibauderie(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(11)),
-        new ExitModel(location, GameMapModel.locations.get(1)),
-        new ExitModel(location, GameMapModel.locations.get(7)),
+      new ExitModel(location, GameMapModel.locations.get(11)),
+      new ExitModel(location, GameMapModel.locations.get(1)),
+      new ExitModel(location, GameMapModel.locations.get(7)),
     };
     location.setExits(exits);
     location.initItems();
@@ -511,9 +513,9 @@ public class LocationModel {
    */
   public static void westPoitiers(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(0)),
-        new ExitModel(location, GameMapModel.locations.get(2)),
-        new ExitModel(location, GameMapModel.locations.get(6)),
+      new ExitModel(location, GameMapModel.locations.get(0)),
+      new ExitModel(location, GameMapModel.locations.get(2)),
+      new ExitModel(location, GameMapModel.locations.get(6)),
     };
     location.setExits(exits);
     location.initItems();
@@ -524,8 +526,8 @@ public class LocationModel {
    */
   public static void southPoitiers(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(5)),
-        new ExitModel(location, GameMapModel.locations.get(9)),
+      new ExitModel(location, GameMapModel.locations.get(5)),
+      new ExitModel(location, GameMapModel.locations.get(9)),
     };
     location.setExits(exits);
     location.initItems();
@@ -536,9 +538,9 @@ public class LocationModel {
    */
   public static void pontNeuf(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(9)),
-        new ExitModel(location, GameMapModel.locations.get(4)),
-        new ExitModel(location, GameMapModel.locations.get(10)),
+      new ExitModel(location, GameMapModel.locations.get(9)),
+      new ExitModel(location, GameMapModel.locations.get(4)),
+      new ExitModel(location, GameMapModel.locations.get(10)),
     };
     location.setExits(exits);
     location.initItems();
@@ -549,9 +551,9 @@ public class LocationModel {
    */
   public static void saintEloi(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(3)),
-        new ExitModel(location, GameMapModel.locations.get(10)),
-        new ExitModel(location, GameMapModel.locations.get(1)),
+      new ExitModel(location, GameMapModel.locations.get(3)),
+      new ExitModel(location, GameMapModel.locations.get(10)),
+      new ExitModel(location, GameMapModel.locations.get(1)),
     };
     location.setExits(exits);
     location.initItems();
@@ -562,8 +564,8 @@ public class LocationModel {
    */
   public static void troisCites(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(2)),
-        new ExitModel(location, GameMapModel.locations.get(4)),
+      new ExitModel(location, GameMapModel.locations.get(2)),
+      new ExitModel(location, GameMapModel.locations.get(4)),
     };
     location.setExits(exits);
     location.initItems();
@@ -574,10 +576,10 @@ public class LocationModel {
    */
   public static void montbernage(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(2)),
-        new ExitModel(location, GameMapModel.locations.get(5)),
-        new ExitModel(location, GameMapModel.locations.get(7)),
-        new ExitModel(location, GameMapModel.locations.get(8)),
+      new ExitModel(location, GameMapModel.locations.get(2)),
+      new ExitModel(location, GameMapModel.locations.get(5)),
+      new ExitModel(location, GameMapModel.locations.get(7)),
+      new ExitModel(location, GameMapModel.locations.get(8)),
     };
     location.setExits(exits);
     location.initItems();
@@ -588,9 +590,9 @@ public class LocationModel {
    */
   public static void miletrie(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(4)),
-        new ExitModel(location, GameMapModel.locations.get(1)),
-        new ExitModel(location, GameMapModel.locations.get(12)),
+      new ExitModel(location, GameMapModel.locations.get(4)),
+      new ExitModel(location, GameMapModel.locations.get(1)),
+      new ExitModel(location, GameMapModel.locations.get(12)),
     };
     location.setExits(exits);
     location.initItems();
@@ -601,7 +603,7 @@ public class LocationModel {
    */
   public static void finalExit(LocationModel location) {
     ExitModel[] exits = {
-        new ExitModel(location, GameMapModel.locations.get(11)),
+      new ExitModel(location, GameMapModel.locations.get(11)),
     };
     location.setExits(exits);
     location.initItems();

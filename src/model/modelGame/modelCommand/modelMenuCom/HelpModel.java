@@ -1,7 +1,7 @@
 package model.modelGame.modelCommand.modelMenuCom;
 
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelGame.modelCommand.CommandModel;
 
 /**
@@ -27,7 +27,7 @@ public class HelpModel extends CommandModel {
    * @return false as this command does not modify the game state
    */
   public boolean execute() {
-    System.out.println(MessageEnModel.helpCommands());
+    System.out.println(MessageModel.helpCommands());
     return false;
   }
 }

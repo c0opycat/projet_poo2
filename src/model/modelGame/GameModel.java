@@ -123,9 +123,9 @@ public class GameModel {
   public void start() {
     this.startTime = System.currentTimeMillis();
     System.out.println(
-      MessageEnModel.startGame(map.getStartLoc(), map.getEndLoc())
+      MessageModel.startGame(map.getStartLoc(), map.getEndLoc())
     );
-    System.out.println(MessageEnModel.getDescription(this.getCurLocation()));
+    System.out.println(MessageModel.getDescription(this.getCurLocation()));
   }
 
   /**
@@ -220,9 +220,9 @@ public class GameModel {
     saveScore.addScore(this.score.getName(), this.score.getScore());
 
     if (this.isWon()) {
-      System.out.println(MessageEnModel.gameWon());
+      System.out.println(MessageModel.gameWon());
     } else {
-      System.out.println(MessageEnModel.gameLost());
+      System.out.println(MessageModel.gameLost());
     }
   }
 
@@ -231,7 +231,7 @@ public class GameModel {
    * @return the victory message
    */
   public String getGameWonMessage() {
-    return MessageEnModel.gameWon();
+    return MessageModel.gameWon();
   }
 
   /**
@@ -239,6 +239,6 @@ public class GameModel {
    * @return the lost game message
    */
   public String getGameLostMessage() {
-    return MessageEnModel.gameLost();
+    return MessageModel.gameLost();
   }
 }

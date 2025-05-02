@@ -1,4 +1,4 @@
-controller.controllerCharacter.controllerHeros
+controller.controllerCharacter
 controller.controllerEditor
 controller.controllerGame
 controller.controllerGame.controllerCommand.controllerInterractCommand
@@ -6,7 +6,6 @@ controller.controllerGame.controllerCommand.controllerItemCommand
 controller.controllerGame.controllerCommand.controllerMenuCommand
 controller.controllerItem
 controller.controllerLocation
-model
 model.modelCharacter
 model.modelCharacter.modelHeros
 model.modelCharacter.modelMonster
@@ -16,7 +15,7 @@ model.modelGame.modelCommand
 model.modelGame.modelCommand.modelInterractCom
 model.modelGame.modelCommand.modelItemCom
 model.modelGame.modelCommand.modelMenuCom
-model.modelGame.modelCommand.modelMove
+model.modelGame.modelScore
 model.modelItem
 model.modelItem.modelConsumable
 model.modelItem.modelConsumable.modelFood
@@ -36,7 +35,5 @@ view.viewGame.viewCommand.viewItemCommand
 view.viewGame.viewCommand.viewMenuCommand
 view.viewGameOver
 view.viewHallOfFame
-view.viewItem
 view.viewLocation
 view.viewMenu
-view.viewMonster

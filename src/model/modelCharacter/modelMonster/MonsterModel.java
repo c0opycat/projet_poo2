@@ -2,7 +2,7 @@ package model.modelCharacter.modelMonster;
 
 import java.util.Random;
 import model.modelCharacter.CharacterModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelItem.ProtectionModel;
 import model.modelItem.modelWeapon.*;
 
@@ -100,7 +100,7 @@ public abstract class MonsterModel extends CharacterModel {
       }
     }
 
-    System.out.println(MessageEnModel.monsterAttack(this));
+    System.out.println(MessageModel.monsterAttack(this));
   }
 
   /**

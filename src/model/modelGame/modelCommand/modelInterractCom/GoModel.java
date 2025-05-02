@@ -3,7 +3,7 @@ package model.modelGame.modelCommand.modelInterractCom;
 import java.awt.Point;
 import java.util.ArrayList;
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelGame.modelCommand.CommandModel;
 import model.modelLocation.ExitModel;
 
@@ -57,12 +57,12 @@ public class GoModel extends CommandModel {
         this.gameM.getCurLocation().displayLocation();
         return true;
       } else {
-        System.out.println(MessageEnModel.notAnExit());
+        System.out.println(MessageModel.notAnExit());
         return false;
       }
       // }
     } else {
-      System.out.println(MessageEnModel.cantExit());
+      System.out.println(MessageModel.cantExit());
       return false;
     }
   }

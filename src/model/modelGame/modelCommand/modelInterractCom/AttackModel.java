@@ -1,7 +1,7 @@
 package model.modelGame.modelCommand.modelInterractCom;
 
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelGame.modelCommand.CommandModel;
 
 /**
@@ -48,16 +48,16 @@ public class AttackModel extends CommandModel {
         {
             if(gameM.getHero().attack(gameM.getCurLocation().getMonster()))
             {
-                System.out.println(MessageEnModel.monsterHP(gameM.getCurLocation().getMonster()));
+                System.out.println(MessageModel.monsterHP(gameM.getCurLocation().getMonster()));
                 return true;
             }
             else
             {
-                System.out.println(MessageEnModel.NoWeapon());
+                System.out.println(MessageModel.NoWeapon());
                 return false;
             }
         }
-        else System.out.println(MessageEnModel.cantDo(this));
+        else System.out.println(MessageModel.cantDo(this));
         return false;
 
     }

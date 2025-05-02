@@ -1,9 +1,8 @@
 package view.viewEditor;
 
+import controller.controllerEditor.ControllerSave;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import controller.controllerEditor.ControllerSave;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -24,7 +23,7 @@ import view.viewEditor.viewHistory.HistoryManager;
  * The right section is dedicated to customization tools
  * - tabs for modelItem selection, board size, undo, redo, reset, save, and
  * level editing.
- * 
+ *
  * @author C. Besançon
  */
 public class EditorPane extends HBox {
@@ -33,14 +32,6 @@ public class EditorPane extends HBox {
   private Spinner<Integer> nbColSpinner = new Spinner<>(2, 20, 10);
   /** Spinner to choose the number of rows */
   private Spinner<Integer> nbRowSpinner = new Spinner<>(2, 20, 10);
-  /** Frame with the level to edit */
-  private FrameGame frame;
-  /** Name of the level */
-  private String name;
-  /** French description of the level */
-  private String descFr;
-  /** English description of the level */
-  private String descEn;
   /** Array of Name of the different object tabs */
   private String[] nomsType;
   /**
@@ -87,7 +78,7 @@ public class EditorPane extends HBox {
 
   /**
    * Retrievec the names of editable levels
-   * 
+   *
    * @return an array with the level names
    */
   public String[] getLevelsEdit() {
@@ -97,7 +88,7 @@ public class EditorPane extends HBox {
 
   /**
    * Get the spinner for the number of column
-   * 
+   *
    * @return spinner for number of column
    */
   public Spinner<Integer> getNbColSpinner() {
@@ -106,7 +97,7 @@ public class EditorPane extends HBox {
 
   /**
    * Get the spinner for the number of row
-   * 
+   *
    * @return spinner for number of row
    */
   public Spinner<Integer> getNbRowSpinner() {
@@ -118,24 +109,25 @@ public class EditorPane extends HBox {
    */
   public void addHandlers() {
     getUndo()
-        .setOnAction(e -> {
-          history.undo();
-        });
+      .setOnAction(e -> {
+        history.undo();
+      });
 
     getRedo()
-        .setOnAction(e -> {
-          history.redo();
-        });
+      .setOnAction(e -> {
+        history.redo();
+      });
 
     getReinit()
-        .setOnAction(e -> {
-          initFrameGame(getRow(), getCol());
-        });
+      .setOnAction(e -> {
+        initFrameGame(getRow(), getCol());
+      });
 
-    getSave().setOnAction(e -> {
-      ControllerSave contSave = new ControllerSave(this);
-      contSave.saveLevel();
-    });
+    getSave()
+      .setOnAction(e -> {
+        ControllerSave contSave = new ControllerSave(this);
+        contSave.saveLevel();
+      });
   }
 
   /// Private ///
@@ -145,7 +137,7 @@ public class EditorPane extends HBox {
    * text box for the level title,
    * a text box for the description needed for the level in French, and another
    * box for the English description.
-   * 
+   *
    * @return VBox left part of the modelEditor
    */
   private VBox leftNodes() {
@@ -164,38 +156,40 @@ public class EditorPane extends HBox {
 
     // Lier les Spinners aux tailles du GridPane
     this.getNbColSpinner()
-        .valueProperty()
-        .addListener((obs, oldValue, newValue) -> {
-          initFrameGame(getRow(), getCol());
-        });
+      .valueProperty()
+      .addListener((obs, oldValue, newValue) -> {
+        initFrameGame(getRow(), getCol());
+      });
 
     this.getNbRowSpinner()
-        .valueProperty()
-        .addListener((obs, oldValue, newValue) -> {
-          initFrameGame(getRow(), getCol());
-        });
+      .valueProperty()
+      .addListener((obs, oldValue, newValue) -> {
+        initFrameGame(getRow(), getCol());
+      });
 
     // zones de texte nom, description en français et anglais
     TitleView name = new TitleView("Nom / Name", history);
 
     TextView descriptionFr = new TextView("Description du quartier", history);
     TextView descriptionEn = new TextView(
-        "Description of the neighborhood",
-        history);
+      "Description of the neighborhood",
+      history
+    );
 
     leftPane
-        .getChildren()
-        .addAll(
-            previewLabelfr,
-            previewLabelen,
-            springV(),
-            preview,
-            springV(),
-            name,
-            springV(),
-            descriptionFr,
-            springV(),
-            descriptionEn);
+      .getChildren()
+      .addAll(
+        previewLabelfr,
+        previewLabelen,
+        springV(),
+        preview,
+        springV(),
+        name,
+        springV(),
+        descriptionFr,
+        springV(),
+        descriptionEn
+      );
 
     // Style
     VBox.setMargin(name, new Insets(10, 10, 20, 10));
@@ -205,7 +199,7 @@ public class EditorPane extends HBox {
 
   /**
    * Updates the size of the frameGame by resetting everything
-   * 
+   *
    * @param newRow new number of rows
    * @param newCol new number of columns
    * @return FrameGame -> board modelGame
@@ -232,7 +226,7 @@ public class EditorPane extends HBox {
    * a HBox with three button undo redo reinit and another HBox with a comboBox to
    * choose a level to edit,
    * and a button save
-   * 
+   *
    * @return VBox -> right part of the modelEditor
    */
   private VBox rightNodes() {
@@ -275,16 +269,17 @@ public class EditorPane extends HBox {
     HBox saveLevel = saveLevel();
 
     rightPane
-        .getChildren()
-        .addAll(
-            selectTypeElem,
-            springV(),
-            widthField,
-            springV(),
-            buttonRetour,
-            springV(),
-            saveLevel,
-            springV());
+      .getChildren()
+      .addAll(
+        selectTypeElem,
+        springV(),
+        widthField,
+        springV(),
+        buttonRetour,
+        springV(),
+        saveLevel,
+        springV()
+      );
 
     return rightPane;
   }
@@ -293,7 +288,7 @@ public class EditorPane extends HBox {
    * Added an HBox containing two VBoxes, one for height and the other for width.
    * Each VBox contains a spinner and an HBox with a French label and an English
    * label.
-   * 
+   *
    * @return HBox with element to choose the new size of the frameGame
    */
   private HBox size() {
@@ -322,28 +317,26 @@ public class EditorPane extends HBox {
     HBox.setHgrow(spring, Priority.ALWAYS);
 
     size
-        .getChildren()
-        .addAll(heightBox, heightSpinner, spring, lenghtBox, lenghtSpinner);
+      .getChildren()
+      .addAll(heightBox, heightSpinner, spring, lenghtBox, lenghtSpinner);
     HBox.setMargin(heightSpinner, new Insets(10, 5, 10, 0));
     HBox.setMargin(lenghtSpinner, new Insets(10, 0, 10, 5));
 
     // Ajouter les écouteurs sur les valeurs des spinners
     nbColSpinner
-        .valueProperty()
-        .addListener((observable, oldValue, newValue) -> {
-        });
+      .valueProperty()
+      .addListener((observable, oldValue, newValue) -> {});
 
     nbRowSpinner
-        .valueProperty()
-        .addListener((observable, oldValue, newValue) -> {
-        });
+      .valueProperty()
+      .addListener((observable, oldValue, newValue) -> {});
 
     return size;
   }
 
   /**
    * Create a HBox with an alternance of spring button spring button spring ...
-   * 
+   *
    * @param nb    number of button to create
    * @param names array with the name of each button to create
    * @return Hbox with buttons and regions
@@ -367,7 +360,7 @@ public class EditorPane extends HBox {
   /**
    * Create a HBox with an HBox to select the level to edit and a button to save
    * the edit.
-   * 
+   *
    * @return HBox
    */
   private HBox saveLevel() {
@@ -383,7 +376,7 @@ public class EditorPane extends HBox {
   /**
    * HBox with two Labels one in french the other in english
    * and a comboBox with the name of all the Levels already edit and newOne
-   * 
+   *
    * @return HBox
    */
   private HBox selectLevel() {
@@ -416,7 +409,7 @@ public class EditorPane extends HBox {
   // Getter pour le nombre de colonnes et de lignes
   /**
    * get number of column
-   * 
+   *
    * @return int number of columns
    */
   public int getCol() {
@@ -425,7 +418,7 @@ public class EditorPane extends HBox {
 
   /**
    * get number of row
-   * 
+   *
    * @return int number of row
    */
   public int getRow() {
@@ -435,51 +428,51 @@ public class EditorPane extends HBox {
   // Getter pour les boutons
   /**
    * get button undo
-   * 
+   *
    * @return button undo
    */
   private Button getUndo() {
     return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(4)).getChildren()
-        .get(1);
+      .get(1);
   }
 
   /**
    * get button redo
-   * 
+   *
    * @return button redo
    */
   private Button getRedo() {
     return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(4)).getChildren()
-        .get(3);
+      .get(3);
   }
 
   /**
    * get button reinit
-   * 
+   *
    * @return button Reinit
    */
   private Button getReinit() {
     return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(4)).getChildren()
-        .get(5);
+      .get(5);
   }
 
   /**
    * get button save
-   * 
+   *
    * @return button save
    */
   private Button getSave() {
     return (Button) ((HBox) ((VBox) this.getChildren().get(2)).getChildren()
         .get(6)).getChildren()
-        .get(3);
+      .get(3);
   }
 
   /**
    * get frameGame
-   * 
+   *
    * @return frameGame
    */
   public FrameGame getFrame() {
@@ -488,7 +481,7 @@ public class EditorPane extends HBox {
 
   /**
    * get the name of the level
-   * 
+   *
    * @return String name level
    */
   public String getName() {
@@ -498,7 +491,7 @@ public class EditorPane extends HBox {
 
   /**
    * get the french description
-   * 
+   *
    * @return String french description
    */
   public String getDescFr() {
@@ -507,7 +500,7 @@ public class EditorPane extends HBox {
 
   /**
    * get the french description
-   * 
+   *
    * @return String french description
    */
   public String getDescEn() {
@@ -516,7 +509,7 @@ public class EditorPane extends HBox {
 
   /**
    * get the text from a textField with is position in the pane
-   * 
+   *
    * @param i index of the position in the pane
    * @return String text
    */
@@ -527,7 +520,7 @@ public class EditorPane extends HBox {
 
   /**
    * get Left Pane
-   * 
+   *
    * @return VBox Left Pane
    */
   private VBox getLeftPane() {
@@ -536,7 +529,7 @@ public class EditorPane extends HBox {
 
   /**
    * Spring to put between the zones in VBox set on sometimes
-   * 
+   *
    * @return region -> spring
    */
   private Region springV() {
@@ -547,7 +540,7 @@ public class EditorPane extends HBox {
 
   /**
    * Spring to put between the zones in HBox set on always
-   * 
+   *
    * @return region -> spring
    */
   private Region springH() {

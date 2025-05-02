@@ -3,7 +3,7 @@ package model.modelGame.modelCommand.modelItemCom;
 import java.awt.Point;
 import model.modelCharacter.modelHeros.HeroModel;
 import model.modelGame.GameModel;
-import model.modelGame.MessageEnModel;
+import model.modelGame.MessageModel;
 import model.modelGame.modelCommand.CommandModel;
 import model.modelItem.CrowbarModel;
 import model.modelItem.ItemModel;
@@ -26,11 +26,6 @@ import model.modelLocation.StepModel;
 public class UseModel extends CommandModel {
 
   /**
-   * Number of arguments passed to the command.
-   */
-  private int nb_arg;
-
-  /**
    * Constructs a UseModel command.
    * @param cmd   the command arguments
    * @param gameM the game model
@@ -38,7 +33,6 @@ public class UseModel extends CommandModel {
   public UseModel(String[] cmd, GameModel gameM) {
     this.gameM = gameM;
     this.commands = cmd;
-    this.nb_arg = this.commands.length;
   }
 
   /**
@@ -59,28 +53,28 @@ public class UseModel extends CommandModel {
     int ind = Integer.parseInt(commands[1]);
 
     if (ind < 0 || ind >= bpSize) {
-      System.out.println(MessageEnModel.InvalidNumber(ind));
+      System.out.println(MessageModel.InvalidNumber(ind));
     } else {
       ItemModel toUse = HeroModel.gBackpack().getNthItem(ind);
 
       if (toUse instanceof WeaponModel || toUse instanceof ProtectionModel) {
-        System.out.println(MessageEnModel.cantUseItem(toUse));
+        System.out.println(MessageModel.cantUseItem(toUse));
       } else {
         if (toUse instanceof CrowbarModel) {
           StepModel step = this.gameM.getCurLocation().getLocMap().get(p);
           if (p == null) {
-            System.out.println(MessageEnModel.cantUseItem(toUse));
+            System.out.println(MessageModel.cantUseItem(toUse));
             return res;
           }
 
           ItemModel arg2 = step.getItem();
           if (arg2 == null) {
-            System.out.println(MessageEnModel.InvalidItem());
+            System.out.println(MessageModel.InvalidItem());
             return res;
           }
 
           if (!(arg2 instanceof CrateModel)) {
-            System.out.println(MessageEnModel.cantUseItem(toUse));
+            System.out.println(MessageModel.cantUseItem(toUse));
           } else {
             CrateModel crate = (CrateModel) arg2;
             CrowbarModel c = (CrowbarModel) toUse;
