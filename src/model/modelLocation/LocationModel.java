@@ -14,26 +14,52 @@ import model.modelGame.MessageEnModel;
 import model.modelItem.*;
 
 /**
- * Represents a modelLocation in the modelGame world.
- * A modelLocation can have items, a monster, and exits to other locations.
+ * Represents a location in the game world.
+ * <p>
+ * A LocationModel contains information about its size, name, items, exits,
+ * local map structure, and optionally a monster. Locations also support
+ * initialization logic and exit/item placement.
+ * </p>
  */
 public class LocationModel {
 
+  /** Default width of the location grid. */
   private static final int DEF_WIDTH = 10;
+
+  /** Default height of the location grid. */
   private static final int DEF_HEIGHT = 10;
+
+  /** Width of the location grid. */
   private int width;
+
+  /** Height of the location grid. */
   private int height;
+
+  /** Name of the location. */
   public String name;
+
+  /** The grid mapping points to steps (with possible items or exits). */
   public HashMap<Point, StepModel> locMap;
+
+  /** Exits leading to other locations, mapped by integer keys. */
   public Map<Integer, ExitModel> exits;
+
+  /** List of items currently in the location. */
   public ArrayList<ItemModel> itemList;
+
+  /** Description of the location. */
   public String description;
+
+  /** The monster present in this location, if any. */
   public MonsterModel monster;
+
+  /** Controller associated with this location. */
   private final LocationController locationController;
 
   /**
-   * Constructs a new modelLocation with a name, random items, and possibly a random monster.
-   * @param name : the name of the modelLocation
+   * Creates a location with a given name.
+   * Random items and possibly a monster are generated.
+   * @param name the name of the location
    */
   public LocationModel(String name) {
     this.width = DEF_WIDTH;
@@ -49,8 +75,14 @@ public class LocationModel {
   }
 
   /**
-   * Constructs a new modelLocation with a name, random items, and possibly a random monster.
-   * @param name : the name of the modelLocation
+   * Creates a location with all attributes specified.
+   * @param name the name of the location
+   * @param width grid width
+   * @param height grid height
+   * @param exits map of exits
+   * @param locMap grid mapping of steps
+   * @param itemList list of items
+   * @param monster monster present in the location (optional)
    */
   public LocationModel(
     String name,
@@ -72,9 +104,11 @@ public class LocationModel {
   }
 
   /**
-   * Adds an exit to the modelLocation, only if the key isn't used and the exit starts from this modelLocation.
+   * Adds an exit to the location.
    * @param e the exit to add
-   * @param key the unique key for this exit
+   * @param key unique key for the exit
+   * @param x X coordinate where the exit is placed
+   * @param y Y coordinate where the exit is placed
    */
   public void addExit(ExitModel e, Integer key, int x, int y) {
     if (e.start == this && !this.exits.containsKey(key)) {
@@ -86,8 +120,8 @@ public class LocationModel {
   }
 
   /**
-   * Sets the exits for the modelLocation.
-   * @param exits array of exits
+   * Sets multiple exits in the location.
+   * @param exits array of exits to add
    */
   public void setExits(ExitModel[] exits) {
     for (int i = 0; i < exits.length; i++) {
@@ -126,8 +160,8 @@ public class LocationModel {
   }
 
   /**
-   * Gets all the exits from the modelLocation.
-   * @return a list of exits
+   * Returns the list of exits in this location.
+   * @return list of ExitModel
    */
   public ArrayList<ExitModel> getExits() {
     ArrayList<ExitModel> res = new ArrayList<>();
@@ -138,7 +172,7 @@ public class LocationModel {
   }
 
   /**
-   * Returns the monster in the modelLocation, if any.
+   * Returns the monster present in the location, if any.
    * @return the monster
    */
   public MonsterModel getMonster() {
@@ -147,6 +181,7 @@ public class LocationModel {
 
   /**
    * Removes the monster if it has been knocked out.
+   * @param game the game model
    */
   public void removeMonsterIfKO(GameModel game) {
     if (this.monster != null && this.monster.isKO()) {
@@ -164,7 +199,7 @@ public class LocationModel {
   }
 
   /**
-   * Removes an item from the location.
+   * Removes an item from a specific point in the location.
    * @param point the coordinates that contains the item to remove
    */
   public void removeItem(Point point) {
@@ -193,6 +228,10 @@ public class LocationModel {
     this.setNewStep((int) p.getX(), (int) p.getY(), item);
   }
 
+  /**
+   * Returns all free points in the location.
+   * @return list of free points
+   */
   public ArrayList<Point> getAllFreePoints() {
     ArrayList<Point> allPoints = new ArrayList<>();
     for (int i = 0; i < this.getWidth(); i++) {
@@ -209,6 +248,10 @@ public class LocationModel {
     return allPoints;
   }
 
+  /**
+   * Returns all available edge points for placing exits.
+   * @return list of edge points
+   */
   public ArrayList<Point> getAllFreeExitsPoints() {
     ArrayList<Point> allPoints = new ArrayList<>();
 
@@ -233,6 +276,10 @@ public class LocationModel {
     return allPoints;
   }
 
+  /**
+   * Returns a random free edge coordinate for an exit.
+   * @return random free edge point
+   */
   public Point getRandomEdgeFreeStepCoord() {
     ArrayList<Point> allPoints = this.getAllFreeExitsPoints();
 
@@ -248,6 +295,10 @@ public class LocationModel {
     return p;
   }
 
+  /**
+   * Returns a random free coordinate.
+   * @return random free point
+   */
   public Point getRandomFreeStepCoord() {
     ArrayList<Point> allPoints = this.getAllFreePoints();
 
@@ -263,54 +314,90 @@ public class LocationModel {
     return p;
   }
 
+  /**
+   * Checks whether a point in the location is free.
+   * @param coord point to check
+   * @return true if free
+   */
   public boolean isPointFree(Point coord) {
     return !this.getLocMap().containsKey(coord);
   }
 
   /**
-   * Displays the description of the modelLocation (not used anymore)
+   * Displays the description of the location
    */
   public void displayLocation() {
     System.out.println(MessageEnModel.locationDescription(this));
   }
 
   /**
-   * Gets the name of the modelLocation.
-   * @return the name
+   * Gets the name of the location.
+   * @return location name
    */
   public String getName() {
     return this.name;
   }
 
   /**
-   * Returns a human-readable name based on the modelLocation's identifier.
-   * @return the modelLocation name as a string
+   * Gets the width of the location
+   * @return location width
    */
-
   public int getWidth() {
     return this.width;
   }
 
+  /**
+   * Returns the map of the location.
+   * The map associates grid points with steps (which may contain items or exits).
+   * @return the location's map of points to StepModel
+   */
   public HashMap<Point, StepModel> getLocMap() {
     return this.locMap;
   }
 
+  /**
+   * Returns the height of the location grid.
+   * @return the height of the location
+   */
   public int getHeight() {
     return this.height;
   }
 
+  /**
+   * Returns the controller responsible for managing the location.
+   * @return the LocationController instance
+   */
   public LocationController getLocationController() {
     return this.locationController;
   }
 
+  /**
+   * Adds or updates a step at the specified coordinates with an item.
+   * @param x the x-coordinate
+   * @param y the y-coordinate
+   * @param item the item to be placed at the given coordinates
+   */
   public void setNewStep(int x, int y, ItemModel item) {
     this.locMap.put(new Point(x, y), new StepModel(item));
   }
 
+  /**
+   * Adds or updates a step at the specified coordinates with an exit.
+   * @param x the x-coordinate
+   * @param y the y-coordinate
+   * @param exit the exit to be placed at the given coordinates
+   */
   public void setNewStep(int x, int y, ExitModel exit) {
     this.locMap.put(new Point(x, y), new StepModel(exit));
   }
 
+  /**
+   * Returns a human-readable name representing this location.
+   * This overrides the default toString method and returns a more user-friendly name
+   * based on the location's identifier.
+   * @return the string representation of the location
+   */
+  @Override
   public String toString() {
     return switch (name) {
       case "BEAULIEU" -> "Beaulieu ";
@@ -494,6 +581,11 @@ public class LocationModel {
     location.initItems();
   }
 
+  /**
+   * Sets the size of the location.
+   * @param width new width
+   * @param height new height
+   */
   public void setSize(int width, int height) {
     this.width = width;
     this.height = height;

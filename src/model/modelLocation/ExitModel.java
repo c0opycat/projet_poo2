@@ -44,7 +44,6 @@ public class ExitModel {
    * Coordinates are randomly chosen along the borders of each modelLocation based
    * on the current number of existing exits. A modelLocation cannot have more than
    * four exits.
-   *
    * @param start       the starting modelLocation of the exit
    * @param destination the destination modelLocation of the exit
    */
@@ -65,7 +64,6 @@ public class ExitModel {
 
   /**
    * Retrieves the LocationModel representing the starting point of this exit.
-   *
    * @return the LocationModel instance.
    */
   public LocationModel getStart() {
@@ -74,7 +72,6 @@ public class ExitModel {
 
   /**
    * Retrieves the LocationModel representing the destination point of this exit.
-   *
    * @return the LocationModel instance.
    */
   public LocationModel getDestination() {
@@ -83,7 +80,6 @@ public class ExitModel {
 
   /**
    * Retrieves the ExitController associated with this model.
-   *
    * @return the ExitController instance.
    */
   public ExitController getExitController() {
@@ -92,7 +88,6 @@ public class ExitModel {
 
   /**
    * Returns the X coordinate of the exit on the start location.
-   *
    * @return the X coordinate on the start location's grid
    */
   public int getStartX() {
@@ -101,7 +96,6 @@ public class ExitModel {
 
   /**
    * Returns the Y coordinate of the exit on the start location.
-   *
    * @return the Y coordinate on the start location's grid
    */
   public int getStartY() {
@@ -110,7 +104,6 @@ public class ExitModel {
 
   /**
    * Sets the X coordinate of the exit on the start location.
-   *
    * @param x the X coordinate on the start location's grid
    */
   public void setStartX(int x) {
@@ -119,7 +112,6 @@ public class ExitModel {
 
   /**
    * Sets the Y coordinate of the exit on the start location.
-   *
    * @param y the Y coordinate on the start location's grid
    */
   public void setStartY(int y) {
@@ -128,7 +120,6 @@ public class ExitModel {
 
   /**
    * Returns a string representation of the exit, showing only the destination.
-   *
    * @return a string describing the destination modelLocation
    */
   @Override
