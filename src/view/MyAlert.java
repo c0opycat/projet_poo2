@@ -5,6 +5,7 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 /**
  * Utility class for displaying various types of alerts in the application.
@@ -78,6 +79,31 @@ public class MyAlert {
     alert.setTitle(TITLE);
     alert.setHeaderText(HEADER);
     alert.setContentText(CONTENT);
+
+    alert.getButtonTypes().setAll(buttonTypes);
+
+    Optional<ButtonType> choices = alert.showAndWait();
+
+    return choices.isPresent() ? choices.get().getText() : null;
+  }
+
+  /**
+   * Displays a choice alert with the specified button types that can't be closed.
+   *
+   * @param buttonTypes a list of ButtonType objects representing the choices
+   * @return the text of the button selected by the user
+   */
+  public String showChoiceAlertNotCloseable(ArrayList<ButtonType> buttonTypes) {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle(TITLE);
+    alert.setHeaderText(HEADER);
+    alert.setContentText(CONTENT);
+
+    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+
+    stage.setOnCloseRequest(event -> {
+      event.consume();
+    });
 
     alert.getButtonTypes().setAll(buttonTypes);
 
