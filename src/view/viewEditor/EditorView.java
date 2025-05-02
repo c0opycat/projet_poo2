@@ -45,8 +45,7 @@ public class EditorView extends BorderWithButtons {
     scrollPane.setFitToHeight(true); // Permet le défilement vertical uniquement
     scrollPane.setPrefSize(500, 500);
     scrollPane.setStyle(
-      "-fx-background: transparent; -fx-background-color: transparent;"
-    );
+        "-fx-background: transparent; -fx-background-color: transparent;");
 
     this.setContent(scrollPane);
     this.addBackground("backgroundEditor.png");
