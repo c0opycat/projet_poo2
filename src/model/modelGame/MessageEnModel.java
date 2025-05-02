@@ -27,7 +27,7 @@ public class MessageEnModel{
     } else {
       return (
         "Vous vous reveillez dans une terre devastee. Un autre lundi.\n" +
-        "Aujourd'hui ne va pas être facile car vous devez echapper a la ville qui a ete infestee.\n" +
+        "Aujourd'hui ne va pas etre facile car vous devez echapper a la ville qui a ete infestee.\n" +
         "Vous etes en fait a " +
         start +
         "et vous devez aller a " +
@@ -46,7 +46,7 @@ public class MessageEnModel{
             """;
     } else {
       return """
-              Vous êtes malheureusement mort en tentant de vous échapper.
+              Vous etes malheureusement mort en tentant de vous echapper.
               Votre corps accompagnera la ville dans sa chute.
               """;
     }
@@ -64,7 +64,7 @@ public class MessageEnModel{
     }
     else {
       return """
-              Vous avez reussi! Vous vous êtes échappé
+              Vous avez reussi! Vous vous etes echappe
               Vous pouvez maintenant contempler les ruines de la ville dans le lointain.
               Vous pouvez enfin vous reposer alors que la horde se repend dans les batiments
               """;
@@ -91,7 +91,7 @@ public class MessageEnModel{
                  ATTACK: permet d'attaquer l'enemi
                  BACKPACK: permet de voir le contenu de votre sac a dos
                  cliquez sur un(e) chest(coffre)/crate(caisse)/backpack(sac a dos) pour regarder ce qu'il contient
-                 DROP: pour déposer un objet de votre inventaire
+                 DROP: pour deposer un objet de votre inventaire
                  GO: pour aller a un autre endroit, vous pouvez l'utiliser pour fuir un danger imposant et lent
                  USE:pour utiliser un item(objet) de votre sac a dos
                  TAKE: pour prendre un item(objet)
@@ -118,7 +118,7 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
     return "The number " + i + " isn't associated with any modelItem.";
     } else {
-      return "Le numero " + i + " n’est associé à aucun objet.";
+      return "Le numero " + i + " n’est associe a aucun objet.";
     }
   }
 
@@ -163,7 +163,7 @@ public class MessageEnModel{
     } else {
       return warning() +
               i.toString()+
-              " est trop lourd et ne peut pas être stocké dans "+
+              " est trop lourd et ne peut pas etre stocke dans "+
               c.toString()+
               ".";
     }
@@ -178,7 +178,7 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
       return "You need to drop your " + i.toString() + " first.";
     } else {
-      return "Vous devez d’abord déposer votre "+i.toString();
+      return "Vous devez d’abord deposer votre "+i.toString();
     }
   }
 
@@ -247,12 +247,12 @@ public class MessageEnModel{
               "Il reste peut-etre de la nourriture quelque part.\n" +
               "Vous apercevez quelques mouvements au loin.\n" +
               "Quoi que vous comptiez faire, mieux vaut faire vite.";
-      case "MILETRIE" -> "On dirait que c'est plutôt animé par ici.\n" +
+      case "MILETRIE" -> "On dirait que c'est plutot anime par ici.\n" +
               "L'hopital se tient encore sinistrement au coeur des ruines.\n" +
               "L'explorer serait risque mais pourrait rapporter gros.\n" +
               "Des rumeurs terrifiantes circulent sur les abominations y roderaint.\n";
       case "CITY_CENTER" -> "Vous vous souvenez que des survivants avaient utilise Notre-Dame comme base pendant un temps.\n" +
-              "Il semble qu'ils l’aient abandonnee, mais peut-etre ont-ils laissé des objets utiles.\n" +
+              "Il semble qu'ils l’aient abandonnee, mais peut-etre ont-ils laisse des objets utiles.\n" +
               "Une odeur de chair brulee vous monte au nez. Qu'a-t-il bien pu se passer ?\n";
       case "COURONNERIES" -> "La majeur partie des batiments sont en mauvais etat.\n"+
               "Quelques tours tiennent bon et abritent peut-etre des survivants.\n"+
@@ -266,7 +266,7 @@ public class MessageEnModel{
       case "SOUTH_POITIERS" -> "On dirait que tout a ete disperse par une grosse explosion.\n"+
               "La forte concentration de cendres et de produits chimiques vous brule les poumons.\n"+
               "Il vaudrait mieux quitter cet endroit.\n";
-      case "PONT_NEUF" -> "L'odeur est attroce. Depuis les hauteurs, un glissement de boue a entraîne une maree de cadavres en decomposition jusqu’a la riviere.\n"+
+      case "PONT_NEUF" -> "L'odeur est attroce. Depuis les hauteurs, un glissement de boue a entraine une maree de cadavres en decomposition jusqu’a la riviere.\n"+
               "Des engins de chantier sont eparpilles un peu partout.\n"+
               "Vous souriez en pensant que personne ne verra jamais l'aboutissement de ces incessants travaux.\n";
       case "SAINT_ELOI" -> "Tout est si calme ici, c'est probablement le quartier le moins endommage de la ville.\n"+
@@ -277,7 +277,7 @@ public class MessageEnModel{
               "\n";
       case "NORTH_POITIERS" -> "Depuis les hauteurs de la vallee du Clain, vous pouvez contempler le panorama.\n"+
               "La statue silencieuse vous fait face depuis l’autre rive.\n"+
-              "Son côté gauche est noirci par les flammes, son bras droit est manquant.\n";
+              "Son cote gauche est noirci par les flammes, son bras droit est manquant.\n";
       case "MONTBERNAGE" -> "Le grand pont de la voie penetrante enjambe toujours le Clain.\n"+
               "Sa haute silhouette est un vestige du monde que vous avez connu.\n"+
               "\n";
@@ -315,7 +315,7 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
       return "The crate remains closed. Maybe you'd have more success with a tool.";
     } else {
-      return "La caisse reste fermée. Vous pourriez peut-être l'ouvrir avec un outil.";
+      return "La caisse reste fermee. Vous pourriez peut-etre l'ouvrir avec un outil.";
     }
   }
 
@@ -334,7 +334,7 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
       return "You used your " + item + "to " + MessageEnModel.itemEffect(item);
     } else {
-      return "Vous avez utilisé votre "+item+"pour "+ MessageEnModel.itemEffectfr(item);
+      return "Vous avez utilise votre "+item+"pour "+ MessageEnModel.itemEffectfr(item);
     }
   }
 
@@ -350,7 +350,7 @@ public class MessageEnModel{
     if (item instanceof CrowbarModel) {
       return "ouvrir ceci : ";
     } else if (item instanceof ConsumableModel) {
-      return "récupérer ceci : ";
+      return "recuperer ceci : ";
     } else return "faire.. quelque chose avec ceci :";
   }
 
@@ -386,7 +386,7 @@ public class MessageEnModel{
     if (lang.equals("EN")) {
       return "Do you really think you can harm this monster with you bare hands ?";
     } else {
-      return "Vous pensez vraiment pouvoir blesser ce monstre à mains nues ?";
+      return "Vous pensez vraiment pouvoir blesser ce monstre a mains nues ?";
     }
   }
 

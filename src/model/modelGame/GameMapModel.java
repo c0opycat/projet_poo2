@@ -5,9 +5,29 @@ import java.util.ArrayList;
 import model.modelEditor.CustomMapSaveModel;
 import model.modelLocation.*;
 
+/**
+ * The {@code GameMapModel} class represents the complete game map,
+ * containing all {@link LocationModel} objects that define the areas the player can visit.
+ * <p>
+ * This includes both hardcoded locations (such as NORTH_POITIERS, BEAULIEU, etc.)
+ * as well as custom user-defined locations loaded from a JSON file using {@link CustomMapSaveModel}.
+ * </p>
+ */
 public class GameMapModel {
+
+    /**
+     * The list of all locations in the game map.
+     * This list is shared statically across all instances.
+     */
     public static ArrayList<LocationModel> locations;
 
+    /**
+     * Constructs a new {@code GameMapModel}.
+     * <p>
+     * Initializes the map by building the default set of locations and loading custom locations
+     * from a saved file, if available.
+     * </p>
+     */
     public GameMapModel()
     {
         GameMapModel.locations = new ArrayList<>();
@@ -16,6 +36,14 @@ public class GameMapModel {
         GameMapModel.locations.addAll(customMap.locations);
     }
 
+    /**
+     * Builds and initializes the default locations for the game map.
+     * <p>
+     * These are hardcoded locations that define the core map.
+     * Each location is created, added to the {@link #locations} list,
+     * and initialized using their corresponding static initialization method.
+     * </p>
+     */
     public static void buildMap(){
         LocationModel northPoitiers = new LocationModel("NORTH_POITIERS");
         GameMapModel.locations.add(northPoitiers);
@@ -59,14 +87,26 @@ public class GameMapModel {
         LocationModel.finalExit(GameMapModel.locations.get(12));
     }
 
+    /**
+     * Returns the starting location of the game map.
+     * @return the first {@link LocationModel} in the list
+     */
     public LocationModel getStartLoc(){
         return locations.get(0);
     }
-    
+
+    /**
+     * Returns the ending location of the game map.
+     * @return the last {@link LocationModel} in the list
+     */
     public LocationModel getEndLoc(){
         return locations.get(locations.size() - 1);
     }
 
+    /**
+     * Returns the list of all locations in the game map.
+     * @return an {@link ArrayList} of {@link LocationModel}
+     */
     public ArrayList<LocationModel> getLocations(){
         return locations;
     }
