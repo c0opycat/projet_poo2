@@ -62,8 +62,12 @@ public class CharacterChoiceView extends BorderWithButtons {
     Label jobLabel = new Label();
     Button start = new Button();
 
-    lang.setLabelLang(nameLabel, "Entre ton nom :", "Enter your name:");
-    lang.setLabelLang(jobLabel, "Choisis ta classe :", "Choose your class:");
+    lang.setLabelLang(nameLabel, "Entrez votre nom :", "Enter your name:");
+    lang.setLabelLang(
+      jobLabel,
+      "Choisissez votre classe :",
+      "Choose your class:"
+    );
     lang.setButtonLang(start, "Commencer", "Start");
 
     TextField nameTF = new TextField();
