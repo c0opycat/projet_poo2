@@ -62,7 +62,7 @@ public class MenuView extends BorderWithButtons {
     Button hof = new Button();
     lang.setButtonLang(hof, "HOF", "HOF");
     Button credits = new Button();
-    lang.setButtonLang(credits, "Credits", "Crédits");
+    lang.setButtonLang(credits, "Crédits", "Credits");
     //style du menu
 
     this.addBackground("background.png");
