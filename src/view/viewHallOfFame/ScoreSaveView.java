@@ -56,11 +56,11 @@ public class ScoreSaveView extends VBox {
     while (rank <= 10) {
       Label rankLabel = new Label("#" + rank);
       Label nameLabel = new Label("---");
-      Label scoreLabel = new Label("0");
+      Label scoreLabel = new Label("");
 
       HBox rowBox = new HBox(5);
       rowBox.getChildren().addAll(rankLabel, nameLabel, scoreLabel);
-      rowBox.setAlignment(Pos.CENTER_LEFT);
+      rowBox.setAlignment(Pos.CENTER);
       rowBox.getStyleClass().add("row-score-view");
 
       this.getChildren().add(rowBox);
