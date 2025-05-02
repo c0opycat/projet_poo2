@@ -5,15 +5,6 @@
 
 <h3 align="center">Ashes of Humanity</h3>
 
-<div align="center">
-
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-L3-blue.svg)](/LICENSE)
-
-</div>
-
 ---
 
 <p align="center"> Ashes of Humatity is an aventure game where you play as a survivor in a post-apocalyptic world. You must navigate through the ruins of civilization, scavenge for resources, and make choices that will determine your fate. The game features a rich narrative, branching paths, and multiple endings based on your decisions.
