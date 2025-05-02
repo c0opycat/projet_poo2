@@ -13,16 +13,46 @@ import model.modelItem.modelContainer.CrateModel;
 import model.modelItem.modelWeapon.WeaponModel;
 import model.modelLocation.StepModel;
 
+/**
+ * The UseModel class represents the "use" command allowing the hero to use consumable items or tools like a crowbar.
+ * <p>
+ * The following actions can be performed using this command:
+ * <ul>
+ *     <li>Use a {@link ConsumableModel} to heal the hero.</li>
+ *     <li>Use a {@link CrowbarModel} to open crates at a specified location.</li>
+ * </ul>
+ * Weapon and Protection items cannot be used with this command.
+ */
 public class UseModel extends CommandModel {
 
+  /**
+   * Number of arguments passed to the command.
+   */
   private int nb_arg;
 
+  /**
+   * Constructs a UseModel command.
+   * @param cmd   the command arguments
+   * @param gameM the game model
+   */
   public UseModel(String[] cmd, GameModel gameM) {
     this.gameM = gameM;
     this.commands = cmd;
     this.nb_arg = this.commands.length;
   }
 
+  /**
+   * Executes the use command at the specified point.
+   * <p>
+   * The command uses an item from the hero's backpack. The item can:
+   * <ul>
+   *     <li>Heal the hero if it's a consumable.</li>
+   *     <li>Open a crate if it's a crowbar and there is a crate at the given point.</li>
+   * </ul>
+   * Weapon and Protection items are not usable through this command.
+   * @param p the point in the location where the item is to be used
+   * @return true if the item was used successfully, false otherwise
+   */
   public boolean execute(Point p) {
     boolean res = false;
     int bpSize = HeroModel.gBackpack().getNbItems();

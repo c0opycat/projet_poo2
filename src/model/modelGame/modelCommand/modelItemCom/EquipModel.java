@@ -12,11 +12,35 @@ import model.modelItem.modelWeapon.WeaponModel;
 import model.modelLocation.LocationModel;
 import model.modelLocation.StepModel;
 
+/**
+ * The EquipModel class represents the "equip" command which allows a hero to equip weapons, protections, or switch backpacks.
+ * <p>
+ * The equip command can target items from:
+ * <ul>
+ *     <li>The hero's backpack (if the second argument is 1)</li>
+ *     <li>The ground/location (if the second argument is 2)</li>
+ *     <li>Containers (if the second argument is 3 or more)</li>
+ * </ul>
+ * Depending on the item type and the source, the hero may equip it directly, swap with the current equipped item,
+ * or switch backpacks.
+ */
 public class EquipModel extends CommandModel {
 
+  /**
+   * The index of the item to equip.
+   */
   private int fstArg;
+
+  /**
+   * The source location of the item (1 = backpack, 2 = ground, 3+ = containers).
+   */
   private int scdArg;
 
+  /**
+   * Creates a new EquipModel command.
+   * @param cmd   the command arguments as a String array
+   * @param gameM the game model
+   */
   public EquipModel(String[] cmd, GameModel gameM) {
     this.gameM = gameM;
     this.commands = cmd;
@@ -24,14 +48,31 @@ public class EquipModel extends CommandModel {
     this.scdArg = Integer.parseInt(commands[2]);
   }
 
+  /**
+   * Returns a string representing this command.
+   * @return "equip anything"
+   */
   @Override
   public String toString() {
     return "equip anything";
   }
 
+  /**
+   * Executes the equip command on a specified point.
+   * <p>
+   * Equips an item from various sources depending on the arguments:
+   * <ul>
+   *     <li>Backpack: equipping weapons.</li>
+   *     <li>Ground: equipping weapons, protections, or switching backpacks.</li>
+   *     <li>Container (like crates): equipping weapons or protections if accessible.</li>
+   * </ul>
+   * @param p the point (location) where the equip action takes place
+   * @return true if the item was successfully equipped or switched, false otherwise
+   */
   public boolean execute(Point p) {
     boolean res = false;
 
+    // Validate scdArg
     if (scdArg < 1 || scdArg > 4) {
       System.out.println("The second number : " + scdArg + "is invalid.");
     } else {
@@ -39,6 +80,7 @@ public class EquipModel extends CommandModel {
       int nbItems = 0;
       ItemModel toEquip;
 
+      // Equip from Backpack
       if (scdArg == 1) {
         BackpackModel bp = HeroModel.gBackpack();
         nbItems = bp.getNbItems();
@@ -68,6 +110,8 @@ public class EquipModel extends CommandModel {
             res = true;
           }
         }
+
+        // Equip from ground
       } else if (scdArg == 2) {
         nbItems = loc.itemList.size();
         StepModel step = loc.getLocMap().get(p);
@@ -126,6 +170,8 @@ public class EquipModel extends CommandModel {
             System.out.println(MessageEnModel.wrongItem("equip"));
           }
         }
+
+        // Equip from Container
       } else {
         StepModel step = this.gameM.getCurLocation().getLocMap().get(p);
         if (step == null) {
@@ -200,7 +246,6 @@ public class EquipModel extends CommandModel {
         }
       }
     }
-
     return res;
   }
 }
