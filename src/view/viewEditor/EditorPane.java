@@ -2,7 +2,6 @@ package view.viewEditor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import controller.controllerEditor.ControllerSave;
 import javafx.geometry.Insets;
@@ -18,13 +17,9 @@ import javafx.scene.layout.VBox;
 import view.ItemLoaderView;
 import view.viewEditor.viewHistory.HistoryManager;
 
-//REMARQUE AJOUT DES COMMANDES A FAIRE SUR TOUTES L'INTERFACE RIEN N'EST FONCTIONNEL C'EST UNIQUEMENT LA VUE SANS INTERACTION POSSIBLE
-//CODE A RECOMMANTER PROPREMENT et A ENCAPSULER/METTRE EN CLASSE
-//CODER ESTHETIQUE A AJOUTER
-
 /**
  * HBox containing the modelEditor interface.
- * The left section is dedicated to level information - modelGame board, level name, and description.
+ * The left section is dedicated to level information - modelGame board, level name, and description FR/EN.
  * The right section is dedicated to customization tools
  * - tabs for modelItem selection, board size, undo, redo, reset, save, and level editing.
  * @author C. Besançon
@@ -52,9 +47,11 @@ public class EditorPane extends HBox {
   /// Public ///
   /**
    * Constructor
+   * Initializes the editor view and lays out the components
    */
   public EditorPane() {
     super();
+    //récupération des types et items
     ItemLoaderView itemLoaderView = new ItemLoaderView("defaultItem");
     this.nomsType = itemLoaderView.getType();
     this.nomsItems = itemLoaderView.getNomsItems();
@@ -81,19 +78,11 @@ public class EditorPane extends HBox {
   }
 
   /**
-   * Recover the levels saved using the control.
-   * This function currently hard-codes the level names so that you can test them while waiting for the final model.
-   * @return an array with all the level names (and data?)
+   * Retrievec the names of editable levels
+   * @return an array with the level names
    */
-  public String[] getLevels() {
-    //A RECUPERER DEPUIS LE CONTROLLER
-    String[] levels = {
-      "new",
-      "Place Lepetit",
-      "Beaulieu",
-      "Notre-Dame",
-      "Blossac",
-    };
+  public String[] getLevelsEdit() {
+    String[] levels = {"new"};
     return levels;
   }
 
@@ -114,7 +103,7 @@ public class EditorPane extends HBox {
   }
 
   /**
-   * Add action for each button
+   * Attaches action handlers to each button (undo, redo, reinit and save)
    */
   public void addHandlers() {
     getUndo()
@@ -139,7 +128,7 @@ public class EditorPane extends HBox {
   }
 
   /// Private ///
-
+  /// Left Part ///
   /**
    * Creation of the left part of the interface. Contains the modelGame board, a text box for the level title,
    * a text box for the description needed for the level in French, and another box for the English description.
@@ -172,9 +161,7 @@ public class EditorPane extends HBox {
         initFrameGame(getRow(), getCol());
       });
 
-    //zone de texte nom, description en français et anglais
-    //Textfield a parametrer
-    //(style de police, nombre de caractère autorisée, nombre de ligne, espace pris dans la fenêtre)
+    //zones de texte nom, description en français et anglais
     TitleView name = new TitleView("Nom / Name", history);
 
     TextView descriptionFr = new TextView("Description du quartier", history);
@@ -205,26 +192,6 @@ public class EditorPane extends HBox {
   }
 
   /**
-   * Spring to put between the zones in VBox set on sometimes
-   * @return region -> spring
-   */
-  private Region springV() {
-    Region spring = new Region();
-    VBox.setVgrow(spring, Priority.SOMETIMES);
-    return spring;
-  }
-
-  /**
-   * Spring to put between the zones in HBox set on always
-   * @return region -> spring
-   */
-  private Region springH() {
-    Region spring = new Region();
-    HBox.setHgrow(spring, Priority.ALWAYS);
-    return spring;
-  }
-
-  /**
    * Updates the size of the frameGame by resetting everything
    * @param newRow new number of rows
    * @param newCol new number of columns
@@ -242,6 +209,73 @@ public class EditorPane extends HBox {
     return preview;
   }
 
+  /// Right Part ///
+  
+  /**
+   * Creation of the right part of the interface. Contains a tab to select different type of object
+   * a HBox with two Spinner to choose the number of column and row for the modelGame board,
+   * a HBox with three button undo redo reinit and another HBox with a comboBox to choose a level to edit,
+   * and a button save
+   * @return VBox -> right part of the modelEditor
+   */
+  private VBox rightNodes() {
+    //VBox pour ajouter les choix d'éléments à ajouter
+    //ainsi que les commandes et paramètres
+    VBox rightPane = new VBox();
+
+    String[] strTab = this.nomsType;
+    ArrayList<ArrayList<String>> itemTab = this.nomsItems;
+
+    int nbTypes = strTab.length;
+    int nbItems = itemTab.size();
+
+    String strTab2[];
+    ArrayList<ArrayList<String>> itemTab2;
+
+    if (nbTypes < nbItems) {
+      strTab2 = strTab;
+      itemTab2 = new ArrayList<>(itemTab.subList(0, nbTypes));
+    } else {
+      strTab2 = Arrays.copyOfRange(strTab, 0, nbItems);
+      itemTab2 = this.nomsItems;
+    }
+
+    //Ajout des onglets d'ajout
+    SelectTypeElem selectTypeElem = new SelectTypeElem(strTab2, itemTab2);
+    selectTypeElem.setMinWidth(600);
+    selectTypeElem.setMaxWidth(600);
+    selectTypeElem.setPrefWidth(600);
+
+    selectTypeElem.setMaxHeight(600);
+    selectTypeElem.setMinHeight(600);
+    selectTypeElem.setPrefHeight(600);
+
+
+
+    //Ajout des commandes
+    HBox widthField = this.size();
+
+    String[] namesRtr = { "Undo", "Redo", "Re-init" };
+    HBox buttonRetour = this.buttonsNb(3, namesRtr);
+    HBox saveLevel = saveLevel();
+
+    rightPane
+      .getChildren()
+      .addAll(
+        selectTypeElem,
+        springV(),
+        widthField,
+        springV(),
+        buttonRetour,
+        springV(),
+        saveLevel,
+        springV()
+      );
+
+    return rightPane;
+  }
+
+  
   /**
    * Added an HBox containing two VBoxes, one for height and the other for width.
    * Each VBox contains a spinner and an HBox with a French label and an English label.
@@ -332,7 +366,7 @@ public class EditorPane extends HBox {
    * @return HBox
    */
   private HBox selectLevel() {
-    String[] listLevel = getLevels();
+    String[] listLevel = getLevelsEdit();
 
     //Creation de la boîte choix
     ComboBox<String> choiceLevel = new ComboBox<>();
@@ -357,70 +391,7 @@ public class EditorPane extends HBox {
     return wayBox;
   }
 
-  /**
-   * Creation of the right part of the interface. Contains a tab to select different type of object
-   * a HBox with two Spinner to choose the number of column and row for the modelGame board,
-   * a HBox with three button undo redo reinit and another HBox with a comboBox to choose a level to edit,
-   * and a button save
-   * @return VBox -> right part of the modelEditor
-   */
-  private VBox rightNodes() {
-    //VBox pour ajouter les choix d'éléments à ajouter
-    //ainsi que les commandes et paramètres
-    VBox rightPane = new VBox();
-
-    String[] strTab = this.nomsType;
-    ArrayList<ArrayList<String>> itemTab = this.nomsItems;
-
-    int nbTypes = strTab.length;
-    int nbItems = itemTab.size();
-
-    String strTab2[];
-    ArrayList<ArrayList<String>> itemTab2;
-
-    if (nbTypes < nbItems) {
-      strTab2 = strTab;
-      itemTab2 = new ArrayList<>(itemTab.subList(0, nbTypes));
-    } else {
-      strTab2 = Arrays.copyOfRange(strTab, 0, nbItems);
-      itemTab2 = this.nomsItems;
-    }
-
-    //Ajout des onglets d'ajout
-    SelectTypeElem selectTypeElem = new SelectTypeElem(strTab2, itemTab2);
-    selectTypeElem.setMinWidth(600);
-    selectTypeElem.setMaxWidth(600);
-    selectTypeElem.setPrefWidth(600);
-
-    selectTypeElem.setMaxHeight(600);
-    selectTypeElem.setMinHeight(600);
-    selectTypeElem.setPrefHeight(600);
-
-
-
-    //Ajout des commandes
-    HBox widthField = this.size();
-
-    String[] namesRtr = { "Undo", "Redo", "Re-init" };
-    HBox buttonRetour = this.buttonsNb(3, namesRtr);
-    HBox saveLevel = saveLevel();
-
-    rightPane
-      .getChildren()
-      .addAll(
-        selectTypeElem,
-        springV(),
-        widthField,
-        springV(),
-        buttonRetour,
-        springV(),
-        saveLevel,
-        springV()
-      );
-
-    return rightPane;
-  }
-
+  /// Utilitaire ///
   // Getter pour le nombre de colonnes  et de lignes
   /**
    * get number of column
@@ -528,5 +499,25 @@ public class EditorPane extends HBox {
    */
   private VBox getLeftPane(){
     return (VBox)this.getChildren().getFirst();
+  }
+
+  /**
+   * Spring to put between the zones in VBox set on sometimes
+   * @return region -> spring
+   */
+  private Region springV() {
+    Region spring = new Region();
+    VBox.setVgrow(spring, Priority.SOMETIMES);
+    return spring;
+  }
+
+  /**
+   * Spring to put between the zones in HBox set on always
+   * @return region -> spring
+   */
+  private Region springH() {
+    Region spring = new Region();
+    HBox.setHgrow(spring, Priority.ALWAYS);
+    return spring;
   }
 }

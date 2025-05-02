@@ -8,16 +8,31 @@ import view.ButtonMenu;
 import view.ButtonQuit;
 
 /**
+ * EditorView is the main container for the level editor screen.
+ * It extends BorderWithButtons and organizes:
+ * - A title
+ * - A scrollable editor panel (EditorPane)
+ * - Background image
+ * - Action buttons (Menu, Quit)
  *
- * @author
+ * @author C. Besançon
  */
 public class EditorView extends BorderWithButtons {
 
+  /**
+   * Constructor: initializes the editor view and adds components.
+   */
   public EditorView() {
     super();
     this.addComp();
   }
 
+  /**
+   * Adds the core components to the editor view:
+   * - A title
+   * - A scrollable EditorPane
+   * - A background image
+   */
   private void addComp() {
     this.addTitle("Editeur", false);
 
@@ -37,6 +52,10 @@ public class EditorView extends BorderWithButtons {
     this.addBackground("backgroundEditor.png");
   }
 
+  /**
+   * Sets up the bottom action buttons (Menu and Quit).
+   * These buttons are added to the layout's bottom area.
+   */
   public void setButtons() {
     ArrayList<Button> buttons = new ArrayList<>();
 

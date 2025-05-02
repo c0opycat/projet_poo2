@@ -11,6 +11,10 @@ import javafx.scene.layout.StackPane;
 /**
  * View of a cell on the modelGame board.
  * This class manages the image displayed on the board.
+ * It manages:
+ * - The displayed element (name and image)
+ * - Tooltip text when hovering
+ * - Drag-and-drop behaviors for element movement
  *
  * @author C. Besançon
  */
@@ -20,7 +24,7 @@ public class Cell extends StackPane {
   private String elem;
   /** Name of the image */
   private String img;
-  /**Information show about the element */
+  /** Information show about the element */
   private Tooltip tooltip;
   /** ImageView associated with the elem */
   private ImageView imageView;
@@ -28,7 +32,8 @@ public class Cell extends StackPane {
   //// Public ////
 
   /**
-   * Constructor
+   * Default constructor.
+   * Creates an empty cell with tooltip and styling.
    */
   public Cell() {
     super();
@@ -40,6 +45,11 @@ public class Cell extends StackPane {
     this.getStyleClass().add("transparent-layer");
   }
 
+  /**
+   * Constructor with an element name.
+   * 
+   * @param elem Name of the element stored in this cell
+   */
   public Cell(String elem) {
     super();
     this.elem = elem;
@@ -51,6 +61,12 @@ public class Cell extends StackPane {
     this.getStyleClass().add("transparent-layer");
   }
 
+  /**
+   * Constructor with an element and an image name.
+   * 
+   * @param elem Name of the element
+   * @param img  Image file name (without extension)
+   */
   public Cell(String elem, String img) {
     super();
     this.elem = elem;
@@ -63,23 +79,35 @@ public class Cell extends StackPane {
     this.getStyleClass().add("transparent-layer");
   }
 
+  /**
+   * Removes the given image from the cell.
+   * 
+   * @param image The ImageView to remove
+   */
   public void deleteImage(ImageView image) {
     this.getChildren().remove(image);
     this.setImageView(null);
   }
 
+  /**
+   * Add the given image from the cell.
+   * 
+   * @param image The ImageView to add
+   */
   public void addImage(ImageView image) {
     fitSize(image);
     this.getChildren().add(image);
     this.setImageView(image);
   }
 
+  /**
+   * Adds an image to the cell based on the stored element name.
+   */
   public void addImage() {
     String imageName = Cell.getImageName(this.getElement());
 
     ImageView imageView = new ImageView(
-      new Image(imageName, 25, 25, true, true)
-    );
+        new Image(imageName, 25, 25, true, true));
 
     imageView.setCache(true);
 
@@ -89,6 +117,12 @@ public class Cell extends StackPane {
     this.setImageView(imageView);
   }
 
+  /**
+   * Returns the file path of the image corresponding to a given element.
+   * 
+   * @param nameItem Name of the element
+   * @return File path to the image
+   */
   public static String getImageName(String nameItem) {
     String path = "file:./resources/image/";
     String ext = ".png";
@@ -139,9 +173,8 @@ public class Cell extends StackPane {
   }
 
   /**
-   * Set the cell to recognize drag and drop and change the cell to a new modelItem in it
-   * @param prefHeight preferred height - fixed height of a grid square
-   * @param prefWidth preferred width - fixed width of a grid square
+   * Set the cell to recognize drag and drop
+   * and change the cell to a new modelItem in it
    */
   public void setCellDraggable() {
     this.setDragOver();
@@ -155,73 +188,68 @@ public class Cell extends StackPane {
    */
   private void setDragOver() {
     this.setOnDragOver(event -> {
-        if (
-          event.getGestureSource() != this && event.getDragboard().hasString()
-        ) {
-          event.acceptTransferModes(TransferMode.MOVE);
-        }
-        event.consume();
-      });
+      if (event.getGestureSource() != this && event.getDragboard().hasString()) {
+        event.acceptTransferModes(TransferMode.MOVE);
+      }
+      event.consume();
+    });
   }
 
   /**
-   * Defines drag and drop: when dropping, retrieves the name of the image and the element
-   * and creates a cell (image view) containing the element (displays its image and in the tooltip its name).
+   * Defines drag and drop: when dropping, retrieves the name of the image and the
+   * element
+   * and creates a cell (image view) containing the element (displays its image
+   * and in the tooltip its name).
    * Empty the old cell and replace it with the new one.
-   * @param prefHeight preferred height - fixed height of a grid square
-   * @param prefWidth preferred width - fixed width of a grid square
    */
   private void setDragDropped() {
     this.setOnDragDropped(event -> {
-        Dragboard db = event.getDragboard();
-        if (db.hasString()) {
-          String itemNom = db.getString();
-          String[] parts = itemNom.split(";");
+      Dragboard db = event.getDragboard();
+      if (db.hasString()) {
+        String itemNom = db.getString();
+        String[] parts = itemNom.split(";");
 
-          if (parts.length == 2) {
-            String oldElem = getElement();
-            String oldImg = getImage();
+        if (parts.length == 2) {
+          String oldElem = getElement();
+          String oldImg = getImage();
 
-            setElement(parts);
+          setElement(parts);
 
-            String[] oldElement = { oldImg, oldElem };
-            System.out.println("oldElem : " + oldElement);
+          String[] oldElement = { oldImg, oldElem };
+          System.out.println("oldElem : " + oldElement);
 
-            String[] newElement = parts;
-            System.out.println("newElem : " + newElement);
+          String[] newElement = parts;
+          System.out.println("newElem : " + newElement);
 
-            view.viewEditor.viewHistory.HistoryManager.getInstance()
+          view.viewEditor.viewHistory.HistoryManager.getInstance()
               .recordAction(
-                new view.viewEditor.viewHistory.CellAction(
-                  this,
-                  oldElement,
-                  newElement
-                )
-              );
+                  new view.viewEditor.viewHistory.CellAction(
+                      this,
+                      oldElement,
+                      newElement));
 
-            event.setDropCompleted(true);
-          } else {
-            event.setDropCompleted(false);
-          }
+          event.setDropCompleted(true);
         } else {
           event.setDropCompleted(false);
         }
-        event.consume();
-      });
+      } else {
+        event.setDropCompleted(false);
+      }
+      event.consume();
+    });
   }
 
   /**
-   * Creating an image (element) that can be taken and dropped into another gridPane
+   * Creating an image (element) that can be taken and dropped into another
+   * gridPane
+   * 
    * @param imageName name of the image to display
-   * @param elemName name of the element to display
-   * @param prefHeight preferred height - fixed height of a grid square
-   * @param prefWidth preferred width - fixed width of a grid square
+   * @param elemName  name of the element to display
    * @return
    */
   private ImageView createDraggableImage(String imageName, String elemName) {
     ImageView image = new ImageView(
-      new Image("file:./resources/image/" + imageName + ".png")
-    );
+        new Image("file:./resources/image/" + imageName + ".png"));
     image.setPreserveRatio(true);
     image.setSmooth(true);
     image.setCache(true);
@@ -235,29 +263,31 @@ public class Cell extends StackPane {
 
   /**
    * Resize the image once it is placed in the scene to avoid NullPointerException
+   * 
    * @param image ImageView that contains the image to display in the grid cell
    */
   private void fitSize(ImageView image) {
     image
-      .sceneProperty()
-      .addListener((obs, oldScene, newScene) -> {
-        image.fitWidthProperty().bind(this.widthProperty());
-        image.fitHeightProperty().bind(this.heightProperty());
-      });
+        .sceneProperty()
+        .addListener((obs, oldScene, newScene) -> {
+          image.fitWidthProperty().bind(this.widthProperty());
+          image.fitHeightProperty().bind(this.heightProperty());
+        });
   }
 
   /**
    * Set the ability to retrieve the image and element name
    * and then remove the image from the cell when a drag is detected
-   * @param image ImageView that contains the image to display in the grid cell
+   * 
+   * @param image     ImageView that contains the image to display in the grid
+   *                  cell
    * @param imageName Name of the image show on the cell
-   * @param elemName Name of the element save on the cell
+   * @param elemName  Name of the element save on the cell
    */
   private void setDragDetected(
-    ImageView image,
-    String imageName,
-    String elemName
-  ) {
+      ImageView image,
+      String imageName,
+      String elemName) {
     image.setOnDragDetected(event -> {
       Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
       ClipboardContent content = new ClipboardContent();
@@ -270,8 +300,10 @@ public class Cell extends StackPane {
     });
   }
 
+  /// Public Utilitaire///
   /**
-   * Changes the name of the element to be displayed when hovering over a box in the tooltip
+   * Changes the name of the element to be displayed when hovering over a box in
+   * the tooltip
    */
   private void updateTooltip() {
     if (elem == null) {
@@ -282,6 +314,13 @@ public class Cell extends StackPane {
     }
   }
 
+  /**
+   * Sets the element and its image from a string array.
+   * The array should contain the image name and element name, in this order.
+   * Replaces the current content of the cell with the new draggable image.
+   *
+   * @param elem Array of strings: [image name, element name]
+   */
   public void setElement(String[] elem) {
     String imageName = elem[0];
     String elemName = elem[1];
@@ -290,23 +329,43 @@ public class Cell extends StackPane {
     this.getChildren().clear();
     this.getChildren().add(newItem);
     this.elem = elemName;
-    this.elem = imageName;
+    this.img = imageName;
     updateTooltip();
   }
 
+  /**
+   * Gets the name of the element stored in the cell.
+   *
+   * @return Name of the element
+   */
   public String getElement() {
     return elem;
   }
 
+  /**
+   * Gets the name of the element stored in the cell (for saving purposes).
+   *
+   * @return Name of the element
+   */
   public String getElementSave() {
     return elem;
   }
 
+  /**
+   * Removes the element from the cell (but does not remove the image).
+   * Only updates internal references and tooltip.
+   */
   public void removeElement() {
     this.elem = null;
     this.updateTooltip();
   }
 
+  /**
+   * Removes the specified image from the cell, and clears element and image name
+   * references.
+   *
+   * @param image The ImageView to remove from the cell
+   */
   public void removeElement(ImageView image) {
     this.deleteImage(image);
     this.img = null;
@@ -314,23 +373,49 @@ public class Cell extends StackPane {
     this.updateTooltip();
   }
 
+  /**
+   * Sets the name of the element stored in the cell.
+   * This does not add or modify the image.
+   *
+   * @param elem Name of the element
+   */
   public void setElement(String elem) {
     this.elem = elem;
     updateTooltip();
   }
 
+  /**
+   * Gets the name of the image associated with the element.
+   *
+   * @return Image file name (without path or extension)
+   */
   public String getImage() {
     return this.img;
   }
 
+  /**
+   * Gets the tooltip text shown on hover (usually the element name).
+   *
+   * @return Tooltip text
+   */
   public String getTooltip() {
     return this.tooltip.getText();
   }
 
+  /**
+   * Gets the ImageView associated with the cell.
+   *
+   * @return The current ImageView (can be null if no image is present)
+   */
   public ImageView getImageView() {
     return this.imageView;
   }
 
+  /**
+   * Sets the ImageView to be associated with the cell.
+   *
+   * @param imageView The ImageView to set
+   */
   public void setImageView(ImageView imageView) {
     this.imageView = imageView;
   }
